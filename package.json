@@ -1,0 +1,30 @@
+{
+  "name": "hue",
+  "version": "0.0.1",
+  "description": "A Spotify Music Quiz",
+  "main": "echo \"Error: use gulp serve to start a test server\" && exit 1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fabianweb/hue.git"
+  },
+  "author": "Lorenz Krautgartner, Fabian Pirklbauer, Sascha Zarhuber",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fabianweb/hue/issues"
+  },
+  "homepage": "https://github.com/fabianweb/hue#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-connect": "^3.2.0",
+    "gulp-html-replace": "^1.5.5",
+    "gulp-less": "^3.0.5",
+    "gulp-rename": "^1.2.2",
+    "gulp-sequence": "^0.4.5",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-uglify": "^1.5.3"
+  }
+}
