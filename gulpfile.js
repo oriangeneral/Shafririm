@@ -131,13 +131,13 @@ gulp.task('reload', function () {
     .pipe(connect.reload());
 });
 
-gulp.task('start', function (cb) {
+gulp.task('start', function (done) {
   gutil.log(gutil.colors.green('Starting ' + config.env + ' build...'));
 
-  cb();
+  done();
 });
 
-gulp.task('done', function (cb) {
+gulp.task('finish', function (done) {
   gutil.log(gutil.colors.green('Build has finished.'));
 
   notifier.notify({
@@ -145,7 +145,7 @@ gulp.task('done', function (cb) {
     message: "All build tasks have finished and your app is ready."
   });
 
-  cb();
+  done();
 });
 
 
@@ -163,12 +163,12 @@ gulp.task('done', function (cb) {
 |     Should bundle all tasks prefixed with "copy:".
 |
 */
-gulp.task('tasks', function(cb) {
-  gulpSequence('clean', ['copy', 'scripts', 'less'], 'done')(cb);
+gulp.task('tasks', function(done) {
+  gulpSequence('clean', ['copy', 'scripts', 'less'])(done);
 });
 
-gulp.task('copy', function(cb) {
-  gulpSequence(['copy:index', 'copy:assets'])(cb);
+gulp.task('copy', function(done) {
+  gulpSequence(['copy:index', 'copy:assets'])(done);
 });
 
 
@@ -194,20 +194,20 @@ gulp.task('copy', function(cb) {
 |     locally.
 |
 */
-gulp.task('build', function(cb) {
-  gulpSequence('set-prod', 'start', 'tasks')(cb);
+gulp.task('build', function(done) {
+  gulpSequence('set-prod', 'start', 'tasks', 'finish')(done);
 });
 
-gulp.task('dev-build', function(cb) {
-  gulpSequence('set-dev', 'start', 'tasks')(cb);
+gulp.task('dev-build', function(done) {
+  gulpSequence('set-dev', 'start', 'tasks', 'finish')(done);
 });
 
-gulp.task('watch-build', function(cb) {
-  gulpSequence('dev-build', 'start', 'reload')(cb);
+gulp.task('watch-build', ['dev-build'], function(done) {
+  gulpSequence('reload', 'finish')(done);
 });
 
 gulp.task('watch', ['dev-build'], function () {
-  gulp.watch(config.watch, ['start', 'watch-build']);
+  gulp.watch(config.watch, ['watch-build']);
 });
 
 gulp.task('serve', function() {
