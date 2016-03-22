@@ -2,7 +2,7 @@
   "name": "hue",
   "version": "0.0.1",
   "description": "A Spotify Music Quiz",
-  "main": "echo \"Error: use gulp serve to start a test server\" && exit 1",
+  "main": "echo \"Error: use gulp dev-build and gulp serve to build and start a test server\" && exit 1",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
