@@ -8,30 +8,43 @@
 |
 */
 var gulp = require('gulp');
-var sequence = require('gulp-sequence');
+var gutil = require('gulp-util');
+var gulpSequence = require('gulp-sequence');
 var gulpif = require('gulp-if');
 var connect = require('gulp-connect');
 var less = require('gulp-less');
 var uglify = require('gulp-uglify');
+var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var htmlreplace = require('gulp-html-replace');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
+var ts = require('gulp-typescript');
+var merge = require('merge2');
+var notifier = require('node-notifier');
 
 
 /*
 |--------------------------------------------------------------------------
-| Configuration
+| Global Definitions
 |--------------------------------------------------------------------------
 |
 | All configurations can be defined in config.js. The environment
 | will be set automatically and can be changed by using either
-| "gulp build" or "gulp dev-build"
+| "gulp build" or "gulp dev-build".
+|
+| Also all other global definitions go here, like defining the
+| typescript project.
 |
 */
 var config = require('./config');
 config.env = process.env.NODE_ENV;
 
+var tsProject = ts.createProject({
+    // declaration: true,
+    noExternalResolve: true,
+    sortOutput: true
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -61,13 +74,16 @@ gulp.task('clean', function () {
 		.pipe(clean());
 });
 
-gulp.task('uglify', function() {
-  return gulp.src(config.js.src)
+gulp.task('scripts', function() {
+  var tsResult = gulp.src(config.ts.src)
     .pipe(gulpif(config.env !== 'production', sourcemaps.init()))
+    .pipe(ts(tsProject));
+
+    return tsResult.js
+      .pipe(concat(config.ts.name))
       .pipe(uglify())
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write()))
-    .pipe(rename(config.js.name))
-    .pipe(gulp.dest(config.js.dest));
+      .pipe(gulpif(config.env !== 'production', sourcemaps.write()))
+      .pipe(gulp.dest(config.ts.dest));
 });
 
 gulp.task('less', function() {
@@ -111,8 +127,25 @@ gulp.task('set-prod', function() {
 });
 
 gulp.task('reload', function () {
-  gulp.src('./dist/*.html')
+  return gulp.src('./dist/*.html')
     .pipe(connect.reload());
+});
+
+gulp.task('start', function (cb) {
+  gutil.log(gutil.colors.green('Starting ' + config.env + ' build...'));
+
+  cb();
+});
+
+gulp.task('done', function (cb) {
+  gutil.log(gutil.colors.green('Build has finished.'));
+
+  notifier.notify({
+    title: "Build Successful",
+    message: "All build tasks have finished and your app is ready."
+  });
+
+  cb();
 });
 
 
@@ -130,8 +163,13 @@ gulp.task('reload', function () {
 |     Should bundle all tasks prefixed with "copy:".
 |
 */
-gulp.task('tasks', sequence('clean', ['copy', 'uglify', 'less']));
-gulp.task('copy', sequence(['copy:index', 'copy:assets']));
+gulp.task('tasks', function(cb) {
+  gulpSequence('clean', ['copy', 'scripts', 'less'], 'done')(cb);
+});
+
+gulp.task('copy', function(cb) {
+  gulpSequence(['copy:index', 'copy:assets'])(cb);
+});
 
 
 /*
@@ -156,12 +194,20 @@ gulp.task('copy', sequence(['copy:index', 'copy:assets']));
 |     locally.
 |
 */
-gulp.task('build', sequence('set-prod', 'tasks'));
+gulp.task('build', function(cb) {
+  gulpSequence('set-prod', 'start', 'tasks')(cb);
+});
 
-gulp.task('dev-build', sequence('set-dev', 'tasks'));
+gulp.task('dev-build', function(cb) {
+  gulpSequence('set-dev', 'start', 'tasks')(cb);
+});
 
-gulp.task('watch', function () {
-  gulp.watch(config.watch, ['dev-build', 'reload']);
+gulp.task('watch-build', function(cb) {
+  gulpSequence('dev-build', 'start', 'reload')(cb);
+});
+
+gulp.task('watch', ['dev-build'], function () {
+  gulp.watch(config.watch, ['start', 'watch-build']);
 });
 
 gulp.task('serve', function() {
