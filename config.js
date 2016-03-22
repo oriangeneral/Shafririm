@@ -5,7 +5,8 @@ config.src = config.src || {};
 config.src = 'src';
 config.dist = 'dist';
 
-// TODO: filename generator
+config.watch = ['src/**/*', '!src/assets/**/*'];
+
 config.js = {
   src: config.src + '/js/**/*.js',
   dest: config.dist + '/js',
@@ -22,6 +23,11 @@ config.index = {
   src: config.src + '/index.html',
   dest: config.dist,
   name: 'index.html'
+}
+
+config.assets = {
+  src: config.src + '/assets/**/*',
+  dest: config.dist + '/assets'
 }
 
 module.exports = config;
