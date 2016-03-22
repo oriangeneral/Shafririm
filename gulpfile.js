@@ -71,25 +71,28 @@ var tsProject = ts.createProject({
 */
 gulp.task('clean', function () {
 	return gulp.src(config.dist, {read: false})
-		.pipe(clean());
+		.pipe(clean().on('error', onError))
+    .on('error', onError);
 });
 
 gulp.task('scripts', function() {
   var tsResult = gulp.src(config.ts.src)
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init()))
-    .pipe(ts(tsProject));
+    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
+    .pipe(ts(tsProject).on('error', onError))
+    .on('error', onError);
 
     return tsResult.js
-      .pipe(concat(config.ts.name))
-      .pipe(uglify())
-      .pipe(gulpif(config.env !== 'production', sourcemaps.write()))
-      .pipe(gulp.dest(config.ts.dest));
+      .pipe(concat(config.ts.name).on('error', onError))
+      .pipe(uglify().on('error', onError))
+      .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
+      .pipe(gulp.dest(config.ts.dest))
+      .on('error', onError);
 });
 
 gulp.task('less', function() {
   return gulp.src(config.css.src)
-    .pipe(less())
-    .pipe(rename(config.css.name))
+    .pipe(less().on('error', onError))
+    .pipe(rename(config.css.name).on('error', onError))
     .pipe(gulp.dest(config.css.dest));
 });
 
@@ -98,14 +101,16 @@ gulp.task('copy:index', function() {
     .pipe(htmlreplace({
       'css': config.css.dest + '/' + config.css.name,
       'js': config.js.dest + '/' + config.js.name
-    }))
-    .pipe(rename(config.index.name))
-    .pipe(gulp.dest(config.index.dest));
+    }).on('error', onError))
+    .pipe(rename(config.index.name).on('error', onError))
+    .pipe(gulp.dest(config.index.dest))
+    .on('error', onError);
 });
 
 gulp.task('copy:assets', function() {
   return gulp.src(config.assets.src)
-    .pipe(gulp.dest(config.assets.dest));
+    .pipe(gulp.dest(config.assets.dest))
+    .on('error', onError);
 });
 
 
@@ -134,20 +139,37 @@ gulp.task('reload', function () {
 gulp.task('start', function (done) {
   gutil.log(gutil.colors.green('Starting ' + config.env + ' build...'));
 
-  done();
+  return done();
 });
 
 gulp.task('finish', function (done) {
   gutil.log(gutil.colors.green('Build has finished.'));
 
   notifier.notify({
-    title: "Build Successful",
-    message: "All build tasks have finished and your app is ready."
+    title: 'Build Successful',
+    message: 'All build tasks have finished and your app is ready.'
   });
 
-  done();
+  return done();
 });
 
+/*
+|--------------------------------------------------------------------------
+| Helper Functions
+|--------------------------------------------------------------------------
+|
+| Simple functions for different purposes.
+|
+*/
+
+function onError(error) {
+  gutil.log(gutil.colors.red('Error: ' + error));
+
+  notifier.notify({
+    title: 'Error',
+    message: 'There was an error building your app.'
+  });
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -164,11 +186,11 @@ gulp.task('finish', function (done) {
 |
 */
 gulp.task('tasks', function(done) {
-  gulpSequence('clean', ['copy', 'scripts', 'less'])(done);
+  return gulpSequence('clean', ['copy', 'scripts', 'less'])(done);
 });
 
 gulp.task('copy', function(done) {
-  gulpSequence(['copy:index', 'copy:assets'])(done);
+  return gulpSequence(['copy:index', 'copy:assets'])(done);
 });
 
 
@@ -195,15 +217,15 @@ gulp.task('copy', function(done) {
 |
 */
 gulp.task('build', function(done) {
-  gulpSequence('set-prod', 'start', 'tasks', 'finish')(done);
+  return gulpSequence('set-prod', 'start', 'tasks', 'finish')(done);
 });
 
 gulp.task('dev-build', function(done) {
-  gulpSequence('set-dev', 'start', 'tasks', 'finish')(done);
+  return gulpSequence('set-dev', 'start', 'tasks', 'finish')(done);
 });
 
 gulp.task('watch-build', ['dev-build'], function(done) {
-  gulpSequence('reload', 'finish')(done);
+  return gulpSequence('reload', 'finish')(done);
 });
 
 gulp.task('watch', ['dev-build'], function () {

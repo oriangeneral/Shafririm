@@ -2,8 +2,8 @@ var config = config || {};
 config.dist = config.dist || {};
 config.src = config.src || {};
 
-config.src = 'src';
-config.dist = 'dist';
+config.src = './src';
+config.dist = './dist';
 
 config.watch = ['src/**/*', '!src/assets/**/*'];
 
