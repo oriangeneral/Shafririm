@@ -15,6 +15,7 @@ var connect = require('gulp-connect');
 var jscs = require('gulp-jscs');
 var jshint = require('gulp-jshint');
 var less = require('gulp-less');
+var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
@@ -183,9 +184,13 @@ gulp.task('javascript', function() {
 
 gulp.task('less', function() {
   return gulp.src(config.css.src)
+    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
     .pipe(less().on('error', onError))
+    .pipe(cleanCSS().on('error', onError))
     .pipe(rename(config.css.name).on('error', onError))
-    .pipe(gulp.dest(config.css.dest));
+    .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
+    .pipe(gulp.dest(config.css.dest))
+    .on('error', onError);
 });
 
 gulp.task('copy:index', function() {
