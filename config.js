@@ -1,42 +1,72 @@
+/*
+|--------------------------------------------------------------------------
+| BUILD CONFIGURATION
+|--------------------------------------------------------------------------
+|
+| All configurations concerning the build go here.
+|
+| Note that you can always use an array for src, to be more
+| specific or to exclude files.
+|
+| Reserved:
+|
+| - config.env
+|
+*/
 var config = config || {};
-config.dist = config.dist || {};
-config.src = config.src || {};
 
-config.src = './src';
-config.dist = './dist';
-
-config.watch = ['src/**/*', '!src/assets/**/*'];
-
-config.ts = {
-  src: config.src + '/ts/**/*.ts',
-  dest: config.dist + '/js',
-  name: 'app.js'
-};
-
-config.css = {
-  src: config.src + '/less/app.less',
-  dest: config.dist + '/css',
-  name: 'app.css'
-};
-
-config.index = {
-  src: config.src + '/index.html',
-  dest: config.dist,
-  name: 'index.html'
-}
-
-config.assets = {
-  src: config.src + '/assets/**/*',
-  dest: config.dist + '/assets'
-}
 
 /*
 |--------------------------------------------------------------------------
-| DEPRECATED
+| Source and Distribution Location
 |--------------------------------------------------------------------------
 |
-| The JavaScript configuration is deprecated in favor favor
-| TypeScript.
+| Define the location of the source and distribution folder.
+|
+*/
+config.src = './src';
+config.dist = './dist';
+
+
+/*
+|--------------------------------------------------------------------------
+| Watch Files
+|--------------------------------------------------------------------------
+|
+| Define files, which "gulp watch" should keep an eye on.
+|
+*/
+config.watch = ['src/**/*', '!src/assets/**/*'];
+
+
+/*
+|--------------------------------------------------------------------------
+| JavaScript Mode
+|--------------------------------------------------------------------------
+|
+| Define whether to use JavaScript (with Babel/ES6) or TypeScript.
+|
+| - javascript
+|     JavaScript with support for ES6 (ES2015) will be used.
+|
+| - browserify
+|     JavaScript with Browserify and support for ES6 (ES2015)
+|     will be used.
+|
+| - typescript
+|     TypeScript will be used.
+|
+*/
+config.javaScriptMode = 'javascript';
+
+
+/*
+|--------------------------------------------------------------------------
+| JavaScript Configuration
+|--------------------------------------------------------------------------
+|
+| Define the source and destination path, as well as the
+| concatinated file name.
 |
 */
 config.js = {
@@ -44,5 +74,137 @@ config.js = {
   dest: config.dist + '/js',
   name: 'app.js'
 };
+
+
+/*
+|--------------------------------------------------------------------------
+| Browserify Configuration
+|--------------------------------------------------------------------------
+|
+| The config.js will also be used partially!
+|
+| - shim
+|     Use libraries with browserify that don't support it
+|     or if they are not loaded via npm.
+|
+| - aliases
+|     You can set alias which will be replaced when
+|     requiring with browserify.
+*/
+config.browserify = {};
+
+config.browserify.name = 'app.js';
+config.browserify.dest = '/js'
+
+config.browserify.entries = [ config.src + '/js/app.js' ];
+
+config.browserify.shim = {
+  /**
+   *  './src/vendor/flowplayer-6.0.4/flowplayer.min.js': {
+   *    'expose': 'flowplayer'         // what the package exposes
+   *    'exports': 'fp'                // export it globally
+   *    'depends': {                   // dependencies that could be defined
+   *      'jQuery': 'jQuery'           // in this shim as well
+   *    }
+   *  }
+  */
+};
+
+config.browserify.aliases = {
+  verbose: false,
+  aliases: {
+    // "d3": "./vndr/d3.js" // The example would replace require('d3')
+                            // within src/js, with ./../../vndr/d3.js
+  }
+};
+
+/*
+|--------------------------------------------------------------------------
+| TypeScript Configuration
+|--------------------------------------------------------------------------
+|
+| Define the source and destination path, as well as the
+| concatinated file name.
+|
+*/
+config.ts = {
+  src: config.src + '/ts/**/*.ts',
+  dest: config.dist + '/js',
+  name: 'app.js'
+};
+
+
+/*
+|--------------------------------------------------------------------------
+| CSS Configuration
+|--------------------------------------------------------------------------
+|
+| Define the source and destination path, as well as the
+| concatinated file name.
+|
+*/
+config.css = {
+  src: config.src + '/less/app.less',
+  dest: config.dist + '/css',
+  name: 'app.css'
+};
+
+
+/*
+|--------------------------------------------------------------------------
+| Index File Configuration (Main Entry Point)
+|--------------------------------------------------------------------------
+|
+| Define the source and destination path, as well as the
+| concatinated file name.
+|
+*/
+config.index = {
+  src: config.src + '/index.html',
+  dest: config.dist,
+  name: 'index.html'
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Assets Configuration
+|--------------------------------------------------------------------------
+|
+| Define the source and destination path, as well as the
+| concatinated file name. Files will be copied as-is.
+|
+*/
+config.assets = {
+  src: config.src + '/assets/**/*',
+  dest: config.dist + '/assets'
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| Copy Configuration
+|--------------------------------------------------------------------------
+|
+| Define additional files that should be copied.
+|
+*/
+config.copy =  [
+  {
+    base: '/less/images',
+    src: [
+      '/**/*'
+    ],
+    dest: '/css/images'
+  },
+  {
+    base: '/less/fonts',
+    src: [
+      '/**/*'
+    ],
+    dest: '/css/fonts'
+  }
+];
+
 
 module.exports = config;

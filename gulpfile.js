@@ -16,12 +16,21 @@ var less = require('gulp-less');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
+var babel = require('gulp-babel');
 var htmlreplace = require('gulp-html-replace');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var ts = require('gulp-typescript');
+var argv = require('yargs').argv;
 var merge = require('merge2');
 var notifier = require('node-notifier');
+var assign = require('lodash.assign');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
+var browserify = require('browserify');
+var stringify = require('stringify');
+var aliasify = require('aliasify');
+var babelify = require("babelify");
 
 
 /*
@@ -40,11 +49,59 @@ var notifier = require('node-notifier');
 var config = require('./config');
 config.env = process.env.NODE_ENV;
 
-var tsProject = ts.createProject({
-    // declaration: true,
-    noExternalResolve: true,
-    sortOutput: true
-});
+// Determine Environment before it is set for initialization
+var gulpOption = argv._[0];
+process.env.NODE_ENV = config.env = gulpOption === 'build' ? 'production' : 'development';
+
+// TypeScript Mode
+if (config.javaScriptMode === 'ts') {
+
+  var tsProject = ts.createProject({
+      // declaration: true,
+      noExternalResolve: true,
+      sortOutput: true
+  });
+
+}
+
+// Browserify Mode
+if (config.javaScriptMode === 'browserify') {
+
+  var aliases = {};
+  if (config.env === 'production') {
+    aliases = {
+      // appconf: './src/config.prod.js'
+    };
+  } else {
+    aliases = {
+      // appconf: './src/config.dev.js'
+    };
+  }
+
+  var browserifyShim = clone(config.browserify.shim);
+  var browserifyAliases = clone(config.browserify.aliases);
+  browserifyAliases.aliases = assign(aliases, browserifyAliases.aliases);
+
+  var browserifyOptions = {
+    entries: config.browserify.entries,
+    debug: config.env !== 'production'
+  };
+
+  var browserifyBundle = browserify(browserifyOptions).on('error', onError);
+
+  browserifyBundle
+    .transform(stringify(['.hjs', '.html', '.tmpl', '.tpl', '.txt', '.json'])).on('error', onError)
+    .transform(aliasify, browserifyAliases).on('error', onError)
+    .transform('browserify-shim').on('error', onError)
+    .transform(babelify, {presets: ['es2015']});
+
+  for (var key in browserifyShim) {
+    if (shim.hasOwnProperty(key)) {
+      bundle.require(key, browserifyShim[key]).on('error', onError);
+    }
+  }
+
+}
 
 /*
 |--------------------------------------------------------------------------
@@ -75,7 +132,7 @@ gulp.task('clean', function () {
     .on('error', onError);
 });
 
-gulp.task('scripts', function() {
+gulp.task('typescript', function() {
   var tsResult = gulp.src(config.ts.src)
     .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
     .pipe(ts(tsProject).on('error', onError))
@@ -87,6 +144,39 @@ gulp.task('scripts', function() {
       .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
       .pipe(gulp.dest(config.ts.dest))
       .on('error', onError);
+});
+
+gulp.task('browserify', function () {
+  return browserifyBundle
+    .bundle()
+    .pipe(source(config.browserify.name).on('error', onError))
+    .pipe(buffer().on('error', onError))
+    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError))) // init({ loadMaps: true })
+    .pipe(uglify().on('error', onError))
+    .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError))) // write('./')
+    .pipe(gulp.dest(config.dist + config.browserify.dest))
+    .on('error', onError);
+});
+
+if (config.javaScriptMode === 'browserify') {
+
+  browserifyBundle.on('update', function (done) {
+    return gulpSequence('dev-build')(done);
+  });
+
+  browserifyBundle.on('log', gutil.log);
+
+}
+
+gulp.task('javascript', function() {
+  return gulp.src(config.js.src)
+    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
+    .pipe(babel({ presets: ['es2015'] }).on('error', onError))
+    .pipe(concat(config.js.name).on('error', onError))
+    .pipe(uglify().on('error', onError))
+    .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
+    .pipe(gulp.dest(config.js.dest))
+    .on('error', onError);
 });
 
 gulp.task('less', function() {
@@ -113,6 +203,24 @@ gulp.task('copy:assets', function() {
     .on('error', onError);
 });
 
+gulp.task('copy:originals', function (done) {
+  var src = clone(config.copy);
+  var sources = [], destinations = [];
+
+  src.forEach(function (element, index) {
+    sources = [];
+
+    element.src.forEach(function(path) {
+      sources.push(config.src + element.base + path);
+    });
+
+    gulp.src(sources, { base: config.src + element.base })
+      .pipe(gulp.dest(config.dist + element.dest))
+      .on('error', onError);
+  });
+
+  done();
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -171,6 +279,10 @@ function onError(error) {
   });
 }
 
+function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
 /*
 |--------------------------------------------------------------------------
 | Task Collections
@@ -186,11 +298,25 @@ function onError(error) {
 |
 */
 gulp.task('tasks', function(done) {
-  return gulpSequence('clean', ['copy', 'scripts', 'less'])(done);
+  var scriptsTask;
+
+  switch (config.javaScriptMode) {
+    case 'typescript':
+      scriptsTask = 'typescript';
+      break;
+    case 'browserify':
+      scriptsTask = 'browserify';
+      break;
+    default:
+      scriptsTask = 'javascript';
+      break;
+  }
+
+  return gulpSequence('clean', ['copy', scriptsTask, 'less'])(done);
 });
 
 gulp.task('copy', function(done) {
-  return gulpSequence(['copy:index', 'copy:assets'])(done);
+  return gulpSequence(['copy:index', 'copy:assets', 'copy:originals'])(done);
 });
 
 
