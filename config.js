@@ -57,7 +57,7 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 |     TypeScript will be used.
 |
 */
-config.javaScriptMode = 'javascript';
+config.javaScriptMode = 'typescript';
 
 
 /*

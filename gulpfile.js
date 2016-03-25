@@ -142,6 +142,7 @@ gulp.task('typescript', function() {
     .on('error', onError);
 
     return tsResult.js
+      .pipe(babel({ presets: ['es2015'] }).on('error', onError))
       .pipe(concat(config.ts.name).on('error', onError))
       .pipe(uglify().on('error', onError))
       .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
