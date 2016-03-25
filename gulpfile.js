@@ -12,6 +12,8 @@ var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
 var gulpif = require('gulp-if');
 var connect = require('gulp-connect');
+var jscs = require('gulp-jscs');
+var jshint = require('gulp-jshint');
 var less = require('gulp-less');
 var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
@@ -222,6 +224,17 @@ gulp.task('copy:originals', function (done) {
   done();
 });
 
+gulp.task('lint:js', function () {
+  return gulp.src([config.src + '/js/**/*.js'])
+    .pipe(jscs())
+    .pipe(jscs.reporter())
+    .pipe(jscs.reporter('fail'))
+    .pipe(jshint())
+    .pipe(jshint.reporter('jshint-stylish'))
+    .pipe(jshint.reporter('fail'))
+    .on('error', onError);
+});
+
 /*
 |--------------------------------------------------------------------------
 | Helper Tasks
@@ -319,6 +332,10 @@ gulp.task('copy', function(done) {
   return gulpSequence(['copy:index', 'copy:assets', 'copy:originals'])(done);
 });
 
+gulp.task('lint', function(done) {
+  return gulpSequence(['lint:js'])(done);
+});
+
 
 /*
 |--------------------------------------------------------------------------
@@ -343,11 +360,11 @@ gulp.task('copy', function(done) {
 |
 */
 gulp.task('build', function(done) {
-  return gulpSequence('set-prod', 'start', 'tasks', 'finish')(done);
+  return gulpSequence('set-prod', 'start', 'lint', 'tasks', 'finish')(done);
 });
 
 gulp.task('dev-build', function(done) {
-  return gulpSequence('set-dev', 'start', 'tasks', 'finish')(done);
+  return gulpSequence('set-dev', 'start', 'lint', 'tasks', 'finish')(done);
 });
 
 gulp.task('watch-build', ['dev-build'], function(done) {
