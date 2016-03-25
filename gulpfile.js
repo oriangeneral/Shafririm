@@ -12,8 +12,10 @@ var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
 var gulpif = require('gulp-if');
 var connect = require('gulp-connect');
-var jscs = require('gulp-jscs');
+var plumber = require('gulp-plumber');
 var jshint = require('gulp-jshint');
+var tslint = require('gulp-tslint');
+var tslintStylish = require('gulp-tslint-stylish');
 var less = require('gulp-less');
 var cleanCSS = require('gulp-clean-css');
 var uglify = require('gulp-uglify');
@@ -71,7 +73,14 @@ process.env.NODE_ENV = config.env = gulpOption === 'build' ? 'production' : 'dev
 //
 // }
 
-// Browserify Mode
+/*
+|--------------------------------------------------------------------------
+| Browserify configuration
+|--------------------------------------------------------------------------
+|
+|
+|
+*/
 if (config.javaScriptMode === 'browserify' || config.javaScriptMode === 'typescript') {
 
   var aliases = {};
@@ -90,25 +99,25 @@ if (config.javaScriptMode === 'browserify' || config.javaScriptMode === 'typescr
   browserifyAliases.aliases = assign(aliases, browserifyAliases.aliases);
 
   var browserifyOptions = {
-    entries: config.javaScriptMode === 'typescript' ? config.ts.entry : config.browserify.entries,
+    entries: config.javaScriptMode === 'typescript' ? config.ts.entry : config.browserify.entry,
     debug: config.env !== 'production'
   };
 
-  var browserifyBundle = browserify(browserifyOptions).on('error', onError);
+  var browserifyBundle = browserify(browserifyOptions);
 
   if (config.javaScriptMode === 'typescript') {
-    browserifyBundle.plugin(tsify, { target: 'ES5' });
+    browserifyBundle.plugin(tsify, {target: 'ES6'});
   }
 
   browserifyBundle
     //.transform(babelify, {presets: ['es2015']})
-    .transform(stringify(['.hjs', '.html', '.tmpl', '.tpl', '.txt', '.json'])).on('error', onError)
-    .transform(aliasify, browserifyAliases).on('error', onError)
-    .transform('browserify-shim').on('error', onError);
+    .transform(stringify(['.hjs', '.html', '.tmpl', '.tpl', '.txt', '.json']))
+    .transform(aliasify, browserifyAliases)
+    .transform('browserify-shim');
 
   for (var key in browserifyShim) {
     if (shim.hasOwnProperty(key)) {
-      bundle.require(key, browserifyShim[key]).on('error', onError);
+      bundle.require(key, browserifyShim[key]);
     }
   }
 
@@ -161,13 +170,14 @@ gulp.task('clean', function () {
 gulp.task('typescript', function() {
   return browserifyBundle
     .bundle()
+    .on('error', onError)
     .pipe(source(config.ts.name).on('error', onError))
     .pipe(buffer().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError))) // init({ loadMaps: true })
+    .pipe(gulpif(config.env !== 'production', sourcemaps.init({ loadMaps: true }).on('error', onError))) // init({ loadMaps: true })
+    .pipe(babel({ presets: ['es2015'] }).on('error', onError))
     .pipe(uglify().on('error', onError))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError))) // write('./')
-    //.pipe(rename(config.ts.name).on('error', onError))
-    .pipe(gulp.dest(config.dist + config.browserify.dest))
+    .pipe(gulp.dest(config.ts.dest))
     .on('error', onError);
 });
 
@@ -176,10 +186,11 @@ gulp.task('browserify', function () {
     .bundle()
     .pipe(source(config.browserify.name).on('error', onError))
     .pipe(buffer().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError))) // init({ loadMaps: true })
-    //.pipe(uglify().on('error', onError))
+    .pipe(gulpif(config.env !== 'production', sourcemaps.init({ loadMaps: true }).on('error', onError))) // init({ loadMaps: true })
+    .pipe(babel({ presets: ['es2015'] }).on('error', onError))
+    .pipe(uglify().on('error', onError))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError))) // write('./')
-    .pipe(gulp.dest(config.dist + config.browserify.dest))
+    .pipe(gulp.dest(config.browserify.dest))
     .on('error', onError);
 });
 
@@ -205,20 +216,20 @@ gulp.task('javascript', function() {
 });
 
 gulp.task('less', function() {
-  return gulp.src(config.css.src)
+  return gulp.src(config.less.src)
     .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
     .pipe(less().on('error', onError))
     .pipe(cleanCSS().on('error', onError))
-    .pipe(rename(config.css.name).on('error', onError))
+    .pipe(rename(config.less.name).on('error', onError))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
-    .pipe(gulp.dest(config.css.dest))
+    .pipe(gulp.dest(config.less.dest))
     .on('error', onError);
 });
 
 gulp.task('copy:index', function() {
   return gulp.src(config.index.src)
     .pipe(htmlreplace({
-      'css': config.css.dest + '/' + config.css.name,
+      'css': config.less.dest + '/' + config.less.name,
       'js': config.js.dest + '/' + config.js.name
     }).on('error', onError))
     .pipe(rename(config.index.name).on('error', onError))
@@ -253,12 +264,19 @@ gulp.task('copy:originals', function (done) {
 
 gulp.task('lint:js', function () {
   return gulp.src([config.src + '/js/**/*.js'])
-    .pipe(jscs())
-    .pipe(jscs.reporter())
-    .pipe(jscs.reporter('fail'))
+    //.pipe(jscs())
+    //.pipe(jscs.reporter())
+    //.pipe(jscs.reporter('fail'))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
+    .on('error', onError);
+});
+
+gulp.task('lint:ts', function () {
+  return gulp.src([config.src + '/js/**/*.ts'])
+    .pipe(tslint())
+    .pipe(tslint.report(tslintStylish))
     .on('error', onError);
 });
 
@@ -360,7 +378,7 @@ gulp.task('copy', function(done) {
 });
 
 gulp.task('lint', function(done) {
-  return gulpSequence(['lint:js'])(done);
+  return gulpSequence(['lint:js', 'lint:ts'])(done);
 });
 
 
@@ -395,7 +413,7 @@ gulp.task('dev-build', function(done) {
 });
 
 gulp.task('watch-build', ['dev-build'], function(done) {
-  return gulpSequence('reload', 'finish')(done);
+  return gulpSequence('reload')(done);
 });
 
 gulp.task('watch', ['dev-build'], function () {

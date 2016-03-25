@@ -14,7 +14,7 @@
 |
 */
 var config = config || {};
-
+config.browserify = {};
 
 /*
 |--------------------------------------------------------------------------
@@ -75,13 +75,42 @@ config.js = {
   name: 'app.js'
 };
 
+/*
+|--------------------------------------------------------------------------
+| TypeScript Configuration
+|--------------------------------------------------------------------------
+|
+| Define the source and destination path, as well as the
+| concatinated file name.
+|
+*/
+config.ts = {
+  entry: config.src + '/js/app.ts',
+  dest: config.dist + '/js',
+  name: 'app.js'
+};
 
 /*
 |--------------------------------------------------------------------------
 | Browserify Configuration
 |--------------------------------------------------------------------------
 |
-| The config.js will also be used partially!
+| Define the source and destination path, as well as the
+| concatinated file name.
+|
+*/
+config.browserify = {
+  entry: config.src + '/js/app.js',
+  dest: config.dist + '/js',
+  name: 'app.js'
+};
+
+/*
+|--------------------------------------------------------------------------
+| Browserify Configuration
+|--------------------------------------------------------------------------
+|
+| Used for typescript and browserify mode.
 |
 | - shim
 |     Use libraries with browserify that don't support it
@@ -91,13 +120,6 @@ config.js = {
 |     You can set alias which will be replaced when
 |     requiring with browserify.
 */
-config.browserify = {};
-
-config.browserify.name = 'app.js';
-config.browserify.dest = '/js'
-
-config.browserify.entries = [ config.src + '/js/app.js' ];
-
 config.browserify.shim = {
   /**
    *  './src/vendor/flowplayer-6.0.4/flowplayer.min.js': {
@@ -118,33 +140,18 @@ config.browserify.aliases = {
   }
 };
 
+
 /*
 |--------------------------------------------------------------------------
-| TypeScript Configuration
+| LESS Configuration
 |--------------------------------------------------------------------------
 |
 | Define the source and destination path, as well as the
 | concatinated file name.
 |
 */
-config.ts = {
-  entry: config.src + '/ts/app.ts',
-  dest: config.dist + '/js',
-  name: 'app.js'
-};
-
-
-/*
-|--------------------------------------------------------------------------
-| CSS Configuration
-|--------------------------------------------------------------------------
-|
-| Define the source and destination path, as well as the
-| concatinated file name.
-|
-*/
-config.css = {
-  src: config.src + '/less/app.less',
+config.less = {
+  src: config.src + '/css/app.less',
   dest: config.dist + '/css',
   name: 'app.css'
 };
