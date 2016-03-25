@@ -54,7 +54,7 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 |     will be used.
 |
 | - typescript
-|     TypeScript will be used.
+|     TypeScript will be used which also uses Browserify for CommonJS.
 |
 */
 config.javaScriptMode = 'typescript';
@@ -128,7 +128,7 @@ config.browserify.aliases = {
 |
 */
 config.ts = {
-  src: config.src + '/ts/**/*.ts',
+  entry: config.src + '/ts/app.ts',
   dest: config.dist + '/js',
   name: 'app.js'
 };

@@ -1,2 +1,5 @@
-// Location for TypeScript mode
-console.log('hi');
+import {AClass} from "./testModule.ts";
+
+var test = new AClass();
+
+console.log(test);
