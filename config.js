@@ -85,6 +85,7 @@ config.js = {
 |
 */
 config.ts = {
+  src: config.src + '/js/**/*.ts',
   entry: config.src + '/js/app.ts',
   dest: config.dist + '/js',
   name: 'app.js'

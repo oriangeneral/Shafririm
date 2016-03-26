@@ -1,5 +1,12 @@
-import {AClass} from "./testModule.ts";
+import {AClass} from "./testModule.ts"; // do not import valueZero
 
-var aClass = new AClass();
+let aClass: AClass;     // }
+                        // } or shorter: let aClass = new AClass();
+aClass = new AClass();  // }
 
-console.log(aClass.test);
+aClass.test = "It works!"; // use setter
+
+let testDiv = document.getElementById("test");
+testDiv.innerHTML = "Just wait 2 seconds...";
+
+setTimeout(() => testDiv.innerHTML = aClass.test, 2000);

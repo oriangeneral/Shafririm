@@ -263,21 +263,21 @@ gulp.task('copy:originals', function (done) {
 });
 
 gulp.task('lint:js', function () {
-  return gulp.src([config.src + '/js/**/*.js'])
+  return gulp.src([config.js.src])
     //.pipe(jscs())
     //.pipe(jscs.reporter())
     //.pipe(jscs.reporter('fail'))
     .pipe(jshint())
     .pipe(jshint.reporter('jshint-stylish'))
     .pipe(jshint.reporter('fail'))
-    .on('error', onError);
+    .on('error', notifyError);
 });
 
 gulp.task('lint:ts', function () {
-  return gulp.src([config.src + '/js/**/*.ts'])
+  return gulp.src([config.ts.src])
     .pipe(tslint())
     .pipe(tslint.report(tslintStylish))
-    .on('error', onError);
+    .on('error', notifyError);
 });
 
 /*
@@ -330,7 +330,10 @@ gulp.task('finish', function (done) {
 
 function onError(error) {
   gutil.log(gutil.colors.red('Error: ' + error));
+  notifyError(error);
+}
 
+function notifyError(error) {
   notifier.notify({
     title: 'Error',
     message: 'There was an error building your app.'
@@ -412,8 +415,8 @@ gulp.task('dev-build', function(done) {
   return gulpSequence('set-dev', 'start', 'lint', 'tasks', 'finish')(done);
 });
 
-gulp.task('watch-build', ['dev-build'], function(done) {
-  return gulpSequence('reload')(done);
+gulp.task('watch-build', function(done) {
+  return gulpSequence('dev-build', 'reload')(done);
 });
 
 gulp.task('watch', ['dev-build'], function () {
