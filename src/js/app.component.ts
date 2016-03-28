@@ -1,9 +1,14 @@
-import { Component } from 'angular2/core';
+import { Component, OnInit } from 'angular2/core';
 
 @Component({
-  selector: 'app',
-  template: 'App template'
+    selector: 'app',
+    styleUrls: ['./app.less'],
+    templateUrl: './app.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+    public ngOnInit() {
+        console.log('App was bootstrapped.');
+    }
 
 }

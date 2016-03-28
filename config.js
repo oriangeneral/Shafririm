@@ -108,12 +108,12 @@ config.vendor = {
         }, {
             base: './node_modules/rxjs/bundles',
             src: [
-                '/Rx.min.js'
+                '/Rx.js'
             ]
         }, {
             base: './node_modules/zone.js/dist',
             src: [
-                '/zone.min.js'
+                '/zone.js'
             ]
         }, {
             base: './node_modules/reflect-metadata',
@@ -123,8 +123,8 @@ config.vendor = {
         }, {
             base: './node_modules/angular2/bundles',
             src: [
-                '/angular2.min.js',
-                '/router.min.js'
+                '/angular2.dev.js',
+                '/router.dev.js'
             ]
         }]
     },

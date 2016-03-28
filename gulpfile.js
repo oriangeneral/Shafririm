@@ -20,6 +20,7 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
+var inlineNg2Template = require('gulp-inline-ng2-template');
 var htmlreplace = require('gulp-html-replace');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
@@ -138,14 +139,39 @@ gulp.task('clean:assets', function() {
 });
 
 gulp.task('typescript', function() {
-    var tsResult = gulp.src('./src/**/*.ts')
-        .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
+    var less = require('less'), jade = require('jade');
+    less.renderSync = function(input, options) {
+        if (!options || typeof options != "object") options = {};
+        options.sync = true;
+        var css;
+        this.render(input, options, function(err, result) {
+            if (err) throw err;
+            css = result.css;
+        });
+        return css;
+    };
+
+    var tsResult = gulp.src(config.ts.src)
+        .pipe(inlineNg2Template({
+            target: 'es5',
+            useRelativePaths: true,
+            templateProcessor: function(path, file) {
+                return file;
+                //return jade.render(file);
+            },
+            styleProcessor: function(path, file) {
+                return less.renderSync(file);
+            }
+        }))
+        .pipe(gulpif(config.env !== 'production', sourcemaps.init({
+            loadMaps: false
+        }).on('error', onError)))
         .pipe(ts(tsProject).on('error', onError));
 
     return tsResult.js
         .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
         .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
-        .pipe(gulp.dest('./dist/js'))
+        .pipe(gulp.dest(config.ts.dest))
 
 });
 
@@ -212,7 +238,7 @@ gulp.task('bundle:vendor', function(done) {
 
     return gulp.src(sources)
         .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-            loadMaps: true
+            loadMaps: false
         }).on('error', onError)))
         .pipe(concat('bundle.js'))
         .pipe(uglify({
