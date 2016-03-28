@@ -8,13 +8,18 @@
 | Note that you can always use an array for src, to be more
 | specific or to exclude files.
 |
+| TypeScript Lint Configuration:
+|   - tslint.json
+|
+| TypeScript Configutation:
+|   - tsconfig.json
+|
 | Reserved:
 |
 | - config.env
 |
 */
 var config = config || {};
-config.browserify = {};
 
 /*
 |--------------------------------------------------------------------------
@@ -40,7 +45,7 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 
 /*
 |--------------------------------------------------------------------------
-| TypeScript Configuration
+| Additional TypeScript Configuration
 |--------------------------------------------------------------------------
 |
 | Define the source and destination path, as well as the
@@ -53,7 +58,7 @@ config.ts = {
     src: config.src + '/js/**/*.ts',
     entry: config.src + '/js/main.ts',
     dest: config.dist + '/js',
-    name: 'app.js'
+    name: 'app.js' // must match "outFile" in tsconfig.json
 };
 
 
@@ -63,7 +68,8 @@ config.ts = {
 |--------------------------------------------------------------------------
 |
 | Define the source and destination path, as well as the
-| concatinated file name.
+| concatinated file name. You may also use less for styleUrls
+| within angular2.
 |
 */
 config.less = {
@@ -79,14 +85,14 @@ config.less = {
 |--------------------------------------------------------------------------
 |
 | Define the source and destination path, as well as the
-| concatinated file name.
+| file name.
 |
 */
 config.index = {
     src: config.src + '/index.html',
     dest: config.dist,
     name: 'index.html'
-}
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -98,50 +104,51 @@ config.index = {
 |
 */
 config.vendor = {
-        dest: config.dist + '/js/vendor',
-        files: [{
-            base: './node_modules/systemjs/dist',
-            src: [
-                '/system.js'
-                //'/system-register-only.js'
-            ]
-        }, {
-            base: './node_modules/rxjs/bundles',
-            src: [
-                '/Rx.js'
-            ]
-        }, {
-            base: './node_modules/zone.js/dist',
-            src: [
-                '/zone.js'
-            ]
-        }, {
-            base: './node_modules/reflect-metadata',
-            src: [
-                '/Reflect.js'
-            ]
-        }, {
-            base: './node_modules/angular2/bundles',
-            src: [
-                '/angular2.dev.js',
-                '/router.dev.js'
-            ]
-        }]
-    },
+    dest: config.dist + '/js/vendor',
 
-    /*
-    |--------------------------------------------------------------------------
-    | Assets Configuration
-    |--------------------------------------------------------------------------
-    |
-    | Define the source and destination path, as well as the
-    | concatinated file name. Files will be copied as-is.
-    |
-    */
-    config.assets = {
-        src: config.src + '/assets/**/*',
-        dest: config.dist + '/assets'
-    }
+    files: [{
+        base: './node_modules/systemjs/dist',
+        src: [
+            '/system.js'
+            //'/system-register-only.js'
+        ]
+    }, {
+        base: './node_modules/rxjs/bundles',
+        src: [
+            '/Rx.js'
+        ]
+    }, {
+        base: './node_modules/zone.js/dist',
+        src: [
+            '/zone.js'
+        ]
+    }, {
+        base: './node_modules/reflect-metadata',
+        src: [
+            '/Reflect.js'
+        ]
+    }, {
+        base: './node_modules/angular2/bundles',
+        src: [
+            '/angular2.dev.js',
+            '/router.dev.js'
+        ]
+    }]
+};
+
+/*
+|--------------------------------------------------------------------------
+| Assets Configuration
+|--------------------------------------------------------------------------
+|
+| Define the source and destination path, as well as the
+| concatinated file name. Files will be copied as-is.
+|
+*/
+config.assets = {
+    src: config.src + '/assets/**/*',
+    dest: config.dist + '/assets'
+};
 
 
 /*
