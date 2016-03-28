@@ -12,8 +12,6 @@ var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
 var gulpif = require('gulp-if');
 var connect = require('gulp-connect');
-var plumber = require('gulp-plumber');
-var jshint = require('gulp-jshint');
 var tslint = require('gulp-tslint');
 var tslintStylish = require('gulp-tslint-stylish');
 var less = require('gulp-less');
@@ -25,19 +23,10 @@ var babel = require('gulp-babel');
 var htmlreplace = require('gulp-html-replace');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
-//var ts = require('gulp-typescript');
+var ts = require('gulp-typescript');
 var argv = require('yargs').argv;
-var merge = require('merge2');
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var browserify = require('browserify');
-var stringify = require('stringify');
-var aliasify = require('aliasify');
-var babelify = require('babelify');
-var tsify = require('tsify');
-
 
 /*
 |--------------------------------------------------------------------------
@@ -59,69 +48,11 @@ config.env = process.env.NODE_ENV;
 var gulpOption = argv._[0];
 process.env.NODE_ENV = config.env = gulpOption === 'build' ? 'production' : 'development';
 
-// // TypeScript Mode
-// if (config.javaScriptMode === 'typescript') {
-//
-//   var tsProject = ts.createProject({
-//       target: 'ES6',
-//       module: 'commonjs',
-//       sortOutput: true
-//       //out: config.ts.name
-//       // declaration: true,
-//       // noExternalResolve: true,
-//   });
-//
-// }
+// Setup TypeScript project
+var tsProject = ts.createProject(assign(require('./tsconfig.json'), {
+    sortOutput: true
+}));
 
-/*
-|--------------------------------------------------------------------------
-| Browserify configuration
-|--------------------------------------------------------------------------
-|
-|
-|
-*/
-if (config.javaScriptMode === 'browserify' || config.javaScriptMode === 'typescript') {
-
-  var aliases = {};
-  if (config.env === 'production') {
-    aliases = {
-      // appconf: './src/config.prod.js'
-    };
-  } else {
-    aliases = {
-      // appconf: './src/config.dev.js'
-    };
-  }
-
-  var browserifyShim = clone(config.browserify.shim);
-  var browserifyAliases = clone(config.browserify.aliases);
-  browserifyAliases.aliases = assign(aliases, browserifyAliases.aliases);
-
-  var browserifyOptions = {
-    entries: config.javaScriptMode === 'typescript' ? config.ts.entry : config.browserify.entry,
-    debug: config.env !== 'production'
-  };
-
-  var browserifyBundle = browserify(browserifyOptions);
-
-  if (config.javaScriptMode === 'typescript') {
-    browserifyBundle.plugin(tsify, {target: 'ES6'});
-  }
-
-  browserifyBundle
-    //.transform(babelify, {presets: ['es2015']})
-    .transform(stringify(['.hjs', '.html', '.tmpl', '.tpl', '.txt', '.json']))
-    .transform(aliasify, browserifyAliases)
-    .transform('browserify-shim');
-
-  for (var key in browserifyShim) {
-    if (shim.hasOwnProperty(key)) {
-      bundle.require(key, browserifyShim[key]);
-    }
-  }
-
-}
 
 /*
 |--------------------------------------------------------------------------
@@ -130,8 +61,8 @@ if (config.javaScriptMode === 'browserify' || config.javaScriptMode === 'typescr
 |
 | Tasks are defined below, that are use internally:
 |
-| - clean
-|     Deletes the distribution folder.
+| - clean:*
+|     Deletes the specific files, based on the clean task.
 |
 | - uglify
 |     Minifies the JavaScript sorce files and adds inline
@@ -141,143 +72,161 @@ if (config.javaScriptMode === 'browserify' || config.javaScriptMode === 'typescr
 |     Compiles less files and saves it into the distribution
 |     folder.
 |
-| - copy:index
-|     Copies the index file to the distribution folder and
-|     performs required transformations.
+| - copy:*
+|     Copies files according to the task name.
+|
+| - bundle:*
+|     Bundles files according to the task name.
+|
+| - lint:*
+|     Lints specific types of files.
 |
 */
-gulp.task('clean', function () {
-	return gulp.src(config.dist, {read: false})
-		.pipe(clean().on('error', onError))
-    .on('error', onError);
+gulp.task('clean:all', function() {
+    return gulp.src([config.dist], {
+            read: false
+        })
+        .pipe(clean().on('error', onError))
+        .on('error', onError);
 });
 
-// gulp.task('typescript_OLD', function() {
-//   var tsResult = gulp.src(config.ts.src)
-//     .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
-//     .pipe(ts(tsProject).on('error', onError))
-//     .on('error', onError);
-//
-//     return tsResult.js
-//       .pipe(concat(config.ts.name).on('error', onError))
-//       .pipe(babel({ presets: ['es2015'] }).on('error', onError))
-//       //.pipe(uglify().on('error', onError))
-//       .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
-//       .pipe(gulp.dest(config.ts.dest))
-//       .on('error', onError);
-// });
+gulp.task('clean:scripts', function() {
+    return gulp.src([
+            config.dist + '/js/**/*.js',
+            config.dist + '/js/**/*.map', '!' + config.dist + '/js/vendor/**/*.js',
+            '!' + config.dist + '/js/vendor/**/*.map'
+        ], {
+            read: false
+        })
+        .pipe(clean().on('error', onError))
+        .on('error', onError);
+});
+
+gulp.task('clean:styles', function() {
+    return gulp.src([
+            config.dist + '/css/**/*.css',
+            config.dist + '/css/**/*.map'
+        ], {
+            read: false
+        })
+        .pipe(clean().on('error', onError))
+        .on('error', onError);
+});
+
+gulp.task('clean:index', function() {
+    return gulp.src([config.dist + '/index.html'], {
+            read: false
+        })
+        .pipe(clean().on('error', onError))
+        .on('error', onError);
+});
+
+gulp.task('clean:html', function() {
+    return gulp.src([config.dist + '/**/*.html'], {
+            read: false
+        })
+        .pipe(clean().on('error', onError))
+        .on('error', onError);
+});
+
+gulp.task('clean:assets', function() {
+    return gulp.src([config.dist + '/assets/**/*'], {
+            read: false
+        })
+        .pipe(clean().on('error', onError))
+        .on('error', onError);
+});
 
 gulp.task('typescript', function() {
-  return browserifyBundle
-    .bundle()
-    .on('error', onError)
-    .pipe(source(config.ts.name).on('error', onError))
-    .pipe(buffer().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init({ loadMaps: true }).on('error', onError))) // init({ loadMaps: true })
-    .pipe(babel({ presets: ['es2015'] }).on('error', onError))
-    .pipe(uglify().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError))) // write('./')
-    .pipe(gulp.dest(config.ts.dest))
-    .on('error', onError);
-});
+    var tsResult = gulp.src('./src/**/*.ts')
+        .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
+        .pipe(ts(tsProject).on('error', onError));
 
-gulp.task('browserify', function () {
-  return browserifyBundle
-    .bundle()
-    .pipe(source(config.browserify.name).on('error', onError))
-    .pipe(buffer().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init({ loadMaps: true }).on('error', onError))) // init({ loadMaps: true })
-    .pipe(babel({ presets: ['es2015'] }).on('error', onError))
-    .pipe(uglify().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError))) // write('./')
-    .pipe(gulp.dest(config.browserify.dest))
-    .on('error', onError);
-});
+    return tsResult.js
+        .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
+        .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
+        .pipe(gulp.dest('./dist/js'))
 
-if (config.javaScriptMode === 'browserify') {
-
-  browserifyBundle.on('update', function (done) {
-    return gulpSequence('dev-build')(done);
-  });
-
-  browserifyBundle.on('log', gutil.log);
-
-}
-
-gulp.task('javascript', function() {
-  return gulp.src(config.js.src)
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
-    .pipe(babel({ presets: ['es2015'] }).on('error', onError))
-    .pipe(concat(config.js.name).on('error', onError))
-    .pipe(uglify().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
-    .pipe(gulp.dest(config.js.dest))
-    .on('error', onError);
 });
 
 gulp.task('less', function() {
-  return gulp.src(config.less.src)
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
-    .pipe(less().on('error', onError))
-    .pipe(cleanCSS().on('error', onError))
-    .pipe(rename(config.less.name).on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write().on('error', onError)))
-    .pipe(gulp.dest(config.less.dest))
-    .on('error', onError);
+    return gulp.src(config.less.src)
+        .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
+        .pipe(less().on('error', onError))
+        .pipe(cleanCSS().on('error', onError))
+        .pipe(rename(config.less.name).on('error', onError))
+        .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
+        .pipe(gulp.dest(config.less.dest))
+        .on('error', onError);
 });
 
 gulp.task('copy:index', function() {
-  return gulp.src(config.index.src)
-    .pipe(htmlreplace({
-      'css': config.less.dest + '/' + config.less.name,
-      'js': config.js.dest + '/' + config.js.name
-    }).on('error', onError))
-    .pipe(rename(config.index.name).on('error', onError))
-    .pipe(gulp.dest(config.index.dest))
-    .on('error', onError);
+    return gulp.src(config.index.src)
+        .pipe(htmlreplace({
+            'css': config.less.dest + '/' + config.less.name,
+            'js': config.ts.dest + '/' + config.ts.name
+        }).on('error', onError))
+        .pipe(rename(config.index.name).on('error', onError))
+        .pipe(gulp.dest(config.index.dest))
+        .on('error', onError);
 });
 
 gulp.task('copy:assets', function() {
-  return gulp.src(config.assets.src)
-    .pipe(gulp.dest(config.assets.dest))
-    .on('error', onError);
+    return gulp.src(config.assets.src)
+        .pipe(gulp.dest(config.assets.dest))
+        .on('error', onError);
 });
 
-gulp.task('copy:originals', function (done) {
-  var src = clone(config.copy);
-  var sources = [], destinations = [];
+gulp.task('copy:originals', function(done) {
+    var src = clone(config.copy);
+    var sources = [],
+        destinations = [];
 
-  src.forEach(function (element, index) {
-    sources = [];
+    src.forEach(function(element, index) {
+        sources = [];
 
-    element.src.forEach(function(path) {
-      sources.push(config.src + element.base + path);
+        element.src.forEach(function(path) {
+            sources.push(element.base + path);
+        });
+
+        gulp.src(sources, {
+                base: config.src + element.base
+            })
+            .pipe(gulp.dest(element.dest))
+            .on('error', onError);
     });
 
-    gulp.src(sources, { base: config.src + element.base })
-      .pipe(gulp.dest(config.dist + element.dest))
-      .on('error', onError);
-  });
-
-  done();
+    done();
 });
 
-gulp.task('lint:js', function () {
-  return gulp.src([config.js.src])
-    //.pipe(jscs())
-    //.pipe(jscs.reporter())
-    //.pipe(jscs.reporter('fail'))
-    .pipe(jshint())
-    .pipe(jshint.reporter('jshint-stylish'))
-    .pipe(jshint.reporter('fail'))
-    .on('error', notifyError);
+gulp.task('bundle:vendor', function(done) {
+    var src = clone(config.vendor.files);
+    var sources = [],
+        g = gulp;
+
+    src.forEach(function(element, index) {
+        element.src.forEach(function(path) {
+            sources.push(element.base + path);
+        });
+    });
+
+    return gulp.src(sources)
+        .pipe(gulpif(config.env !== 'production', sourcemaps.init({
+            loadMaps: true
+        }).on('error', onError)))
+        .pipe(concat('bundle.js'))
+        .pipe(uglify({
+            mangle: false
+        }))
+        .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
+        .pipe(gulp.dest(config.vendor.dest));
 });
 
-gulp.task('lint:ts', function () {
-  return gulp.src([config.ts.src])
-    .pipe(tslint())
-    .pipe(tslint.report(tslintStylish))
-    .on('error', notifyError);
+gulp.task('lint:ts', function() {
+    return gulp.src([config.ts.src])
+        .pipe(tslint())
+        .pipe(tslint.report(tslintStylish))
+        .on('error', notifyError);
 });
 
 /*
@@ -291,32 +240,32 @@ gulp.task('lint:ts', function () {
 |
 */
 gulp.task('set-dev', function() {
-   return process.env.NODE_ENV = config.env = 'development';
+    return process.env.NODE_ENV = config.env = 'development';
 });
 gulp.task('set-prod', function() {
-   return process.env.NODE_ENV = config.env = 'production';
+    return process.env.NODE_ENV = config.env = 'production';
 });
 
-gulp.task('reload', function () {
-  return gulp.src('./dist/*.html')
-    .pipe(connect.reload());
+gulp.task('reload', function() {
+    return gulp.src('./dist/*.html')
+        .pipe(connect.reload());
 });
 
-gulp.task('start', function (done) {
-  gutil.log(gutil.colors.green('Starting ' + config.env + ' build...'));
+gulp.task('start', function(done) {
+    gutil.log(gutil.colors.green('Starting ' + config.env + ' build...'));
 
-  return done();
+    return done();
 });
 
-gulp.task('finish', function (done) {
-  gutil.log(gutil.colors.green('Build has finished.'));
+gulp.task('finish', function(done) {
+    gutil.log(gutil.colors.green('Build has finished.'));
 
-  notifier.notify({
-    title: 'Build Successful',
-    message: 'All build tasks have finished and your app is ready.'
-  });
+    notifier.notify({
+        title: 'Build Successful',
+        message: 'All build tasks have finished and your app is ready.'
+    });
 
-  return done();
+    return done();
 });
 
 /*
@@ -329,19 +278,19 @@ gulp.task('finish', function (done) {
 */
 
 function onError(error) {
-  gutil.log(gutil.colors.red('Error: ' + error));
-  notifyError(error);
+    gutil.log(gutil.colors.red('Error: ' + error));
+    notifyError(error);
 }
 
 function notifyError(error) {
-  notifier.notify({
-    title: 'Error',
-    message: 'There was an error building your app.'
-  });
+    notifier.notify({
+        title: 'Error',
+        message: 'There was an error building your app.'
+    });
 }
 
 function clone(obj) {
-  return JSON.parse(JSON.stringify(obj));
+    return JSON.parse(JSON.stringify(obj));
 }
 
 /*
@@ -357,31 +306,34 @@ function clone(obj) {
 | - copy
 |     Should bundle all tasks prefixed with "copy:".
 |
+| - clean:default
+|     Only clear scripts (excluding vendor), styles and the index.
+|
+| - bundle
+|     Execute all available bundle tasks.
+|
+| - lint
+|     Run all available lint tasks.
+|
 */
 gulp.task('tasks', function(done) {
-  var scriptsTask;
-
-  switch (config.javaScriptMode) {
-    case 'typescript':
-      scriptsTask = 'typescript';
-      break;
-    case 'browserify':
-      scriptsTask = 'browserify';
-      break;
-    default:
-      scriptsTask = 'javascript';
-      break;
-  }
-
-  return gulpSequence('clean', ['copy', scriptsTask, 'less'])(done);
+    return gulpSequence(['copy', 'typescript', 'less'])(done);
 });
 
 gulp.task('copy', function(done) {
-  return gulpSequence(['copy:index', 'copy:assets', 'copy:originals'])(done);
+    return gulpSequence(['copy:index', 'copy:assets', 'copy:originals'])(done);
+});
+
+gulp.task('clean:default', function(done) {
+    return gulpSequence(['clean:scripts', 'clean:styles', 'clean:index'])(done);
+});
+
+gulp.task('bundle', function(done) {
+    return gulpSequence(['bundle:vendor'])(done);
 });
 
 gulp.task('lint', function(done) {
-  return gulpSequence(['lint:js', 'lint:ts'])(done);
+    return gulpSequence(['lint:ts'])(done);
 });
 
 
@@ -398,6 +350,9 @@ gulp.task('lint', function(done) {
 | - dev-build
 |     Performs a development build.
 |
+| - watch-build
+|     Tasks that should run if a file changes.
+|
 | - watch
 |     Performs a development build everytime
 |     something has changes.
@@ -408,26 +363,28 @@ gulp.task('lint', function(done) {
 |
 */
 gulp.task('build', function(done) {
-  return gulpSequence('set-prod', 'start', 'lint', 'tasks', 'finish')(done);
+    return gulpSequence('set-prod', 'start', 'lint', 'clean:all', ['tasks', 'bundle'], 'finish')(done);
 });
 
 gulp.task('dev-build', function(done) {
-  return gulpSequence('set-dev', 'start', 'lint', 'tasks', 'finish')(done);
+    return gulpSequence('set-dev', 'start', 'lint', 'clean:all', ['tasks', 'bundle'], 'finish')(done);
 });
 
 gulp.task('watch-build', function(done) {
-  return gulpSequence('dev-build', 'reload')(done);
+    return gulpSequence('set-dev', 'start', 'lint', 'clean:default', 'tasks', 'finish')(done);
 });
 
-gulp.task('watch', ['dev-build'], function () {
-  gulp.watch(config.watch, ['watch-build']);
+gulp.task('watch', function() {
+    gulpSequence('dev-build')(function() {
+        gulp.watch(config.watch, ['watch-build']);
+    });
 });
 
 gulp.task('serve', function() {
-  connect.server({
-    root: config.dist,
-    livereload: true,
-    https: false,
-    port: 5000
-  });
+    connect.server({
+        root: config.dist,
+        livereload: true,
+        https: false,
+        port: 5000
+    });
 });

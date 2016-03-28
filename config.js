@@ -38,43 +38,6 @@ config.dist = './dist';
 */
 config.watch = ['src/**/*', '!src/assets/**/*'];
 
-
-/*
-|--------------------------------------------------------------------------
-| JavaScript Mode
-|--------------------------------------------------------------------------
-|
-| Define whether to use JavaScript (with Babel/ES6) or TypeScript.
-|
-| - javascript
-|     JavaScript with support for ES6 (ES2015) will be used.
-|
-| - browserify
-|     JavaScript with Browserify and support for ES6 (ES2015)
-|     will be used.
-|
-| - typescript
-|     TypeScript will be used which also uses Browserify for CommonJS.
-|
-*/
-config.javaScriptMode = 'typescript';
-
-
-/*
-|--------------------------------------------------------------------------
-| JavaScript Configuration
-|--------------------------------------------------------------------------
-|
-| Define the source and destination path, as well as the
-| concatinated file name.
-|
-*/
-config.js = {
-  src: config.src + '/js/**/*.js',
-  dest: config.dist + '/js',
-  name: 'app.js'
-};
-
 /*
 |--------------------------------------------------------------------------
 | TypeScript Configuration
@@ -83,62 +46,14 @@ config.js = {
 | Define the source and destination path, as well as the
 | concatinated file name.
 |
+| Please note, that some configuration is set within tsconfig.json!
+|
 */
 config.ts = {
-  src: config.src + '/js/**/*.ts',
-  entry: config.src + '/js/app.ts',
-  dest: config.dist + '/js',
-  name: 'app.js'
-};
-
-/*
-|--------------------------------------------------------------------------
-| Browserify Configuration
-|--------------------------------------------------------------------------
-|
-| Define the source and destination path, as well as the
-| concatinated file name.
-|
-*/
-config.browserify = {
-  entry: config.src + '/js/app.js',
-  dest: config.dist + '/js',
-  name: 'app.js'
-};
-
-/*
-|--------------------------------------------------------------------------
-| Browserify Configuration
-|--------------------------------------------------------------------------
-|
-| Used for typescript and browserify mode.
-|
-| - shim
-|     Use libraries with browserify that don't support it
-|     or if they are not loaded via npm.
-|
-| - aliases
-|     You can set alias which will be replaced when
-|     requiring with browserify.
-*/
-config.browserify.shim = {
-  /**
-   *  './src/vendor/flowplayer-6.0.4/flowplayer.min.js': {
-   *    'expose': 'flowplayer'         // what the package exposes
-   *    'exports': 'fp'                // export it globally
-   *    'depends': {                   // dependencies that could be defined
-   *      'jQuery': 'jQuery'           // in this shim as well
-   *    }
-   *  }
-  */
-};
-
-config.browserify.aliases = {
-  verbose: false,
-  aliases: {
-    // "d3": "./vndr/d3.js" // The example would replace require('d3')
-                            // within src/js, with ./../../vndr/d3.js
-  }
+    src: config.src + '/js/**/*.ts',
+    entry: config.src + '/js/main.ts',
+    dest: config.dist + '/js',
+    name: 'app.js'
 };
 
 
@@ -152,9 +67,9 @@ config.browserify.aliases = {
 |
 */
 config.less = {
-  src: config.src + '/css/app.less',
-  dest: config.dist + '/css',
-  name: 'app.css'
+    src: config.src + '/css/app.less',
+    dest: config.dist + '/css',
+    name: 'app.css'
 };
 
 
@@ -168,25 +83,65 @@ config.less = {
 |
 */
 config.index = {
-  src: config.src + '/index.html',
-  dest: config.dist,
-  name: 'index.html'
+    src: config.src + '/index.html',
+    dest: config.dist,
+    name: 'index.html'
 }
-
 
 /*
 |--------------------------------------------------------------------------
-| Assets Configuration
+| Vendor Files
 |--------------------------------------------------------------------------
 |
-| Define the source and destination path, as well as the
-| concatinated file name. Files will be copied as-is.
+| For faster builds, vendor files are only bundled into a single file,
+| but not compiled by TypeScript.
 |
 */
-config.assets = {
-  src: config.src + '/assets/**/*',
-  dest: config.dist + '/assets'
-}
+config.vendor = {
+        dest: config.dist + '/js/vendor',
+        files: [{
+            base: './node_modules/systemjs/dist',
+            src: [
+                '/system.js'
+                //'/system-register-only.js'
+            ]
+        }, {
+            base: './node_modules/rxjs/bundles',
+            src: [
+                '/Rx.min.js'
+            ]
+        }, {
+            base: './node_modules/zone.js/dist',
+            src: [
+                '/zone.min.js'
+            ]
+        }, {
+            base: './node_modules/reflect-metadata',
+            src: [
+                '/Reflect.js'
+            ]
+        }, {
+            base: './node_modules/angular2/bundles',
+            src: [
+                '/angular2.min.js',
+                '/router.min.js'
+            ]
+        }]
+    },
+
+    /*
+    |--------------------------------------------------------------------------
+    | Assets Configuration
+    |--------------------------------------------------------------------------
+    |
+    | Define the source and destination path, as well as the
+    | concatinated file name. Files will be copied as-is.
+    |
+    */
+    config.assets = {
+        src: config.src + '/assets/**/*',
+        dest: config.dist + '/assets'
+    }
 
 
 /*
@@ -197,22 +152,19 @@ config.assets = {
 | Define additional files that should be copied.
 |
 */
-config.copy =  [
-  {
-    base: '/less/images',
+config.copy = [{
+    base: config.src + '/css/images',
     src: [
-      '/**/*'
+        '/**/*'
     ],
-    dest: '/css/images'
-  },
-  {
-    base: '/less/fonts',
+    dest: config.dist + '/css/images'
+}, {
+    base: config.src + '/css/fonts',
     src: [
-      '/**/*'
+        '/**/*'
     ],
-    dest: '/css/fonts'
-  }
-];
+    dest: config.dist + '/css/fonts'
+}];
 
 
 module.exports = config;
