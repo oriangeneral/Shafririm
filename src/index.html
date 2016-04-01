@@ -19,7 +19,7 @@
         var bindError = console.error.bind(console);
 
         <!-- @if config.mode='bundle' -->
-        <System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
+        System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
             return System.import('<!-- @echo config.systemjs.bundle.entryModule -->');
         }).then(null, bindError);
         <!-- @endif -->

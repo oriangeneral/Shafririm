@@ -32,7 +32,6 @@ var config = config || {};
 config.src = './src';
 config.dist = './dist';
 
-
 /*
 |--------------------------------------------------------------------------
 | Mode
@@ -103,6 +102,7 @@ config.systemjs.configString = JSON.stringify(config.systemjs.config);
 |
 */
 config.ts = {
+    appBase: '/app',
     src: config.src + '/js/**/*.ts',
     base: config.src + '/js',
     entry: config.src + '/js/main.ts',

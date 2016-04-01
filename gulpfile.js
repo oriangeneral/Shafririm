@@ -158,16 +158,22 @@ gulp.task('typescript:main', function() {
       return css;
   };
 
+  var pattern = new RegExp('^(' + config.ts.appBase + '/?)');
   var tsResult = gulp.src([ config.ts.src ], {'cwd': './'})
       .pipe(gulpif(config.mode === 'bundle', inlineNg2Template({
+          //base: config.src,
           target: 'es5',
-          useRelativePaths: false,
+          removeLineBreaks: true,
+          useRelativePaths: true,
           templateProcessor: function(path, file) {
               return file;
               //return jade.render(file);
           },
           styleProcessor: function(path, file) {
               return less.renderSync(file);
+          },
+          templateFunction: function (filename) {
+            return filename.replace(pattern, './');
           }
       })))
       .pipe(gulpif(config.env !== 'production', sourcemaps.init({
@@ -189,7 +195,7 @@ gulp.task('typescript:main', function() {
 
 gulp.task('typescript:lazy', function(done) {
   if (config.mode === 'bundle') {
-    return gulpSequence()(done);
+    return done();
   }
 
   return gulpSequence(['typescript:lazy:css', 'typescript:lazy:html'])(done);
