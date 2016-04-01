@@ -35,6 +35,23 @@ config.dist = './dist';
 
 /*
 |--------------------------------------------------------------------------
+| Mode
+|--------------------------------------------------------------------------
+|
+| Choose a desired mode.
+|
+| - bundle
+|     Files will be concatinated (for use with HTTP)
+|
+| - lazy
+|     Files will be lazy loaded (for use with HTTP2)
+|
+*/
+config.mode = 'lazy';
+
+
+/*
+|--------------------------------------------------------------------------
 | Watch Files
 |--------------------------------------------------------------------------
 |
@@ -42,6 +59,37 @@ config.dist = './dist';
 |
 */
 config.watch = ['src/**/*', '!src/assets/**/*'];
+
+
+
+/*
+|--------------------------------------------------------------------------
+| SystemJS Configuration
+|--------------------------------------------------------------------------
+|
+| Define the configuration for SystemJS.
+|
+*/
+config.systemjs = {
+    config: {
+        packages: {
+            'app': {
+                defaultExtension: 'js',
+                baseUrl: '/app'
+            }
+        }
+    },
+    bundle: {
+      entryFile: 'app/app',
+      entryModule: 'main'
+    },
+    lazy: {
+      entryFile: 'app/main'
+    }
+};
+
+// Do not remove or modify this line!
+config.systemjs.configString = JSON.stringify(config.systemjs.config);
 
 /*
 |--------------------------------------------------------------------------
@@ -56,8 +104,9 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 */
 config.ts = {
     src: config.src + '/js/**/*.ts',
+    base: config.src + '/js',
     entry: config.src + '/js/main.ts',
-    dest: config.dist + '/js',
+    dest: config.dist + '/app',
     name: 'app.js' // must match "outFile" in tsconfig.json
 };
 
@@ -96,7 +145,7 @@ config.index = {
 
 /*
 |--------------------------------------------------------------------------
-| Vendor Files
+| Vendor JavaScript Files
 |--------------------------------------------------------------------------
 |
 | For faster builds, vendor files are only bundled into a single file,
@@ -104,7 +153,7 @@ config.index = {
 |
 */
 config.vendor = {
-    dest: config.dist + '/js/vendor',
+    dest: config.dist + '/vendor/js',
 
     files: [{
         base: './node_modules/systemjs/dist',

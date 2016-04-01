@@ -21,13 +21,14 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
 var inlineNg2Template = require('gulp-inline-ng2-template');
-var htmlreplace = require('gulp-html-replace');
+var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var ts = require('gulp-typescript');
 var argv = require('yargs').argv;
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
+var path = require('path');
 
 /*
 |--------------------------------------------------------------------------
@@ -45,13 +46,14 @@ var assign = require('lodash.assign');
 var config = require('./config');
 config.env = process.env.NODE_ENV;
 
-// Determine Environment before it is set for initialization
-var gulpOption = argv._[0];
-process.env.NODE_ENV = config.env = gulpOption === 'build' ? 'production' : 'development';
+// Determine environment before it is set for initialization
+process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'development';
 
 // Setup TypeScript project
-var tsProject = ts.createProject(assign(require('./tsconfig.json'), {
-    sortOutput: true
+var tsConfig = require('./tsconfig.json');
+var tsProject = ts.createProject(assign(tsConfig, {
+    sortOutput: true,
+    outFile: config.mode === 'lazy' ? false : config.ts.name
 }));
 
 
@@ -60,7 +62,7 @@ var tsProject = ts.createProject(assign(require('./tsconfig.json'), {
 | Internal Tasks
 |--------------------------------------------------------------------------
 |
-| Tasks are defined below, that are use internally:
+| Tasks are defined below, that are used internally:
 |
 | - clean:*
 |     Deletes the specific files, based on the clean task.
@@ -94,11 +96,16 @@ gulp.task('clean:all', function() {
 gulp.task('clean:scripts', function() {
     return gulp.src([
             config.dist + '/js/**/*.js',
-            config.dist + '/js/**/*.map', '!' + config.dist + '/js/vendor/**/*.js',
-            '!' + config.dist + '/js/vendor/**/*.map'
+            config.dist + '/js/**/*.map'
         ], {
             read: false
         })
+        .pipe(clean().on('error', onError))
+        .on('error', onError);
+});
+
+gulp.task('clean:vendor', function() {
+    return gulp.src([ config.vendor.dest ], { read: false })
         .pipe(clean().on('error', onError))
         .on('error', onError);
 });
@@ -138,41 +145,70 @@ gulp.task('clean:assets', function() {
         .on('error', onError);
 });
 
-gulp.task('typescript', function() {
-    var less = require('less'), jade = require('jade');
-    less.renderSync = function(input, options) {
-        if (!options || typeof options != "object") options = {};
-        options.sync = true;
-        var css;
-        this.render(input, options, function(err, result) {
-            if (err) throw err;
-            css = result.css;
-        });
-        return css;
-    };
+gulp.task('typescript:main', function() {
+  var less = require('less'), jade = require('jade');
+  less.renderSync = function(input, options) {
+      if (!options || typeof options != "object") options = {};
+      options.sync = true;
+      var css;
+      this.render(input, options, function(err, result) {
+          if (err) throw err;
+          css = result.css;
+      });
+      return css;
+  };
 
-    var tsResult = gulp.src(config.ts.src)
-        .pipe(inlineNg2Template({
-            target: 'es5',
-            useRelativePaths: true,
-            templateProcessor: function(path, file) {
-                return file;
-                //return jade.render(file);
-            },
-            styleProcessor: function(path, file) {
-                return less.renderSync(file);
-            }
-        }))
-        .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-            loadMaps: false
-        }).on('error', onError)))
-        .pipe(ts(tsProject).on('error', onError));
+  var tsResult = gulp.src([ config.ts.src ], {'cwd': './'})
+      .pipe(gulpif(config.mode === 'bundle', inlineNg2Template({
+          target: 'es5',
+          useRelativePaths: false,
+          templateProcessor: function(path, file) {
+              return file;
+              //return jade.render(file);
+          },
+          styleProcessor: function(path, file) {
+              return less.renderSync(file);
+          }
+      })))
+      .pipe(gulpif(config.env !== 'production', sourcemaps.init({
+          loadMaps: false
+      }).on('error', onError)))
+      .pipe(ts(tsProject).on('error', onError));
 
-    return tsResult.js
-        .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
-        .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
-        .pipe(gulp.dest(config.ts.dest))
+      var base = path.join(__dirname, config.ts.base);
+      while(base.charAt(0) === '/') base = base.substr(1);
 
+  return tsResult.js
+      .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
+      .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
+      .pipe(rename(function(p) {
+        p.dirname = p.dirname.replace(base, './');
+      }).on('error', onError))
+      .pipe(gulp.dest(config.ts.dest))
+});
+
+gulp.task('typescript:lazy', function(done) {
+  if (config.mode === 'bundle') {
+    return gulpSequence()(done);
+  }
+
+  return gulpSequence(['typescript:lazy:css', 'typescript:lazy:html'])(done);
+});
+
+gulp.task('typescript:lazy:css', function() {
+  return gulp.src([config.ts.base + '/**/*.css', config.ts.base + '/**/*.less'])
+    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
+    .pipe(less().on('error', onError))
+    .pipe(cleanCSS().on('error', onError))
+    .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
+    .pipe(gulp.dest(config.ts.dest))
+    .on('error', onError);
+});
+
+gulp.task('typescript:lazy:html', function() {
+  return gulp.src([config.ts.base + '/**/*.html'])
+    .pipe(gulp.dest(config.ts.dest))
+    .on('error', onError);
 });
 
 gulp.task('less', function() {
@@ -188,10 +224,9 @@ gulp.task('less', function() {
 
 gulp.task('copy:index', function() {
     return gulp.src(config.index.src)
-        .pipe(htmlreplace({
-            'css': config.less.dest + '/' + config.less.name,
-            'js': config.ts.dest + '/' + config.ts.name
-        }).on('error', onError))
+        .pipe(preprocess({
+          context: { config: config }
+        }))
         .pipe(rename(config.index.name).on('error', onError))
         .pipe(gulp.dest(config.index.dest))
         .on('error', onError);
@@ -341,6 +376,9 @@ function clone(obj) {
 | - lint
 |     Run all available lint tasks.
 |
+| - typescript
+|     Runs all required typescript tasks.
+|
 */
 gulp.task('tasks', function(done) {
     return gulpSequence(['copy', 'typescript', 'less'])(done);
@@ -360,6 +398,10 @@ gulp.task('bundle', function(done) {
 
 gulp.task('lint', function(done) {
     return gulpSequence(['lint:ts'])(done);
+});
+
+gulp.task('typescript', function(done) {
+    return gulpSequence(['typescript:main', 'typescript:lazy'])(done);
 });
 
 
@@ -393,7 +435,7 @@ gulp.task('build', function(done) {
 });
 
 gulp.task('dev-build', function(done) {
-    return gulpSequence('set-dev', 'start', 'lint', 'clean:all', ['tasks', 'bundle'], 'finish')(done);
+    return gulpSequence('set-dev', 'start', 'lint', 'clean:default', ['tasks'], 'finish')(done);
 });
 
 gulp.task('watch-build', function(done) {

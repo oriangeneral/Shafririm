@@ -1,8 +1,8 @@
 {
     "target": "ES5",
     "module": "system",
-    "outFile": "app.js",
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "exclude": [ "node_modules" ]
 }

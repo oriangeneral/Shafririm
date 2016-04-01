@@ -2,8 +2,9 @@
   "name": "hue",
   "version": "0.0.1",
   "description": "A Spotify Music Quiz",
-  "main": "echo \"Error: use gulp dev-build and gulp serve to build and start a test server\" && exit 1",
+  "main": "server/index.js",
   "scripts": {
+    "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,10 +20,17 @@
   "browserify-shim": "./browserify-shim.js",
   "dependencies": {
     "angular2": "^2.0.0-beta.12",
+    "body-parser": "^1.15.0",
+    "errorhandler": "^1.4.3",
     "es6-shim": "^0.35.0",
+    "express": "^4.13.4",
+    "http2": "^3.3.2",
+    "method-override": "^2.3.5",
+    "node-env-file": "^0.1.8",
     "reflect-metadata": "^0.1.2",
     "rxjs": "^5.0.0-beta.2",
     "skeleton-css": "^2.0.4",
+    "spdy": "^3.2.3",
     "systemjs": "^0.19.24",
     "zone.js": "^0.6.6"
   },
@@ -38,6 +46,7 @@
     "gulp-if": "^2.0.0",
     "gulp-inline-ng2-template": "^1.1.2",
     "gulp-less": "^3.0.5",
+    "gulp-preprocess": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sequence": "^0.4.5",
     "gulp-sourcemaps": "^1.6.0",

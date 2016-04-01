@@ -12,18 +12,20 @@
 
 <body>
     <app>Loading...</app>
-    <script src="/js/vendor/bundle.js"></script>
+    <script src="/vendor/js/bundle.js"></script>
     <script>
-        System.config({
-            packages: {
-                'js': {
-                    defaultExtension: 'js'
-                }
-            }
-        });
-        System.import('js/app').then(function() {
-            return System.import('main');
-        }).then(null, console.error.bind(console));
+        System.config(<!-- @echo config.systemjs.configString -->);
+
+        var bindError = console.error.bind(console);
+
+        <!-- @if config.mode='bundle' -->
+        <System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
+            return System.import('<!-- @echo config.systemjs.bundle.entryModule -->');
+        }).then(null, bindError);
+        <!-- @endif -->
+        <!-- @if config.mode='lazy' -->
+        System.import('<!-- @echo config.systemjs.lazy.entryFile -->').then(null, bindError);
+        <!-- @endif -->
     </script>
 </body>
 
