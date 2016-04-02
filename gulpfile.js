@@ -21,7 +21,6 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
 var inlineNg2Template = require('gulp-inline-ng2-template');
-var ng2RelativePath = require('gulp-ng2-relative-path');
 var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
@@ -30,6 +29,11 @@ var argv = require('yargs').argv;
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
 var path = require('path');
+
+var ng2RelativePath = requireIfExists(
+  '../gulp-ng2-relative-path',
+  'gulp-ng2-relative-path'
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -106,7 +110,9 @@ gulp.task('clean:scripts', function() {
 });
 
 gulp.task('clean:vendor', function() {
-    return gulp.src([ config.vendor.dest ], { read: false })
+    return gulp.src([config.vendor.dest], {
+            read: false
+        })
         .pipe(clean().on('error', onError))
         .on('error', onError);
 });
@@ -147,85 +153,87 @@ gulp.task('clean:assets', function() {
 });
 
 gulp.task('typescript:main', function() {
-  var less = require('less'), jade = require('jade');
-  less.renderSync = function(input, options) {
-      if (!options || typeof options != "object") options = {};
-      options.sync = true;
-      var css;
-      this.render(input, options, function(err, result) {
-          if (err) throw err;
-          css = result.css;
-      });
-      return css;
-  };
+    var less = require('less'),
+        jade = require('jade');
+    less.renderSync = function(input, options) {
+        if (!options || typeof options != "object") options = {};
+        options.sync = true;
+        var css;
+        this.render(input, options, function(err, result) {
+            if (err) throw err;
+            css = result.css;
+        });
+        return css;
+    };
 
-  var pattern = new RegExp('^(' + config.ts.appBase + '/?)');
+    var pattern = new RegExp('^(' + config.ts.appBase + '/?)');
 
-  var tsResult = gulp.src([ config.ts.src ], {'cwd': './'})
-      .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-          loadMaps: false
-      }).on('error', onError)))
-      .pipe(gulpif(config.mode === 'lazy', ng2RelativePath({
-        base: config.ts.base,
-        appBase: config.ts.appBase,
-        modifyPath: function(path) {
-          return path.replace('.less', '.css');
-        }
-      }).on('error', onError)).on('error', onError))
-      .pipe(gulpif(config.mode === 'bundle', inlineNg2Template({
-          // base: config.src + '/js',
-          target: 'es5',
-          removeLineBreaks: true,
-          useRelativePaths: true,
-          templateProcessor: function(path, file) {
-              return file;
-              //return jade.render(file);
-          },
-          styleProcessor: function(path, file) {
-              return less.renderSync(file);
-          }
-          ,
-          templateFunction: function (filename) {
-            console.log('test');
-            return filename.replace(pattern, './');
-          }
-      }).on('error', onError)).on('error', onError))
-      .pipe(ts(tsProject).on('error', onError));
+    var tsResult = gulp.src([config.ts.src], {
+            'cwd': './'
+        })
+        .pipe(gulpif(config.env !== 'production', sourcemaps.init({
+            loadMaps: false
+        }).on('error', onError)))
+        .pipe(gulpif(config.mode === 'lazy', ng2RelativePath({
+            base: config.ts.base,
+            appBase: config.ts.appBase,
+            modifyPath: function(path) {
+                console.log(path);
+                return path.replace('.less', '.css');
+            }
+        }).on('error', onError)).on('error', onError))
+        .pipe(gulpif(config.mode === 'bundle', inlineNg2Template({
+            // base: config.src + '/js',
+            target: 'es5',
+            removeLineBreaks: true,
+            useRelativePaths: true,
+            templateProcessor: function(path, file) {
+                return file;
+                //return jade.render(file);
+            },
+            styleProcessor: function(path, file) {
+                return less.renderSync(file);
+            },
+            templateFunction: function(filename) {
+                return filename.replace(pattern, './');
+            }
+        }).on('error', onError)).on('error', onError))
+        .pipe(ts(tsProject).on('error', onError));
 
-      var base = path.join(__dirname, config.ts.base);
-      while(base.charAt(0) === '/') base = base.substr(1);
+    var base = path.join(__dirname, config.ts.base);
+    while (base.charAt(0) === '/') base = base.substr(1);
 
-  return tsResult.js
-      .pipe(rename(function(p) {
-        p.dirname = p.dirname.replace(base, './');
-      }).on('error', onError))
-      .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
-      .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
-      .pipe(gulp.dest(config.ts.dest))
+    return tsResult.js
+        .pipe(rename(function(p) {
+            p.dirname = p.dirname.replace(base, './');
+        }).on('error', onError))
+        .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
+        .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
+        .pipe(gulp.dest(config.ts.dest))
 });
 
 gulp.task('typescript:lazy', function(done) {
-  if (config.mode === 'bundle') {
-    return done();
-  }
+    if (config.mode === 'bundle') {
+        return done();
+    }
 
-  return gulpSequence(['typescript:lazy:css', 'typescript:lazy:html'])(done);
+    return gulpSequence(['typescript:lazy:css', 'typescript:lazy:html'])(done);
 });
 
 gulp.task('typescript:lazy:css', function() {
-  return gulp.src([config.ts.base + '/**/*.css', config.ts.base + '/**/*.less'])
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
-    .pipe(less().on('error', onError))
-    .pipe(cleanCSS().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
-    .pipe(gulp.dest(config.ts.dest))
-    .on('error', onError);
+    return gulp.src([config.ts.base + '/**/*.css', config.ts.base + '/**/*.less'])
+        .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
+        .pipe(less().on('error', onError))
+        .pipe(cleanCSS().on('error', onError))
+        .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
+        .pipe(gulp.dest(config.ts.dest))
+        .on('error', onError);
 });
 
 gulp.task('typescript:lazy:html', function() {
-  return gulp.src([config.ts.base + '/**/*.html'])
-    .pipe(gulp.dest(config.ts.dest))
-    .on('error', onError);
+    return gulp.src([config.ts.base + '/**/*.html'])
+        .pipe(gulp.dest(config.ts.dest))
+        .on('error', onError);
 });
 
 gulp.task('less', function() {
@@ -242,7 +250,9 @@ gulp.task('less', function() {
 gulp.task('copy:index', function() {
     return gulp.src(config.index.src)
         .pipe(preprocess({
-          context: { config: config }
+            context: {
+                config: config
+            }
         }))
         .pipe(rename(config.index.name).on('error', onError))
         .pipe(gulp.dest(config.index.dest))
@@ -369,6 +379,26 @@ function notifyError(error) {
 
 function clone(obj) {
     return JSON.parse(JSON.stringify(obj));
+}
+
+function exists(nodeModule) {
+    try {
+        require.resolve(nodeModule)
+    } catch (e) {
+        return false;
+    }
+
+    return true;
+}
+
+function requireIfExists(nodeModule, fallbackModule) {
+  if (exists(nodeModule)) {
+    return require(nodeModule)
+  }
+
+  if (fallbackModule) {
+    return require(fallbackModule);
+  }
 }
 
 /*
