@@ -1,3 +1,5 @@
+var assign = require('lodash.assign');
+
 /*
 |--------------------------------------------------------------------------
 | BUILD CONFIGURATION
@@ -21,16 +23,6 @@
 */
 var config = config || {};
 
-/*
-|--------------------------------------------------------------------------
-| Source and Distribution Location
-|--------------------------------------------------------------------------
-|
-| Define the location of the source and distribution folder.
-|
-*/
-config.src = './src';
-config.dist = './dist';
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +39,18 @@ config.dist = './dist';
 |
 */
 config.mode = 'lazy';
+
+
+/*
+|--------------------------------------------------------------------------
+| Source and Distribution Location
+|--------------------------------------------------------------------------
+|
+| Define the location of the source and distribution folder.
+|
+*/
+config.src = './src';
+config.dist = './dist';
 
 
 /*
@@ -98,17 +102,20 @@ config.systemjs.configString = JSON.stringify(config.systemjs.config);
 | Define the source and destination path, as well as the
 | concatinated file name.
 |
-| Please note, that some configuration is set within tsconfig.json!
+| Please note, that some configuration is set inside tsconfig.json!
 |
 */
-config.ts = {
-    appBase: '/app',
+config.ts = config.ts || {};
+
+config.ts.appBase = '/app';
+
+config.ts = assign(config.ts, {
     src: config.src + '/js/**/*.ts',
     base: config.src + '/js',
     entry: config.src + '/js/main.ts',
-    dest: config.dist + '/app',
-    name: 'app.js' // must match "outFile" in tsconfig.json
-};
+    dest: config.dist + config.ts.appBase,
+    name: 'app.js'
+});
 
 
 /*

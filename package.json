@@ -46,6 +46,7 @@
     "gulp-if": "^2.0.0",
     "gulp-inline-ng2-template": "^1.1.2",
     "gulp-less": "^3.0.5",
+    "gulp-ng2-relative-path": "0.0.1",
     "gulp-preprocess": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sequence": "^0.4.5",

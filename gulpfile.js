@@ -21,6 +21,7 @@ var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
 var babel = require('gulp-babel');
 var inlineNg2Template = require('gulp-inline-ng2-template');
+var ng2RelativePath = require('gulp-ng2-relative-path');
 var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
@@ -159,9 +160,20 @@ gulp.task('typescript:main', function() {
   };
 
   var pattern = new RegExp('^(' + config.ts.appBase + '/?)');
+
   var tsResult = gulp.src([ config.ts.src ], {'cwd': './'})
+      .pipe(gulpif(config.env !== 'production', sourcemaps.init({
+          loadMaps: false
+      }).on('error', onError)))
+      .pipe(gulpif(config.mode === 'lazy', ng2RelativePath({
+        base: config.ts.base,
+        appBase: config.ts.appBase,
+        modifyPath: function(path) {
+          return path.replace('.less', '.css');
+        }
+      }).on('error', onError)).on('error', onError))
       .pipe(gulpif(config.mode === 'bundle', inlineNg2Template({
-          //base: config.src,
+          // base: config.src + '/js',
           target: 'es5',
           removeLineBreaks: true,
           useRelativePaths: true,
@@ -171,25 +183,24 @@ gulp.task('typescript:main', function() {
           },
           styleProcessor: function(path, file) {
               return less.renderSync(file);
-          },
+          }
+          ,
           templateFunction: function (filename) {
+            console.log('test');
             return filename.replace(pattern, './');
           }
-      })))
-      .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-          loadMaps: false
-      }).on('error', onError)))
+      }).on('error', onError)).on('error', onError))
       .pipe(ts(tsProject).on('error', onError));
 
       var base = path.join(__dirname, config.ts.base);
       while(base.charAt(0) === '/') base = base.substr(1);
 
   return tsResult.js
-      .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
-      .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
       .pipe(rename(function(p) {
         p.dirname = p.dirname.replace(base, './');
       }).on('error', onError))
+      .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
+      .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
       .pipe(gulp.dest(config.ts.dest))
 });
 
