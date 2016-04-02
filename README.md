@@ -5,9 +5,9 @@
 ```sh
 $ git clone git@github.com:fabianweb/hue.git
 $ cd hue
-$ npm install -g typings
+$ npm install -g npm gulp typings
 $ typings install
 $ npm install
-$ gulp build
+$ gulp dev-build
 $ gulp serve
 ```
