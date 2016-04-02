@@ -174,11 +174,15 @@ gulp.task('typescript:main', function() {
         .pipe(gulpif(config.env !== 'production', sourcemaps.init({
             loadMaps: false
         }).on('error', onError)))
+        .pipe(preprocess({
+            context: {
+                config: config
+            }
+        }).on('error', onError))
         .pipe(gulpif(config.mode === 'lazy', ng2RelativePath({
             base: config.ts.base,
             appBase: config.ts.appBase,
             modifyPath: function(path) {
-                console.log(path);
                 return path.replace('.less', '.css');
             }
         }).on('error', onError)).on('error', onError))
@@ -253,7 +257,7 @@ gulp.task('copy:index', function() {
             context: {
                 config: config
             }
-        }))
+        }).on('error', onError))
         .pipe(rename(config.index.name).on('error', onError))
         .pipe(gulp.dest(config.index.dest))
         .on('error', onError);

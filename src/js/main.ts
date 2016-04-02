@@ -2,13 +2,11 @@
 /// <reference path="../../typings/browser.d.ts" />
 
 import { bootstrap } from 'angular2/platform/browser';
-import { enableProdMode } from 'angular2/core';
-
-import { config } from './config/app';
 import { AppComponent } from './components/app/app.component';
 
-if (config('env') === 'production') {
+/* @if config.env='production' **
+  import { enableProdMode } from 'angular2/core';
   enableProdMode();
-}
+/* @endif */
 
 bootstrap(AppComponent, []).catch(err => console.error(err));

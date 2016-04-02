@@ -1,1 +1,1 @@
-export let ts = (str) => str.replace('.less', '.css');
+export let example = (str) => str.toLowerCase();
