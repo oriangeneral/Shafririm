@@ -2,6 +2,9 @@ import { Component, OnInit } from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
 import { LandingComponent } from '../landing/landing.component';
+import { QuizComponent } from '../quiz/quiz.component';
+
+import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
   selector: 'app',
@@ -11,7 +14,8 @@ import { LandingComponent } from '../landing/landing.component';
     ROUTER_DIRECTIVES
   ],
   providers: [
-    ROUTER_PROVIDERS
+    ROUTER_PROVIDERS,
+    SpotifyService
   ]
 })
 @RouteConfig([
@@ -20,6 +24,11 @@ import { LandingComponent } from '../landing/landing.component';
     name: 'Landing',
     component: LandingComponent,
     useAsDefault: true
+  },
+  {
+    path: '/quiz/...', // Note: '...' is required to allow child routes!
+    name: 'Quiz',
+    component: QuizComponent
   }
 ])
 export class AppComponent implements OnInit {
