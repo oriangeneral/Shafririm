@@ -1,6 +1,6 @@
 import { Injectable } from 'angular2/core';
 
-import { Playlist } from '../types/playlist';
+import { Playlist } from '../models/playlist';
 import { PLAYLIST } from '../mock/playlist';
 
 @Injectable()

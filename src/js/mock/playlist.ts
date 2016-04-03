@@ -1,4 +1,4 @@
-import { Playlist } from '../types/playlist';
+import { Playlist } from '../models/playlist';
 
 export var PLAYLIST: Playlist[] = [
   { "id": 11, "name": "Austria Top 40" },
