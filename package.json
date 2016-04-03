@@ -1,7 +1,7 @@
 {
   "name": "hue",
   "version": "0.0.1",
-  "description": "A Spotify Music Quiz",
+  "description": "A music quiz in Angular2 using the Spotify API.",
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js",

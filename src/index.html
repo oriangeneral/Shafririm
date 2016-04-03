@@ -2,31 +2,40 @@
 <html>
 
 <head lang="en">
-    <title>Spotify Music Quiz</title>
-    <base href="/" />
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <link rel="stylesheet" href="/css/app.css">
+  <title>HUE - Music Quiz</title>
+  <base href="/" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A music quiz in Angular2 using the Spotify API.">
+  <meta name="author" content="Lorenz Krautgartner, Fabian Pirklbauer, Sascha Zarhuber">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="/css/app.css">
+  <link href='https://fonts.googleapis.com/css?family=Patua+One|Bevan' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
-    <app>Loading...</app>
-    <script src="/vendor/js/bundle.js"></script>
-    <script>
-        System.config(<!-- @echo config.systemjs.configString -->);
 
-        var bindError = console.error.bind(console);
+  <app>
+    <div class="section loading">
+      <div class="container">
+        <p class="section-description">Loading the Experience...</p>
+      </div>
+    </div>
+  </app>
 
-        <!-- @if config.mode='bundle' -->
-        System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
-            return System.import('<!-- @echo config.systemjs.bundle.entryModule -->');
-        }).then(null, bindError);
-        <!-- @endif -->
-        <!-- @if config.mode='lazy' -->
-        System.import('<!-- @echo config.systemjs.lazy.entryFile -->').then(null, bindError);
-        <!-- @endif -->
-    </script>
+  <script src="/vendor/js/bundle.js"></script>
+  <script>
+    System.config(<!-- @echo config.systemjs.configString -->);
+    var bindError = console.error.bind(console);
+    <!-- @if config.mode='bundle' -->
+    System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
+      return System.import('<!-- @echo config.systemjs.bundle.entryModule -->');
+    }).then(null, bindError);
+    <!-- @endif -->
+    <!-- @if config.mode='lazy' -->
+    System.import('<!-- @echo config.systemjs.lazy.entryFile -->').then(null, bindError);
+    <!-- @endif -->
+  </script>
 </body>
 
 </html>
