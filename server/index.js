@@ -7,8 +7,12 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
+var compress = require('compression');
 var config = require('./config/app');
 var app = express();
+
+// Compress responses
+app.use(compress());
 
 // Request middleware
 app.use(require('./middleware/httpsRedirect'));
