@@ -104,64 +104,76 @@ You can set some configuration for TypeScript in `tsconfig.json` and in
 
 ## Build Configuration - `config.js`
 
-### `mode` (string)
+#### config.mode
 
-Choose whether you want to bundle foles or not.
+Type: `String`  
 
-- lazy
+Choose whether you want to bundle foles or not:
+
+- `lazy`
       Files will be concatinated to a single file (+1 vendor file).
 
-- bundle
+- `bundle`
       Only vendor files will be bundled, your app files will be lazy loaded.
 
-### `src` (string)
+#### config.stc
+
+Type: `String`  
 
 The folder, where the source files can be found, e.g. `./src` (no trailing slash!).
 
-### `dist` (string)
+#### config.dist
+
+Type: `String`  
 
 The folder, where the built app will go to. Again, do not use a trailing slash.
 
 > *dist* is short for *distribution*.
 
-### `watch` (string|array)
+#### config.watch
+
+Type: `String|Array`
 
 Define which files should or shouldn't be watched, when using `gulp watch`.
 You can use the [globbing pattern](https://www.npmjs.com/package/minimatch) here.
 
-### `systemjs` (object)
+#### config.systemjs
 
-Here we will configure [SystemJS](https://github.com/systemjs/systemjs),
+Type: `Object`  
+
+We will configure [SystemJS](https://github.com/systemjs/systemjs) here,
 the module loader used for the application.
 
-- config (object)
+- config `Object`
       Please refer to the
       [SystemJS documentation](https://github.com/systemjs/systemjs/tree/master/docs)
       for setting this property.
 
-### `ts` (object)
+#### config.ts
+
+Type: `Object`  
 
 Configure the TypeScript gulp task.
 
 > Please note, that the compiler configuration is set in `tsconfig.json`.
 
-- appBase (string)
+- appBase `String`
       This is the path of your JavaScript app **absolute from the dist folder**.
       It *must* look something like this: `/app` (no trailing slash!).
 
-- src (string|array)
+- src `String|Array`
       Globbing pattern to define all TypeScript files relative to `gulpfile.js`
 
-- base (string)
+- base `String`
       Similar to src, but only the base directory.
 
-- entry (string)
+- entry `String`
       The entry point (single file), where the TypeScript compiler will start.
 
-- dest (string)
+- dest `String`
       The destination where to save the compiled JavaScript files.
 
-- name (string)
+- name `String`
       The name of the file, if bundling is used instead of lazy for `mode`.
 
 > From now almost all `src` properties will support a string or an array. Please
@@ -170,93 +182,105 @@ Configure the TypeScript gulp task.
 > Also options like `dest` (for destination) are the same or very similar
 > than explained above.
 
-### `less` (object)
+#### config.less
+
+Type: `Object`  
 
 Configure the [less](http://lesscss.org) gulp task, to create CSS files
 from LESS files.
 
-- src (string)
+- src `String`
       No globbing supported.
 
-- dest (string)
+- dest `String`
 
-- name (string)
+- name `String`
 
-### `index` (object)
+##### config.index
+
+Type: `String`  
 
 Define the index file for the application.
 
-- src (string)
+- src `String`
       No globbing supported.
 
-- dest (string)
+- dest `String`
 
-- name (string)
+- name `String`
 
-### `icons` (object)
+##### config.icons
+
+Type: `Object`  
 
 This task takes SVG files, creates an icon font out of it and a CSS
 file to easily use them within the app.
 
-- name (string)
+- name `String`
       The name of the final CSS file.
 
-- src (string|array)
+- src `String|Array`
       Must match the filename used `cssDest`.
 
-- dest (string)
+- dest `String`
 
-- cssDest (string)
+- cssDest `String`
       Destination of the CSS file. This path must be relative to `dest`.
 
-- fontDest (string)
+- fontDest `String`
       Destination of the icon-font files. Must be relative to `cssDest`.
 
-- templatePath (string)
+- templatePath `String`
       Path to a template, used to create the CSS file.
 
-- fontName (string)
+- fontName `String`
 
-- cssClass (string)
+- cssClass `String`
 
-### `vendor` (object)
+#### config.vendor
+
+Type: `Object`  
 
 For faster builds, vendor files are only bundled into a single file,
 but not compiled by TypeScript. You can define those files here.
 
-- dest (string)
+- dest `String`
 
-- name (string)
+- name `String`
 
-- files (array)
-  - base (string)
+- files `Array<Object>`
+  - base `String`
         Define the base path of the vendor files, used in `src` or `devSrc`.
 
-  - src (array)
+  - src `Array<String>`
         Define the paths and file names, relative to `base`, beginning with a slash.
 
-  - devSrc (array)
+  - devSrc `Array<String>`
         If this property is set it will be used instead of `src`in a development build.
 
-### `assets` (object)
+#### config.assets
+
+Type: `Object`  
 
 Files to copy without further processing.
 
-- src (string|array)
+- src `String|Array<String>`
 
-- dest (string)
+- dest `String`
 
 
-### `copy` (array)
+#### config.copy
+
+Type: `Array<Object>`  
 
 Files to copy into a desired location, but only preserve the path from the set `base`.
 
-- base (string)
+- base `String`
       Only preserve the path in the location from the end of this path.
 
-- src (string|array)
+- src `String|Array<String>`
 
-- dest (string)
+- dest `String`
 
 ## Server Configuration - `server/index.js`
 
