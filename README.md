@@ -9,5 +9,5 @@ $ npm install -g gulp typings
 $ typings install
 $ npm install
 $ gulp build
-$ gulp serve
+$ npm start
 ```

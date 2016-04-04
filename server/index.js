@@ -1,3 +1,5 @@
+console.log('Starting server...');
+
 var env = require('node-env-file');
 env(__dirname + '/.env');
 
@@ -55,3 +57,6 @@ require('http').createServer(function (req, res) {
     res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
     res.end();
 }).listen(config.production ? 80 : 5001);
+
+console.log('Server listening at https://localhost:5000');
+console.log('');
