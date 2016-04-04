@@ -13,7 +13,8 @@ export class LandingComponent implements OnInit {
 
   // The private _router property is set automatically
   public constructor(private _router: Router) {
-    console.log('Entered LandingComponent constructor.');
+    // Just an example that we could inject the router and
+    // manually change route
   }
 
   public ngOnInit() {
