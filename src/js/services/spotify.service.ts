@@ -6,9 +6,9 @@ import { PLAYLIST } from '../mock/playlist';
 @Injectable()
 export class SpotifyService {
 
-  public getRandomPlaylist() {
+  public getRandomPlaylist(): Promise<Playlist[]> {
     return new Promise<Playlist[]>(resolve =>
-      setTimeout(() => resolve(PLAYLIST), 2000)
+      setTimeout(() => resolve(PLAYLIST), 500)
       );
   }
 

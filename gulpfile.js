@@ -317,9 +317,9 @@ gulp.task('bundle:vendor', function(done) {
     .pipe(gulpif(config.env !== 'production', sourcemaps.init({
       loadMaps: false
     }).on('error', onError)))
-    .pipe(concat('bundle.js'))
+    .pipe(concat(config.vendor.name))
     .pipe(uglify({
-      mangle: true
+      mangle: config.vendor.mangle
     }))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
     .pipe(gulp.dest(config.vendor.dest));

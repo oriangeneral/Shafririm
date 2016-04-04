@@ -182,6 +182,8 @@ config.icons = {
 */
 config.vendor = {
     dest: config.dist + '/vendor/js',
+    name: 'bundle.js',
+    mangle: true,
 
     files: [{
         base: './node_modules/systemjs/dist',
@@ -207,8 +209,8 @@ config.vendor = {
     }, {
         base: './node_modules/angular2/bundles',
         src: [
-            '/angular2.dev.js',
-            '/router.dev.js'
+            '/angular2.js',
+            '/router.js'
         ]
     }]
 };
