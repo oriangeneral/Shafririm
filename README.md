@@ -18,9 +18,11 @@ $ gulp build
 $ npm start
 ```
 
-# CLI
+# Documentation
 
-## Node Package Manager - `npm`
+## CLI
+
+### Node Package Manager - `npm`
 
 We use npm to install dependencies and to bring up a server.  
 We just need [gulp](http://gulpjs.com) and [typings](https://github.com/typings/typings) to be installed globally, by using the `-g` flag.
@@ -46,9 +48,9 @@ To **start the sever** type:
 $ npm start
 ```
 
-## Gulp Tasks - `gulp`
+### Gulp Tasks - `gulp`
 
-### Production Build
+#### Production Build
 
 The production build should be used, to compile the app for **deployment**.
 It will do it's best to keep the target files as small as possible.
@@ -57,7 +59,7 @@ It will do it's best to keep the target files as small as possible.
 $ gulp dev-build
 ```
 
-### Development Build
+#### Development Build
 
 A development build performs almost the same tasks as a production build, but
 **debugging** the application is a lot easier.
@@ -66,7 +68,7 @@ A development build performs almost the same tasks as a production build, but
 $ gulp dev-build
 ```
 
-### Watch Changes
+#### Watch Changes
 
 To make it easier and, most important, faster to compile changes use the
 watch task. It will perform a dev-build on the first run, but will
@@ -80,7 +82,7 @@ $ gulp watch
 > You may also execute `gulp watch-build` to execute a very basic build. Files
 form a development or production build must already exists in the dist folder.
 
-## Typings - `typings`
+### Typings - `typings`
 
 Typings are used to tell the [TypeScript](https://www.typescriptlang.org)
 compiler about definitions. You can **search** for definitions like this:
@@ -97,12 +99,12 @@ $ typings install es6-shim --ambient --save
 
 > Definitions will be referenced automatically in the entry TypeScript file.
 
-# Configuration
+## Configuration
 
 You can set some configuration for TypeScript in `tsconfig.json` and in
 `tslint.json`. All other configuration can be found in `config.js`.
 
-## Build Configuration - `config.js`
+### Build Configuration - `config.js`
 
 #### config.mode
 
@@ -132,7 +134,7 @@ The folder, where the built app will go to. Again, do not use a trailing slash.
 
 #### config.watch
 
-Type: `String|Array`
+Type: `String|Array<String>`
 
 Define which files should or shouldn't be watched, when using `gulp watch`.
 You can use the [globbing pattern](https://www.npmjs.com/package/minimatch) here.
@@ -161,7 +163,7 @@ Configure the TypeScript gulp task.
       This is the path of your JavaScript app **absolute from the dist folder**.
       It *must* look something like this: `/app` (no trailing slash!).
 
-- src `String|Array`
+- src `String|Array<String>`
       Globbing pattern to define all TypeScript files relative to `gulpfile.js`
 
 - base `String`
@@ -196,7 +198,7 @@ from LESS files.
 
 - name `String`
 
-##### config.index
+#### config.index
 
 Type: `String`  
 
@@ -209,7 +211,7 @@ Define the index file for the application.
 
 - name `String`
 
-##### config.icons
+#### config.icons
 
 Type: `Object`  
 
@@ -219,7 +221,7 @@ file to easily use them within the app.
 - name `String`
       The name of the final CSS file.
 
-- src `String|Array`
+- src `String|Array<String>`
       Must match the filename used `cssDest`.
 
 - dest `String`
@@ -282,14 +284,14 @@ Files to copy into a desired location, but only preserve the path from the set `
 
 - dest `String`
 
-## Server Configuration - `server/index.js`
+### Server Configuration - `server/index.js`
 
 You can set environment variables in `server/.env` (not included in this repo).
 Copy `server/.env.example` and rename it to `.env`.
 
 > Documentation for this chapter will be added in the future.
 
-# Application
+## Application
 
 The `index.html` and all TypeScript files are processed by
 [gulp-preprocess](https://github.com/jas/gulp-preprocess).
