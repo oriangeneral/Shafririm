@@ -8,6 +8,6 @@ $ cd hue
 $ npm install -g gulp typings
 $ typings install
 $ npm install
-$ gulp dev-build
+$ gulp build
 $ gulp serve
 ```

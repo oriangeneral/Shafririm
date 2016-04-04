@@ -150,6 +150,27 @@ config.index = {
     name: 'index.html'
 };
 
+
+/*
+|--------------------------------------------------------------------------
+| Iconfont Configuration
+|--------------------------------------------------------------------------
+|
+| Set all required configurations for creating an
+| iconfont and the CSS from SVGs.
+|
+*/
+config.icons = {
+    src: './node_modules/flat-color-icons/svg/*.svg',
+    dest: config.dist + '/fonts',
+    cssDest: '../css/icons.css', // relative to dest
+    fontDest: '../fonts/icons', // relative to cssDest
+    templatePath: './node_modules/gulp-iconfont-css/templates/_icons.css',
+    fontName: 'Icons',
+    cssClass: 'icon'
+};
+
+
 /*
 |--------------------------------------------------------------------------
 | Vendor JavaScript Files
