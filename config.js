@@ -96,7 +96,7 @@ config.systemjs.configString = JSON.stringify(config.systemjs.config);
 
 /*
 |--------------------------------------------------------------------------
-| Additional TypeScript Configuration
+| TypeScript Configuration
 |--------------------------------------------------------------------------
 |
 | Define the source and destination path, as well as the
@@ -161,7 +161,7 @@ config.index = {
 |
 */
 config.icons = {
-    name: 'icons.css', // must match with cssDest
+    name: 'icons.css', // must match with the filename used in cssDest
     src: './node_modules/flat-color-icons/svg/*.svg',
     dest: config.dist + '/fonts',
     cssDest: '../css/icons.css', // relative to dest
