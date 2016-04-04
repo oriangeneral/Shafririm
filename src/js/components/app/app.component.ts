@@ -3,7 +3,7 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 
 import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
-
+import { QuizService } from '../../services/quiz.service';
 import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
@@ -15,7 +15,8 @@ import { SpotifyService } from '../../services/spotify.service';
   ],
   providers: [
     ROUTER_PROVIDERS,
-    SpotifyService
+    SpotifyService,
+    QuizService
   ]
 })
 @RouteConfig([
@@ -34,7 +35,7 @@ import { SpotifyService } from '../../services/spotify.service';
 export class AppComponent implements OnInit {
 
   public ngOnInit() {
-    console.log('App was bootstrapped.');
+    // App was bootstrapped
   }
 
 }

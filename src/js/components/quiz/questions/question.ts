@@ -1,18 +1,12 @@
-import { NgIf } from 'angular2/common';
-
 import { QuizService } from '../../../services/quiz.service';
+import { PlayComponent } from './play/play.component';
+import { SelectComponent } from './select/select.component';
 
 export class Question {
 
   private _questionNumber: number = 0;
 
-  public constructor(public quizService: QuizService) {
-    console.log('question super constructor');
-  }
-
-  public logSomething() {
-    console.log('testing');
-  }
+  public constructor(public quizService: QuizService) { }
 
   get questionNumber(): number {
     return this._questionNumber;
@@ -24,12 +18,8 @@ export class Question {
 
 }
 
-export let HostConfig: { [key: string]: string; } = {
+export const QUESTION_HOST: { [key: string]: string; } = {
   'class': 'question',
   // '*ngIf': 'quizService.activeQuestion === questionNumber', // not working (yet?)
   '[hidden]': 'quizService.activeQuestion !== questionNumber'
 };
-
-export let DirectivesConfig = [
-  NgIf
-];
