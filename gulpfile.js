@@ -123,7 +123,8 @@ gulp.task('clean:vendor', function() {
 gulp.task('clean:styles', function() {
   return gulp.src([
       config.dist + '/css/**/*.css',
-      config.dist + '/css/**/*.map'
+      config.dist + '/css/**/*.map',
+      '!' + config.dist + '/**/*/' + config.icons.name
     ], {
       read: false
     })
@@ -183,7 +184,7 @@ gulp.task('typescript:main', function() {
       'cwd': './'
     })
     .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-      loadMaps: false
+      loadMaps: true
     }).on('error', onError)))
     .pipe(preprocess({
       context: {
@@ -222,7 +223,7 @@ gulp.task('typescript:main', function() {
     .pipe(rename(function(p) {
       p.dirname = p.dirname.replace(base, './');
     }).on('error', onError))
-    .pipe( /*gulpif(config.env === 'production', */ uglify().on('error', onError) /*)*/ )
+    .pipe(gulpif(config.env === 'production', uglify().on('error', onError)))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
     .pipe(gulp.dest(config.ts.dest))
 });
@@ -308,18 +309,20 @@ gulp.task('bundle:vendor', function(done) {
     g = gulp;
 
   src.forEach(function(element, index) {
-    element.src.forEach(function(path) {
+    var useSrc = config.env !== 'production' && element.devSrc ? element.devSrc : element.src;
+
+    useSrc.forEach(function(path) {
       sources.push(element.base + path);
     });
   });
 
   return gulp.src(sources)
     .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-      loadMaps: false
+      loadMaps: true
     }).on('error', onError)))
     .pipe(concat(config.vendor.name))
     .pipe(uglify({
-      mangle: config.vendor.mangle
+      mangle: config.env === 'production'
     }))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
     .pipe(gulp.dest(config.vendor.dest));
@@ -464,6 +467,10 @@ function requireIfExists(nodeModule, fallbackModule) {
 |     Runs all required typescript tasks.
 |
 */
+gulp.task('master', function(done) {
+  return gulpSequence('lint', 'clean:all', ['tasks', 'bundle', 'iconfont'])(done);
+});
+
 gulp.task('tasks', function(done) {
   return gulpSequence(['copy', 'typescript', 'less'])(done);
 });
@@ -501,6 +508,10 @@ gulp.task('typescript', function(done) {
 |
 | - dev-build
 |     Performs a development build.
+|     A dev build performs the same tasks as
+|     a prod build, but with the env set to
+|     dev, which may result in different
+|     behaviors in tasks.
 |
 | - watch-build
 |     Tasks that should run if a file changes.
@@ -515,15 +526,15 @@ gulp.task('typescript', function(done) {
 |
 */
 gulp.task('build', function(done) {
-  return gulpSequence('set-prod', 'start', 'lint', 'clean:all', ['tasks', 'bundle', 'iconfont'], 'finish')(done);
+  return gulpSequence('set-prod', 'start', 'master', 'finish')(done);
 });
 
 gulp.task('dev-build', function(done) {
-  return gulpSequence('set-dev', 'start', 'lint', 'clean:default', ['tasks', 'iconfont'], 'finish')(done);
+  return gulpSequence('set-dev', 'start', 'master', 'finish')(done);
 });
 
 gulp.task('watch-build', function(done) {
-  return gulpSequence('set-dev', 'start', 'lint', 'clean:default', ['tasks',  'iconfont'], 'finish')(done);
+  return gulpSequence('set-dev', 'start', 'lint', 'clean:default', ['tasks'], 'finish')(done);
 });
 
 gulp.task('watch', function() {

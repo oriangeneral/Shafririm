@@ -161,6 +161,7 @@ config.index = {
 |
 */
 config.icons = {
+    name: 'icons.css', // must match with cssDest
     src: './node_modules/flat-color-icons/svg/*.svg',
     dest: config.dist + '/fonts',
     cssDest: '../css/icons.css', // relative to dest
@@ -179,11 +180,13 @@ config.icons = {
 | For faster builds, vendor files are only bundled into a single file,
 | but not compiled by TypeScript.
 |
+| If 'devSrc' is specified alongside 'src', 'devSrc' will be used, if
+| the environment is NOT in production.
+|
 */
 config.vendor = {
     dest: config.dist + '/vendor/js',
     name: 'bundle.js',
-    mangle: true,
 
     files: [{
         base: './node_modules/systemjs/dist',
@@ -208,6 +211,10 @@ config.vendor = {
         ]
     }, {
         base: './node_modules/angular2/bundles',
+        devSrc: [
+          '/angular2.dev.js',
+          '/router.dev.js'
+        ],
         src: [
             '/angular2.js',
             '/router.js'
