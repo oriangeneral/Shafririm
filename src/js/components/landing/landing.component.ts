@@ -5,7 +5,7 @@ import { AnimationService } from '../../services/animation.service';
 
 @Component({
   selector: 'landing',
-  styleUrls: ['./landing.less'],
+  styleUrls: ['./landing.less', './landing-animations.less'],
   templateUrl: './landing.html',
   directives: [
     RouterLink

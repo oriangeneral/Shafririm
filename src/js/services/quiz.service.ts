@@ -44,7 +44,7 @@ export class QuizService {
     }).then(() => this.totalQuestions);
   }
 
-  public nextQuestion() {
+  public nextQuestion(e) {
     this._activeQuestion++;
   }
 

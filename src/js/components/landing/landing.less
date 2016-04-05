@@ -1,33 +1,54 @@
-/*:host {
-  display: inline-block;
-  position: fixed;
-  width: 100%;
-
-  // fix for chrome and occassionally skipped animations
-  transition: all ease-in 0.2s;
-}*/
-
-.section-heading {
-  animation: fadeInDown 1s;
+.section {
+  padding: 8rem 0 7rem;
+  text-align: center;
 }
 
-.section-description {
-  animation: fadeInUp 1s;
+h3.section-heading {
+  font-size: 4.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.button-wrapper {
-  display: inline-block;
-  opacity: 0; // invisible for delay
-  animation: fadeInUp 0.6s 0.6s; // duration: 0.6s, delay: 0.5s
-  animation-fill-mode: forwards; // keep visibility
+p.section-description {
+  margin: 0 auto;
+  font-size: 1.8rem;
+  margin-bottom: 8rem;
 }
 
-.button {
-  opacity: 1;
-  animation: swing 0.6s 0.1s;
+.section.landing {
+  padding-top: 20%;
 }
 
-.button:hover {
-  opacity: 1;
-  animation: pulse 0.6s 0.1s;
+/* Mobile first queries */
+
+/* Larger than mobile */
+@media (min-width: 400px) {
+
+}
+
+/* Larger than phablet */
+@media (min-width: 550px) {
+  p.section-description {
+    width: 70%;
+    font-size: 2rem;
+  }
+}
+
+/* Larger than tablet */
+@media (min-width: 750px) {
+  h3.section-heading {
+    font-size: 4.6rem;
+  }
+}
+
+/* Larger than desktop */
+@media (min-width: 1000px) {
+  h3.section-heading {
+    font-size: 6rem;
+  }
+}
+
+/* Larger than Desktop HD */
+@media (min-width: 1200px) {
+
 }

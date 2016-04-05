@@ -1,5 +1,9 @@
-Showing the first question<br>
-no: {{questionNumber}}<br>
-active: {{quizService.activeQuestion}}
-<br><br>
-<a (click)="quizService.nextQuestion()">Next Question</a>
+<card cardType="4">
+  <div class="content">
+    <h3>Question {{ questionNumber }} of {{ quizService.activeQuestion }}</h3> Showing a select question
+    <br>
+    <br>
+    <span class="button-wrapper"><a (click)="quizService.nextQuestion()" class="button button-primary">Next Question</a></span>
+    <br>
+  </div>
+</card>
