@@ -1,6 +1,15 @@
+html, body {
+  height: 100%;
+}
+
 body {
-  font-family: 'Patua One', cursive;
-  // font-family: 'Bevan', cursive;
+  // font-family: 'Patua One', cursive;
+  font-family: 'Chivo', Helvetica, Arial, sans-serif;
+  background: linear-gradient(45deg, #28d6c4 0, #21f4b4 100%);
+  background: linear-gradient(45deg, #d366d6 0, #21f4b4 100%);
+  background: linear-gradient(45deg, rgba(211, 102, 214, 0.76) 0, #3af4d3 100%);
+  background-color: #57c1ff;
+  color: #fff;
 }
 
 a {
@@ -12,19 +21,59 @@ a {
   text-align: center;
 }
 
+h3.section-heading {
+  font-size: 4.6rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+p.section-description {
+  margin: 0 auto;
+  font-size: 1.8rem;
+  margin-bottom: 8rem;
+}
+
+.section.landing {
+  padding-top: 20%;
+}
+
+a.button.button-custom {
+  border: 2px solid #fffd6a;
+  font-size: 14px;
+  height: 41px;
+  color: #fffd6a;
+}
+
 /* Mobile first queries */
 
 /* Larger than mobile */
-@media (min-width: 400px) {}
+@media (min-width: 400px) {
+
+}
 
 /* Larger than phablet */
-@media (min-width: 550px) {}
+@media (min-width: 550px) {
+  p.section-description {
+    width: 70%;
+    font-size: 2rem;
+  }
+}
 
 /* Larger than tablet */
-@media (min-width: 750px) {}
+@media (min-width: 750px) {
+  h3.section-heading {
+    font-size: 4.6rem;
+  }
+}
 
 /* Larger than desktop */
-@media (min-width: 1000px) {}
+@media (min-width: 1000px) {
+  h3.section-heading {
+    font-size: 6rem;
+  }
+}
 
 /* Larger than Desktop HD */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+
+}

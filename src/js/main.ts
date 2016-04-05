@@ -2,6 +2,7 @@
 /// <reference path="../../typings/browser.d.ts" />
 
 import { bootstrap } from 'angular2/platform/browser';
+import { AnimationService } from './services/animation.service';
 import { AppComponent } from './components/app/app.component';
 
 /* @if config.env='production' **
@@ -9,4 +10,6 @@ import { AppComponent } from './components/app/app.component';
   enableProdMode();
 /* @endif */
 
-bootstrap(AppComponent, []).catch(err => console.error(err));
+bootstrap(AppComponent, [
+  AnimationService
+]).catch(err => console.error(err));

@@ -1,5 +1,7 @@
-import { Component, OnInit } from 'angular2/core';
-import { Router, RouterLink } from 'angular2/router';
+import { Component, ElementRef, AfterViewInit } from 'angular2/core';
+import { RouterLink } from 'angular2/router';
+
+import { AnimationService } from '../../services/animation.service';
 
 @Component({
   selector: 'landing',
@@ -9,16 +11,27 @@ import { Router, RouterLink } from 'angular2/router';
     RouterLink
   ]
 })
-export class LandingComponent implements OnInit {
+export class LandingComponent implements AfterViewInit {
 
-  // The private _router property is set automatically
-  public constructor(private _router: Router) {
-    // Just an example that we could inject the router and
-    // manually change route
-  }
+  public constructor(
+    private _elementRef: ElementRef,
+    private _animationService: AnimationService
+  ) { }
 
-  public ngOnInit() {
-    // Get some data here for example
+  public ngAfterViewInit() {
+    let animation = this._animationService.builder();
+
+    animation.setDuration(0)
+      .setFromStyles({
+        opacity: 0
+      })
+      .setToStyles({
+        opacity: 1
+      })
+      .addAnimationClass('animated')
+      .addAnimationClass('fadeInDown');
+
+    // animation.start(this._elementRef.nativeElement);
   }
 
 }
