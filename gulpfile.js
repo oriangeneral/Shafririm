@@ -194,7 +194,7 @@ gulp.task('typescript:main', function() {
     .pipe(gulpif(config.mode === 'lazy', ng2RelativePath({
       base: config.ts.base,
       appBase: config.ts.appBase,
-      modifyPath: function(path) {
+      modifyStylePath: function(path) {
         return path.replace('.less', '.css');
       }
     }).on('error', onError)).on('error', onError))
