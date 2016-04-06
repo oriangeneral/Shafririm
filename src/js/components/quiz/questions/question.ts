@@ -1,6 +1,4 @@
 import { QuizService } from '../../../services/quiz.service';
-import { PlayComponent } from './play/play.component';
-import { SelectComponent } from './select/select.component';
 
 export class Question {
 

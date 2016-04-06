@@ -6,6 +6,7 @@ import { QuestionsComponent } from './questions.component';
 @Component({
   selector: 'quiz',
   templateUrl: './quiz.html',
+  styleUrls: ['./quiz.less'],
   directives: [
     RouterOutlet
   ]

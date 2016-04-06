@@ -223,7 +223,9 @@ gulp.task('typescript:main', function() {
     .pipe(rename(function(p) {
       p.dirname = p.dirname.replace(base, './');
     }).on('error', onError))
-    .pipe(gulpif(config.env === 'production', uglify().on('error', onError)))
+    .pipe(gulpif(config.env === 'production', uglify({
+      mangle: config.ts.mangle
+    }).on('error', onError)))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
     .pipe(gulp.dest(config.ts.dest))
 });
@@ -321,9 +323,9 @@ gulp.task('bundle:vendor', function(done) {
       loadMaps: true
     }).on('error', onError)))
     .pipe(concat(config.vendor.name))
-    .pipe(uglify({
-      mangle: config.env === 'production'
-    }))
+    .pipe(gulpif(config.env === 'production', uglify({
+      mangle: config.vendor.mangle
+    })))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
     .pipe(gulp.dest(config.vendor.dest));
 });

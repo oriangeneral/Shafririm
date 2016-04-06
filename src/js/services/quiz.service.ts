@@ -3,6 +3,8 @@ import { Injectable, Inject, DynamicComponentLoader, ElementRef, ComponentRef } 
 import { Playlist } from '../models/playlist';
 import { SpotifyService } from './spotify.service';
 
+// import { PlayComponent } from '../components/quiz/questions/play/play.component';
+// import { SelectComponent } from '../components/quiz/questions/select/select.component';
 import * as Questions from '../components/quiz/questions/questions';
 
 @Injectable()
@@ -16,7 +18,7 @@ export class QuizService {
   constructor(
     private _dcl: DynamicComponentLoader,
     private _spotifyService: SpotifyService
-  ) { }
+    ) { }
 
   public init(elementRef: ElementRef): Promise<number> {
     this._elementRef = elementRef;
@@ -38,13 +40,16 @@ export class QuizService {
       compRef.instance.questionNumber = 1;
       this.totalQuestions++;
       return this._dcl.loadIntoLocation(Questions.PlayComponent, this._elementRef, 'questions');
-    }).then((compRef: ComponentRef) => {
+    })
+      .then((compRef: ComponentRef) => {
       this.totalQuestions++;
       compRef.instance.questionNumber = 2;
-    }).then(() => this.totalQuestions);
+    })
+      .catch((e) => console.log('Error while loading question cards', e))
+      .then(() => this.totalQuestions);
   }
 
-  public nextQuestion() {
+  public nextQuestion(e) {
     this._activeQuestion++;
   }
 

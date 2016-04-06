@@ -1,5 +1,9 @@
-Another Question<br>
-no: {{questionNumber}}<br>
-active: {{quizService.activeQuestion}}
-<br><br>
-<a (click)="quizService.previousQuestion()">Previous Question</a>
+<card cardType="4">
+  <div class="content">
+    <h3>Question {{ questionNumber }} of {{ quizService.totalQuestions }}</h3> Showing a play question
+    <br>
+    <br>
+    <span class="button-wrapper"><a (click)="quizService.previousQuestion()" class="button button-primary">Previous Question</a></span>
+    <br>
+  </div>
+</card>

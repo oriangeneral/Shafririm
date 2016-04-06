@@ -3,10 +3,16 @@ import { Component } from 'angular2/core';
 import { QuizService } from '../../../../services/quiz.service';
 import { Question, QUESTION_HOST } from '../question';
 
+import { CardComponent } from '../../../card/card.component';
+
 @Component({
-  selector: 'question-play',
+  selector: 'question-select',
   templateUrl: './play.html',
-  host: QUESTION_HOST
+  styleUrls: ['./play.less'],
+  host: QUESTION_HOST,
+  directives: [
+    CardComponent
+  ]
 })
 export class PlayComponent extends Question {
 

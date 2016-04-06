@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/css/icons.css">
   <link rel="stylesheet" href="/css/app.css">
-  <link href='//fonts.googleapis.com/css?family=Patua+One' rel='stylesheet' type='text/css'>
+  <link href='//fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
@@ -26,16 +26,16 @@
 
   <script src="/vendor/js/bundle.js"></script>
   <script>
-    System.config(<!-- @echo config.systemjs.configString -->);
-    var bindError = console.error.bind(console);
-    <!-- @if config.mode='bundle' -->
-    System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
-      return System.import('<!-- @echo config.systemjs.bundle.entryModule -->');
-    }).then(null, bindError);
-    <!-- @endif -->
-    <!-- @if config.mode='lazy' -->
-    System.import('<!-- @echo config.systemjs.lazy.entryFile -->').then(null, bindError);
-    <!-- @endif -->
+    System.config( <!-- @echo config.systemjs.configString -->);
+        var bindError = console.error.bind(console);
+        <!-- @if config.mode='bundle' -->
+        System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
+          return System.import('<!-- @echo config.systemjs.bundle.entryModule -->');
+        }).then(null, bindError);
+        <!-- @endif -->
+        <!-- @if config.mode='lazy' -->
+        System.import('<!-- @echo config.systemjs.lazy.entryFile -->').then(null, bindError);
+        <!-- @endif -->
   </script>
 </body>
 
