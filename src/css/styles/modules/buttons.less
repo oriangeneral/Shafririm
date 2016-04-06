@@ -2,10 +2,45 @@
 // Buttons, or button like elements go here
 //
 
+button,
+a.button {
 
-a.button.button-custom {
-  border: 2px solid @yellow-500;
-  font-size: 14px;
-  height: 41px;
-  color: @yellow-500;
+  background-color: transparent;
+  border: 2px solid @color-main;
+  color: inherit;
+
+  &.button-primary:hover {
+    transition: all @duration-main @transition-type-main;
+  }
+
+  &.button-error {
+    border-color: @color-error;
+    background-color: transparent;
+    color: @color-error;
+
+    &:hover {
+      transition: all @duration-main @transition-type-main;
+      border-color: transparent;
+      background-color: @color-error;
+      color: @color-inverted;
+    }
+  }
+
+  &.button-success {
+    border-color: @color-success;
+    background-color: transparent;
+    color: @color-success;
+
+    &:hover {
+      transition: all @duration-main @transition-type-main;
+      border-color: transparent;
+      background-color: @color-success;
+      color: @color-inverted;
+    }
+  }
+
+  &.button-custom {
+    border-color: @yellow-500;
+    color: @yellow-500;
+  }
 }
