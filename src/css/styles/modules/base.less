@@ -1,0 +1,36 @@
+*:not(script) + * {
+  margin-top: 2em;
+}
+
+html {
+  font-size: 10px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: 'Chivo', Helvetica, Arial, sans-serif;
+  background: linear-gradient(45deg, @green-700 0, @turquoise-300 100%);
+  background-color: @blue-300;
+  color: @color-inverted;
+  font-size: 1.6em
+}
+
+.section.loading {
+  padding: 20rem 0 7rem;
+  text-align: center;
+}
+/* Mobile first queries */
+/* Larger than mobile */
+@media (min-width: @screen-xs) {}
+/* Larger than phablet */
+@media (min-width: @screen-s) {}
+/* Larger than tablet */
+@media (min-width: @screen-m) {}
+/* Larger than desktop */
+@media (min-width: @screen-l) {}
+/* Larger than Desktop HD */
+@media (min-width: @screen-xl) {}

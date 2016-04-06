@@ -38,7 +38,7 @@ var config = config || {};
 |     Files will be lazy loaded (for use with HTTP2)
 |
 */
-config.mode = 'bundle';
+config.mode = 'lazy';
 
 
 /*
