@@ -3,9 +3,9 @@
     <h3 class="section-heading"></h3>
     <p class="section-description">
 
-      <questions #questionsComponent>
-        <question *ngFor="#number of questionsComponent.questionsToCreate" #questionComponent>
-          Question {{ questionComponent.number }}
+      <questions #questions>
+        <question *ngFor="#number of questions.questionsToCreate()" #question>
+          Question {{ question.number }}
         </question>
       </questions>
 

@@ -104,7 +104,14 @@ $ typings install es6-shim --ambient --save
 You can set some configuration for TypeScript in `tsconfig.json` and in
 `tslint.json`. All other configuration can be found in `config.js`.
 
+> Most `src` properties will support a string or an array if not stated otherwise.
+> Please refer to the `config.js` default values to learn more about how to provide
+> the correct values.
+
 ### Build Configuration - `config.js`
+
+Please take a look at the `config.js` file comment's on the configuration
+properties for more detailed explanations.
 
 #### config.mode
 
@@ -144,12 +151,10 @@ You can use the [globbing pattern](https://www.npmjs.com/package/minimatch) here
 Type: `Object`  
 
 We will configure [SystemJS](https://github.com/systemjs/systemjs) here,
-the module loader used for the application.
+the module loader used for the application.  
 
-- config `Object`
-      Please refer to the
-      [SystemJS documentation](https://github.com/systemjs/systemjs/tree/master/docs)
-      for setting this property.
+[SystemJS documentation](https://github.com/systemjs/systemjs/tree/master/docs)
+for setting this property.
 
 #### config.ts
 
@@ -159,31 +164,6 @@ Configure the TypeScript gulp task.
 
 > Please note, that the compiler configuration is set in `tsconfig.json`.
 
-- appBase `String`
-      This is the path of your JavaScript app **absolute from the dist folder**.
-      It *must* look something like this: `/app` (no trailing slash!).
-
-- src `String|Array<String>`
-      Globbing pattern to define all TypeScript files relative to `gulpfile.js`
-
-- base `String`
-      Similar to src, but only the base directory.
-
-- entry `String`
-      The entry point (single file), where the TypeScript compiler will start.
-
-- dest `String`
-      The destination where to save the compiled JavaScript files.
-
-- name `String`
-      The name of the file, if bundling is used instead of lazy for `mode`.
-
-> From now almost all `src` properties will support a string or an array. Please
-> refer to the `config.js` default values to learn more about how to provide
-> the correct values.
-> Also options like `dest` (for destination) are the same or very similar
-> than explained above.
-
 #### config.less
 
 Type: `Object`  
@@ -191,25 +171,11 @@ Type: `Object`
 Configure the [less](http://lesscss.org) gulp task, to create CSS files
 from LESS files.
 
-- src `String`
-      No globbing supported.
-
-- dest `String`
-
-- name `String`
-
 #### config.index
 
 Type: `String`  
 
 Define the index file for the application.
-
-- src `String`
-      No globbing supported.
-
-- dest `String`
-
-- name `String`
 
 #### config.icons
 
@@ -218,27 +184,6 @@ Type: `Object`
 This task takes SVG files, creates an icon font out of it and a CSS
 file to easily use them within the app.
 
-- name `String`
-      The name of the final CSS file.
-
-- src `String|Array<String>`
-      Must match the filename used `cssDest`.
-
-- dest `String`
-
-- cssDest `String`
-      Destination of the CSS file. This path must be relative to `dest`.
-
-- fontDest `String`
-      Destination of the icon-font files. Must be relative to `cssDest`.
-
-- templatePath `String`
-      Path to a template, used to create the CSS file.
-
-- fontName `String`
-
-- cssClass `String`
-
 #### config.vendor
 
 Type: `Object`  
@@ -246,29 +191,11 @@ Type: `Object`
 For faster builds, vendor files are only bundled into a single file,
 but not compiled by TypeScript. You can define those files here.
 
-- dest `String`
-
-- name `String`
-
-- files `Array<Object>`
-  - base `String`
-        Define the base path of the vendor files, used in `src` or `devSrc`.
-
-  - src `Array<String>`
-        Define the paths and file names, relative to `base`, beginning with a slash.
-
-  - devSrc `Array<String>`
-        If this property is set it will be used instead of `src`in a development build.
-
 #### config.assets
 
 Type: `Object`  
 
 Files to copy without further processing.
-
-- src `String|Array<String>`
-
-- dest `String`
 
 
 #### config.copy
@@ -276,13 +203,6 @@ Files to copy without further processing.
 Type: `Array<Object>`  
 
 Files to copy into a desired location, but only preserve the path from the set `base`.
-
-- base `String`
-      Only preserve the path in the location from the end of this path.
-
-- src `String|Array<String>`
-
-- dest `String`
 
 ### Server Configuration - `server/index.js`
 

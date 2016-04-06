@@ -17,12 +17,22 @@ import { QuestionComponent } from '../questions/question/question.component';
   ]
 })
 export class QuizComponent implements AfterViewInit {
-  @ViewChild(QuestionsComponent)
-  public questionsComponent: QuestionsComponent;
 
-  constructor(@Inject(QuizService) public quizService: QuizService) { }
+  @ViewChild(QuestionsComponent)
+  private _questionsComponent: QuestionsComponent;
+
+  constructor( @Inject(QuizService) private _quizService: QuizService) { }
 
   public ngAfterViewInit() {
     this.quizService.questionsComponent = this.questionsComponent;
   }
+
+  get quizService(): QuizService {
+    return this._quizService;
+  }
+
+  get questionsComponent(): QuestionsComponent {
+    return this._questionsComponent;
+  }
+
 }

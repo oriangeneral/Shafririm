@@ -12,39 +12,36 @@ import { times } from '../../helpers/common';
 })
 export class QuestionsComponent {
 
-  public _questions: QuestionComponent[] = [];
-  private _questionsCount = 0;
-  private _activeQuestion = 0;
+  private _questions: QuestionComponent[] = [];
+  private _activeQuestion: QuestionComponent = null;
 
-  constructor( @Inject(QuizService) public quizService: QuizService) { }
+  constructor( @Inject(QuizService) private _quizService: QuizService) { }
 
   public addQuestion(question: QuestionComponent) {
-    this._questionsCount++;
-
-    if (this._questions.length === 0) {
+    if (this.questions.length === 0) {
       question.active = true;
-      this._activeQuestion = this._questionsCount;
+      this._activeQuestion = question;
     }
 
-    question.number = this._questionsCount;
-    this._questions.push(question);
+    question.number = this.questionsCount + 1;
+    this.questions.push(question);
   }
 
   public activateQuestion(question: QuestionComponent) {
-    this._questions.forEach((qu) => {
+    this.questions.forEach((qu) => {
       qu.active = false;
     });
 
-    this._activeQuestion = question.number;
+    this._activeQuestion = question;
     question.active = true;
   }
 
   public activateQuestionByNumber(number: number) {
-    if (number > this._questionsCount || number < 1) {
+    if (number > this.questionsCount || number < 1) {
       return;
     }
 
-    this.activateQuestion(this._questions[number - 1]);
+    this.activateQuestion(this.questions[number - 1]);
   }
 
   public nextQuestion() {
@@ -52,7 +49,7 @@ export class QuestionsComponent {
       return;
     }
 
-    this.activateQuestionByNumber(this._activeQuestion + 1);
+    this.activateQuestionByNumber(this.activeQuestion.number + 1);
   }
 
   public previousQuestion() {
@@ -60,29 +57,41 @@ export class QuestionsComponent {
       return;
     }
 
-    this.activateQuestionByNumber(this._activeQuestion - 1);
+    this.activateQuestionByNumber(this.activeQuestion.number - 1);
   }
 
   public hasNextQuestion() {
-    return (this._activeQuestion + 1 <= this._questionsCount);
+    return (this.activeQuestion.number + 1 <= this.questionsCount);
   }
 
   public hasPreviousQuestion() {
-    return (this._activeQuestion - 1 > 0);
+    return (this.activeQuestion.number - 1 > 0);
   }
 
-  get totalQuestions(): number {
-    return this._questionsCount = this._questions.length;
+  public totalQuestions(): number {
+    return this.questions.length;
   }
 
-  get activeQuestion(): QuestionComponent {
-    return this._questions[this._activeQuestion - 1];
-  }
-
-  get questionsToCreate(): number[] {
+  public questionsToCreate(): number[] {
     let arr: number[] = [];
     times(this.quizService.totalQuestions, (i) => arr.push(i));
     return arr;
+  }
+
+  get activeQuestion(): QuestionComponent {
+    return this._activeQuestion;
+  }
+
+  get questionsCount(): number {
+    return this._questions.length;
+  }
+
+  get quizService(): QuizService {
+    return this._quizService;
+  }
+
+  get questions(): QuestionComponent[] {
+    return this._questions;
   }
 
 }

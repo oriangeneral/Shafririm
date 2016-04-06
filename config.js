@@ -123,7 +123,9 @@ config.ts = assign(config.ts, {
 
   // Due to issues with mangling in Angular2 beta,
   // we will keep the original function names.
-  mangle: false
+  mangle: {
+    keep_fnames: true
+  }
 });
 
 

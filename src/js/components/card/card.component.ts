@@ -6,5 +6,8 @@ import { Component, Input } from 'angular2/core';
   styleUrls: ['./card.less', './card-animations.less']
 })
 export class CardComponent {
-  @Input() public cardType;
+
+  @Input()
+  public cardType;
+
 }

@@ -1,4 +1,4 @@
-import { ElementRef, Directive } from 'angular2/core';
+import { Directive, Inject, ElementRef } from 'angular2/core';
 import { AnimationBuilder } from 'angular2/src/animate/animation_builder';
 
 @Directive({
@@ -6,7 +6,10 @@ import { AnimationBuilder } from 'angular2/src/animate/animation_builder';
   exportAs: 'ab' // Necessary, we export it and we can get its 'toggle' method in the template
 })
 export class AnimateBox {
-  constructor(private _ab: AnimationBuilder, private _e: ElementRef) { }
+  constructor(
+    @Inject(AnimationBuilder) private _ab: AnimationBuilder,
+    @Inject(ElementRef) private _e: ElementRef
+  ) { }
 
   public toggle(isVisible = false) {
     let animation = this._ab.css();

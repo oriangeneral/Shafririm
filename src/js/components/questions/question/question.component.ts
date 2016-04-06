@@ -18,8 +18,12 @@ export class QuestionComponent {
   private _active: boolean = false;
   private _number: number = 0;
 
-  constructor(@Inject(QuestionsComponent) public questionsComponent: QuestionsComponent) {
+  constructor( @Inject(QuestionsComponent) private _questionsComponent: QuestionsComponent) {
     this.questionsComponent.addQuestion(this);
+  }
+
+  get questionsComponent(): QuestionsComponent {
+    return this._questionsComponent;
   }
 
   get active(): boolean {
@@ -35,10 +39,6 @@ export class QuestionComponent {
   }
 
   set number(number: number) {
-    if (this._number !== 0) {
-      throw new Error('Question number can only be set once.');
-    }
-
     this._number = number;
   }
 
