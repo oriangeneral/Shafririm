@@ -10,6 +10,7 @@ import * as Questions from '../components/quiz/questions/questions';
 @Injectable()
 export class QuizService {
 
+  private _initialized: boolean = false;
   private _playlist: Playlist[] = [];
   private _activeQuestion: number = 0;
   private _totalQuestions: number = 0;
@@ -22,10 +23,17 @@ export class QuizService {
 
   public init(elementRef: ElementRef): Promise<number> {
     this._elementRef = elementRef;
+    this._totalQuestions = 0;
+    this._activeQuestion = 0;
+    this._playlist = [];
 
     return this.loadQuestions()
       .then(() => this.buildQuestions())
-      .then(() => this.activeQuestion = 1);
+      .then(() => {
+        this.activeQuestion = 1;
+        this._initialized = true;
+        return this.totalQuestions;
+      });
   }
 
   public loadQuestions(): Promise<Playlist[]> {

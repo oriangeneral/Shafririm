@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef } from 'angular2/core';
+import { Component, OnInit, OnDestroy, ElementRef } from 'angular2/core';
 
 import * as Questions from './questions/questions';
 const QUESTION_DIRECTIVES = Object.keys(Questions).map(key => Questions[key]);
@@ -13,7 +13,7 @@ import { QuizService } from '../../services/quiz.service';
     QUESTION_DIRECTIVES
   ]
 })
-export class QuestionsComponent implements OnInit {
+export class QuestionsComponent implements OnInit, OnDestroy {
 
   public loading: boolean = true;
 
@@ -25,6 +25,10 @@ export class QuestionsComponent implements OnInit {
   public ngOnInit() {
     this._quizService.init(this._elementRef)
       .then(() => this.loading = false);
+  }
+
+  public ngOnDestroy() {
+    console.log('destroy');
   }
 
 }

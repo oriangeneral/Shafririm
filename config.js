@@ -38,7 +38,7 @@ var config = config || {};
 |     Files will be lazy loaded (for use with HTTP2)
 |
 */
-config.mode = 'lazy';
+config.mode = 'bundle';
 
 
 /*
@@ -115,6 +115,11 @@ config.ts = assign(config.ts, {
   entry: config.src + '/js/main.ts',
   dest: config.dist + config.ts.appBase,
   name: 'app.js',
+
+  // File to include to ANY less file. Make sure to only
+  // define variables and functions in it to not pollute
+  // the css code.
+  lessMaster: config.src + '/css/variables/vars.less',
 
   // Due to issues with mangling in Angular2 beta,
   // we will keep the original function names.

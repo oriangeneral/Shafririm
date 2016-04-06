@@ -20,6 +20,7 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var filter = require('gulp-filter');
 var sourcemaps = require('gulp-sourcemaps');
+var insert = require('gulp-insert');
 var babel = require('gulp-babel');
 var inlineNg2Template = require('gulp-inline-ng2-template');
 var preprocess = require('gulp-preprocess');
@@ -167,14 +168,23 @@ gulp.task('clean:assets', function() {
 gulp.task('typescript:main', function() {
   var less = require('less'),
     jade = require('jade');
+
   less.renderSync = function(input, options) {
     if (!options || typeof options != "object") options = {};
     options.sync = true;
+    options.async = false;
     var css;
     this.render(input, options, function(err, result) {
       if (err) throw err;
       css = result.css;
     });
+
+    while (css === undefined) {
+      require('deasync').sleep(100);
+    }
+
+    console.log(css);
+
     return css;
   };
 
@@ -205,10 +215,12 @@ gulp.task('typescript:main', function() {
       useRelativePaths: true,
       templateProcessor: function(path, file) {
         return file;
-        //return jade.render(file);
+        // return jade.render(file);
       },
-      styleProcessor: function(path, file) {
-        return less.renderSync(file);
+      styleProcessor: function(p, file) {
+        var newFile = '@import "' + path.resolve(__dirname, config.ts.lessMaster) + '";\n\n' + file;
+
+        return less.renderSync(newFile);
       },
       templateFunction: function(filename) {
         return filename.replace(pattern, './');
@@ -241,6 +253,7 @@ gulp.task('typescript:lazy', function(done) {
 gulp.task('typescript:lazy:css', function() {
   return gulp.src([config.ts.base + '/**/*.css', config.ts.base + '/**/*.less'])
     .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
+    .pipe(insert.prepend('@import "' + path.resolve(__dirname, config.ts.lessMaster) + '";\n\n'))
     .pipe(less().on('error', onError))
     .pipe(cleanCSS().on('error', onError))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
