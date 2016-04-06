@@ -1,6 +1,7 @@
 import { Component, Inject } from 'angular2/core';
+import { RouterLink } from 'angular2/router';
 
-import { CardComponent } from '../../../card/card.component';
+import { CardComponent } from '../../card/card.component';
 import { QuestionsComponent } from '../questions.component';
 
 @Component({
@@ -8,15 +9,16 @@ import { QuestionsComponent } from '../questions.component';
   templateUrl: './question.html',
   styleUrls: ['./question.less'],
   directives: [
+    RouterLink,
     CardComponent
   ]
 })
 export class QuestionComponent {
 
-  constructor(@Inject(QuestionsComponent) questionsComponent: QuestionsComponent) {
-    console.log('HALLO');
-    console.log(questionsComponent);
-    // this.questionsComponent.addQuestion(this);
+  public active: boolean = false;
+
+  constructor(@Inject(QuestionsComponent) public questionsComponent: QuestionsComponent) {
+    this.questionsComponent.addQuestion(this);
   }
 
 }

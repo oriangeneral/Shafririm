@@ -3,7 +3,6 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 
 import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
-import { TestComponent } from '../quiz/test.component';
 
 @Component({
   selector: 'app',
@@ -13,7 +12,8 @@ import { TestComponent } from '../quiz/test.component';
     ROUTER_DIRECTIVES
   ],
   providers: [
-    ROUTER_PROVIDERS
+    ROUTER_PROVIDERS,
+    QuizComponent
   ]
 })
 @RouteConfig([
@@ -27,11 +27,6 @@ import { TestComponent } from '../quiz/test.component';
     path: '/quiz',
     name: 'Quiz',
     component: QuizComponent
-  },
-  {
-    path: '/test',
-    name: 'Test',
-    component: TestComponent
   }
 ])
 export class AppComponent implements OnInit {
