@@ -101,17 +101,20 @@ $ typings install es6-shim --ambient --save
 
 ## Configuration
 
+This section covers how to configure the build tasks, the server and
+the application itself.
+
+### Build Configuration - `config.js`
+
 You can set some configuration for TypeScript in `tsconfig.json` and in
 `tslint.json`. All other configuration can be found in `config.js`.
+
+Please take a closer look at the `config.js` file comment's on the configuration
+properties for more detailed explanations.
 
 > Most `src` properties will support a string or an array if not stated otherwise.
 > Please refer to the `config.js` default values to learn more about how to provide
 > the correct values.
-
-### Build Configuration - `config.js`
-
-Please take a look at the `config.js` file comment's on the configuration
-properties for more detailed explanations.
 
 #### config.mode
 
@@ -211,9 +214,39 @@ Copy `server/.env.example` and rename it to `.env`.
 
 > Documentation for this chapter will be added in the future.
 
-## Application
+### Application Configuration
 
 The `index.html` and all TypeScript files are processed by
 [gulp-preprocess](https://github.com/jas/gulp-preprocess).
 
 > Documentation for this chapter will be added in the future.
+
+## Application
+
+This section will be added soon.
+
+### Technology
+
+Angular2, TypeScript, ES6,...
+
+### Structure
+
+Application and directory structure.
+
+### Modules
+
+Also cover important annotations and decorators in the following subsections.
+
+#### Components
+
+#### Services
+
+#### Directives
+
+### Concepts
+
+#### Dependency Injection
+
+#### Shadow DOM/View Encapsulation
+
+### Animations
