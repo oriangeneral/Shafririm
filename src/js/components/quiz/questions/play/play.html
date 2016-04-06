@@ -1,6 +1,6 @@
 <card cardType="4">
   <div class="content">
-    <h3>Question {{ questionNumber }} of {{ quizService.activeQuestion }}</h3> Showing a play question
+    <h3>Question {{ questionNumber }} of {{ quizService.totalQuestions }}</h3> Showing a play question
     <br>
     <br>
     <span class="button-wrapper"><a (click)="quizService.previousQuestion()" class="button button-primary">Previous Question</a></span>

@@ -6,7 +6,7 @@ import { Question, QUESTION_HOST } from '../question';
 import { CardComponent } from '../../../card/card.component';
 
 @Component({
-  selector: 'question-play',
+  selector: 'question-select',
   templateUrl: './play.html',
   styleUrls: ['./play.less'],
   host: QUESTION_HOST,

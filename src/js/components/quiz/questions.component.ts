@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef } from 'angular2/core';
 
 import * as Questions from './questions/questions';
-const QUESTION_COMPONENTS = Object.keys(Questions).map(key => Questions[key]);
+const QUESTION_DIRECTIVES = Object.keys(Questions).map(key => Questions[key]);
 
 import { QuizService } from '../../services/quiz.service';
 
@@ -10,7 +10,7 @@ import { QuizService } from '../../services/quiz.service';
   templateUrl: './questions.html',
   styleUrls: ['./questions.less'],
   directives: [
-    QUESTION_COMPONENTS
+    QUESTION_DIRECTIVES
   ]
 })
 export class QuestionsComponent implements OnInit {

@@ -4,7 +4,7 @@ import { RouterLink } from 'angular2/router';
 @Component({
   selector: 'card',
   templateUrl: './card.html',
-  styleUrls: ['card.less', 'card-animations.less'],
+  styleUrls: ['./card.less', './card-animations.less'],
   directives: [
     RouterLink
   ]

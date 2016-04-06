@@ -11,5 +11,5 @@ import { AppComponent } from './components/app/app.component';
 /* @endif */
 
 bootstrap(AppComponent, [
-  AnimationService
+  // AnimationService
 ]).catch(err => console.error(err));

@@ -74,21 +74,21 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 |
 */
 config.systemjs = {
-    config: {
-        packages: {
-            'app': {
-                defaultExtension: 'js',
-                baseUrl: '/app'
-            }
-        }
-    },
-    bundle: {
-      entryFile: 'app/app',
-      entryModule: 'main'
-    },
-    lazy: {
-      entryFile: 'app/main'
+  config: {
+    packages: {
+      'app': {
+        defaultExtension: 'js',
+        baseUrl: '/app'
+      }
     }
+  },
+  bundle: {
+    entryFile: 'app/app',
+    entryModule: 'main'
+  },
+  lazy: {
+    entryFile: 'app/main'
+  }
 };
 
 // Do not remove or modify this line!
@@ -110,11 +110,15 @@ config.ts = config.ts || {};
 config.ts.appBase = '/app';
 
 config.ts = assign(config.ts, {
-    src: config.src + '/js/**/*.ts',
-    base: config.src + '/js',
-    entry: config.src + '/js/main.ts',
-    dest: config.dist + config.ts.appBase,
-    name: 'app.js'
+  src: config.src + '/js/**/*.ts',
+  base: config.src + '/js',
+  entry: config.src + '/js/main.ts',
+  dest: config.dist + config.ts.appBase,
+  name: 'app.js',
+
+  // Due to issues with mangling in Angular2 beta,
+  // we will keep the original function names.
+  mangle: false
 });
 
 
@@ -129,9 +133,9 @@ config.ts = assign(config.ts, {
 |
 */
 config.less = {
-    src: config.src + '/css/app.less',
-    dest: config.dist + '/css',
-    name: 'app.css'
+  src: config.src + '/css/app.less',
+  dest: config.dist + '/css',
+  name: 'app.css'
 };
 
 
@@ -145,9 +149,9 @@ config.less = {
 |
 */
 config.index = {
-    src: config.src + '/index.html',
-    dest: config.dist,
-    name: 'index.html'
+  src: config.src + '/index.html',
+  dest: config.dist,
+  name: 'index.html'
 };
 
 
@@ -161,14 +165,14 @@ config.index = {
 |
 */
 config.icons = {
-    name: 'icons.css', // must match with the filename used in cssDest
-    src: './node_modules/flat-color-icons/svg/*.svg',
-    dest: config.dist + '/fonts',
-    cssDest: '../css/icons.css', // relative to dest
-    fontDest: '../fonts/icons', // relative to cssDest
-    templatePath: './node_modules/gulp-iconfont-css/templates/_icons.css',
-    fontName: 'Icons',
-    cssClass: 'icon'
+  name: 'icons.css', // must match with the filename used in cssDest
+  src: './node_modules/flat-color-icons/svg/*.svg',
+  dest: config.dist + '/fonts',
+  cssDest: '../css/icons.css', // relative to dest
+  fontDest: '../fonts/icons', // relative to cssDest
+  templatePath: './node_modules/gulp-iconfont-css/templates/_icons.css',
+  fontName: 'Icons',
+  cssClass: 'icon'
 };
 
 
@@ -185,41 +189,48 @@ config.icons = {
 |
 */
 config.vendor = {
-    dest: config.dist + '/vendor/js',
-    name: 'bundle.js',
+  dest: config.dist + '/vendor/js',
+  name: 'bundle.js',
 
-    files: [{
-        base: './node_modules/systemjs/dist',
-        src: [
-            '/system.js'
-            //'/system-register-only.js'
-        ]
-    }, {
-        base: './node_modules/rxjs/bundles',
-        src: [
-            '/Rx.js'
-        ]
-    }, {
-        base: './node_modules/zone.js/dist',
-        src: [
-            '/zone.js'
-        ]
-    }, {
-        base: './node_modules/reflect-metadata',
-        src: [
-            '/Reflect.js'
-        ]
-    }, {
-        base: './node_modules/angular2/bundles',
-        devSrc: [
-          '/angular2.dev.js',
-          '/router.dev.js'
-        ],
-        src: [
-            '/angular2.js',
-            '/router.js'
-        ]
-    }]
+  // Due to issues with mangling in Angular2 beta,
+  // we will keep the original function names.
+  mangle: {
+    keep_fnames: true
+  },
+
+  files: [{
+    base: './node_modules/systemjs/dist',
+    src: [
+      '/system.js'
+      //'/system-register-only.js'
+    ]
+  }, {
+    base: './node_modules/rxjs/bundles',
+    src: [
+      '/Rx.js'
+    ]
+  }, {
+    base: './node_modules/zone.js/dist',
+    src: [
+      '/zone.js'
+    ]
+  }, {
+    base: './node_modules/reflect-metadata',
+    src: [
+      '/Reflect.js'
+    ]
+  }, {
+    base: './node_modules/angular2/bundles',
+    devSrc: [
+      '/angular2.dev.js',
+      '/router.dev.js'
+    ],
+    src: [
+      // Using .min.js for Angular2 beta causes issues in production mode
+      '/angular2.js',
+      '/router.js'
+    ]
+  }]
 };
 
 /*
@@ -232,8 +243,8 @@ config.vendor = {
 |
 */
 config.assets = {
-    src: config.src + '/assets/**/*',
-    dest: config.dist + '/assets'
+  src: config.src + '/assets/**/*',
+  dest: config.dist + '/assets'
 };
 
 
@@ -246,17 +257,17 @@ config.assets = {
 |
 */
 config.copy = [{
-    base: config.src + '/css/images',
-    src: [
-        '/**/*'
-    ],
-    dest: config.dist + '/css/images'
+  base: config.src + '/css/images',
+  src: [
+    '/**/*'
+  ],
+  dest: config.dist + '/css/images'
 }, {
-    base: config.src + '/css/fonts',
-    src: [
-        '/**/*'
-    ],
-    dest: config.dist + '/css/fonts'
+  base: config.src + '/css/fonts',
+  src: [
+    '/**/*'
+  ],
+  dest: config.dist + '/css/fonts'
 }];
 
 
