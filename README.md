@@ -79,7 +79,7 @@ consecutive builds.
 $ gulp watch
 ```
 
-> You may also execute `gulp watch-build` to execute a very basic build. Files
+> You may also execute `gulp watch-build` to perform a very basic build. Files
 form a development or production build must already exists in the dist folder.
 
 ### Typings - `typings`
