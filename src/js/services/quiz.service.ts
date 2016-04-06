@@ -1,3 +1,4 @@
+/*
 import { Injectable, Inject, DynamicComponentLoader, ElementRef, ComponentRef } from 'angular2/core';
 
 import { Playlist } from '../models/playlist';
@@ -94,3 +95,4 @@ export class QuizService {
   }
 
 }
+*/

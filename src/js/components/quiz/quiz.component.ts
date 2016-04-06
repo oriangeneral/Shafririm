@@ -1,14 +1,16 @@
-import { Component } from 'angular2/core';
+import { Component, Inject } from 'angular2/core';
 import { RouteConfig, RouterOutlet } from 'angular2/router';
 
-import { QuestionsComponent } from './questions.component';
+import { QuestionsComponent } from './questions/questions.component';
+import { QuestionComponent } from './questions/question/question.component';
 
 @Component({
   selector: 'quiz',
   templateUrl: './quiz.html',
   styleUrls: ['./quiz.less'],
   directives: [
-    RouterOutlet
+    RouterOutlet,
+    QuestionsComponent
   ]
 })
 @RouteConfig([
@@ -19,4 +21,6 @@ import { QuestionsComponent } from './questions.component';
     useAsDefault: true
   }
 ])
-export class QuizComponent { }
+export class QuizComponent {
+
+}
