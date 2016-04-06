@@ -6,7 +6,13 @@
       <h3>Question</h3> Showing a select question
       <br>
       <br>
-      <span class="button-wrapper"><a class="button button-primary">Next Question</a></span>
+      <span *ngIf="questionsComponent.hasPreviousQuestion()" class="button-wrapper">
+        <a (click)="questionsComponent.previousQuestion()"class="button button-primary">Previous Question</a>
+      </span>
+
+      <span *ngIf="questionsComponent.hasNextQuestion()" class="button-wrapper">
+        <a (click)="questionsComponent.nextQuestion()"class="button button-primary">Next Question</a>
+      </span>
       <br>
     </div>
 

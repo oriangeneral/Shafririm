@@ -2,14 +2,13 @@
   <div class="container">
     <h3 class="section-heading"></h3>
     <p class="section-description">
-      <questions>
-        <question>
-          Question 1
-        </question>
-        <question>
-          Question 2
+
+      <questions #questionsComponent>
+        <question *ngFor="#number of questionsComponent.questionsToCreate" #questionComponent>
+          Question {{ questionComponent.number }}
         </question>
       </questions>
+
     </p>
   </div>
 </div>

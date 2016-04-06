@@ -15,10 +15,31 @@ import { QuestionsComponent } from '../questions.component';
 })
 export class QuestionComponent {
 
-  public active: boolean = false;
+  private _active: boolean = false;
+  private _number: number = 0;
 
   constructor(@Inject(QuestionsComponent) public questionsComponent: QuestionsComponent) {
     this.questionsComponent.addQuestion(this);
+  }
+
+  get active(): boolean {
+    return this._active;
+  }
+
+  set active(active: boolean) {
+    this._active = active;
+  }
+
+  get number(): number {
+    return this._number;
+  }
+
+  set number(number: number) {
+    if (this._number !== 0) {
+      throw new Error('Question number can only be set once.');
+    }
+
+    this._number = number;
   }
 
 }
