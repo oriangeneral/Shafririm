@@ -11,7 +11,6 @@ body {
   background: linear-gradient(45deg, @green-700 0, @turquoise-300 100%);
   background-color: @blue-300;
   color: @color-inverted;
-  font-size: 16px;
 }
 
 .section.loading {
@@ -26,6 +25,11 @@ body {
 /* Larger than tablet */
 @media (min-width: @screen-m) {}
 /* Larger than desktop */
-@media (min-width: @screen-l) {}
+@media (min-width: @screen-l) {
+
+  .container {
+    width: 900px;
+  }
+}
 /* Larger than Desktop HD */
 @media (min-width: @screen-xl) {}
