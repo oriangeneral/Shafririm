@@ -14,6 +14,7 @@ import { QuestionsComponent } from '../questions.component';
 export class QuestionComponent {
 
   constructor(@Inject(QuestionsComponent) questionsComponent: QuestionsComponent) {
+    console.log('HALLO');
     console.log(questionsComponent);
     // this.questionsComponent.addQuestion(this);
   }

@@ -4,8 +4,6 @@ import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/route
 import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
 import { TestComponent } from '../quiz/test.component';
-// import { QuizService } from '../../services/quiz.service';
-// import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
   selector: 'app',
@@ -16,8 +14,6 @@ import { TestComponent } from '../quiz/test.component';
   ],
   providers: [
     ROUTER_PROVIDERS
-    // , SpotifyService,
-    // QuizService
   ]
 })
 @RouteConfig([
@@ -28,7 +24,7 @@ import { TestComponent } from '../quiz/test.component';
     useAsDefault: true
   },
   {
-    path: '/quiz/...', // Note: '...' is required to allow child routes!
+    path: '/quiz',
     name: 'Quiz',
     component: QuizComponent
   },

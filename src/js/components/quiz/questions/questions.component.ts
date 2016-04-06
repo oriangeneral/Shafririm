@@ -1,7 +1,7 @@
 import { Component, Inject, Host } from 'angular2/core';
 
-// import { QuizComponent } from '../quiz.component';
-import { QuestionComponent } from './question/question.component';
+import { QuizComponent } from '../quiz.component';
+// import { QuestionComponent } from './question/question.component';
 
 @Component({
   selector: 'questions',
@@ -15,7 +15,8 @@ export class QuestionsComponent {
 
   // public questions: QuestionComponent[] = [];
 
-  constructor(/*questionComponent: QuestionComponent*/) {
+  constructor(/*@Inject(QuizComponent) quizComponent: QuizComponent*/) {
+    // console.log(quizComponent);
     // empty
   }
 
