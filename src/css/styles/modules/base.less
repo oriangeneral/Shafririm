@@ -13,7 +13,7 @@ body {
 
 body {
   margin: 0;
-  font-family: 'Chivo', Helvetica, Arial, sans-serif;
+  font-family: @font-main;
   background: linear-gradient(45deg, @green-700 0, @turquoise-300 100%);
   background-color: @blue-300;
   color: @color-inverted;
@@ -23,9 +23,17 @@ body {
 .container {
   position: relative;
   width: 100%;
-  max-width: 900px;
+  max-width: @container-width;
   margin: 0 auto;
   box-sizing: border-box;
+}
+
+.container:after,
+.row:after,
+.u-cf {
+  content: "";
+  display: table;
+  clear: both;
 }
 
 .section.loading {

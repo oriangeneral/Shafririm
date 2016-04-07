@@ -1,0 +1,17 @@
+// Grid Variables
+@container-width: 960px;
+@container-width-larger-than-mobile: 85%;
+@container-width-larger-than-phablet: 80%;
+@total-columns: 12;
+@column-width: 100 / @total-columns; // calculates individual column width based off of # of columns
+@column-margin: 4%; // space between columns
+
+// Functions
+//––––––––––––––––––––––––––––––––––––––––––––––––––
+.grid-column-width(@n) {
+  width: @column-width * @n - (@column-margin*(@total-columns - @n)/@total-columns);
+}
+
+.grid-offset-length(@n) {
+  margin-left: @column-width * @n - (@column-margin*(@total-columns - @n)/@total-columns) + @column-margin;
+}
