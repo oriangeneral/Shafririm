@@ -1,20 +1,34 @@
-*:not(script) + * {
+*:not(script, router-outlet) + * {
   margin-top: 2em;
 }
+
+html {
+  font-size: 62.5%;
+}
+
 html,
 body {
   height: 100%;
 }
 
 body {
+  margin: 0;
   font-family: 'Chivo', Helvetica, Arial, sans-serif;
   background: linear-gradient(45deg, @green-700 0, @turquoise-300 100%);
   background-color: @blue-300;
   color: @color-inverted;
+  font-size: 1.5em;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 .section.loading {
-  padding: 20rem 0 7rem;
   text-align: center;
 }
 /* Mobile first queries */
@@ -25,11 +39,6 @@ body {
 /* Larger than tablet */
 @media (min-width: @screen-m) {}
 /* Larger than desktop */
-@media (min-width: @screen-l) {
-
-  .container {
-    width: 900px;
-  }
-}
+@media (min-width: @screen-l) {}
 /* Larger than Desktop HD */
 @media (min-width: @screen-xl) {}

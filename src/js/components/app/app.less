@@ -2,12 +2,14 @@
   width: 100vw;
   height: 100vh;
 
-  @media screen and (min-width: @screen-m) {
-    display: flex;
+  display: flex;
 
-    flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: nowrap;
+
+  @media screen and (min-width: @screen-s) {
     align-items: center;
-    justify-content: center;
-    flex-wrap: nowrap;
   }
 }

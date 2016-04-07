@@ -5,12 +5,27 @@
 button,
 a.button {
 
-  background-color: transparent;
+  padding: .5em 1em;
+  min-height: 44px;                  // iPhone touch legacy
   border: 2px solid @color-main;
+  border-radius: @border-radius;
+  font-family: @font-special;
+  font-size: .8em;
   color: inherit;
+  background-color: transparent;
+  text-transform: uppercase;
 
-  &.button-primary:hover {
-    transition: all @duration-main @transition-type-main;
+  &.button-primary {
+    border-color: @primary-color;
+    background-color: transparent;
+    color: @primary-color;
+
+    &:hover {
+      transition: all @duration-main @transition-type-main;
+      border-color: transparent;
+      background-color: @primary-color;
+      color: @color-inverted;
+    }
   }
 
   &.button-error {
@@ -43,4 +58,8 @@ a.button {
     border-color: @yellow-500;
     color: @yellow-500;
   }
+}
+
+a.button:hover {
+  cursor: pointer;
 }
