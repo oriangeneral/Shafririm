@@ -1,4 +1,4 @@
-import { Component, Inject, ElementRef } from 'angular2/core';
+import { Component, Inject, ElementRef, Output, EventEmitter } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 
 import { AnimatesDirective } from '../../../directives/animates.directive';
@@ -9,9 +9,6 @@ import { QuestionsComponent } from '../questions.component';
   selector: 'question',
   templateUrl: './question.html',
   styleUrls: ['./question.less'],
-  host: {
-    '[hidden]': '!active'
-  },
   directives: [
     RouterLink,
     AnimatesDirective,
@@ -19,6 +16,8 @@ import { QuestionsComponent } from '../questions.component';
   ]
 })
 export class QuestionComponent {
+  @Output() public hide: EventEmitter<any> = new EventEmitter();
+  @Output() public show: EventEmitter<any> = new EventEmitter();
 
   private _active: boolean = false;
   private _number: number = 0;
@@ -39,6 +38,14 @@ export class QuestionComponent {
   }
 
   set active(active: boolean) {
+    if (active === true) {
+      this.show.next(null);
+    }
+
+    if (active === false) {
+      this.hide.next(null);
+    }
+
     this._active = active;
   }
 

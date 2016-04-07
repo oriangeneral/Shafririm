@@ -75,20 +75,20 @@ export class QuestionsComponent {
       return;
     }
 
-    this._ab1
-      .setType('fadeOutLeft')
-      .setDuration(1000)
-      .hide(this.getQuestion(this.activeQuestion.number).elementRef.nativeElement);
-
-    // this.getQuestion(this.activeQuestion.number).active = true;
-    this.activateQuestionByNumber(this.activeQuestion.number + 1);
-
-    setTimeout(() => {
-      this._ab2
-        .setType('fadeInRight')
-        .setDuration(1000)
-        .show(this.getQuestion(this.activeQuestion.number).elementRef.nativeElement);
-    });
+    // this._ab1
+    //   .setType('fadeOutLeft')
+    //   .setDuration(1000)
+    //   .hide(this.getQuestion(this.activeQuestion.number).elementRef.nativeElement);
+    //
+    // // this.getQuestion(this.activeQuestion.number).active = true;
+    // this.activateQuestionByNumber(this.activeQuestion.number + 1);
+    //
+    // setTimeout(() => {
+    //   this._ab2
+    //     .setType('fadeInRight')
+    //     .setDuration(1000)
+    //     .show(this.getQuestion(this.activeQuestion.number).elementRef.nativeElement);
+    // });
 
 
     // console.log('next');
@@ -101,6 +101,7 @@ export class QuestionsComponent {
     //   .animate()
     //   .then(() => this.activateQuestionByNumber(this.activeQuestion.number + 1));
 
+    this.activateQuestionByNumber(this.activeQuestion.number + 1);
   }
 
   public previousQuestion() {
@@ -108,20 +109,20 @@ export class QuestionsComponent {
       return;
     }
 
-    this._ab3
-      .setType('fadeOutRight')
-      .setDuration(1000)
-      .hide(this.getQuestion(this.activeQuestion.number).elementRef.nativeElement);
-
-    // this.getQuestion(this.activeQuestion.number).active = true;
-    this.activateQuestionByNumber(this.activeQuestion.number - 1);
-
-    setTimeout(() => {
-      this._ab4
-        .setType('fadeInLeft')
-        .setDuration(1000)
-        .show(this.getQuestion(this.activeQuestion.number).elementRef.nativeElement);
-    });
+    // this._ab3
+    //   .setType('fadeOutRight')
+    //   .setDuration(1000)
+    //   .hide(this.getQuestion(this.activeQuestion.number).elementRef.nativeElement);
+    //
+    // // this.getQuestion(this.activeQuestion.number).active = true;
+    // this.activateQuestionByNumber(this.activeQuestion.number - 1);
+    //
+    // setTimeout(() => {
+    //   this._ab4
+    //     .setType('fadeInLeft')
+    //     .setDuration(1000)
+    //     .show(this.getQuestion(this.activeQuestion.number).elementRef.nativeElement);
+    // });
 
     // this._previousAnimationBuilder
     //   .setType('fadeOutRight')
@@ -136,6 +137,8 @@ export class QuestionsComponent {
     // }, 0);
 
     // this._animationBuilder.setType('fadeInRight').animate();
+
+    this.activateQuestionByNumber(this.activeQuestion.number - 1);
   }
 
   public hasNextQuestion() {

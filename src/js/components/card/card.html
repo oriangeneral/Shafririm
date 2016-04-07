@@ -1,5 +1,7 @@
 <div class="card card-{{ cardType }}"
 [animates]
+[animatesOnInit]="{type: 'fadeInDown'}"
+[animatesOnDestroy]="{type: 'fadeOutDown'}"
 #animation="animation"
 >
   <ng-content></ng-content>

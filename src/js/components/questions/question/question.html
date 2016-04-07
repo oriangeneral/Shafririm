@@ -1,5 +1,8 @@
-<div #animation="animation" [animates]>
-  <card cardType="4">
+<div
+[animates]
+#animation="animation"
+>
+  <card cardType="4" *ngIf="active">
     <ng-content></ng-content>
 
     <div class="content">
@@ -7,11 +10,11 @@
       <br>
       <br>
       <span *ngIf="questionsComponent.hasPreviousQuestion()" class="button-wrapper">
-        <a (click)="questionsComponent.previousQuestion()"class="button button-primary">Previous Question</a>
+        <a (click)="questionsComponent.previousQuestion()" class="button button-primary">Previous Question</a>
       </span>
 
       <span *ngIf="questionsComponent.hasNextQuestion()" class="button-wrapper">
-        <a (click)="questionsComponent.nextQuestion()"class="button button-primary">Next Question</a>
+        <a (click)="questionsComponent.nextQuestion()" class="button button-primary">Next Question</a>
       </span>
       <br>
     </div>

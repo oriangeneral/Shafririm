@@ -41,26 +41,26 @@ export class AnimationBuilder {
 
       let animationEventName = this.whichAnimationEvent(element);
 
-      this.resetElement(element);
+      // this.resetElement(element);
 
       let handler;
 
       let el = element;
-      let offset = this.getElementPosition(el);
+      // let offset = this.getElementPosition(el);
+      //
+      // let initialProps = {
+      //   top: el.style.top,
+      //   left: el.style.left,
+      //   position: el.style.position,
+      //   display: el.style.display
+      // };
 
-      let initialProps = {
-        top: el.style.top,
-        left: el.style.left,
-        position: el.style.position,
-        display: el.style.display
-      };
+      // el.setAttribute('data-reset-styles', JSON.stringify(initialProps));
+      // el.style.top = offset.top + 'px';
+      // el.style.left = offset.left + 150 + 'px';
+      // el.style.position = 'fixed';
+      // el.style.display = 'inline-block';
 
-      el.setAttribute('data-reset-styles', JSON.stringify(initialProps));
-      el.style.top = offset.top + 'px';
-      el.style.left = offset.left + 150 + 'px';
-      el.style.position = 'fixed';
-      el.style.display = 'inline-block';
-      // el.style.width = 'auto';
 
         this.applyAllProperties(element);
         this.applyCssClasses(element);

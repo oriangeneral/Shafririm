@@ -1,6 +1,7 @@
 import { Component, Inject, AfterViewInit, ViewChild } from 'angular2/core';
 
 import { QuizService } from '../../services/quiz.service';
+import { AnimatesDirective } from '../../directives/animates.directive';
 import { QuestionsComponent } from '../questions/questions.component';
 import { QuestionComponent } from '../questions/question/question.component';
 
@@ -13,7 +14,8 @@ import { QuestionComponent } from '../questions/question/question.component';
     QuestionComponent
   ],
   providers: [
-    QuizService
+    QuizService,
+    AnimatesDirective
   ]
 })
 export class QuizComponent implements AfterViewInit {
