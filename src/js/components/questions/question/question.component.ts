@@ -1,6 +1,7 @@
-import { Component, Inject } from 'angular2/core';
+import { Component, Inject, ElementRef } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 
+import { AnimatesDirective } from '../../../directives/animates.directive';
 import { CardComponent } from '../../card/card.component';
 import { QuestionsComponent } from '../questions.component';
 
@@ -8,8 +9,12 @@ import { QuestionsComponent } from '../questions.component';
   selector: 'question',
   templateUrl: './question.html',
   styleUrls: ['./question.less'],
+  host: {
+    '[hidden]': '!active'
+  },
   directives: [
     RouterLink,
+    AnimatesDirective,
     CardComponent
   ]
 })
@@ -18,7 +23,10 @@ export class QuestionComponent {
   private _active: boolean = false;
   private _number: number = 0;
 
-  constructor( @Inject(QuestionsComponent) private _questionsComponent: QuestionsComponent) {
+  constructor(
+    @Inject(ElementRef) private _elementRef: ElementRef,
+    @Inject(QuestionsComponent) private _questionsComponent: QuestionsComponent
+    ) {
     this.questionsComponent.addQuestion(this);
   }
 
@@ -40,6 +48,10 @@ export class QuestionComponent {
 
   set number(number: number) {
     this._number = number;
+  }
+
+  get elementRef() {
+    return this._elementRef;
   }
 
 }

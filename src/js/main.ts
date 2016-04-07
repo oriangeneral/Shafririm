@@ -4,7 +4,7 @@
 import { provide } from 'angular2/core';
 import { bootstrap } from 'angular2/platform/browser';
 import { ExceptionHandler } from 'angular2/src/facade/exception_handler';
-import { AppExceptionHandler } from './facades/exception-handler';
+import { AppExceptionHandler } from './facades/exception_handler';
 import { AppComponent } from './components/app/app.component';
 
 /* @if config.env='production' **
