@@ -44,14 +44,32 @@ export class QuestionsComponent {
       showAnimationOptions = { type: 'fadeInLeft' };
     }
 
+    this._activeQuestion.active = false;
+
     if (this._activeQuestion) {
-      this._activeQuestion.active = false;
-      this._activeQuestion.hide(hideAnimationOptions);
+      this._activeQuestion
+        .hide(hideAnimationOptions)
+        .then((element) => {
+        return element;
+      }, (error) => {
+          // Aborted
+        });
     }
 
-    this._activeQuestion = question;
-    question.active = true;
-    setTimeout(() => question.show(showAnimationOptions));
+
+
+    // Force angular to pick up changes
+    setTimeout(() => {
+      this._activeQuestion = question;
+      question.active = true;
+
+      question.show(showAnimationOptions)
+        .then((element) => {
+        return element;
+      }, (error) => {
+          // Aborted
+        });
+    });
   }
 
   public activateQuestionByNumber(number: number) {

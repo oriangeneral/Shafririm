@@ -37,10 +37,11 @@ export class QuestionComponent {
     return this._cardComponent.show(options)
     .then((element) => {
       console.log('show finished');
-      this._hidden = false;
       return element;
     }, (error) => {
       // Animation restarted
+      // this._hidden = false;
+      // this._hidden = true;
     });
   }
 
@@ -54,6 +55,8 @@ export class QuestionComponent {
       return element;
     }, (error) => {
       // Animation restarted
+      // this._hidden = false;
+      // this._hidden = true;
     });
   }
 
