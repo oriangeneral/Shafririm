@@ -8,7 +8,7 @@ export class QuizService {
   private _questionsComponent: QuestionsComponent;
 
   get totalQuestions(): number {
-    return 10;
+    return 5;
   }
 
   get questionsComponent(): QuestionsComponent {

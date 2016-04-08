@@ -33,19 +33,27 @@ export class QuestionComponent {
 
   public show(options: AnimationOptions): Promise<HTMLElement> {
     console.log('show ' + this.number, options);
-    this._hidden = false;
-    return this._cardComponent.show(options).then((element) => {
+    this._hidden = false; // to enable animation
+    return this._cardComponent.show(options)
+    .then((element) => {
       console.log('show finished');
+      this._hidden = false;
       return element;
+    }, (error) => {
+      // Animation restarted
     });
   }
 
   public hide(options: AnimationOptions): Promise<HTMLElement> {
     console.log('hide ' + this.number, options);
-    return this._cardComponent.hide(options).then((element) => {
+    this._hidden = false;
+    return this._cardComponent.hide(options)
+    .then((element) => {
       console.log('hide finsihed');
       this._hidden = true;
       return element;
+    }, (error) => {
+      // Animation restarted
     });
   }
 

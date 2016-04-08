@@ -25,6 +25,8 @@ export class AnimationBuilder {
   private _mode = 'default';
   private _animationClasses = [];
 
+  private _listeners = [];
+
   public animateShow(element: HTMLElement): Promise<HTMLElement> {
     return this.animate(element, 'show');
   }
@@ -34,15 +36,10 @@ export class AnimationBuilder {
   }
 
   public hide(element: HTMLElement): Promise<HTMLElement> {
-    return this.animateHide(element)
-      .then((el) => {
-      element.setAttribute('hidden', '');
-      return el;
-    });
+    return this.animateHide(element);
   }
 
   public show(element: HTMLElement): Promise<HTMLElement> {
-    element.removeAttribute('hidden');
     return this.animateShow(element);
   }
 
@@ -52,71 +49,97 @@ export class AnimationBuilder {
         mode = 'default';
       }
 
-      let handler;
-      let el = element;
-
       this.resetElement(element);
-
-      let animationEventName = this.whichAnimationEvent(element);
+      element.style.display = 'initial';
 
       let initialProps: any = {
-        position: el.style.position,
-        display: el.style.display
+        position: element.style.position,
+        display: element.style.display
       };
 
-      el.style.display = 'initial';
-      console.log(el);
-
       setTimeout(() => {
-      let position = this.getElementPosition(el);
-      console.log('POSITION', position);
+        let animationEventName = this.whichAnimationEvent(element);
+        let position = this.getElementPosition(element);
 
-      if (position === null) {
-        reject('This browser is not supported (Trying to use getBoundingClientRect on HTMLElement)');
-      }
+        if (position === null) {
+          reject('This browser is not supported (Trying to use getBoundingClientRect on HTMLElement)');
+        }
 
-      initialProps.bottom = position.bottom;
-      initialProps.height = position.height;
-      initialProps.left = position.left;
-      initialProps.right = position.right;
-      initialProps.top = position.top;
-      initialProps.width = position.width;
+        initialProps.bottom = position.bottom;
+        initialProps.height = position.height;
+        initialProps.left = position.left;
+        initialProps.right = position.right;
+        initialProps.top = position.top;
+        initialProps.width = position.width;
 
-      // console.log(position);
-      // console.log(initialProps);
+        element.setAttribute('data-reset-styles', JSON.stringify(initialProps));
 
-      el.setAttribute('data-reset-styles', JSON.stringify(initialProps));
-
-      el.style.bottom = position.bottom + 'px';
-      el.style.height = position.height + 'px';
-      el.style.left = position.left + 'px';
-      el.style.right = position.right + 'px';
-      el.style.top = position.top + 'px';
-      el.style.width = position.width + 'px';
-      el.style.position = 'fixed';
-      el.style.display = 'inline-block';
+        element.style.bottom = position.bottom + 'px';
+        element.style.height = position.height + 'px';
+        element.style.left = position.left + 'px';
+        element.style.right = position.right + 'px';
+        element.style.top = position.top + 'px';
+        element.style.width = position.width + 'px';
+        element.style.position = 'fixed';
+        element.style.display = 'inline-block';
 
 
-      this.applyAllProperties(element);
-      this.applyCssClasses(element);
+        this.applyAllProperties(element);
+        this.applyCssClasses(element);
 
-      el.addEventListener(animationEventName, handler = () => {
-        el.removeEventListener(animationEventName, handler);
-        this.resetElement(el);
+        let handler;
+        element.addEventListener(animationEventName, handler = () => {
+          element.removeEventListener(animationEventName, handler);
+          console.log('reset');
+          this.resetElement(element);
 
-        resolve(el);
+          if (mode === 'hide') {
+            element.setAttribute('hidden', '');
+          }
 
-        return handler;
-      });
-    });
-  });
+          resolve(element);
+
+          return handler;
+        }); // listener
+
+        this._listeners.push({
+          element: element,
+          eventName: animationEventName,
+          listener: handler,
+          reject: reject,
+        });
+
+      }); // timeout
+
+    }); // promise
   }
 
   public resetElement(element: HTMLElement): AnimationBuilder {
-    let addOrRemove = 'remove';
     let initialProps = JSON.parse(element.getAttribute('data-reset-styles'));
+    let addOrRemove = 'remove';
+    let toRemove = [];
+    for (let i = 0; i < this._listeners.length; i++) {
+      if (this._listeners[i].element !== element) {
+        continue;
+      }
+
+      console.log('remove listener');
+      console.log(element);
+      let data = this._listeners[i];
+      data.element.removeEventListener(data.eventName, data.listener);
+      // data.reject('Animation aborted.');
+
+      toRemove.push(i);
+    }
+
+    toRemove.forEach((value) => {
+      this._listeners.splice(value, 1);
+    });
+
+    element.removeAttribute('hidden');
 
     let duration = this._duration;
+    this._duration = 0;
     this.applyDuration(element);
     this.removeCssClasses(element);
     this.setDuration(duration);
@@ -134,7 +157,7 @@ export class AnimationBuilder {
       element.style.position = initialProps.position;
       element.style.display = initialProps.display;
 
-      // element.removeAttribute('data-reset-styles');
+      element.removeAttribute('data-reset-styles');
     }
 
     return this;
@@ -184,17 +207,17 @@ export class AnimationBuilder {
     return this;
   }
 
-  public setDuration(duration: string|number): AnimationBuilder {
+  public setDuration(duration: string | number): AnimationBuilder {
     this._duration = duration;
     return this;
   }
 
-  public setDelay(delay: string|number): AnimationBuilder {
+  public setDelay(delay: string | number): AnimationBuilder {
     this._delay = delay;
     return this;
   }
 
-  public setIterationCount(iterationCount: string|number): AnimationBuilder {
+  public setIterationCount(iterationCount: string | number): AnimationBuilder {
     this._iterationCount = iterationCount;
     return this;
   }
@@ -332,15 +355,15 @@ export class AnimationBuilder {
     return this._playState;
   }
 
-  get direction(): string|number {
+  get direction(): string | number {
     return this._direction;
   }
 
-  get delay(): string|number {
+  get delay(): string | number {
     return this._delay;
   }
 
-  get iterationCount(): string|number {
+  get iterationCount(): string | number {
     return this._iterationCount;
   }
 
@@ -362,43 +385,6 @@ export class AnimationBuilder {
     }
   }
 
-  // private getElementPosition(obj) {
-  //   let curleft = 0, curtop = 0;
-  //   if (obj.offsetParent) {
-  //     do {
-  //       curleft += obj.offsetLeft;
-  //       curtop += obj.offsetTop;
-  //     } while (obj = obj.offsetParent);
-  //   }
-  //   return {
-  //     left: curleft,
-  //     top: curtop
-  //   };
-  // }
-
-  // private getElementPosition(elt) {
-  //   let rect = elt.getBoundingClientRect(), bodyElt = document.body;
-  //
-  //   return {
-  //     top: rect.top + bodyElt.scrollTop,
-  //     left: rect.left + bodyElt.scrollLeft
-  //   };
-  // }
-
-  // private getElementPosition(elem) {
-  //   let box = { top: 0, left: 0 };
-  //
-  //   if (typeof elem.getBoundingClientRect !== undefined) {
-  //     box = elem.getBoundingClientRect();
-  //   }
-  //   let win = window;
-  //   let docElem = document.documentElement;
-  //   return {
-  //     top: box.top + (win.pageYOffset || docElem.scrollTop) - (docElem.clientTop || 0),
-  //     left: box.left + (win.pageXOffset || docElem.scrollLeft) - (docElem.clientLeft || 0)
-  //   };
-  // }
-
   private getElementPosition(element) {
     if (typeof element.getBoundingClientRect !== 'function') {
       return null;
@@ -406,48 +392,5 @@ export class AnimationBuilder {
 
     return element.getBoundingClientRect();
   }
-
-  // var show = function(el, opts) {
-  //   opts = opts || {};
-  //
-  //   opts.animationName = opts.animationName || 'slideInDown';
-  //   opts.duration = opts.duration || 350;
-  //
-  //   el.classList.remove('hidden');
-  //   animate(el, opts);
-  // };
-  //
-  //
-  // var hide = function(el, opts) {
-  //
-  //   opts = opts || {};
-  //
-  //   opts.animationName = opts.animationName || 'slideOutUp';
-  //   opts.duration = opts.duration || 300;
-  //   opts.callbacks = opts.callbacks || [];
-  //
-  //   //if the element is already hidden
-  //   if (el.classList.contains('hidden')) {
-  //     //call the callbacks directly
-  //     opts.callbacks.forEach(function(cb) {
-  //       cb();
-  //     });
-  //     //and get out
-  //     return;
-  //   }
-  //
-  //   opts.callbacks.push(function() {
-  //     el.classList.add('hidden');
-  //   });
-  //   animate(el, opts);
-  // };
-  //
-  //
-  // var animations = {
-  //   animate: animate,
-  //   // show and hide convenience functions
-  //   show: show,
-  //   hide: hide
-  // };
 
 }
