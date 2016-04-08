@@ -1,7 +1,7 @@
-import { Component, Inject, ElementRef, Output, EventEmitter } from 'angular2/core';
+import { Component, Inject, ElementRef, ViewChild } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 
-import { AnimatesDirective } from '../../../directives/animates.directive';
+import { AnimationDirective, AnimationOptions } from '../../../services/animation';
 import { CardComponent } from '../../card/card.component';
 import { QuestionsComponent } from '../questions.component';
 
@@ -11,15 +11,17 @@ import { QuestionsComponent } from '../questions.component';
   styleUrls: ['./question.less'],
   directives: [
     RouterLink,
-    AnimatesDirective,
-    CardComponent
+    CardComponent,
+    AnimationDirective
   ]
 })
 export class QuestionComponent {
-  @Output() public hide: EventEmitter<any> = new EventEmitter();
-  @Output() public show: EventEmitter<any> = new EventEmitter();
+  @ViewChild(CardComponent)
+  private _cardComponent: CardComponent;
 
   private _active: boolean = false;
+  private _wasActive: boolean = false;
+  private _hidden: boolean = true;
   private _number: number = 0;
 
   constructor(
@@ -27,6 +29,24 @@ export class QuestionComponent {
     @Inject(QuestionsComponent) private _questionsComponent: QuestionsComponent
     ) {
     this.questionsComponent.addQuestion(this);
+  }
+
+  public show(options: AnimationOptions): Promise<HTMLElement> {
+    console.log('show ' + this.number, options);
+    this._hidden = false;
+    return this._cardComponent.show(options).then((element) => {
+      console.log('show finished');
+      return element;
+    });
+  }
+
+  public hide(options: AnimationOptions): Promise<HTMLElement> {
+    console.log('hide ' + this.number, options);
+    return this._cardComponent.hide(options).then((element) => {
+      console.log('hide finsihed');
+      this._hidden = true;
+      return element;
+    });
   }
 
   get questionsComponent(): QuestionsComponent {
@@ -38,15 +58,24 @@ export class QuestionComponent {
   }
 
   set active(active: boolean) {
-    if (active === true) {
-      this.show.next(null);
-    }
-
-    if (active === false) {
-      this.hide.next(null);
-    }
-
+    this._wasActive = this._active;
     this._active = active;
+  }
+
+  get wasActive(): boolean {
+    return this._active;
+  }
+
+  set wasActive(wasActive: boolean) {
+    this._wasActive = wasActive;
+  }
+
+  get hidden(): boolean {
+    return this._hidden;
+  }
+
+  set hidden(hidden: boolean) {
+    this._hidden = hidden;
   }
 
   get number(): number {
@@ -55,10 +84,6 @@ export class QuestionComponent {
 
   set number(number: number) {
     this._number = number;
-  }
-
-  get elementRef() {
-    return this._elementRef;
   }
 
 }

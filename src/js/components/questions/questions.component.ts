@@ -1,8 +1,6 @@
 import { Component, Inject } from 'angular2/core';
 
-import { AnimatesDirective } from '../../directives/animates.directive';
-import { AnimationService } from '../../services/animation/animation.service';
-import { AnimationBuilder, AnimationOptions } from '../../services/animation/animation_builder';
+import { AnimationOptions } from '../../services/animation';
 import { QuizService } from '../../services/quiz.service';
 import { QuestionComponent } from './question/question.component';
 import { times } from '../../helpers/common';
@@ -11,33 +9,19 @@ import { times } from '../../helpers/common';
   selector: 'questions',
   templateUrl: './questions.html',
   styleUrls: ['./questions.less'],
-  directives: [
-    AnimatesDirective
-  ]
+  directives: []
 })
 export class QuestionsComponent {
-
-  private _ab1: AnimationBuilder;
-  private _ab2: AnimationBuilder;
-  private _ab3: AnimationBuilder;
-  private _ab4: AnimationBuilder;
 
   private _questions: QuestionComponent[] = [];
   private _activeQuestion: QuestionComponent = null;
 
-  constructor(
-    @Inject(AnimationService) private _animationService,
-    @Inject(QuizService) private _quizService: QuizService
-    ) {
-    this._ab1 = this._animationService.builder();
-    this._ab2 = this._animationService.builder();
-    this._ab3 = this._animationService.builder();
-    this._ab4 = this._animationService.builder();
-  }
+  constructor( @Inject(QuizService) private _quizService: QuizService) { }
 
   public addQuestion(question: QuestionComponent) {
     if (this.questions.length === 0) {
       question.active = true;
+      question.hidden = false;
       this._activeQuestion = question;
     }
 
@@ -46,12 +30,28 @@ export class QuestionsComponent {
   }
 
   public activateQuestion(question: QuestionComponent) {
+    if (question === this._activeQuestion) {
+      return;
+    }
+
+    let hideAnimationOptions: AnimationOptions;
+    let showAnimationOptions: AnimationOptions;
+    if (question.number > this._activeQuestion.number) {
+      hideAnimationOptions = { type: 'fadeOutLeft' };
+      showAnimationOptions = { type: 'fadeInRight' };
+    } else {
+      hideAnimationOptions = { type: 'fadeOutRight' };
+      showAnimationOptions = { type: 'fadeInLeft' };
+    }
+
     if (this._activeQuestion) {
       this._activeQuestion.active = false;
+      this._activeQuestion.hide(hideAnimationOptions);
     }
 
     this._activeQuestion = question;
     question.active = true;
+    setTimeout(() => question.show(showAnimationOptions));
   }
 
   public activateQuestionByNumber(number: number) {

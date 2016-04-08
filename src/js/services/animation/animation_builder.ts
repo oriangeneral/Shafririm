@@ -25,12 +25,25 @@ export class AnimationBuilder {
   private _mode = 'default';
   private _animationClasses = [];
 
-  public show(element: HTMLElement): Promise<HTMLElement> {
+  public animateShow(element: HTMLElement): Promise<HTMLElement> {
     return this.animate(element, 'show');
   }
 
-  public hide(element: HTMLElement): Promise<HTMLElement> {
+  public animateHide(element: HTMLElement): Promise<HTMLElement> {
     return this.animate(element, 'hide');
+  }
+
+  public hide(element: HTMLElement): Promise<HTMLElement> {
+    return this.animateHide(element)
+      .then((el) => {
+      element.setAttribute('hidden', '');
+      return el;
+    });
+  }
+
+  public show(element: HTMLElement): Promise<HTMLElement> {
+    element.removeAttribute('hidden');
+    return this.animateShow(element);
   }
 
   public animate(element: HTMLElement, mode?: string): Promise<HTMLElement> {
@@ -39,59 +52,89 @@ export class AnimationBuilder {
         mode = 'default';
       }
 
+      let handler;
+      let el = element;
+
+      this.resetElement(element);
+
       let animationEventName = this.whichAnimationEvent(element);
 
-      // this.resetElement(element);
+      let initialProps: any = {
+        position: el.style.position,
+        display: el.style.display
+      };
 
-      let handler;
+      el.style.display = 'initial';
+      console.log(el);
 
-      let el = element;
-      // let offset = this.getElementPosition(el);
-      //
-      // let initialProps = {
-      //   top: el.style.top,
-      //   left: el.style.left,
-      //   position: el.style.position,
-      //   display: el.style.display
-      // };
+      setTimeout(() => {
+      let position = this.getElementPosition(el);
+      console.log('POSITION', position);
 
-      // el.setAttribute('data-reset-styles', JSON.stringify(initialProps));
-      // el.style.top = offset.top + 'px';
-      // el.style.left = offset.left + 150 + 'px';
-      // el.style.position = 'fixed';
-      // el.style.display = 'inline-block';
+      if (position === null) {
+        reject('This browser is not supported (Trying to use getBoundingClientRect on HTMLElement)');
+      }
+
+      initialProps.bottom = position.bottom;
+      initialProps.height = position.height;
+      initialProps.left = position.left;
+      initialProps.right = position.right;
+      initialProps.top = position.top;
+      initialProps.width = position.width;
+
+      // console.log(position);
+      // console.log(initialProps);
+
+      el.setAttribute('data-reset-styles', JSON.stringify(initialProps));
+
+      el.style.bottom = position.bottom + 'px';
+      el.style.height = position.height + 'px';
+      el.style.left = position.left + 'px';
+      el.style.right = position.right + 'px';
+      el.style.top = position.top + 'px';
+      el.style.width = position.width + 'px';
+      el.style.position = 'fixed';
+      el.style.display = 'inline-block';
 
 
-        this.applyAllProperties(element);
-        this.applyCssClasses(element);
+      this.applyAllProperties(element);
+      this.applyCssClasses(element);
 
-        el.addEventListener(animationEventName, handler = () => {
-          el.removeEventListener(animationEventName, handler);
-          this.resetElement(el);
+      el.addEventListener(animationEventName, handler = () => {
+        el.removeEventListener(animationEventName, handler);
+        this.resetElement(el);
 
-          resolve(el);
+        resolve(el);
 
-          return handler;
-        });
+        return handler;
+      });
     });
+  });
   }
 
   public resetElement(element: HTMLElement): AnimationBuilder {
     let addOrRemove = 'remove';
     let initialProps = JSON.parse(element.getAttribute('data-reset-styles'));
 
+    let duration = this._duration;
+    this.applyDuration(element);
     this.removeCssClasses(element);
+    this.setDuration(duration);
 
     element.classList[addOrRemove]('animated-show');
     element.classList[addOrRemove]('animated-hide');
 
     if (initialProps) {
-      element.style.top = initialProps.top;
-      element.style.left = initialProps.left;
+      element.style.bottom = initialProps.bottom + 'px';
+      element.style.height = initialProps.height + 'px';
+      element.style.left = initialProps.left + 'px';
+      element.style.right = initialProps.right + 'px';
+      element.style.top = initialProps.top + 'px';
+      element.style.width = initialProps.width + 'px';
       element.style.position = initialProps.position;
       element.style.display = initialProps.display;
 
-      element.removeAttribute('data-reset-styles');
+      // element.removeAttribute('data-reset-styles');
     }
 
     return this;
@@ -141,17 +184,17 @@ export class AnimationBuilder {
     return this;
   }
 
-  public setDuration(duration: number): AnimationBuilder {
+  public setDuration(duration: string|number): AnimationBuilder {
     this._duration = duration;
     return this;
   }
 
-  public setDelay(delay: number): AnimationBuilder {
+  public setDelay(delay: string|number): AnimationBuilder {
     this._delay = delay;
     return this;
   }
 
-  public setIterationCount(iterationCount: number): AnimationBuilder {
+  public setIterationCount(iterationCount: string|number): AnimationBuilder {
     this._iterationCount = iterationCount;
     return this;
   }
@@ -342,18 +385,26 @@ export class AnimationBuilder {
   //   };
   // }
 
-  private getElementPosition(elem) {
-    let box = { top: 0, left: 0 };
+  // private getElementPosition(elem) {
+  //   let box = { top: 0, left: 0 };
+  //
+  //   if (typeof elem.getBoundingClientRect !== undefined) {
+  //     box = elem.getBoundingClientRect();
+  //   }
+  //   let win = window;
+  //   let docElem = document.documentElement;
+  //   return {
+  //     top: box.top + (win.pageYOffset || docElem.scrollTop) - (docElem.clientTop || 0),
+  //     left: box.left + (win.pageXOffset || docElem.scrollLeft) - (docElem.clientLeft || 0)
+  //   };
+  // }
 
-    if (typeof elem.getBoundingClientRect !== undefined) {
-      box = elem.getBoundingClientRect();
+  private getElementPosition(element) {
+    if (typeof element.getBoundingClientRect !== 'function') {
+      return null;
     }
-    let win = window;
-    let docElem = document.documentElement;
-    return {
-      top: box.top + (win.pageYOffset || docElem.scrollTop) - (docElem.clientTop || 0),
-      left: box.left + (win.pageXOffset || docElem.scrollLeft) - (docElem.clientLeft || 0)
-    };
+
+    return element.getBoundingClientRect();
   }
 
   // var show = function(el, opts) {

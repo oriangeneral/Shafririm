@@ -1,7 +1,7 @@
 import { Component, Inject } from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
-import { AnimationService } from '../../services/animation/animation.service';
+import { AnimationService } from '../../services/animation';
 import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
 

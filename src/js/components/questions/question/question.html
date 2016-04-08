@@ -1,26 +1,5 @@
-<div
-[animates]
-#animation="animation"
->
-  <card cardType="4" *ngIf="active">
+<div>
+  <card cardType="4">
     <ng-content></ng-content>
-
-    <div class="content">
-      <h3>Question</h3> Showing a select question
-      <br>
-      <br>
-      <span *ngIf="questionsComponent.hasPreviousQuestion()" class="button-wrapper">
-        <a (click)="questionsComponent.previousQuestion()" class="button button-primary">Previous Question</a>
-      </span>
-
-      <span *ngIf="questionsComponent.hasNextQuestion()" class="button-wrapper">
-        <a (click)="questionsComponent.nextQuestion()" class="button button-primary">Next Question</a>
-      </span>
-      <br>
-    </div>
-
-    <br>
-    <a [routerLink]="['Landing']">Go Home</a>
-    <br>
   </card>
 </div>

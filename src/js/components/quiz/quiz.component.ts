@@ -1,7 +1,8 @@
 import { Component, Inject, AfterViewInit, ViewChild } from 'angular2/core';
+import { RouterLink } from 'angular2/router';
 
 import { QuizService } from '../../services/quiz.service';
-import { AnimatesDirective } from '../../directives/animates.directive';
+import { AnimationDirective } from '../../services/animation';
 import { QuestionsComponent } from '../questions/questions.component';
 import { QuestionComponent } from '../questions/question/question.component';
 
@@ -10,12 +11,13 @@ import { QuestionComponent } from '../questions/question/question.component';
   templateUrl: './quiz.html',
   styleUrls: ['./quiz.less'],
   directives: [
+    RouterLink,
     QuestionsComponent,
-    QuestionComponent
+    QuestionComponent,
+    AnimationDirective
   ],
   providers: [
-    QuizService,
-    AnimatesDirective
+    QuizService
   ]
 })
 export class QuizComponent implements AfterViewInit {

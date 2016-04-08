@@ -4,8 +4,26 @@
     <p class="section-description">
 
       <questions #questions>
-        <question *ngFor="#number of questions.questionsToCreate()" #question>
+        <question *ngFor="#number of questions.questionsToCreate()" [hidden]="question.hidden" #question>
           Question {{ question.number }}
+
+          <div class="content">
+            <h3>Question</h3> Showing a select question
+            <br>
+            <br>
+            <span *ngIf="question.number > 1" class="button-wrapper">
+              <a (click)="questions.previousQuestion()" class="button button-primary">Previous Question</a>
+            </span>
+
+            <span *ngIf="question.number < questions.totalQuestions()" class="button-wrapper">
+              <a (click)="questions.nextQuestion()" class="button button-primary">Next Question</a>
+            </span>
+            <br>
+          </div>
+
+          <br>
+          <a [routerLink]="['Landing']">Go Home</a>
+          <br>
         </question>
       </questions>
 

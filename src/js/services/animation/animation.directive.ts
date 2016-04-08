@@ -1,13 +1,12 @@
 import { Directive, ElementRef, Input, Inject, OnInit, OnDestroy } from 'angular2/core';
 
-import { AnimationService } from '../services/animation/animation.service';
-import { AnimationBuilder, AnimationOptions } from '../services/animation/animation_builder';
+import { AnimationService, AnimationBuilder, AnimationOptions } from '../animation';
 
 @Directive({
   selector: '[animates]',
   exportAs: 'animation'
 })
-export class AnimatesDirective implements OnInit, OnDestroy {
+export class AnimationDirective implements OnInit {
   @Input('animates') private _defaultOptions: AnimationOptions;
   @Input('animatesOnInit') private _initOptions: AnimationOptions;
   @Input('animatesOnDestroy') private _destroyOptions: AnimationOptions;
@@ -15,12 +14,14 @@ export class AnimatesDirective implements OnInit, OnDestroy {
 
   private _animationBuilder: AnimationBuilder;
 
+  get animationBuilder(): AnimationBuilder {
+    return this._animationBuilder;
+  }
 
   constructor(
     @Inject(ElementRef) private _elementRef: ElementRef,
     @Inject(AnimationService) private _animationService: AnimationService
     ) {
-
     this._animationBuilder = this._animationService.builder();
   }
 
