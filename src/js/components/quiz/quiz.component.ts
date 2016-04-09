@@ -2,7 +2,6 @@ import { Component, Inject, AfterViewInit, ViewChild } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 
 import { QuizService } from '../../services/quiz.service';
-import { AnimationDirective } from '../../services/animation';
 import { QuestionsComponent } from '../questions/questions.component';
 import { QuestionComponent } from '../questions/question/question.component';
 
@@ -13,8 +12,7 @@ import { QuestionComponent } from '../questions/question/question.component';
   directives: [
     RouterLink,
     QuestionsComponent,
-    QuestionComponent,
-    AnimationDirective
+    QuestionComponent
   ],
   providers: [
     QuizService

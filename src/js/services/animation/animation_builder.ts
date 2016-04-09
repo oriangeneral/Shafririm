@@ -1,5 +1,16 @@
 import { Injectable, ElementRef } from 'angular2/core';
 
+interface ElementProps {
+  position: string;
+  display: string;
+  bottom: string;
+  height: string;
+  left: string;
+  right: string;
+  top: string;
+  width: string;
+}
+
 export interface AnimationOptions {
   type: string;
   fillMode?: string;
@@ -44,32 +55,19 @@ export class AnimationBuilder {
     return this.animateShow(element);
   }
 
-  public animate(element: HTMLElement, mode?: string): Promise<HTMLElement> {
+  public animate(element: HTMLElement, mode = 'default'): Promise<HTMLElement> {
     return new Promise<HTMLElement>((resolve, reject) => {
-      if (!mode) {
-        mode = 'default';
-      }
+      // Remove listeners if an animation is in progress on this element
+      this.removeListenersForElement(element, true, true);
 
-      console.log('INITIAL REMOVE');
-      this.removeListenerForElement(element, true, true);
+      // Reset styles, remove animation classes (if currently being animated),...
       this.resetElement(element);
 
       // Required to get position of element
       element.style.display = 'initial';
+      let initialProps = this.getElementInitialProperties(element);
 
-      let initialProps: any = {
-        position: element.style.position,
-        display: element.style.display
-      };
-
-      initialProps.bottom = element.style.bottom;
-      initialProps.height = element.style.height;
-      initialProps.left = element.style.left;
-      initialProps.right = element.style.right;
-      initialProps.top = element.style.top;
-      initialProps.width = element.style.width;
-
-      // Pick up changes
+      // Pick up changes (element's position)
       setTimeout(() => {
         let position = this.getElementPosition(element);
 
@@ -79,6 +77,7 @@ export class AnimationBuilder {
 
         element.setAttribute('data-reset-styles', JSON.stringify(initialProps));
 
+        // Support for concurrent animations on non-fixed elements
         element.style.bottom = position.bottom + 'px';
         element.style.height = position.height + 'px';
         element.style.left = position.left + 'px';
@@ -88,64 +87,56 @@ export class AnimationBuilder {
         element.style.position = 'fixed';
         element.style.display = 'inline-block';
 
+        // Event to listen for (animation end)
         let animationEventName = this.whichAnimationEvent(element);
 
+        // Apply all animation properties
         this.applyAllProperties(element);
+        this.applyCssClasses(element);
 
-        setTimeout(() => {
+        // Listen for animation end
+        let handler;
+        element.addEventListener(animationEventName, handler = () => {
+          element.removeEventListener(animationEventName, handler);
+          this.removeListenersForElement(element, false);
 
+          this.resetElement(element);
 
-          this.applyCssClasses(element);
+          if (mode === 'hide') {
+            element.setAttribute('hidden', '');
+          }
 
-          let handler;
-          element.addEventListener(animationEventName, handler = () => {
-            element.removeEventListener(animationEventName, handler);
-            this.removeListenerForElement(element, false);
-            console.log('reset');
-            this.resetElement(element);
+          resolve(element);
 
-            if (mode === 'hide') {
-              element.setAttribute('hidden', '');
-            }
+          return handler;
+        }); // listener
 
-            resolve(element);
+        // Keep a reference to the listener
+        this._listeners.push({
+          element: element,
+          eventName: animationEventName,
+          listener: handler,
+          reject: reject,
+        });
 
-            return handler;
-          }); // listener
-
-          this._listeners.push({
-            element: element,
-            eventName: animationEventName,
-            listener: handler,
-            reject: reject,
-          });
-
-        }); // timeout
       });
     }); // promise
   }
 
-  public removeListenerForElement(element: HTMLElement, detach = true, reject = false) {
+  public removeListenersForElement(element: HTMLElement, detach = true, reject = false) {
     let toRemove = [];
     for (let i = 0; i < this._listeners.length; i++) {
       if (this._listeners[i].element !== element) {
         continue;
       }
 
-      console.log('remove listener, detach:', detach);
-      // console.log(element);
-
       let data = this._listeners[i];
 
       if (detach) {
-        console.log('DETACH');
         data.element.removeEventListener(data.eventName, data.listener);
-      } else {
-        console.log('REFERENCE ONLY');
       }
 
       if (reject) {
-        console.log('REJECT');
         data.reject('Animation aborted.');
       }
 
@@ -155,42 +146,32 @@ export class AnimationBuilder {
     toRemove.forEach((value) => {
       this._listeners.splice(value, 1);
     });
-    console.log('----------------------------------------');
   }
 
   public resetElement(element: HTMLElement): AnimationBuilder {
-    let initialProps = JSON.parse(element.getAttribute('data-reset-styles'));
     let addOrRemove = 'remove';
 
     element.removeAttribute('hidden');
     this.removeCssClasses(element);
 
-    // let duration = this._duration;
-    // this._duration = 0;
-    // this.applyDuration(element);
-    // this.setDuration(duration);
-
     element.classList[addOrRemove]('animated-show');
     element.classList[addOrRemove]('animated-hide');
 
-    if (initialProps) {
-      element.style.bottom = ''; // initialProps.bottom + 'px';
-      element.style.height = ''; // initialProps.height + 'px';
-      element.style.left = ''; // initialProps.left + 'px';
-      element.style.right = ''; // initialProps.right + 'px';
-      element.style.top = ''; // initialProps.top + 'px';
-      element.style.width = ''; // initialProps.width + 'px';
-      element.style.position = ''; // initialProps.position;
-      element.style.display = ''; // initialProps.display;
+    let initialProps = JSON.parse(element.getAttribute('data-reset-styles'));
 
-      element.removeAttribute('data-reset-styles');
-    }
+    // Reset or remove inline styles
+    element.style.bottom = this.getResetValue(initialProps, 'bottom');
+    element.style.height = this.getResetValue(initialProps, 'height');
+    element.style.left = this.getResetValue(initialProps, 'left');
+    element.style.right = this.getResetValue(initialProps, 'right');
+    element.style.top = this.getResetValue(initialProps, 'top');
+    element.style.width = this.getResetValue(initialProps, 'width');
+    element.style.position = this.getResetValue(initialProps, 'position');
+    element.style.display = this.getResetValue(initialProps, 'display');
+
+    element.removeAttribute('data-reset-styles');
 
     return this;
-  }
-
-  public checkValue(value: any) {
-    return (value === 0 || value);
   }
 
   public setOptions(options: AnimationOptions): AnimationBuilder {
@@ -209,9 +190,10 @@ export class AnimationBuilder {
   }
 
   public setType(type: string): AnimationBuilder {
-    if (this._classHistory.indexOf(type) !== -1) {
+    if (this._classHistory.indexOf(type) === -1) {
       this._classHistory.push(type);
     }
+
     this._type = type;
     return this;
   }
@@ -372,8 +354,11 @@ export class AnimationBuilder {
     return this;
   }
 
-  public applyStyle(element: HTMLElement, property: string, value: any, shim?: boolean): AnimationBuilder {
+  public applyStyle(element: HTMLElement, property: string, value: any, shim = true): AnimationBuilder {
     if (shim === true) {
+      element.style['-o-' + property] = value;
+      element.style['-ms-' + property] = value;
+      element.style['-moz-' + property] = value;
       element.style['-webkit-' + property] = value;
     }
     element.style[property] = value;
@@ -410,8 +395,8 @@ export class AnimationBuilder {
   }
 
   // https://jonsuh.com/blog/detect-the-end-of-css-animations-and-transitions-with-javascript/
-  private whichAnimationEvent(element: HTMLElement) {
-    let t, el = document.createElement('animationDetectionElement');
+  private whichAnimationEvent(element: HTMLElement): string {
+    let el = document.createElement('animationDetectionElement');
 
     let animations = {
       'animation': 'animationend',
@@ -420,19 +405,42 @@ export class AnimationBuilder {
       'WebkitAnimation': 'webkitAnimationEnd'
     };
 
-    for (t in animations) {
-      if (element.style[t] !== undefined) {
-        return animations[t];
+    for (let animation in animations) {
+      if (element.style[animation] !== undefined) {
+        return animations[animation];
       }
     }
+
+    return null;
   }
 
-  private getElementPosition(element) {
+  private getElementPosition(element): ClientRect {
     if (typeof element.getBoundingClientRect !== 'function') {
       return null;
     }
 
     return element.getBoundingClientRect();
+  }
+
+  private getElementInitialProperties(element: HTMLElement): ElementProps {
+    return {
+      position: element.style.position,
+      display: element.style.display,
+      bottom: element.style.bottom,
+      height: element.style.height,
+      left: element.style.left,
+      right: element.style.right,
+      top: element.style.top,
+      width: element.style.width
+    };
+  }
+
+  private checkValue(value: any): boolean {
+    return (value === 0 || !!value);
+  }
+
+  private getResetValue(obj: any, key: string, fallback = '') {
+    return (obj && this.checkValue(obj[key]) ? obj[key] : fallback);
   }
 
 }

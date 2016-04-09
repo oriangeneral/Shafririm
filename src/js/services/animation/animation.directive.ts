@@ -51,19 +51,19 @@ export class AnimationDirective implements OnInit {
   public hide(options: AnimationOptions): Promise<HTMLElement> {
     return this._animationBuilder
       .setOptions(options)
-      .animate(this._elementRef.nativeElement)
-      .then((element) => {
-      element.setAttribute('hidden', '');
-      return element;
-    });
+      .hide(this._elementRef.nativeElement)
+      .then((element) => element, (error) => {
+        // Animation interrupted
+      });
   }
 
   public show(options: AnimationOptions): Promise<HTMLElement> {
-    this._elementRef.nativeElement.removeAttribute('hidden');
-
     return this._animationBuilder
       .setOptions(options)
-      .animate(this._elementRef.nativeElement);
+      .show(this._elementRef.nativeElement)
+      .then((element) => element, (error) => {
+        // Animation interrupted
+      });
   }
 
   public animate() {
