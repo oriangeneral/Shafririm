@@ -23,7 +23,7 @@ var assign = require('lodash.assign');
 */
 var config = config || {};
 
-// Save a build timestmamp
+// Use the build timestamp to prevent browser caching of new versions
 config.buildTimestamp = new Date().valueOf();
 
 /*
