@@ -1,6 +1,6 @@
 import { Injectable, ElementRef } from 'angular2/core';
 
-interface ElementProps {
+export interface ElementProps {
   position: string;
   display: string;
   bottom: string;
