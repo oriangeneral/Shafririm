@@ -202,7 +202,10 @@ gulp.task('typescript:main', function() {
     .pipe(gulpif(config.mode === 'lazy', ng2RelativePath({
       base: config.ts.base,
       appBase: config.ts.appBase,
-      modifyStylePath: function(path) {
+      modifyPath: function (path) {
+        return path + '?v=' + config.buildTimestamp;
+      },
+      modifyStylePath: function (path) {
         return path.replace('.less', '.css');
       }
     }).on('error', onError)).on('error', onError))
@@ -306,9 +309,7 @@ gulp.task('copy:originals', function(done) {
       sources.push(element.base + path);
     });
 
-    gulp.src(sources, {
-        base: config.src + element.base
-      })
+    gulp.src(sources)
       .pipe(gulp.dest(element.dest))
       .on('error', onError);
   });

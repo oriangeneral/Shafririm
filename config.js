@@ -23,6 +23,8 @@ var assign = require('lodash.assign');
 */
 var config = config || {};
 
+// Save a build timestmamp
+config.buildTimestamp = new Date().valueOf();
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +79,7 @@ config.systemjs = {
   config: {
     packages: {
       'app': {
-        defaultExtension: 'js',
+        defaultExtension: 'js?v' + config.buildTimestamp,
         baseUrl: '/app'
       }
     }
@@ -264,6 +266,12 @@ config.assets = {
 |
 */
 config.copy = [{
+  base: config.src + '/resources',
+  src: [
+    '/favicon.ico'
+  ],
+  dest: config.dist + '/'
+}, {
   base: config.src + '/css/images',
   src: [
     '/**/*'
@@ -276,6 +284,5 @@ config.copy = [{
   ],
   dest: config.dist + '/css/fonts'
 }];
-
 
 module.exports = config;

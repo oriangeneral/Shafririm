@@ -9,8 +9,9 @@
   <meta name="description" content="A music quiz in Angular2 using the Spotify API.">
   <meta name="author" content="Lorenz Krautgartner, Fabian Pirklbauer, Sascha Zarhuber">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/icons.css">
-  <link rel="stylesheet" href="/css/app.css">
+  <link rel="icon" href="/favicon.ico?v=<!-- @echo config.buildTimestamp -->">
+  <link rel="stylesheet" href="/css/icons.css?v=<!-- @echo config.buildTimestamp -->">
+  <link rel="stylesheet" href="/css/app.css?v=<!-- @echo config.buildTimestamp -->">
   <link href='//fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
 </head>
 
@@ -24,7 +25,7 @@
     </div>
   </app>
 
-  <script src="/vendor/js/bundle.js"></script>
+  <script src="/vendor/js/bundle.js?v=<!-- @echo config.buildTimestamp -->"></script>
   <script>
     System.config( <!-- @echo config.systemjs.configString -->);
     <!-- @if config.mode='bundle' -->
