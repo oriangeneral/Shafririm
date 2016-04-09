@@ -1,6 +1,6 @@
 import { Injectable } from 'angular2/core';
 
-import { QuestionsComponent } from '../components/questions/questions.component';
+import { QuestionsComponent } from '../../components/questions/questions.component';
 
 @Injectable()
 export class QuizService {

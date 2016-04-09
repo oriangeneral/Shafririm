@@ -1,7 +1,7 @@
 import { Component, Inject, AfterViewInit, ViewChild } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 
-import { QuizService } from '../../services/quiz.service';
+import { QuizService } from '../../services/quiz';
 import { QuestionsComponent } from '../questions/questions.component';
 import { QuestionComponent } from '../questions/question/question.component';
 
