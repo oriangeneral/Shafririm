@@ -1,22 +1,40 @@
-import { Component } from 'angular2/core';
-import { RouteConfig, RouterOutlet } from 'angular2/router';
+import { Component, Inject, AfterViewInit, ViewChild } from 'angular2/core';
+import { RouterLink } from 'angular2/router';
 
-import { QuestionsComponent } from './questions.component';
+import { QuizService } from '../../services/quiz.service';
+import { QuestionsComponent } from '../questions/questions.component';
+import { QuestionComponent } from '../questions/question/question.component';
 
 @Component({
   selector: 'quiz',
   templateUrl: './quiz.html',
   styleUrls: ['./quiz.less'],
   directives: [
-    RouterOutlet
+    RouterLink,
+    QuestionsComponent,
+    QuestionComponent
+  ],
+  providers: [
+    QuizService
   ]
 })
-@RouteConfig([
-  {
-    path: '/',
-    name: 'Questions',
-    component: QuestionsComponent,
-    useAsDefault: true
+export class QuizComponent implements AfterViewInit {
+
+  @ViewChild(QuestionsComponent)
+  private _questionsComponent: QuestionsComponent;
+
+  constructor( @Inject(QuizService) private _quizService: QuizService) { }
+
+  public ngAfterViewInit() {
+    this.quizService.questionsComponent = this.questionsComponent;
   }
-])
-export class QuizComponent { }
+
+  get quizService(): QuizService {
+    return this._quizService;
+  }
+
+  get questionsComponent(): QuestionsComponent {
+    return this._questionsComponent;
+  }
+
+}

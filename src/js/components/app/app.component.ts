@@ -1,10 +1,9 @@
-import { Component, OnInit } from 'angular2/core';
+import { Component, Inject } from 'angular2/core';
 import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
 
+import { AnimationService } from '../../services/animation';
 import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
-import { QuizService } from '../../services/quiz.service';
-import { SpotifyService } from '../../services/spotify.service';
 
 @Component({
   selector: 'app',
@@ -15,8 +14,7 @@ import { SpotifyService } from '../../services/spotify.service';
   ],
   providers: [
     ROUTER_PROVIDERS,
-    SpotifyService,
-    QuizService
+    AnimationService
   ]
 })
 @RouteConfig([
@@ -27,15 +25,11 @@ import { SpotifyService } from '../../services/spotify.service';
     useAsDefault: true
   },
   {
-    path: '/quiz/...', // Note: '...' is required to allow child routes!
+    path: '/quiz',
     name: 'Quiz',
     component: QuizComponent
   }
 ])
-export class AppComponent implements OnInit {
-
-  public ngOnInit() {
-    // App was bootstrapped
-  }
+export class AppComponent {
 
 }

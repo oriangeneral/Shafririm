@@ -183,8 +183,6 @@ gulp.task('typescript:main', function() {
       require('deasync').sleep(100);
     }
 
-    console.log(css);
-
     return css;
   };
 

@@ -27,15 +27,14 @@
   <script src="/vendor/js/bundle.js"></script>
   <script>
     System.config( <!-- @echo config.systemjs.configString -->);
-        var bindError = console.error.bind(console);
-        <!-- @if config.mode='bundle' -->
-        System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
-          return System.import('<!-- @echo config.systemjs.bundle.entryModule -->');
-        }).then(null, bindError);
-        <!-- @endif -->
-        <!-- @if config.mode='lazy' -->
-        System.import('<!-- @echo config.systemjs.lazy.entryFile -->').then(null, bindError);
-        <!-- @endif -->
+    <!-- @if config.mode='bundle' -->
+    System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {
+      return System.import('<!-- @echo config.systemjs.bundle.entryModule -->');
+    }).then(null, console.error.bind(console));
+    <!-- @endif -->
+    <!-- @if config.mode='lazy' -->
+    System.import('<!-- @echo config.systemjs.lazy.entryFile -->').then(null, console.error.bind(console));
+    <!-- @endif -->
   </script>
 </body>
 
