@@ -1,5 +1,5 @@
-import { Injectable, ElementRef } from 'angular2/core';
-import { AnimationBuilder } from '../animation';
+import { Injectable } from 'angular2/core';
+import { AnimationBuilder } from '../../../animation';
 
 @Injectable()
 export class AnimationService {

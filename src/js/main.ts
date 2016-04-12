@@ -12,7 +12,7 @@ import { AppComponent } from './components/app/app.component';
   enableProdMode();
 /* @endif */
 
-let productionProviders = [];
+let productionProviders: any[] = [];
 /* @if config.env='production' **
   productionProviders = [
     provide(ExceptionHandler, { useClass: AppExceptionHandler })

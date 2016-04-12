@@ -1,4 +1,4 @@
-export let times = (i, cb, l = i) => {
+export let times = (i: number, cb: (n: number) => any, l = i) => {
   if (i === 0) {
     return;
   }

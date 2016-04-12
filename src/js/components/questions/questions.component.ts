@@ -115,7 +115,7 @@ export class QuestionsComponent {
 
   public questionsToCreate(): number[] {
     let arr: number[] = [];
-    times(this.quizService.totalQuestions, (i) => arr.push(i));
+    times(this.quizService.totalQuestions, (i: number) => arr.push(i));
     return arr;
   }
 

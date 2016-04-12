@@ -1,16 +1,14 @@
-import { Directive, ElementRef, Input, Inject, OnInit, OnDestroy } from 'angular2/core';
-
-import { AnimationService, AnimationBuilder, AnimationOptions } from '../animation';
+import { Directive, Inject, ElementRef, Input, OnInit, OnDestroy } from 'angular2/core';
+import { AnimationService, AnimationBuilder, AnimationOptions } from '../../../animation';
 
 @Directive({
   selector: '[animates]',
   exportAs: 'animation'
 })
-export class AnimationDirective implements OnInit {
+export class AnimatesDirective implements OnInit, OnDestroy {
   @Input('animates') private _defaultOptions: AnimationOptions;
   @Input('animatesOnInit') private _initOptions: AnimationOptions;
   @Input('animatesOnDestroy') private _destroyOptions: AnimationOptions;
-
 
   private _animationBuilder: AnimationBuilder;
 
@@ -53,8 +51,8 @@ export class AnimationDirective implements OnInit {
       .setOptions(options)
       .hide(this._elementRef.nativeElement)
       .then((element) => element, (error) => {
-        // Animation interrupted
-      });
+      // Animation interrupted
+    });
   }
 
   public show(options: AnimationOptions): Promise<HTMLElement> {
@@ -62,8 +60,8 @@ export class AnimationDirective implements OnInit {
       .setOptions(options)
       .show(this._elementRef.nativeElement)
       .then((element) => element, (error) => {
-        // Animation interrupted
-      });
+      // Animation interrupted
+    });
   }
 
   public animate() {

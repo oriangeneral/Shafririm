@@ -10,7 +10,7 @@ import { AnimationService, AnimationBuilder, AnimationOptions } from '../../serv
 })
 export class CardComponent {
 
-  @Input('cardType') public cardType;
+  @Input('cardType') public cardType: string|number;
 
   private _animationBuilder: AnimationBuilder;
   private _defaultShowOptions: AnimationOptions;
