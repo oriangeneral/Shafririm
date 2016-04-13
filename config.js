@@ -239,6 +239,14 @@ config.vendor = {
       '/angular2.js',
       '/router.js'
     ]
+  }, {
+    base: './node_modules/css-animator/bundles',
+    src: [
+      '/css-animator.min.js'
+    ],
+    devSrc: [
+      '/css-animator.js'
+    ]
   }]
 };
 

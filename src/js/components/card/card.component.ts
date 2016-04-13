@@ -1,6 +1,8 @@
 import { Component, Inject, Input, ElementRef } from 'angular2/core';
 
-import { AnimationService, AnimationBuilder, AnimationOptions } from '../../services/animation';
+import { AnimationBuilder } from 'css-animator/builder';
+import { AnimationService } from 'css-animator/modules';
+import { AnimationOptions } from 'css-animator/contracts';
 
 @Component({
   selector: 'card',
