@@ -1,5 +1,8 @@
+"use strict";
+
 var router = require('express').Router();
 var spotify = require('../services/spotify');
+var sptfy = require('../controller/spotify').spotify;
 
 // define middleware and routes here
 
@@ -23,6 +26,25 @@ router.get('/random-playlist/:country?', function(req, res) {
         error: error
       });
     });
+});
+
+router.get('/getplaylist', function(req, res) {
+
+
+  sptfy.fetchRandomPlaylists()
+  .then(d => res.json(d)})
+  .catch(err => {
+    let error = isObject(err) ? err : { message: err };
+    let statusCode = err && err.statusCode ? err.statusCode : 500;
+
+    error.name = error.name || 'HueapiError';
+    error.message = error.message || 'Whoops, something went wrong. That\'s all we know :(';
+    error.statusCode = error.statusCode || statusCode;
+
+    res.status(statusCode).json({
+      error: error
+    });
+  });
 });
 
 module.exports = router;
