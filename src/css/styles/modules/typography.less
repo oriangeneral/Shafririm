@@ -1,0 +1,111 @@
+h1,
+h2,
+h3,
+h4 {
+  font-family: @font-special;
+  margin-top: inherit;
+  margin-bottom: .5em;
+  color: inherit;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.6rem;
+}
+
+h3 {
+  font-size: 2.2rem;
+}
+
+h4 {
+  font-size: 1.8rem;
+}
+
+p {
+  margin-top: inherit;
+}
+
+a {
+  color: @blue-400;
+  text-decoration: none;
+
+  &:hover {
+    transition: color @duration-main @transition-type-main;
+    color: @blue-900;
+  }
+
+  &:visited {
+    color: @blue-400;
+  }
+}
+
+ul {
+  list-style: circle inside;
+}
+
+ol {
+  list-style: decimal inside;
+  padding-left: 0;
+  margin-top: 0;
+}
+
+ul {
+  padding-left: 0;
+  margin-top: 0;
+  ul, ol {
+    margin: 1.5rem 0 1.5rem 3rem;
+    font-size: 90%;
+  }
+}
+
+ol {
+  ol, ul {
+    margin: 1.5rem 0 1.5rem 3rem;
+    font-size: 90%;
+  }
+}
+
+li {
+  margin-bottom: 1rem;
+}
+
+@media screen and (min-width: @screen-s) {
+
+}
+
+@media screen and (min-width: @screen-m) {
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    margin-bottom: 1em;
+  }
+
+  h1 {
+    font-size: 5rem;
+  }
+
+  h2 {
+    font-size: 4.2rem;
+  }
+
+  h3 {
+    font-size: 3.6rem;
+  }
+
+  h4 {
+    font-size: 3rem;
+  }
+}
+
+@media screen and (min-width: @screen-l) {
+
+}
+
+@media screen and (min-width: @screen-xl) {
+
+}

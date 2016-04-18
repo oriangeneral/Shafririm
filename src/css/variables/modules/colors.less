@@ -1,0 +1,80 @@
+//
+// Base colors
+// (for general color variables scroll down)
+//
+
+@blue:       #1A222F;
+@turquoise:  #008E74;
+@green:      #B2E097;
+@yellow:     #FFE9AD;
+@red:        #D24335;
+@grey:       #262424;
+
+@white:      #F0F0F0;
+@black:      #000000;
+
+//
+// Main color swatches
+//
+
+@blue-100:   lighten(@blue, 80%);
+@blue-300:   lighten(@blue, 50%);
+@blue-400:   lighten(@blue, 30%);
+@blue-500:   lighten(@blue, 20%);
+@blue-700:   lighten(@blue, 10%);
+@blue-900:   @blue;
+
+@turquoise-100:   lighten(@turquoise, 70%);
+@turquoise-300:   lighten(@turquoise, 40%);
+@turquoise-500:   lighten(@turquoise, 10%);
+@turquoise-700:   @turquoise;
+@turquoise-900:   darken(@turquoise, 15%);
+
+@green-100:   lighten(@green, 20%);
+@green-300:   @green;
+@green-500:   darken(@green, 30%);
+@green-700:   darken(@green, 50%);
+@green-900:   darken(@green, 60%);
+
+@yellow-100:   lighten(@yellow, 10%);
+@yellow-300:   darken(@yellow, 5%);
+@yellow-500:   darken(@yellow, 30%);
+@yellow-700:   darken(@yellow, 55%);
+@yellow-900:   darken(@yellow, 70%);
+
+@red-100:   lighten(@red, 40%);
+@red-300:   lighten(@red, 15%);
+@red-500:   @red;
+@red-700:   darken(@red, 20%);
+@red-900:   darken(@red, 40%);
+
+@grey-100:  lighten(@grey, 80%);
+@grey-300:  lighten(@grey, 60%);
+@grey-500:  lighten(@grey, 20%);
+@grey-700:  lighten(@grey, 5%);
+@grey-900:  @grey;
+
+//
+// General variables for text, background
+//
+
+@color-main:   @grey-700;
+@color-special: @blue-500;
+@color-danger: @yellow-700;
+@color-error:  @red-500;
+@color-success:  @green-500;
+@color-inverted: @white;
+
+@bg-main:      @white;
+@bg-zebra:     @yellow-100;
+
+//
+// Skeleton legacy colors
+//
+
+@light-grey:       @grey-100;
+@dark-grey:        @grey-700;
+@primary-color:    @blue-300;
+@secondary-color:  @grey-500;
+@border-color:     @grey-300;
+@font-color:       @color-main;

@@ -1,19 +1,21 @@
+:host {
+  width: 100%;
+}
+
 .card {
-  color: #555;
-  background: #fff;
-  border-radius: 2px;
-  display: block;
-  // float: left;
-  height: 400px;
-  margin: 1rem;
+  color: @color-main;
+  background: @bg-main;
+  border-radius: @border-radius;
   position: relative;
-  width: 600px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 1.5em;
+
+  // Lousy hack to simulate "stretched" card for mobile devices
+  min-height: 250px;
 }
 .card-1 {
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-  transition: all 0.2s ease-in-out;
+  transition: all @duration-main @transition-type-special;
 }
 .card-1:hover {
   box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
@@ -29,4 +31,43 @@
 }
 .card-5 {
   box-shadow: 0 19px 38px rgba(0,0,0,0.30), 0 15px 12px rgba(0,0,0,0.22);
+}
+
+
+/* Mobile first queries */
+/* Larger than mobile */
+@media (min-width: @screen-xs) and (orientation: portrait) {
+
+  .card {
+    // Lousy hack to simulate "stretched" card for mobile devices
+    min-height: 300px;
+  }
+}
+@media (min-width: @screen-xs) and (orientation: landscape) {
+  .card {
+    max-width: 85%;
+    min-height: auto;
+  }
+}
+/* Larger than phablet */
+@media (min-width: @screen-s) {
+
+}
+/* Larger than tablet */
+@media (min-width: @screen-m) {
+
+  .card {
+    min-height: 400px;
+    width: 600px;
+    max-width: @screen-m;
+    font-size: 1.5em;
+  }
+}
+/* Larger than desktop */
+@media (min-width: @screen-l) {
+
+}
+/* Larger than Desktop HD */
+@media (min-width: @screen-xl) {
+
 }
