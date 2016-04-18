@@ -1,8 +1,6 @@
 console.log('Starting server...');
 
 var env = require('node-env-file');
-env(__dirname + '/.env');
-
 var express = require('express')
 var fs = require('fs');
 var path = require('path');
@@ -12,6 +10,16 @@ var methodOverride = require('method-override');
 var compress = require('compression');
 var config = require('./config/app');
 var app = express();
+
+var envFile = __dirname + '/.env';
+
+try {
+  fs.accessSync(envFile, fs.F_OK)
+} catch(e) {
+  fs.writeFileSync(envFile, fs.readFileSync(envFile + '.example'));
+}
+
+env(__dirname + '/.env');
 
 // Compress responses
 app.use(compress());

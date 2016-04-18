@@ -23,6 +23,8 @@ var assign = require('lodash.assign');
 */
 var config = config || {};
 
+// Use the build timestamp to prevent browser caching of new versions
+config.buildTimestamp = new Date().valueOf();
 
 /*
 |--------------------------------------------------------------------------
@@ -77,7 +79,7 @@ config.systemjs = {
   config: {
     packages: {
       'app': {
-        defaultExtension: 'js',
+        defaultExtension: 'js?v' + config.buildTimestamp,
         baseUrl: '/app'
       }
     }
@@ -123,7 +125,9 @@ config.ts = assign(config.ts, {
 
   // Due to issues with mangling in Angular2 beta,
   // we will keep the original function names.
-  mangle: false
+  mangle: {
+    keep_fnames: true
+  }
 });
 
 
@@ -235,6 +239,14 @@ config.vendor = {
       '/angular2.js',
       '/router.js'
     ]
+  }, {
+    base: './node_modules/css-animator/bundles',
+    src: [
+      '/css-animator.min.js'
+    ],
+    devSrc: [
+      '/css-animator.js'
+    ]
   }]
 };
 
@@ -262,6 +274,12 @@ config.assets = {
 |
 */
 config.copy = [{
+  base: config.src + '/resources',
+  src: [
+    '/favicon.ico'
+  ],
+  dest: config.dist + '/'
+}, {
   base: config.src + '/css/images',
   src: [
     '/**/*'
@@ -274,6 +292,5 @@ config.copy = [{
   ],
   dest: config.dist + '/css/fonts'
 }];
-
 
 module.exports = config;
