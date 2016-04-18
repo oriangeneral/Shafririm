@@ -1,7 +1,7 @@
 import { Component, Inject, ElementRef, ViewChild } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
 
-import { AnimationOptions } from 'css-animator/contracts';
+import { AnimationOptions } from 'css-animator';
 import { CardComponent } from '../../card/card.component';
 import { QuestionsComponent } from '../questions.component';
 
