@@ -3,14 +3,24 @@ var spotify = require('../services/spotify');
 
 // define middleware and routes here
 
-router.get('/random-playlist/:country?', function (req, res) {
+function isObject(item) {
+  return (typeof item === "object" && !Array.isArray(item) && item !== null);
+}
+
+router.get('/random-playlist/:country?', function(req, res) {
   spotify.getRandomPlaylist(req.params.country || 'US')
     .then(function(playlist) {
       res.send(playlist);
     }, function(err) {
-      res.status(500).send({
-        error: err || 'Whoops, something went wrong. That\'s all we know :(',
-        status_code: 500
+      var error = isObject(err) ? err : {};
+      var statusCode = err && err.statusCode ? err.statusCode : 500;
+
+      error.name = error.name || 'HueapiError';
+      error.message = error.message || 'Whoops, something went wrong. That\'s all we know :(';
+      error.statusCode = error.statusCode || statusCode;
+
+      res.status(statusCode).send({
+        error: error
       });
     });
 });
