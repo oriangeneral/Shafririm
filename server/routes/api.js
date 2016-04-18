@@ -32,7 +32,7 @@ router.get('/getplaylist', function(req, res) {
 
 
   sptfy.fetchRandomPlaylists()
-  .then(d => res.json(d)})
+  .then(d => res.json(d))
   .catch(err => {
     let error = isObject(err) ? err : { message: err };
     let statusCode = err && err.statusCode ? err.statusCode : 500;
