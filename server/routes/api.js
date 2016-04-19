@@ -1,8 +1,7 @@
 "use strict";
 
 var router = require('express').Router();
-var spotify = require('../services/spotify');
-var sptfy = require('../controller/spotify').spotify;
+var spotify = require('../controller/spotify');
 
 // define middleware and routes here
 
@@ -10,38 +9,58 @@ function isObject(item) {
   return (typeof item === "object" && !Array.isArray(item) && item !== null);
 }
 
-router.get('/random-playlist/:country?', function(req, res) {
-  spotify.getRandomPlaylist(req.params.country || 'US')
-    .then(function(playlist) {
-      res.send(playlist);
-    }, function(err) {
-      var error = isObject(err) ? err : {};
-      var statusCode = err && err.statusCode ? err.statusCode : 500;
+function createErrRes(err) {
+  let error = isObject(err) ? err : { message: err };
+  let statusCode = err && err.statusCode ? err.statusCode : 500;
 
-      error.name = error.name || 'HueapiError';
-      error.message = error.message || 'Whoops, something went wrong. That\'s all we know :(';
-      error.statusCode = error.statusCode || statusCode;
+  error.name = error.name || 'HueapiError';
+  error.message = error.message || 'Whoops, something went wrong. That\'s all we know :(';
+  error.statusCode = error.statusCode || statusCode;
 
-      res.status(statusCode).send({
-        error: error
-      });
-    });
-});
+  return error;
+}
 
-router.get('/getplaylist', function(req, res) {
+router.get('/playlist/random', function(req, res) {
 
-
-  sptfy.fetchRandomPlaylists()
+  spotify.fetchFeaturedPlaylists(req.query)
+  .then(d => spotify.getRandomEntry(d.playlists.items))
+  .then(d => spotify.fetchPlaylistData(d.owner.id, d.id))
   .then(d => res.json(d))
   .catch(err => {
-    let error = isObject(err) ? err : { message: err };
-    let statusCode = err && err.statusCode ? err.statusCode : 500;
+    let error = createErrRes(err);
+    res.status(error.statusCode).json({
+      error: error
+    });
+  });
+});
 
-    error.name = error.name || 'HueapiError';
-    error.message = error.message || 'Whoops, something went wrong. That\'s all we know :(';
-    error.statusCode = error.statusCode || statusCode;
+router.get('/playlist/search', function(req, res) {
+  spotify.fetchSearchedPlaylists(req.query)
+  .then(d => spotify.getRandomEntry(d.playlists.items))
+  .then(d => spotify.fetchPlaylistData(d.owner.id, d.id))
+  .then(d => res.json(d))
+  .catch(err => {
+    let error = createErrRes(err);
+    res.status(error.statusCode).json({
+      error: error
+    });
+  });
+});
 
-    res.status(statusCode).json({
+router.get('/playlist/data', function(req, res) {
+  if (!req.query.userId || !req.query.playlistId) {
+    let error = createErrRes({
+      statusCode: 400,
+      name: "ClientError",
+      message: "userId and/or playlistId not provided."
+    });
+    return res.status(error.statusCode).json(error);
+  }
+  spotify.fetchPlaylistData()
+  .then(d => res.json(d))
+  .catch(e => {
+    let error = createErrRes(err);
+    res.status(error.statusCode).json({
       error: error
     });
   });
