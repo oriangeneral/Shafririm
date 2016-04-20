@@ -32,7 +32,7 @@ router.get('/playlist/random', function(req, res) {
   .then(d => res.json(d))
   .catch(err => {
     let error = createErrRes(err);
-    res.status(error.statusCode).json({
+    return res.status(error.statusCode).json({
       error: error
     });
   });
@@ -50,7 +50,7 @@ router.get('/playlist/search', function(req, res) {
   .then(d => res.json(d))
   .catch(err => {
     let error = createErrRes(err);
-    res.status(error.statusCode).json({
+    return res.status(error.statusCode).json({
       error: error
     });
   });
@@ -65,11 +65,11 @@ router.get('/playlist/data', function(req, res) {
     });
     return res.status(error.statusCode).json(error);
   }
-  spotify.fetchPlaylistData()
+  spotify.fetchPlaylistData(req.query.userId, req.query.playlistId)
   .then(d => res.json(d))
-  .catch(e => {
+  .catch(err => {
     let error = createErrRes(err);
-    res.status(error.statusCode).json({
+    return res.status(error.statusCode).json({
       error: error
     });
   });

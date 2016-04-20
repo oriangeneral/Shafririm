@@ -70,9 +70,7 @@ class Spotify {
         reject("Necessary data missing, User: " + user + ", Playlist: " + id);
       }
       self.fetchToken()
-      .then(d => {
-        return self.api.getPlaylist(user, id);
-      })
+      .then(d => self.api.getPlaylist(user, id))
       .then(d => resolve(d.body))
       .catch(e => reject("Error while fetching playlist data: " + e));
     });
