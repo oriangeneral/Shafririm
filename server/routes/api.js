@@ -21,7 +21,11 @@ function createErrRes(err) {
 }
 
 router.get('/playlist/random', function(req, res) {
-
+  /*
+  * GET parameters allowed:
+  * ----------------------
+  * country, locale, limit, offset, timestamp
+  */
   spotify.fetchFeaturedPlaylists(req.query)
   .then(d => spotify.getRandomEntry(d.playlists.items))
   .then(d => spotify.fetchPlaylistData(d.owner.id, d.id))
@@ -35,6 +39,11 @@ router.get('/playlist/random', function(req, res) {
 });
 
 router.get('/playlist/search', function(req, res) {
+  /*
+  * GET parameters allowed:
+  * ----------------------
+  * query, country, limit, offset
+  */
   spotify.fetchSearchedPlaylists(req.query)
   .then(d => spotify.getRandomEntry(d.playlists.items))
   .then(d => spotify.fetchPlaylistData(d.owner.id, d.id))
