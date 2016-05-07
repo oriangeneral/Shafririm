@@ -1,7 +1,9 @@
 import { Component, Inject, AfterViewInit, ViewChild } from 'angular2/core';
 import { RouterLink } from 'angular2/router';
+import { HTTP_PROVIDERS } from 'angular2/http';
 
-import { QuizService } from '../../services/quiz';
+import { PlaylistService } from '../../services/playlist.service';
+import { QuizService } from '../../services/quiz.service';
 import { QuestionsComponent } from '../questions/questions.component';
 import { QuestionComponent } from '../questions/question/question.component';
 
@@ -15,6 +17,8 @@ import { QuestionComponent } from '../questions/question/question.component';
     QuestionComponent
   ],
   providers: [
+    HTTP_PROVIDERS,
+    PlaylistService,
     QuizService
   ]
 })

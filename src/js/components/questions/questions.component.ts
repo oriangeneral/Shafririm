@@ -1,7 +1,7 @@
 import { Component, Inject } from 'angular2/core';
 
 import { AnimationOptions } from 'css-animator';
-import { QuizService } from '../../services/quiz';
+import { QuizService } from '../../services/quiz.service';
 import { QuestionComponent } from './question/question.component';
 import { times } from '../../helpers/common';
 

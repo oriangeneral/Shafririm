@@ -232,12 +232,14 @@ config.vendor = {
     base: './node_modules/angular2/bundles',
     devSrc: [
       '/angular2.dev.js',
-      '/router.dev.js'
+      '/router.dev.js',
+      '/http.dev.js'
     ],
     src: [
       // Using .min.js for Angular2 beta causes issues in production mode
       '/angular2.js',
-      '/router.js'
+      '/router.js',
+      '/http.js'
     ]
   }, {
     base: './node_modules/css-animator/bundles',
