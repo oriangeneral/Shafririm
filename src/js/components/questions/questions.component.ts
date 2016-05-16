@@ -1,4 +1,4 @@
-import { Component, Inject } from 'angular2/core';
+import { Component, Inject } from '@angular/core';
 
 import { AnimationOptions } from 'css-animator';
 import { QuizService } from '../../services/quiz.service';

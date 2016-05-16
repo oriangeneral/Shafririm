@@ -1,12 +1,12 @@
-import { Component } from 'angular2/core';
-import { RouterLink } from 'angular2/router';
+import { Component } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 @Component({
   selector: 'landing',
   styleUrls: ['./landing.less', './landing-animations.less'],
   templateUrl: './landing.html',
   directives: [
-    RouterLink
+    ROUTER_DIRECTIVES
   ]
 })
 export class LandingComponent {

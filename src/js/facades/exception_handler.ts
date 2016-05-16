@@ -1,4 +1,4 @@
-import { ExceptionHandler } from 'angular2/src/facade/exception_handler';
+import { ExceptionHandler } from '@angular/core/src/facade/exception_handler';
 
 export interface ExceptionHandlerContract {
   call(exception: any, stackTrace?: any, reason?: string): void;
