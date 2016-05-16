@@ -1,5 +1,5 @@
-import { Component, Inject, ElementRef, ViewChild } from 'angular2/core';
-import { RouterLink } from 'angular2/router';
+import { Component, Inject, ElementRef, ViewChild } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimationOptions } from 'css-animator';
 import { CardComponent } from '../../card/card.component';
@@ -10,8 +10,7 @@ import { QuestionsComponent } from '../questions.component';
   templateUrl: './question.html',
   styleUrls: ['./question.less'],
   directives: [
-    RouterLink,
-    CardComponent
+    ROUTER_DIRECTIVES
   ]
 })
 export class QuestionComponent {

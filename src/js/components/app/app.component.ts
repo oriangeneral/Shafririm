@@ -1,5 +1,5 @@
-import { Component, Inject } from 'angular2/core';
-import { RouteConfig, ROUTER_DIRECTIVES, ROUTER_PROVIDERS } from 'angular2/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { Router, Routes, ROUTER_PROVIDERS, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimationService } from 'css-animator';
 import { LandingComponent } from '../landing/landing.component';
@@ -17,19 +17,22 @@ import { QuizComponent } from '../quiz/quiz.component';
     AnimationService
   ]
 })
-@RouteConfig([
+@Routes([
   {
     path: '/',
-    name: 'Landing',
-    component: LandingComponent,
-    useAsDefault: true
+    component: LandingComponent
   },
   {
     path: '/quiz',
-    name: 'Quiz',
     component: QuizComponent
   }
 ])
-export class AppComponent {
+export class AppComponent implements OnInit {
+
+  constructor(private router: Router) {}
+
+  public ngOnInit() {
+    this.router.navigate(['/']);
+  }
 
 }

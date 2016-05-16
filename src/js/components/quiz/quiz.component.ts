@@ -1,6 +1,6 @@
-import { Component, Inject, AfterViewInit, ViewChild } from 'angular2/core';
-import { RouterLink } from 'angular2/router';
-import { HTTP_PROVIDERS } from 'angular2/http';
+import { Component, Inject, AfterViewInit, ViewChild } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
+import { HTTP_PROVIDERS } from '@angular/http';
 
 import { PlaylistService } from '../../services/playlist.service';
 import { QuizService } from '../../services/quiz.service';
@@ -12,7 +12,7 @@ import { QuestionComponent } from '../questions/question/question.component';
   templateUrl: './quiz.html',
   styleUrls: ['./quiz.less'],
   directives: [
-    RouterLink,
+    ROUTER_DIRECTIVES,
     QuestionsComponent,
     QuestionComponent
   ],

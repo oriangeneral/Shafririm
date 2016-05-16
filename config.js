@@ -76,14 +76,39 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 |
 */
 config.systemjs = {
-  config: {
-    packages: {
-      'app': {
-        defaultExtension: 'js?v' + config.buildTimestamp,
-        baseUrl: '/app'
-      }
+  map: {
+    'app': 'app',
+    'rxjs': 'modules/rxjs',
+    'angular2-in-memory-web-api': 'modules/angular2-in-memory-web-api',
+    '@angular': 'modules/@angular',
+    'angular2': 'modules/angular2'
+  },
+  packages: {
+    'app': {
+      main: 'main.js?v=' + config.buildTimestamp,
+      defaultExtension: 'js?v=' + config.buildTimestamp
+    },
+    'rxjs': {
+      defaultExtension: 'js?v=' + config.buildTimestamp
+    },
+    'angular2-in-memory-web-api': {
+      defaultExtension: 'js?v=' + config.buildTimestamp
+    },
+    'angular2': {
+      defaultExtension: 'js?v=' + config.buildTimestamp
     }
   },
+  packageNames: [
+    '@angular/common',
+    '@angular/compiler',
+    '@angular/core',
+    '@angular/http',
+    '@angular/platform-browser',
+    '@angular/platform-browser-dynamic',
+    '@angular/router',
+    '@angular/router-deprecated',
+    '@angular/upgrade',
+  ],
   bundle: {
     entryFile: 'app/app',
     entryModule: 'main'
@@ -94,7 +119,9 @@ config.systemjs = {
 };
 
 // Do not remove or modify this line!
-config.systemjs.configString = JSON.stringify(config.systemjs.config);
+config.systemjs.mapString = JSON.stringify(config.systemjs.map);
+config.systemjs.packagesString = JSON.stringify(config.systemjs.packages);
+config.systemjs.packageNamesString = JSON.stringify(config.systemjs.packageNames);
 
 /*
 |--------------------------------------------------------------------------
@@ -185,6 +212,28 @@ config.icons = {
 };
 
 
+config.modules = {
+  dest: config.dist + '/modules',
+  base: './node_modules',
+
+  // use .js* to include sourcemaps
+  modules: [
+    '/rxjs/**/*',
+    '/@angular/**/*',
+    '/angular2/**/*',
+    '/angular2-in-memory-web-api/**/*'
+  ],
+
+  // filter files to be minified in production
+  filter: [
+    '**/*.js',
+    '!*/@angular/**/esm/**/*',
+    '!*/@angular/**/testing/**/*',
+    '!*/angular2/es6/**/*',
+    '!*/@angular/bundles/**/*'
+  ]
+};
+
 /*
 |--------------------------------------------------------------------------
 | Vendor JavaScript Files
@@ -198,7 +247,7 @@ config.icons = {
 |
 */
 config.vendor = {
-  dest: config.dist + '/vendor/js',
+  dest: config.dist + '/vendor',
   name: 'bundle.js',
 
   // Due to issues with mangling in Angular2 beta,
@@ -208,17 +257,6 @@ config.vendor = {
   },
 
   files: [{
-    base: './node_modules/systemjs/dist',
-    src: [
-      '/system.js'
-      //'/system-register-only.js'
-    ]
-  }, {
-    base: './node_modules/rxjs/bundles',
-    src: [
-      '/Rx.js'
-    ]
-  }, {
     base: './node_modules/zone.js/dist',
     src: [
       '/zone.js'
@@ -229,17 +267,15 @@ config.vendor = {
       '/Reflect.js'
     ]
   }, {
-    base: './node_modules/angular2/bundles',
-    devSrc: [
-      '/angular2.dev.js',
-      '/router.dev.js',
-      '/http.dev.js'
-    ],
+    base: './node_modules/systemjs/dist',
     src: [
-      // Using .min.js for Angular2 beta causes issues in production mode
-      '/angular2.js',
-      '/router.js',
-      '/http.js'
+      '/system.src.js'
+      //'/system-register-only.js'
+    ]
+  }, {
+    base: './node_modules/rxjs/bundles',
+    src: [
+      '/Rx.js'
     ]
   }, {
     base: './node_modules/css-animator/bundles',
@@ -248,6 +284,22 @@ config.vendor = {
     ],
     devSrc: [
       '/css-animator.js'
+    ]
+  }, {
+    base: './node_modules/jquery/dist',
+    src: [
+      '/jquery.min.js'
+    ],
+    devSrc: [
+      '/jquery.js'
+    ]
+  }, {
+    base: './node_modules/materialize-css/dist/js',
+    src: [
+      '/materialize.min.js'
+    ],
+    devSrc: [
+      '/materialize.js'
     ]
   }]
 };
@@ -276,6 +328,12 @@ config.assets = {
 |
 */
 config.copy = [{
+  base: config.src + '/',
+  src: [
+    '/system.config.js'
+  ],
+  dest: config.dist + '/'
+}, {
   base: config.src + '/resources',
   src: [
     '/favicon.ico'

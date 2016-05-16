@@ -1,4 +1,4 @@
-import { Component, Inject, Input, ElementRef } from 'angular2/core';
+import { Component, Inject, Input, ElementRef } from '@angular/core';
 
 import { AnimationService, AnimationBuilder, AnimationOptions } from 'css-animator';
 

@@ -58,12 +58,13 @@ config.env = process.env.NODE_ENV;
 // Determine environment before it is set for initialization
 process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'development';
 
-// Setup TypeScript project
-var tsConfig = require('./tsconfig.json');
-var tsProject = ts.createProject(assign(tsConfig, {
-  sortOutput: true,
-  outFile: config.mode === 'lazy' ? false : config.ts.name
-}));
+var tsOptions = config.mode === 'lazy' ? {} : {
+  outFile: config.ts.name
+};
+
+var tsProject = ts.createProject('tsconfig.json', assign({
+  sortOutput: true
+}, tsOptions));
 
 
 /*
@@ -202,10 +203,10 @@ gulp.task('typescript:main', function() {
     .pipe(gulpif(config.mode === 'lazy', ng2RelativePath({
       base: config.ts.base,
       appBase: config.ts.appBase,
-      modifyPath: function (path) {
+      modifyPath: function(path) {
         return path + '?v=' + config.buildTimestamp;
       },
-      modifyStylePath: function (path) {
+      modifyStylePath: function(path) {
         return path.replace('.less', '.css');
       }
     }).on('error', onError)).on('error', onError))
@@ -241,6 +242,32 @@ gulp.task('typescript:main', function() {
     }).on('error', onError)))
     .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
     .pipe(gulp.dest(config.ts.dest))
+});
+
+gulp.task('copy:modules', function() {
+  var sources = clone(config.modules.modules).map(function(source) {
+    if (source.startsWith('!')) {
+      return '!' + config.modules.base + source.substring(1);
+    }
+
+    return config.modules.base + source;
+  });
+
+  var f = filter(config.modules.filter, {restore: true});
+
+  return gulp
+    .src(sources, {
+      base: config.modules.base
+    })
+    .pipe(f)
+    .pipe(gulpif(config.env === 'production', uglify({
+      mangle: false,
+      compress: {
+           unused: false
+       }
+    }).on('error', onError)))
+    .pipe(f.restore)
+    .pipe(gulp.dest('./dist/modules'))
 });
 
 gulp.task('typescript:lazy', function(done) {
@@ -482,7 +509,7 @@ function requireIfExists(nodeModule, fallbackModule) {
 |
 */
 gulp.task('master', function(done) {
-  return gulpSequence('lint', 'clean:all', ['tasks', 'bundle', 'iconfont'])(done);
+  return gulpSequence('lint', 'clean:all', ['tasks', 'copy:modules', 'bundle', 'iconfont'])(done);
 });
 
 gulp.task('tasks', function(done) {
