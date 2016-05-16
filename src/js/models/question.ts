@@ -1,12 +1,12 @@
+import { Track } from './track';
+
 export enum QuestionType {
   AlbumNameFromImage,
   TrackNameFromPreview,
   ArtistNameFromTrackName,
-  ArtistNameFromAlbumName,
-  ReleaseDateFromTrackName,
-  ReleaseDateFromAlbumName,
-  TrackOnAlbumByName,
-  TrackPositionOnDisk
+  ArtistNameFromAlbumName
+  // ,ReleaseDateFromTrackName,
+  // ReleaseDateFromAlbumName
 }
 
 export interface Answer {
@@ -17,7 +17,8 @@ export interface Answer {
 export interface Question {
   type: QuestionType;
   title: string;
-  description: string;
+  description?: string;
   answers: Answer[];
   answered: boolean;
+  track: Track;
 }

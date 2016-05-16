@@ -5,8 +5,12 @@ import { Injectable } from 'angular2/core';
 import { Http, Response } from 'angular2/http';
 import { Observable } from 'rxjs/Observable';
 
+import { TrackTransformer } from '../support/TrackTransformer';
+
 import { PlaylistService } from './playlist.service';
 import { QuestionsComponent } from '../components/questions/questions.component';
+
+import { shuffle } from '../helpers/common';
 
 import { Playlist } from '../models/playlist';
 import { Track } from '../models/track';
@@ -32,13 +36,16 @@ export class QuizService {
   }
 
   private buildQuestions(randomTracks: Track[]) {
+    let trackTransformer = new TrackTransformer(this._playlist, this._tracks);
     let questions: Question[] = [];
 
     for (let track of randomTracks) {
-      console.log(track);
+      questions.push(trackTransformer.toQuestion(track));
     }
 
-    this._questions = questions;
+    console.log(questions);
+
+    this._questions = shuffle(questions);
   }
 
   private extractTracks(playlist: Playlist) {
