@@ -6,5 +6,6 @@
     "moduleResolution": "node",
     "exclude": [ "node_modules" ],
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "compileOnSave": false
 }
