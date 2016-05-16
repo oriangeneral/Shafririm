@@ -8,55 +8,76 @@ import { Observable } from 'rxjs/Observable';
 import { PlaylistService } from './playlist.service';
 import { QuestionsComponent } from '../components/questions/questions.component';
 
+import { Playlist } from '../models/playlist';
 import { Track } from '../models/track';
+import { Question, QuestionType } from '../models/question';
 
 @Injectable()
 export class QuizService {
 
   private _questionsComponent: QuestionsComponent;
-  private _totalQuestions = 0;
+  private _playlist: Playlist;
   private _tracks: Track[];
+  private _random: Track[];
+  private _questions: Question[];
 
   constructor(private playlistService: PlaylistService) {
-    this.playlistService.getPlaylist().subscribe(
-      playlist => this._totalQuestions = 5,
-      error => console.error(error)
+    this.playlistService.getPlaylist()
+      .map((playlist) => this.extractTracks(playlist))
+      .map((tracks) => this.extractRandom(tracks))
+      .subscribe(
+        (tracks) => this.buildQuestions(tracks),
+        error => console.error(error)
       );
+  }
 
-    if (this._totalQuestions > this.playlistService.tracks.length) {
-      this._totalQuestions = this.playlistService.tracks.length;
+  private buildQuestions(randomTracks: Track[]) {
+    let questions: Question[] = [];
+
+    for (let track of randomTracks) {
+      console.log(track);
     }
-    this._tracks = this.getRandomTracks(this._totalQuestions);
+
+    this._questions = questions;
+  }
+
+  private extractTracks(playlist: Playlist) {
+    let tracks: Track[] = [];
+
+    playlist.tracks.items.forEach((item, key) => {
+      tracks.push(item.track);
+    });
+
+    this._playlist = playlist;
+    this._tracks = tracks;
+
+    return tracks;
+  }
+
+  private extractRandom(tracks: Track[]) {
+    return this._random = this.getRandomTracks(10);
   }
 
   private getRandomTracks(amount: number): Track[] {
-    let count: number;
-    let playlistTracks: Track[] = this.playlistService.tracks;
     let randomTracks: Track[] = [];
     let taken: number[] = [];
 
-    try {
-      count = parseInt("" + amount, 10);      // For type safety
-    } catch (e) {
-      count = 5;
-      throw new Error('No valid no. of questions provided.');
-    }
-
-    for (let i = 0; i < count; i++) {
-
+    for (let i = 0; i < amount; i++) {
       let current: number;
+
       do {
-        current = Math.floor(Math.random() * playlistTracks.length);
+        current = Math.floor(Math.random() * this._tracks.length);
       } while (taken.indexOf(current) >= 0);
+
       taken.push(current);
-      randomTracks.push(playlistTracks[current]);
+      randomTracks.push(this._tracks[current]);
     }
 
     return randomTracks;
   }
 
   get totalQuestions(): number {
-    return this._totalQuestions;
+    return this.questions.length;
   }
 
   get questionsComponent(): QuestionsComponent {
@@ -67,8 +88,8 @@ export class QuizService {
     this._questionsComponent = questionsComponent;
   }
 
-  get tracks(): Track[] {
-    return this._tracks || [];
+  get questions(): Question[] {
+    return this._questions || [];
   }
 
 }
