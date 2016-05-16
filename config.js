@@ -220,7 +220,7 @@ config.modules = {
   modules: [
     '/rxjs/**/*',
     '/@angular/**/*',
-    '/angular2/**/*',
+    // '/angular2/**/*',
     '/angular2-in-memory-web-api/**/*'
   ],
 
@@ -229,7 +229,7 @@ config.modules = {
     '**/*.js',
     '!*/@angular/**/esm/**/*',
     '!*/@angular/**/testing/**/*',
-    '!*/angular2/es6/**/*',
+    // '!*/angular2/es6/**/*',
     '!*/@angular/bundles/**/*'
   ]
 };
