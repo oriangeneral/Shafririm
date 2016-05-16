@@ -50,7 +50,7 @@ export class PlaylistService {
   private transformData(data: Playlist) {
 
     this._playlist = data;
-    let tracks = [];
+    let tracks: Track[] = [];
 
     try {
       let items = data.tracks.items;
