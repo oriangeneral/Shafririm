@@ -6,6 +6,10 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
+import { Playlist } from '../models/playlist';
+import { Track } from '../models/track';
+import { Album } from '../models/album';
+
 @Injectable()
 export class PlaylistService {
 
@@ -16,7 +20,6 @@ export class PlaylistService {
   public getPlaylist(): Observable<any> {
     return this.http.get(this._apiUrl)
       .map(this.extractData)
-      .map(this.transformData)
       .catch(this.handleError);
   }
 
@@ -26,13 +29,6 @@ export class PlaylistService {
     }
 
     return res.json() || {};
-  }
-
-  private transformData(data: any) {
-    console.groupCollapsed('API Resonse');
-    console.log(data);
-    console.groupEnd();
-    return data;
   }
 
   private handleError(error: any) {
