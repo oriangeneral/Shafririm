@@ -12,14 +12,10 @@
   <link rel="icon" href="/favicon.ico?v=<!-- @echo config.buildTimestamp -->" type="image/x-icon">
   <link rel="stylesheet" href="/css/icons.css?v=<!-- @echo config.buildTimestamp -->">
   <link rel="stylesheet" href="/css/app.css?v=<!-- @echo config.buildTimestamp -->">
-
-  <!--Import Google Icon Font-->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-
+  <!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 </head>
 
 <body>
-
   <app>
     <div class="section loading">
       <div class="container">
@@ -28,33 +24,11 @@
     </div>
   </app>
 
-
   <script src="/vendor/bundle.js?v=<!-- @echo config.buildTimestamp -->"></script>
-  <script>
-  (function(global) {
-    var map = <!-- @echo config.systemjs.mapString -->;
-    var packages = <!-- @echo config.systemjs.packagesString -->;
-    var packageNames = <!-- @echo config.systemjs.packageNamesString -->;
-
-    packageNames.forEach(function(pkgName) {
-      packages[pkgName] = {
-        main: 'index.js?v=<!-- @echo config.buildTimestamp -->',
-        defaultExtension: 'js?v=<!-- @echo config.buildTimestamp -->'
-      };
-    });
-
-    var config = {
-      map: map,
-      packages: packages
-    };
-
-    if (global.filterSystemConfig) {
-      global.filterSystemConfig(config);
-    }
-
-    System.config(config);
-  })(this);
-  </script>
+  <script src="<!-- @echo config.systemjs.configFile -->?v=<!-- @echo config.buildTimestamp -->"></script>
+  <!-- @if config.mode='bundle' -->
+  <script src="/modules/bundle.js?v=<!-- @echo config.buildTimestamp -->"></script>
+  <!-- @endif -->
   <script>
     <!-- @if config.mode='bundle' -->
     System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {

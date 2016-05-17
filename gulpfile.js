@@ -21,7 +21,8 @@ var concat = require('gulp-concat');
 var filter = require('gulp-filter');
 var sourcemaps = require('gulp-sourcemaps');
 var insert = require('gulp-insert');
-var babel = require('gulp-babel');
+// var babel = require('gulp-babel');
+var jspm = require('gulp-jspm-build');
 var inlineNg2Template = require('gulp-inline-ng2-template');
 var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
@@ -66,6 +67,11 @@ var tsProject = ts.createProject('tsconfig.json', assign({
   sortOutput: true
 }, tsOptions));
 
+gulp.task('jspm', function() {
+  return jspm(config.jspm.config).on('error', onError)
+    .pipe(gulp.dest(config.jspm.dest))
+    .on('error', onError);
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -253,7 +259,9 @@ gulp.task('copy:modules', function() {
     return config.modules.base + source;
   });
 
-  var f = filter(config.modules.filter, {restore: true});
+  var f = filter(config.modules.filter, {
+    restore: true
+  });
 
   return gulp
     .src(sources, {
@@ -261,10 +269,12 @@ gulp.task('copy:modules', function() {
     })
     .pipe(f)
     .pipe(gulpif(config.env === 'production', uglify({
-      mangle: false,
+      mangle: {
+        keep_fnames: true
+      },
       compress: {
-           unused: false
-       }
+        unused: false
+      }
     }).on('error', onError)))
     .pipe(f.restore)
     .pipe(gulp.dest('./dist/modules'))
@@ -315,6 +325,19 @@ gulp.task('copy:index', function() {
     }).on('error', onError))
     .pipe(rename(config.index.name).on('error', onError))
     .pipe(gulp.dest(config.index.dest))
+    .on('error', onError);
+});
+
+gulp.task('copy:systemjsconfig', function() {
+  return gulp.src(config.src + config.systemjs.configTemplate)
+    .pipe(preprocess({
+      context: {
+        config: config
+      }
+    }).on('error', onError))
+    .pipe(uglify().on('error', onError))
+    .pipe(rename(config.systemjs.configFile).on('error', onError))
+    .pipe(gulp.dest(config.dist))
     .on('error', onError);
 });
 
@@ -517,7 +540,7 @@ gulp.task('tasks', function(done) {
 });
 
 gulp.task('copy', function(done) {
-  return gulpSequence(['copy:index', 'copy:assets', 'copy:originals'])(done);
+  return gulpSequence(['copy:index', 'copy:systemjsconfig', 'copy:assets', 'copy:originals'])(done);
 });
 
 gulp.task('clean:default', function(done) {

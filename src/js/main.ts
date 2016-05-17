@@ -8,7 +8,7 @@ import { AppComponent } from './components/app/app.component';
 // import "angular2-materialize";
 
 /* @if config.env='production' **
-  import { enableProdMode } from 'angular2/core';
+  import { enableProdMode } from '@angular/core';
   enableProdMode();
 /* @endif */
 

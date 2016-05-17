@@ -6,8 +6,7 @@
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "compileOnSave": false
+    "suppressImplicitAnyIndexErrors": true
   },
   "exclude": [
     "node_modules",

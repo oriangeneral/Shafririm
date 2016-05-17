@@ -66,6 +66,35 @@ config.dist = './dist';
 config.watch = ['src/**/*', '!src/assets/**/*'];
 
 
+/*
+|--------------------------------------------------------------------------
+| Modules Configuration
+|--------------------------------------------------------------------------
+|
+| Define node modules/files to be copied to the distribution.
+|
+*/
+config.modules = {
+  dest: config.dist + '/modules',
+  base: './node_modules',
+
+  modules: [
+    '/rxjs/**/*',
+    '/@angular/**/*',
+    // '/angular2/**/*',
+    '/angular2-in-memory-web-api/**/*'
+  ],
+
+  // Filters files from above to be minified in production
+  filter: [
+    '**/*.js',
+    '!*/@angular/**/esm/**/*',
+    '!*/@angular/**/testing/**/*',
+    // '!*/angular2/es6/**/*',
+    '!*/@angular/bundles/**/*'
+  ]
+};
+
 
 /*
 |--------------------------------------------------------------------------
@@ -75,40 +104,53 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 | Define the configuration for SystemJS.
 |
 */
+var map = {
+  'app': 'dist/app',
+  'rxjs': 'node_modules/rxjs',
+  '@angular': 'node_modules/@angular',
+  'css-animator': 'node_modules/css-animator'
+};
+
+var packages = {
+  'app': {
+    main: 'main.js',
+    defaultExtension: 'js'
+  },
+  'rxjs': {
+    defaultExtension: 'js'
+  },
+  'css-animator': {
+    defaultExtension: 'js'
+  }
+};
+
+var packageNames = [
+  'css-animator',
+  '@angular/common',
+  '@angular/compiler',
+  '@angular/core',
+  '@angular/http',
+  '@angular/platform-browser',
+  '@angular/platform-browser-dynamic',
+  '@angular/router',
+  '@angular/router-deprecated',
+  '@angular/upgrade',
+];
+
+packageNames.forEach(function(pkgName) {
+  packages[pkgName] = {
+    main: 'index.js',
+    defaultExtension: 'js'
+  };
+});
+
 config.systemjs = {
-  map: {
-    'app': 'app',
-    'rxjs': 'modules/rxjs',
-    'angular2-in-memory-web-api': 'modules/angular2-in-memory-web-api',
-    '@angular': 'modules/@angular',
-    'angular2': 'modules/angular2'
+  configTemplate: '/system.config.js',
+  configFile: '/system.config.js',
+  config: {
+    map: map,
+    packages: packages
   },
-  packages: {
-    'app': {
-      main: 'main.js?v=' + config.buildTimestamp,
-      defaultExtension: 'js?v=' + config.buildTimestamp
-    },
-    'rxjs': {
-      defaultExtension: 'js?v=' + config.buildTimestamp
-    },
-    'angular2-in-memory-web-api': {
-      defaultExtension: 'js?v=' + config.buildTimestamp
-    },
-    'angular2': {
-      defaultExtension: 'js?v=' + config.buildTimestamp
-    }
-  },
-  packageNames: [
-    '@angular/common',
-    '@angular/compiler',
-    '@angular/core',
-    '@angular/http',
-    '@angular/platform-browser',
-    '@angular/platform-browser-dynamic',
-    '@angular/router',
-    '@angular/router-deprecated',
-    '@angular/upgrade',
-  ],
   bundle: {
     entryFile: 'app/app',
     entryModule: 'main'
@@ -119,9 +161,55 @@ config.systemjs = {
 };
 
 // Do not remove or modify this line!
-config.systemjs.mapString = JSON.stringify(config.systemjs.map);
-config.systemjs.packagesString = JSON.stringify(config.systemjs.packages);
-config.systemjs.packageNamesString = JSON.stringify(config.systemjs.packageNames);
+for (var property in config.systemjs) {
+  if (!config.systemjs.hasOwnProperty(property)) {
+    continue;
+  }
+  config.systemjs[property + 'String'] = JSON.stringify(config.systemjs[property]);
+}
+
+
+/*
+|--------------------------------------------------------------------------
+| JSPM Configuration
+|--------------------------------------------------------------------------
+|
+| You can define modules to bundle which are defined in the SystemJS
+| configuration.
+|
+*/
+config.jspm = {
+  dest: config.dist + '/modules',
+  config: {
+    // config: 'system.config.js',
+    bundleOptions: {
+      mangle: false,
+      sourceMaps: false
+    },
+    bundles: [{
+      src: 'app',
+      dst: 'bundle.js',
+      options: {
+        minify: true,
+        mangle: true
+      }
+    }],
+    // baseUrl: './dist',
+    // config: './system.config.js',
+    // config: 'system.config.js',
+    configOverride: {
+      //jspm: {
+        // "directories": {
+        //   "baseURL": "./dist"
+        // },
+        // "configFile": "system.config.js"
+      //}
+      // baseURL: config.dist
+      // baseURL: config.dest + '/modules',
+      // configFile: 'system.config.js'
+    }
+  }
+};
 
 /*
 |--------------------------------------------------------------------------
@@ -211,29 +299,6 @@ config.icons = {
   cssClass: 'icon'
 };
 
-
-config.modules = {
-  dest: config.dist + '/modules',
-  base: './node_modules',
-
-  // use .js* to include sourcemaps
-  modules: [
-    '/rxjs/**/*',
-    '/@angular/**/*',
-    // '/angular2/**/*',
-    '/angular2-in-memory-web-api/**/*'
-  ],
-
-  // filter files to be minified in production
-  filter: [
-    '**/*.js',
-    '!*/@angular/**/esm/**/*',
-    '!*/@angular/**/testing/**/*',
-    // '!*/angular2/es6/**/*',
-    '!*/@angular/bundles/**/*'
-  ]
-};
-
 /*
 |--------------------------------------------------------------------------
 | Vendor JavaScript Files
@@ -257,51 +322,53 @@ config.vendor = {
   },
 
   files: [{
-    base: './node_modules/zone.js/dist',
-    src: [
-      '/zone.js'
-    ]
-  }, {
-    base: './node_modules/reflect-metadata',
-    src: [
-      '/Reflect.js'
-    ]
-  }, {
-    base: './node_modules/systemjs/dist',
-    src: [
-      '/system.src.js'
-      //'/system-register-only.js'
-    ]
-  }, {
-    base: './node_modules/rxjs/bundles',
-    src: [
-      '/Rx.js'
-    ]
-  }, {
-    base: './node_modules/css-animator/bundles',
-    src: [
-      '/css-animator.min.js'
-    ],
-    devSrc: [
-      '/css-animator.js'
-    ]
-  }, {
-    base: './node_modules/jquery/dist',
-    src: [
-      '/jquery.min.js'
-    ],
-    devSrc: [
-      '/jquery.js'
-    ]
-  }, {
-    base: './node_modules/materialize-css/dist/js',
-    src: [
-      '/materialize.min.js'
-    ],
-    devSrc: [
-      '/materialize.js'
-    ]
-  }]
+      base: './node_modules/zone.js/dist',
+      src: [
+        '/zone.js'
+      ]
+    }, {
+      base: './node_modules/reflect-metadata',
+      src: [
+        '/Reflect.js'
+      ]
+    }, {
+      base: './node_modules/systemjs/dist',
+      src: [
+        '/system.src.js'
+        //'/system-register-only.js'
+      ]
+    }, {
+      base: './node_modules/rxjs/bundles',
+      src: [
+        '/Rx.js'
+      ]
+    }, {
+      base: './node_modules/css-animator/bundles',
+      src: [
+        '/css-animator.min.js'
+      ],
+      devSrc: [
+        '/css-animator.js'
+      ]
+    }
+    // , {
+    //   base: './node_modules/jquery/dist',
+    //   src: [
+    //     '/jquery.min.js'
+    //   ],
+    //   devSrc: [
+    //     '/jquery.js'
+    //   ]
+    // }, {
+    //   base: './node_modules/materialize-css/dist/js',
+    //   src: [
+    //     '/materialize.min.js'
+    //   ],
+    //   devSrc: [
+    //     '/materialize.js'
+    //   ]
+    // }
+  ]
 };
 
 /*
@@ -328,12 +395,6 @@ config.assets = {
 |
 */
 config.copy = [{
-  base: config.src + '/',
-  src: [
-    '/system.config.js'
-  ],
-  dest: config.dist + '/'
-}, {
   base: config.src + '/resources',
   src: [
     '/favicon.ico'
