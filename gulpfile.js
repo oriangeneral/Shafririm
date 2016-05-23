@@ -55,6 +55,7 @@ var ng2RelativePath = requireIfExists(
 */
 var config = require('./config');
 config.env = process.env.NODE_ENV;
+config.mode = 'lazy';
 
 // Determine environment before it is set for initialization
 process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'development';
@@ -66,6 +67,11 @@ var tsOptions = config.mode === 'lazy' ? {} : {
 var tsProject = ts.createProject('tsconfig.json', assign({
   sortOutput: true
 }, tsOptions));
+
+config.jspm.config.bundleOptions = config.jspm.config.bundleOptions || {};
+config.jspm.config.bundleOptions.minify = config.env === 'production';
+config.jspm.config.bundleOptions.mangle = config.env === 'production';
+config.jspm.config.bundleOptions.sourceMaps = config.env !== 'production';
 
 gulp.task('jspm', function() {
   return jspm(config.jspm.config).on('error', onError)
@@ -532,7 +538,7 @@ function requireIfExists(nodeModule, fallbackModule) {
 |
 */
 gulp.task('master', function(done) {
-  return gulpSequence('lint', 'clean:all', ['tasks', 'copy:modules', 'bundle', 'iconfont'])(done);
+  return gulpSequence('lint', 'clean:all', ['tasks', 'copy:modules', 'bundle', 'iconfont'], 'jspm')(done);
 });
 
 gulp.task('tasks', function(done) {

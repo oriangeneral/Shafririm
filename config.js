@@ -79,7 +79,7 @@ config.modules = {
   base: './node_modules',
 
   modules: [
-    '/rxjs/**/*'
+    // '/rxjs/**/*'
     // '/@angular/**/*',
     // '/angular2/**/*',
     // '/angular2-in-memory-web-api/**/*'
@@ -87,7 +87,7 @@ config.modules = {
 
   // Filters files from above to be minified in production
   filter: [
-    '**/*.js'
+    // '**/*.js'
     // '!*/@angular/**/esm/**/*',
     // '!*/@angular/**/testing/**/*',
     // '!*/angular2/es6/**/*',
@@ -152,13 +152,7 @@ config.systemjs = {
     map: map,
     packages: packages
   },
-  bundle: {
-    entryFile: 'app/app',
-    entryModule: 'main'
-  },
-  lazy: {
-    entryFile: 'app/main'
-  }
+  entry: 'app/main'
 };
 
 // Do not remove or modify this line!
@@ -182,13 +176,8 @@ for (var property in config.systemjs) {
 config.jspm = {
   dest: config.dist + '/modules',
   config: {
-    // config: 'system.config.js',
-    bundleOptions: {
-      mangle: config.env === 'production',
-      sourceMaps: config.env === 'production'
-    },
     bundles: [{
-      src: 'app - rxjs',
+      src: 'app',
       dst: 'bundle.js'
     }],
     configOverride: {}
