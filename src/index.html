@@ -25,10 +25,9 @@
   </app>
 
   <script src="/vendor/bundle.js?v=<!-- @echo config.buildTimestamp -->"></script>
-  <script src="<!-- @echo config.systemjs.configFile -->?v=<!-- @echo config.buildTimestamp -->"></script>
-  <!-- @if config.mode='bundle' -->
-  <script src="/modules/bundle.js?v=<!-- @echo config.buildTimestamp -->"></script>
-  <!-- @endif -->
+  <!--<script src="/<!-- @echo config.systemjs.configFile -->?v=<!-- @echo config.buildTimestamp -->"></script>-->
+  <script src="/modules/config.js?v=<!-- @echo config.buildTimestamp -->"></script>
+  <!--<script src="/modules/bundle.js?v=<!-- @echo config.buildTimestamp -->"></script>-->
   <script>
     <!-- @if config.mode='bundle' -->
     System.import('<!-- @echo config.systemjs.bundle.entryFile -->').then(function() {

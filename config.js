@@ -71,27 +71,27 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 | Modules Configuration
 |--------------------------------------------------------------------------
 |
-| Define node modules/files to be copied to the distribution.
+| Define node modules/files to be copied to the distribution for e.g. lazy loading
 |
 */
 config.modules = {
-  dest: config.dist + '/modules',
+  dest: config.dist + '/modules/node_modules',
   base: './node_modules',
 
   modules: [
-    '/rxjs/**/*',
-    '/@angular/**/*',
+    '/rxjs/**/*'
+    // '/@angular/**/*',
     // '/angular2/**/*',
-    '/angular2-in-memory-web-api/**/*'
+    // '/angular2-in-memory-web-api/**/*'
   ],
 
   // Filters files from above to be minified in production
   filter: [
-    '**/*.js',
-    '!*/@angular/**/esm/**/*',
-    '!*/@angular/**/testing/**/*',
+    '**/*.js'
+    // '!*/@angular/**/esm/**/*',
+    // '!*/@angular/**/testing/**/*',
     // '!*/angular2/es6/**/*',
-    '!*/@angular/bundles/**/*'
+    // '!*/@angular/bundles/**/*'
   ]
 };
 
@@ -105,7 +105,7 @@ config.modules = {
 |
 */
 var map = {
-  'app': 'dist/app',
+  'app': 'dist/modules/app',
   'rxjs': 'node_modules/rxjs',
   '@angular': 'node_modules/@angular',
   'css-animator': 'node_modules/css-animator'
@@ -148,6 +148,7 @@ config.systemjs = {
   configTemplate: '/system.config.js',
   configFile: '/system.config.js',
   config: {
+    baseURL: '/modules',
     map: map,
     packages: packages
   },
@@ -183,31 +184,14 @@ config.jspm = {
   config: {
     // config: 'system.config.js',
     bundleOptions: {
-      mangle: false,
-      sourceMaps: false
+      mangle: config.env === 'production',
+      sourceMaps: config.env === 'production'
     },
     bundles: [{
-      src: 'app',
-      dst: 'bundle.js',
-      options: {
-        minify: true,
-        mangle: true
-      }
+      src: 'app - rxjs',
+      dst: 'bundle.js'
     }],
-    // baseUrl: './dist',
-    // config: './system.config.js',
-    // config: 'system.config.js',
-    configOverride: {
-      //jspm: {
-        // "directories": {
-        //   "baseURL": "./dist"
-        // },
-        // "configFile": "system.config.js"
-      //}
-      // baseURL: config.dist
-      // baseURL: config.dest + '/modules',
-      // configFile: 'system.config.js'
-    }
+    configOverride: {}
   }
 };
 
@@ -224,7 +208,7 @@ config.jspm = {
 */
 config.ts = config.ts || {};
 
-config.ts.appBase = '/app';
+config.ts.appBase = '/modules/app';
 
 config.ts = assign(config.ts, {
   src: config.src + '/js/**/*.ts',
@@ -337,20 +321,23 @@ config.vendor = {
         '/system.src.js'
         //'/system-register-only.js'
       ]
-    }, {
-      base: './node_modules/rxjs/bundles',
-      src: [
-        '/Rx.js'
-      ]
-    }, {
-      base: './node_modules/css-animator/bundles',
-      src: [
-        '/css-animator.min.js'
-      ],
-      devSrc: [
-        '/css-animator.js'
-      ]
     }
+    // ,
+    // {
+    //   base: './node_modules/rxjs/bundles',
+    //   src: [
+    //     '/Rx.js'
+    //   ]
+    // },
+    // {
+    //   base: './node_modules/css-animator/bundles',
+    //   src: [
+    //     '/css-animator.min.js'
+    //   ],
+    //   devSrc: [
+    //     '/css-animator.js'
+    //   ]
+    // }
     // , {
     //   base: './node_modules/jquery/dist',
     //   src: [
