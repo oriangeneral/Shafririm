@@ -174,7 +174,7 @@ for (var property in config.systemjs) {
 |
 */
 config.jspm = {
-  dest: config.dist + '/modules',
+  dest: '/temp/modules',
   config: {
     bundles: [{
       src: 'app',

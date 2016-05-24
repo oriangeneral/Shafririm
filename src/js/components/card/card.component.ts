@@ -2,10 +2,17 @@ import { Component, Inject, Input, ElementRef } from '@angular/core';
 
 import { AnimationService, AnimationBuilder, AnimationOptions } from 'css-animator';
 
+import cardTemplate from './card.html';
+import cardStyle from './card.less';
+import cardAnimationsStyle from './card-animations.less';
+
 @Component({
   selector: 'card',
-  templateUrl: './card.html',
-  styleUrls: ['./card.less', './card-animations.less'],
+  template: cardTemplate,
+  styles: [
+    cardStyle,
+    cardAnimationsStyle
+  ],
   directives: []
 })
 export class CardComponent {

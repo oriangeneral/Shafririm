@@ -23,6 +23,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var insert = require('gulp-insert');
 // var babel = require('gulp-babel');
 var jspm = require('gulp-jspm-build');
+var gulp_jspm = require('gulp-jspm');
+var Builder = require('systemjs-builder');
 var inlineNg2Template = require('gulp-inline-ng2-template');
 var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
@@ -72,6 +74,45 @@ config.jspm.config.bundleOptions = config.jspm.config.bundleOptions || {};
 config.jspm.config.bundleOptions.minify = config.env === 'production';
 config.jspm.config.bundleOptions.mangle = config.env === 'production';
 config.jspm.config.bundleOptions.sourceMaps = config.env !== 'production';
+
+var builder = new Builder('.', 'system.config.js');
+
+gulp.task('jspm3', function() {
+  return jspm({
+    bundles: [{
+    src: [ 'app' ],
+    dst: 'bundle.js'
+  }],
+  configOverride: {},
+  bundleSfx: false
+}).on('error', onError)
+    .pipe(gulp.dest('temp/'))
+    .on('error', onError);
+});
+
+gulp.task('builder', function(done) {
+  builder
+    .bundle('app', 'temp/bundle.js', {
+      minify: false,
+      mangle: false,
+      sourceMaps: false,
+      cssOptimize: true
+    })
+    .then(function() {
+      done();
+    })
+    .catch(function(err) {
+      onError(err);
+    });
+});
+
+gulp.task('jspm2', function() {
+  return gulp.src('src/main.ts')
+    .pipe(gulp_jspm({
+      verbose: true
+    }))
+    .pipe(gulp.dest('temp/'));
+});
 
 gulp.task('jspm', function() {
   return jspm(config.jspm.config).on('error', onError)
