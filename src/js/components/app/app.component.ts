@@ -5,10 +5,13 @@ import { AnimationService } from 'css-animator';
 import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
 
+import appTemplate from './app.html';
+import appStyle from './app.less';
+
 @Component({
   selector: 'app',
-  styleUrls: ['./app.less'],
-  templateUrl: './app.html',
+  styles: [ appStyle ],
+  template: appTemplate,
   directives: [
     ROUTER_DIRECTIVES
   ],

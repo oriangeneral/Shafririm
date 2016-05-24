@@ -7,10 +7,13 @@ import { QuizService } from '../../services/quiz.service';
 import { QuestionsComponent } from '../questions/questions.component';
 import { QuestionComponent } from '../questions/question/question.component';
 
+import quizTemplate from './quiz.html';
+import quizStyle from './quiz.less';
+
 @Component({
   selector: 'quiz',
-  templateUrl: './quiz.html',
-  styleUrls: ['./quiz.less'],
+  template: quizTemplate,
+  styles: [ quizStyle ],
   directives: [
     ROUTER_DIRECTIVES,
     QuestionsComponent,

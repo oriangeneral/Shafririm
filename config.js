@@ -17,30 +17,14 @@ var assign = require('lodash.assign');
 |   - tsconfig.json
 |
 | Reserved:
-|
 | - config.env
+| - config.mode
 |
 */
 var config = config || {};
 
 // Use the build timestamp to prevent browser caching of new versions
 config.buildTimestamp = new Date().valueOf();
-
-/*
-|--------------------------------------------------------------------------
-| Mode
-|--------------------------------------------------------------------------
-|
-| Choose a desired mode.
-|
-| - bundle
-|     Files will be concatinated (for use with HTTP)
-|
-| - lazy
-|     Files will be lazy loaded (for use with HTTP2)
-|
-*/
-config.mode = 'lazy';
 
 
 /*
@@ -65,159 +49,41 @@ config.dist = './dist';
 */
 config.watch = ['src/**/*', '!src/assets/**/*'];
 
-
 /*
 |--------------------------------------------------------------------------
-| Modules Configuration
+| SystemJS Builder
 |--------------------------------------------------------------------------
 |
-| Define node modules/files to be copied to the distribution for e.g. lazy loading
+| You can pass SystemJS builder options, and overwrite those, set in
+| gulpfile.js
 |
 */
-config.modules = {
-  dest: config.dist + '/modules/node_modules',
-  base: './node_modules',
-
-  modules: [
-    // '/rxjs/**/*'
-    // '/@angular/**/*',
-    // '/angular2/**/*',
-    // '/angular2-in-memory-web-api/**/*'
-  ],
-
-  // Filters files from above to be minified in production
-  filter: [
-    // '**/*.js'
-    // '!*/@angular/**/esm/**/*',
-    // '!*/@angular/**/testing/**/*',
-    // '!*/angular2/es6/**/*',
-    // '!*/@angular/bundles/**/*'
-  ]
-};
-
-
-/*
-|--------------------------------------------------------------------------
-| SystemJS Configuration
-|--------------------------------------------------------------------------
-|
-| Define the configuration for SystemJS.
-|
-*/
-var map = {
-  'app': 'dist/modules/app',
-  'rxjs': 'node_modules/rxjs',
-  '@angular': 'node_modules/@angular',
-  'css-animator': 'node_modules/css-animator'
-};
-
-var packages = {
-  'app': {
-    main: 'main.js',
-    defaultExtension: 'js'
-  },
-  'rxjs': {
-    defaultExtension: 'js'
-  },
-  'css-animator': {
-    defaultExtension: 'js'
-  }
-};
-
-var packageNames = [
-  'css-animator',
-  '@angular/common',
-  '@angular/compiler',
-  '@angular/core',
-  '@angular/http',
-  '@angular/platform-browser',
-  '@angular/platform-browser-dynamic',
-  '@angular/router',
-  '@angular/router-deprecated',
-  '@angular/upgrade',
-];
-
-packageNames.forEach(function(pkgName) {
-  packages[pkgName] = {
-    main: 'index.js',
-    defaultExtension: 'js'
-  };
-});
-
-config.systemjs = {
-  configTemplate: '/system.config.js',
-  configFile: '/system.config.js',
+config.builder = {
   config: {
-    baseURL: '/modules',
-    map: map,
-    packages: packages
+    dest: config.dist + '/app',
+    name: 'bundle.js',
+    bundle: 'app',
+    entry: 'app',
+    base: '.',
+    configFile: 'system.config.js'
   },
-  entry: 'app/main'
-};
+  options: {
 
-// Do not remove or modify this line!
-for (var property in config.systemjs) {
-  if (!config.systemjs.hasOwnProperty(property)) {
-    continue;
-  }
-  config.systemjs[property + 'String'] = JSON.stringify(config.systemjs[property]);
-}
-
-
-/*
-|--------------------------------------------------------------------------
-| JSPM Configuration
-|--------------------------------------------------------------------------
-|
-| You can define modules to bundle which are defined in the SystemJS
-| configuration.
-|
-*/
-config.jspm = {
-  dest: '/temp/modules',
-  config: {
-    bundles: [{
-      src: 'app',
-      dst: 'bundle.js'
-    }],
-    configOverride: {}
   }
 };
 
 /*
 |--------------------------------------------------------------------------
-| TypeScript Configuration
+| TypeScript Linter
 |--------------------------------------------------------------------------
 |
-| Define the source and destination path, as well as the
-| concatinated file name.
-|
-| Please note, that some configuration is set inside tsconfig.json!
+| Define files to check for errors.
+| All options are set in tslint.json.
 |
 */
-config.ts = config.ts || {};
-
-config.ts.appBase = '/modules/app';
-
-config.ts = assign(config.ts, {
-  src: config.src + '/js/**/*.ts',
-  base: config.src + '/js',
-  entry: config.src + '/js/main.ts',
-  dest: config.dist + config.ts.appBase,
-  name: 'app.js',
-
-  // File to include to ANY less file. Make sure to only
-  // define variables and functions in it to not pollute
-  // the css code.
-  lessMaster: config.src + '/css/variables/vars.less',
-
-  // Due to issues with mangling in Angular2 beta,
-  // we will keep the original function names.
-  mangle: {
-    keep_fnames: true
-  }
-});
-
+config.tslint = {
+  src: config.src + '/js/**/*.ts'
+};
 
 /*
 |--------------------------------------------------------------------------

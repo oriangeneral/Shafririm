@@ -1,5 +1,5 @@
 System.config({
-  baseURL: "/",
+  baseURL: "/app",
   defaultJSExtensions: true,
   transpiler: "ts",
   typescriptOptions: {
@@ -7,7 +7,7 @@ System.config({
     "typeCheck": true,
     "targetLib": "es5",
     "tsconfig": false,
-    
+
     // official typescript options:
     "target": "ES5",
     "module": "system",

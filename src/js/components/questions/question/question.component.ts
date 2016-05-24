@@ -5,10 +5,13 @@ import { AnimationOptions } from 'css-animator';
 import { CardComponent } from '../../card/card.component';
 import { QuestionsComponent } from '../questions.component';
 
+import questionTemplate from './question.html';
+import questionStyle from './question.less';
+
 @Component({
   selector: 'question',
-  templateUrl: './question.html',
-  styleUrls: ['./question.less'],
+  template: questionTemplate,
+  styles: [ questionStyle ],
   directives: [
     ROUTER_DIRECTIVES
   ]
