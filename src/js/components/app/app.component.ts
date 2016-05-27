@@ -37,7 +37,7 @@ export class AppComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.router.navigate(['/']);
+    // this.router.navigate(['/']);
   }
 
 }

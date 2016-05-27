@@ -48,7 +48,7 @@ System.config({
     "app": "src/js",
     "css-animator": "npm:css-animator@1.0.0",
     "reflect-metadata": "npm:reflect-metadata@0.1.3",
-    "rxjs": "npm:rxjs@5.0.0-beta.8",
+    "rxjs": "npm:rxjs@5.0.0-beta.6",
     "text": "github:systemjs/plugin-text@0.0.8",
     "ts": "github:frankwallis/plugin-typescript@4.0.16",
     "ts-runtime": "npm:babel-runtime@5.8.38",
@@ -395,11 +395,6 @@ System.config({
     "npm:rxjs@5.0.0-beta.6": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
       "process": "github:jspm/nodelibs-process@0.1.2"
-    },
-    "npm:rxjs@5.0.0-beta.8": {
-      "buffer": "github:jspm/nodelibs-buffer@0.1.0",
-      "process": "github:jspm/nodelibs-process@0.1.2",
-      "symbol-observable": "npm:symbol-observable@0.2.4"
     },
     "npm:sha.js@2.4.5": {
       "buffer": "github:jspm/nodelibs-buffer@0.1.0",
