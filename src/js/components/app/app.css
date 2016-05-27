@@ -1,5 +1,3 @@
-@import "../../../css/variables/vars.less";
-
 :host {
   width: 100vw;
   height: 100vh;
@@ -11,7 +9,7 @@
   align-items: stretch;
   flex-wrap: nowrap;
 
-  @media screen and (min-width: @screen-s) {
+  @media screen and (min-width: 550px) {
     justify-content: center;
     align-items: center;
   }

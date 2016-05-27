@@ -19,7 +19,6 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var filter = require('gulp-filter');
 var sourcemaps = require('gulp-sourcemaps');
-var Builder = require('systemjs-builder');
 var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
@@ -28,7 +27,6 @@ var iconfontCss = require('gulp-iconfont-css');
 var argv = require('yargs').argv;
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
-
 var jspm = require('gulp-jspm-build');
 
 /*
@@ -49,9 +47,6 @@ config.env = process.env.NODE_ENV;
 
 // Determine environment before it is set for initialization
 process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'development';
-
-// Initialize SystemJS builder
-var builder = new Builder(config.builder.config.base, config.builder.config.configFile);
 
 /*
 |--------------------------------------------------------------------------
@@ -152,42 +147,16 @@ gulp.task('clean:assets', function() {
     .on('error', onError);
 });
 
-gulp.task('builder', function(done) {
-  builder
-    .bundle(
-      config.builder.config.bundle,
-      config.builder.config.dest + '/' + config.builder.config.name,
-      assign({
-      minify: config.env === 'production',
-      mangle: config.env === 'production',
-      sourceMaps: config.env !== 'production',
-      sourceMapContents: config.env !== 'production',
-      cssOptimize: true
+gulp.task('jspm', function() {
+  return jspm(assign({
+      bundleOptions: {
+        minify: config.env === 'production',
+        mangle: config.env === 'production',
+        sourceMaps: config.env !== 'production' ? true : false,
+        sourceMapContents: config.env !== 'production'
+      }
     }, config.builder.options))
-    .then(function() {
-      done();
-    })
-    .catch(function(err) {
-      onError(err);
-    });
-});
-
-gulp.task('jspm', function(){
-    return jspm({
-        bundles: [
-            {
-              src: config.builder.config.bundle,
-              dst: config.builder.config.name,
-              options: {
-                minify: config.env === 'production',
-                mangle: config.env === 'production',
-                sourceMaps: config.env !== 'production',
-                cssOptimize: true
-              }
-            }
-        ]
-    })
-    .pipe(gulp.dest(config.builder.config.dest));
+    .pipe(gulp.dest(config.builder.dest));
 });
 
 gulp.task('less', function() {
@@ -237,31 +206,6 @@ gulp.task('copy:originals', function(done) {
   });
 
   done();
-});
-
-gulp.task('bundle:vendor', function(done) {
-  var src = clone(config.vendor.files);
-  var sources = [],
-    g = gulp;
-
-  src.forEach(function(element, index) {
-    var useSrc = config.env !== 'production' && element.devSrc ? element.devSrc : element.src;
-
-    useSrc.forEach(function(path) {
-      sources.push(element.base + path);
-    });
-  });
-
-  return gulp.src(sources)
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-      loadMaps: true
-    }).on('error', onError)))
-    .pipe(concat(config.vendor.name))
-    .pipe(gulpif(config.env === 'production', uglify({
-      mangle: config.vendor.mangle
-    })))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
-    .pipe(gulp.dest(config.vendor.dest));
 });
 
 gulp.task('lint:ts', function() {
@@ -377,7 +321,7 @@ function clone(obj) {
 |
 */
 gulp.task('master', function(done) {
-  return gulpSequence('lint', 'clean:all', ['tasks', 'bundle', 'iconfont', 'jspm'])(done);
+  return gulpSequence('lint', 'clean:all', ['tasks', 'iconfont', 'jspm'])(done);
 });
 
 gulp.task('tasks', function(done) {
@@ -390,10 +334,6 @@ gulp.task('copy', function(done) {
 
 gulp.task('clean:default', function(done) {
   return gulpSequence(['clean:scripts', 'clean:styles', 'clean:index'])(done);
-});
-
-gulp.task('bundle', function(done) {
-  return gulpSequence(['bundle:vendor'])(done);
 });
 
 gulp.task('lint', function(done) {

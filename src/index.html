@@ -24,11 +24,8 @@
     </div>
   </app>
 
-  <script src="/vendor/bundle.js"></script>
-  <script src="/app/config.js"></script>
-  <script>
-    System.import('<!-- @echo config.builder.config.entry -->').then(null, console.error.bind(console));
-  </script>
+  <script src="/app/vendor.js?v=<!-- @echo config.buildTimestamp -->"></script>
+  <script src="/app/app.js?v=<!-- @echo config.buildTimestamp -->"></script>
 </body>
 
 </html>

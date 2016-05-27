@@ -6,7 +6,7 @@ import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
 
 import appTemplate from './app.html';
-import appStyle from './app.less';
+import appStyle from './app.css';
 
 @Component({
   selector: 'app',
@@ -32,7 +32,9 @@ import appStyle from './app.less';
 ])
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    console.log('Hello from app component.');
+  }
 
   public ngOnInit() {
     this.router.navigate(['/']);

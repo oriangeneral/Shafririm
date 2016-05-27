@@ -3,8 +3,8 @@ import { Component, Inject, Input, ElementRef } from '@angular/core';
 import { AnimationService, AnimationBuilder, AnimationOptions } from 'css-animator';
 
 import cardTemplate from './card.html';
-import cardStyle from './card.less';
-import cardAnimationsStyle from './card-animations.less';
+import cardStyle from './card.css';
+import cardAnimationsStyle from './card-animations.css';
 
 @Component({
   selector: 'card',

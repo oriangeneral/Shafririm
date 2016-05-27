@@ -6,7 +6,7 @@ import { CardComponent } from '../../card/card.component';
 import { QuestionsComponent } from '../questions.component';
 
 import questionTemplate from './question.html';
-import questionStyle from './question.less';
+import questionStyle from './question.css';
 
 @Component({
   selector: 'question',

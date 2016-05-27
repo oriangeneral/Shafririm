@@ -8,7 +8,7 @@ import { QuestionsComponent } from '../questions/questions.component';
 import { QuestionComponent } from '../questions/question/question.component';
 
 import quizTemplate from './quiz.html';
-import quizStyle from './quiz.less';
+import quizStyle from './quiz.css';
 
 @Component({
   selector: 'quiz',

@@ -1,5 +1,3 @@
-@import "../../../css/variables/vars.less";
-
 .section {
   padding: 8rem 0 7rem;
   text-align: center;
@@ -24,12 +22,12 @@ a.button {
 /* Mobile first queries */
 
 /* Larger than mobile */
-@media (min-width: @screen-xs) {
+@media (min-width: 350px) {
 
 }
 
 /* Larger than phablet */
-@media (min-width: @screen-s) {
+@media (min-width: 550px) {
   p.section-description {
     width: 70%;
     font-size: 2rem;
@@ -37,20 +35,20 @@ a.button {
 }
 
 /* Larger than tablet */
-@media (min-width: @screen-m) {
+@media (min-width: 750px) {
   h3.section-heading {
     font-size: 4.6rem;
   }
 }
 
 /* Larger than desktop */
-@media (min-width: @screen-l) {
+@media (min-width: 1000px) {
   h3.section-heading {
     font-size: 6rem;
   }
 }
 
 /* Larger than Desktop HD */
-@media (min-width: @screen-xl) {
+@media (min-width: 1200px) {
 
 }

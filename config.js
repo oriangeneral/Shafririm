@@ -54,21 +54,24 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 | SystemJS Builder
 |--------------------------------------------------------------------------
 |
-| You can pass SystemJS builder options, and overwrite those, set in
+| You can pass SystemJS builder/JSPM options, and overwrite those, set in
 | gulpfile.js
 |
 */
 config.builder = {
-  config: {
-    dest: config.dist + '/app',
-    name: 'bundle.js',
-    bundle: 'app',
-    entry: 'app',
-    base: '.',
-    configFile: 'system.config.js'
-  },
+  dest: config.dist + '/app',
   options: {
-
+    bundleSfx: true,
+    bundles: [{
+      src: 'app',
+      dst: 'app.js'
+    }, {
+      src: 'zone.js + reflect-metadata',
+      dst: 'vendor.js',
+      options: {
+        mangle: false
+      }
+    }]
   }
 };
 
@@ -136,81 +139,6 @@ config.icons = {
   templatePath: './node_modules/gulp-iconfont-css/templates/_icons.css',
   fontName: 'Icons',
   cssClass: 'icon'
-};
-
-/*
-|--------------------------------------------------------------------------
-| Vendor JavaScript Files
-|--------------------------------------------------------------------------
-|
-| For faster builds, vendor files are only bundled into a single file,
-| but not compiled by TypeScript.
-|
-| If 'devSrc' is specified alongside 'src', 'devSrc' will be used, if
-| the environment is NOT in production.
-|
-*/
-config.vendor = {
-  dest: config.dist + '/vendor',
-  name: 'bundle.js',
-
-  // Due to issues with mangling in Angular2 beta,
-  // we will keep the original function names.
-  mangle: {
-    keep_fnames: true
-  },
-
-  files: [{
-      base: './node_modules/zone.js/dist',
-      src: [
-        '/zone.js'
-      ]
-    }, {
-      base: './node_modules/reflect-metadata',
-      src: [
-        '/Reflect.js'
-      ]
-    }, {
-      base: './node_modules/systemjs/dist',
-      src: [
-        '/system.src.js'
-        //'/system-register-only.js'
-      ]
-    }
-    // ,
-    // {
-    //   base: './node_modules/rxjs/bundles',
-    //   src: [
-    //     '/Rx.js'
-    //   ]
-    // },
-    // {
-    //   base: './node_modules/css-animator/bundles',
-    //   src: [
-    //     '/css-animator.min.js'
-    //   ],
-    //   devSrc: [
-    //     '/css-animator.js'
-    //   ]
-    // }
-    // , {
-    //   base: './node_modules/jquery/dist',
-    //   src: [
-    //     '/jquery.min.js'
-    //   ],
-    //   devSrc: [
-    //     '/jquery.js'
-    //   ]
-    // }, {
-    //   base: './node_modules/materialize-css/dist/js',
-    //   src: [
-    //     '/materialize.min.js'
-    //   ],
-    //   devSrc: [
-    //     '/materialize.js'
-    //   ]
-    // }
-  ]
 };
 
 /*
