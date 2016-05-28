@@ -29,6 +29,8 @@ var notifier = require('node-notifier');
 var assign = require('lodash.assign');
 var jspm = require('gulp-jspm-build');
 
+var jspm2 = require('../jspm-bundle');
+
 /*
 |--------------------------------------------------------------------------
 | Global Definitions
@@ -47,6 +49,20 @@ config.env = process.env.NODE_ENV;
 
 // Determine environment before it is set for initialization
 process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'development';
+
+gulp.task('jspm2', function(done) {
+  jspm2({
+    modules: 'app',
+    outfile: 'dist/outfile.js',
+    bundleSfx: true,
+    sourceMaps: true,
+    sourceMapContents: true
+  })
+  .then(function() {
+    done();
+  })
+  .catch(onError);
+});
 
 /*
 |--------------------------------------------------------------------------

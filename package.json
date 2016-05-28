@@ -2,7 +2,7 @@
   "name": "hue",
   "version": "0.0.1",
   "description": "A music quiz in Angular2 using the Spotify API.",
-  "main": "server/index.js",
+  "main": "main.ts",
   "scripts": {
     "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -53,44 +53,159 @@
     "gulp-tslint-stylish": "^1.1.1",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
-    "jspm": "^0.16.34",
+    "jspm": "^0.17.0-beta.16",
     "less": "^2.7.1",
     "lodash.assign": "^4.0.6",
     "node-notifier": "^4.5.0",
-    "systemjs": "^0.19.29",
-    "systemjs-builder": "^0.15.18",
     "tslint": "^3.6.0",
     "typescript": "^1.8.10",
     "yargs": "^4.3.2"
   },
   "jspm": {
+    "configFiles": {
+      "jspm": "system.config.js"
+    },
     "configFile": "system.config.js",
     "dependencies": {
-      "@angular/common": "npm:@angular/common@^2.0.0-rc.1",
-      "@angular/compiler": "npm:@angular/compiler@^2.0.0-rc.1",
-      "@angular/core": "npm:@angular/core@^2.0.0-rc.1",
       "@angular/http": "npm:@angular/http@^2.0.0-rc.1",
-      "@angular/platform-browser": "npm:@angular/platform-browser@^2.0.0-rc.1",
       "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@^2.0.0-rc.1",
       "@angular/router": "npm:@angular/router@^2.0.0-rc.1",
       "@angular/router-deprecated": "npm:@angular/router-deprecated@^2.0.0-rc.1",
-      "@angular/testing": "npm:@angular/testing@^0.0.0-0",
-      "@angular/upgrade": "npm:@angular/upgrade@^2.0.0-rc.1",
       "css-animator": "npm:css-animator@^1.0.0",
-      "reflect-metadata": "npm:reflect-metadata@^0.1.3",
-      "rxjs": "npm:rxjs@5.0.0-beta.6",
-      "text": "github:systemjs/plugin-text@^0.0.8",
-      "ts": "github:frankwallis/plugin-typescript@^4.0.16",
-      "zone.js": "npm:zone.js@^0.6.12"
+      "reflect-metadata": "npm:reflect-metadata@^0.1.3"
     },
     "devDependencies": {
+      "core-js": "npm:core-js@^1.2.0",
       "ts-runtime": "npm:babel-runtime@^5.8.24",
-      "typescript": "npm:typescript@^1.6.2"
+      "typescript": "npm:typescript@1.8.10",
+      "text": "github:systemjs/plugin-text@^0.0.8",
+      "ts": "github:frankwallis/plugin-typescript@^4.0.16",
+      "plugin-babel": "npm:systemjs-plugin-babel@^0.0.11"
+    },
+    "peerDependencies": {
+      "@angular/common": "npm:@angular/common@2.0.0-rc.1",
+      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.1",
+      "@angular/core": "npm:@angular/core@2.0.0-rc.1",
+      "@angular/platform-browser": "npm:@angular/platform-browser@^2.0.0-rc.1",
+      "assert": "github:jspm/nodelibs-assert@^0.2.0-alpha",
+      "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
+      "child_process": "github:jspm/nodelibs-child_process@^0.2.0-alpha",
+      "constants": "github:jspm/nodelibs-constants@^0.2.0-alpha",
+      "crypto": "github:jspm/nodelibs-crypto@^0.2.0-alpha",
+      "events": "github:jspm/nodelibs-events@^0.2.0-alpha",
+      "fs": "github:jspm/nodelibs-fs@^0.2.0-alpha",
+      "http": "github:jspm/nodelibs-http@^0.2.0-alpha",
+      "module": "github:jspm/nodelibs-module@^0.2.0-alpha",
+      "net": "github:jspm/nodelibs-net@^0.2.0-alpha",
+      "os": "github:jspm/nodelibs-os@^0.2.0-alpha",
+      "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
+      "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
+      "rxjs": "npm:rxjs@5.0.0-beta.6",
+      "stream": "github:jspm/nodelibs-stream@^0.2.0-alpha",
+      "string_decoder": "github:jspm/nodelibs-string_decoder@^0.2.0-alpha",
+      "tty": "github:jspm/nodelibs-tty@^0.2.0-alpha",
+      "url": "github:jspm/nodelibs-url@^0.2.0-alpha",
+      "util": "github:jspm/nodelibs-util@^0.2.0-alpha",
+      "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha",
+      "zone.js": "npm:zone.js@^0.6.6"
     },
     "overrides": {
+      "npm:@angular/common@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/compiler@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/core@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/http@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/platform-browser-dynamic@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/platform-browser@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/router@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:babel-runtime@5.8.38": {
+        "main": false,
+        "dependencies": {},
+        "optionalDependencies": {
+          "core-js": "^1.2.0"
+        }
+      },
+      "npm:inherits@2.0.1": {
+        "ignore": [
+          "test.js"
+        ]
+      },
       "npm:reflect-metadata@0.1.3": {
-        "map": {},
-        "jspmNodeConversion": true
+        "jspmNodeConversion": true,
+        "map": {}
+      },
+      "npm:typescript@1.8.10": {
+        "browser": {},
+        "map": {
+          "buffer": "@empty",
+          "child_process": "@empty",
+          "fs": "@empty",
+          "path": "@empty",
+          "process": "@empty",
+          "readline": "@empty"
+        }
       }
     }
   }
