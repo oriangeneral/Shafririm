@@ -152,8 +152,8 @@ gulp.task('jspm', function() {
       bundleOptions: {
         minify: config.env === 'production',
         mangle: config.env === 'production',
-        sourceMaps: config.env !== 'production' ? true : false,
-        sourceMapContents: config.env !== 'production'
+        sourceMaps: config.env !== 'production' ? true : false
+        // ,sourceMapContents: config.env !== 'production'
       }
     }, config.builder.options))
     .pipe(gulp.dest(config.builder.dest));
