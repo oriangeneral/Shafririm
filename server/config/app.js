@@ -1,5 +1,5 @@
 module.exports = {
-  publicDir: '../dist',
+  publicDir: '../',
   env: process.env.NODE_ENV,
   production: process.env.NODE_ENV === 'production'
 };

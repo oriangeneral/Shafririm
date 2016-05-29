@@ -5,6 +5,11 @@
     "moduleResolution": "node",
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
-    "supportHtmlImports": true
-  }
+    "supportHtmlImports": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules",
+    "jspm_packages"
+  ]
 }

@@ -58,21 +58,23 @@ config.watch = ['src/**/*', '!src/assets/**/*'];
 | gulpfile.js
 |
 */
-config.builder = {
-  dest: config.dist + '/app',
-  options: {
-    bundleSfx: true,
-    bundles: [{
-      src: 'app',
-      dst: 'app.js'
-    }, {
-      src: 'zone.js + reflect-metadata',
-      dst: 'vendor.js',
-      options: {
-        mangle: false
-      }
-    }]
-  }
+config.jspm = {
+  bundles: [{
+    options: [
+      'build',
+      'reflect-metadata + zone.js + hue',
+      'dist/app/bundle.js',
+      '--minify',
+      '--skip-source-maps'
+    ],
+    devOptions: [
+      'build',
+      'reflect-metadata + zone.js + hue-dev',
+      'dist/app/bundle.js',
+      '--no-mangle',
+      '--source-map-contents'
+    ]
+  }]
 };
 
 /*

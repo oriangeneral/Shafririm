@@ -7,6 +7,7 @@
 | your tasks.
 |
 */
+var requireIfExests = require('../node-require-fallback');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
@@ -27,9 +28,7 @@ var iconfontCss = require('gulp-iconfont-css');
 var argv = require('yargs').argv;
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
-var jspm = require('gulp-jspm-build');
-
-var jspm2 = require('../jspm-bundle');
+var execFile = requireIfExests('../node-exec-promise', 'node-exec-promise').execFile;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,20 +48,6 @@ config.env = process.env.NODE_ENV;
 
 // Determine environment before it is set for initialization
 process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'development';
-
-gulp.task('jspm2', function(done) {
-  jspm2({
-    modules: 'app',
-    outfile: 'dist/outfile.js',
-    bundleSfx: true,
-    sourceMaps: true,
-    sourceMapContents: true
-  })
-  .then(function() {
-    done();
-  })
-  .catch(onError);
-});
 
 /*
 |--------------------------------------------------------------------------
@@ -163,16 +148,23 @@ gulp.task('clean:assets', function() {
     .on('error', onError);
 });
 
-gulp.task('jspm', function() {
-  return jspm(assign({
-      bundleOptions: {
-        minify: config.env === 'production',
-        mangle: config.env === 'production',
-        sourceMaps: config.env !== 'production' ? true : false
-        // ,sourceMapContents: config.env !== 'production'
-      }
-    }, config.builder.options))
-    .pipe(gulp.dest(config.builder.dest));
+gulp.task('jspm', function(done) {
+  var bundles = [];
+
+  config.jspm.bundles.forEach(function(bundle) {
+    if (config.env !== 'production') {
+      bundles.push(execFile('jspm', bundle.devOptions));
+    } else {
+      bundles.push(execFile('jspm', bundle.options));
+    }
+  });
+
+  Promise.all(bundles)
+    .then(function(values) {
+      done();
+    }, function(error) {
+      onError(error);
+    });
 });
 
 gulp.task('less', function() {

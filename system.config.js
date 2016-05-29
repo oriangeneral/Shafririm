@@ -4,13 +4,15 @@ SystemJS.config({
     "npm:": "jspm_packages/npm/"
   },
   browserConfig: {
-    "baseURL": "/app",
+    "baseURL": "/",
     "paths": {
-      "hue/": "app/"
+      "hue-dev/": "src/js/",
+      "hue/": "src/js/"
     }
   },
   nodeConfig: {
     "paths": {
+      "hue-dev/": "src/js/",
       "hue/": "src/js/"
     }
   },
@@ -41,7 +43,6 @@ SystemJS.config({
   typescriptOptions: {
     "module": "es6",
     "target": "es6",
-    "targetLib": "es6",
     "typeCheck": false,
     "tsconfig": true,
     "sourceMap": true,
@@ -50,7 +51,22 @@ SystemJS.config({
   },
   packages: {
     "hue": {
-      "main": "main",
+      "main": "main.prod",
+      "defaultExtension": "ts",
+      "meta": {
+        "*.ts": {
+          "loader": "ts"
+        },
+        "*.css": {
+          "loader": "text"
+        },
+        "*.html": {
+          "loader": "text"
+        }
+      }
+    },
+    "hue-dev": {
+      "main": "main.dev",
       "defaultExtension": "ts",
       "meta": {
         "*.ts": {

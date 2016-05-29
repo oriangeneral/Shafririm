@@ -1,11 +1,13 @@
 # HUE - Music Quiz
 
 You may also want to have a look at the packages
-[gulp-ng2-relative-path](https://github.com/fabianweb/gulp-ng2-relative-path) and
-[css-animator](https://github.com/fabianweb/css-animator)
+[gulp-ng2-relative-path](https://github.com/fabianweb/gulp-ng2-relative-path),
+[css-animator](https://github.com/fabianweb/css-animator), [node-exec-promise](https://github.com/fabianweb/node-exec-promise) and [node-require-fallback](https://github.com/fabianweb/node-require-fallback)
 which were created just for this project.  
 
 More documentation will be added once we've decided for a good structure. For now please take a look at how to get the app running within seconds:
+
+**NOTE: This readme is outdated and will be updated soon.**
 
 # Quickstart
 
@@ -57,7 +59,7 @@ The production build should be used, to compile the app for **deployment**.
 It will do it's best to keep the target files as small as possible.
 
 ```sh
-$ gulp dev-build
+$ gulp build
 ```
 
 #### Development Build
