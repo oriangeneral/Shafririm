@@ -1,18 +1,11 @@
 SystemJS.config({
   paths: {
     "github:": "jspm_packages/github/",
-    "npm:": "jspm_packages/npm/"
+    "npm:": "jspm_packages/npm/",
+    "hue/": "src/js/"
   },
   browserConfig: {
-    "baseURL": "/",
-    "paths": {
-      "hue/": "src/js/"
-    }
-  },
-  nodeConfig: {
-    "paths": {
-      "hue/": "src/js/"
-    }
+    "baseURL": "/"
   },
   devConfig: {
     "map": {
@@ -90,6 +83,8 @@ SystemJS.config({
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
     "http": "github:jspm/nodelibs-http@0.2.0-alpha",
+    "jquery": "npm:jquery@2.2.4",
+    "materialize-css": "npm:materialize-css@0.97.6",
     "module": "github:jspm/nodelibs-module@0.2.0-alpha",
     "net": "github:jspm/nodelibs-net@0.2.0-alpha",
     "os": "github:jspm/nodelibs-os@0.2.0-alpha",
@@ -386,6 +381,12 @@ SystemJS.config({
       "map": {
         "punycode": "npm:punycode@1.3.2",
         "querystring": "npm:querystring@0.2.0"
+      }
+    },
+    "npm:materialize-css@0.97.6": {
+      "map": {
+        "css": "github:systemjs/plugin-css@0.1.22",
+        "jquery": "github:components/jquery@2.2.4"
       }
     }
   }

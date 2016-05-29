@@ -62,14 +62,14 @@ config.jspm = {
   bundles: [{
     options: [
       'build',
-      'reflect-metadata + zone.js + hue',
+      'reflect-metadata + zone.js + jquery + materialize-css + hue',
       config.dist + '/app/bundle.js',
       '--minify',
       '--skip-source-maps'
     ],
     devOptions: [
       'build',
-      'reflect-metadata + zone.js + hue/main.dev',
+      'reflect-metadata + zone.js + jquery + materialize-css + hue/main.dev',
       config.dist + '/app/bundle.js',
       '--no-mangle',
       '--source-map-contents'
