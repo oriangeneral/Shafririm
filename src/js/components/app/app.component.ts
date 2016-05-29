@@ -6,11 +6,9 @@ import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
 
 import appTemplate from './app.html';
-import appStyle from './app.css';
 
 @Component({
   selector: 'app',
-  styles: [ appStyle ],
   template: appTemplate,
   directives: [
     ROUTER_DIRECTIVES
