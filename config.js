@@ -63,14 +63,14 @@ config.jspm = {
     options: [
       'build',
       'reflect-metadata + zone.js + hue',
-      'dist/app/bundle.js',
+      config.dist + '/app/bundle.js',
       '--minify',
       '--skip-source-maps'
     ],
     devOptions: [
       'build',
       'reflect-metadata + zone.js + hue/main.dev',
-      'dist/app/bundle.js',
+      config.dist + '/app/bundle.js',
       '--no-mangle',
       '--source-map-contents'
     ]

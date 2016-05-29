@@ -1,4 +1,4 @@
-import { Component, Inject, ElementRef, ViewChild } from '@angular/core';
+import { Component, Inject, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimationOptions } from 'css-animator';
@@ -6,17 +6,15 @@ import { CardComponent } from '../../card/card.component';
 import { QuestionsComponent } from '../questions.component';
 
 import questionTemplate from './question.html';
-import questionStyle from './question.css';
 
 @Component({
   selector: 'question',
   template: questionTemplate,
-  styles: [ questionStyle ],
   directives: [
     ROUTER_DIRECTIVES
   ]
 })
-export class QuestionComponent {
+export class QuestionComponent implements OnInit {
   @ViewChild(CardComponent)
   private _cardComponent: CardComponent;
 
@@ -28,8 +26,11 @@ export class QuestionComponent {
   constructor(
     @Inject(ElementRef) private _elementRef: ElementRef,
     @Inject(QuestionsComponent) private _questionsComponent: QuestionsComponent
-    ) {
-    this.questionsComponent.addQuestion(this);
+    ) { }
+
+  public ngOnInit() {
+    console.log('init');
+    this._questionsComponent.addQuestion(this);
   }
 
   public show(options: AnimationOptions): Promise<HTMLElement> {
