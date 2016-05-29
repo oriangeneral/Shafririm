@@ -69,7 +69,7 @@ config.jspm = {
     ],
     devOptions: [
       'build',
-      'reflect-metadata + zone.js + hue-dev',
+      'reflect-metadata + zone.js + hue/main.dev',
       'dist/app/bundle.js',
       '--no-mangle',
       '--source-map-contents'

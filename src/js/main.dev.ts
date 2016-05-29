@@ -6,6 +6,8 @@ import { ExceptionHandler } from '@angular/core/src/facade/exception_handler';
 import { AppExceptionHandler } from './facades/exception_handler';
 import { AppComponent } from './components/app/app.component';
 
-console.log('dev');
+console.warn('-----------------------------------');
+console.warn('Application is in Development mode!');
+console.warn('-----------------------------------');
 
 bootstrap(AppComponent, []).catch(err => console.error(err));

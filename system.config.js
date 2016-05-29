@@ -6,13 +6,11 @@ SystemJS.config({
   browserConfig: {
     "baseURL": "/",
     "paths": {
-      "hue-dev/": "src/js/",
       "hue/": "src/js/"
     }
   },
   nodeConfig: {
     "paths": {
-      "hue-dev/": "src/js/",
       "hue/": "src/js/"
     }
   },
@@ -51,22 +49,7 @@ SystemJS.config({
   },
   packages: {
     "hue": {
-      "main": "main.prod",
-      "defaultExtension": "ts",
-      "meta": {
-        "*.ts": {
-          "loader": "ts"
-        },
-        "*.css": {
-          "loader": "text"
-        },
-        "*.html": {
-          "loader": "text"
-        }
-      }
-    },
-    "hue-dev": {
-      "main": "main.dev",
+      "main": "main",
       "defaultExtension": "ts",
       "meta": {
         "*.ts": {

@@ -27,9 +27,9 @@
   <script src="/jspm_packages/system.src.js"></script>
   <script src="/system.config.js"></script>
   <script>
-      System.import("hue-dev")
+      System.import("hue/main.dev")
 			.then(function(app) {
-				console.log('running');
+				console.log('App was bootstrapped.');
 			})
 			.catch(function(err) {
 				console.log(err);
