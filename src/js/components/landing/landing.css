@@ -1,0 +1,11 @@
+.card {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 10rem;
+}
+
+a.btn {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
