@@ -50,7 +50,7 @@ export class LandingComponent implements AfterViewInit {
 
     this._animator
       .setType('fadeOutDown')
-      .setDelay(400)
+      .setDelay(350)
       .setDuration(600)
       .hide(this._elementRef.nativeElement)
       .then(() => {
@@ -61,7 +61,7 @@ export class LandingComponent implements AfterViewInit {
   public ngAfterViewInit() {
     this._animator
       .setType('fadeInUp')
-      .setDelay(400)
+      .setDelay(200)
       .setDuration(600)
       .show(this._elementRef.nativeElement);
   }

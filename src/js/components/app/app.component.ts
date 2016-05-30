@@ -23,7 +23,7 @@ import appTemplate from './app.html';
 })
 @Routes([
   {
-    path: '/start',
+    path: '/',
     component: LandingComponent
   },
   {
@@ -51,9 +51,9 @@ export class AppComponent implements OnInit {
       .setType('fadeOut')
       .hide(loadingElem)
       .then(() => {
-        if (this.isActiveRoute('/')) {
-          this.router.navigate(['/start']);
-        }
+        // if (!this.isActiveRoute('/')) {
+        //   this.router.navigate(['/']);
+        // }
         spinningElem.classList.remove('running');
       });
 
