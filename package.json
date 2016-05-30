@@ -1,6 +1,6 @@
 {
   "name": "hue",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "A music quiz in Angular2 using the Spotify API.",
   "main": "main.ts",
   "scripts": {
