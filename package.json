@@ -125,7 +125,7 @@
           "css": "*"
         },
         "meta": {
-          "dist/js/*.js": {
+          "dist/js/materialize.js": {
             "deps": [
               "jquery",
               "../css/materialize.css!"

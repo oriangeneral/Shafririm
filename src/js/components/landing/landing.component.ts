@@ -20,12 +20,28 @@ export class LandingComponent {
   constructor() {
     this.selectOptions = [
       {
+        name: 'International',
+        value: ''
+      },
+      {
         name: 'Austria',
         value: 'at'
       },
       {
+        name: 'Canada',
+        value: 'ca'
+      },
+      {
         name: 'Germany',
         value: 'de'
+      },
+      {
+        name: 'Switzerland',
+        value: 'ch'
+      },
+      {
+        name: 'USA',
+        value: 'us'
       }
     ];
   }

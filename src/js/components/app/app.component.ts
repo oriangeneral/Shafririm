@@ -5,13 +5,16 @@ import { AnimationService } from 'css-animator';
 import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
 
+import { MaterializeDirective } from "angular2-materialize";
+
 import appTemplate from './app.html';
 
 @Component({
   selector: 'app',
   template: appTemplate,
   directives: [
-    ROUTER_DIRECTIVES
+    ROUTER_DIRECTIVES,
+    MaterializeDirective
   ],
   providers: [
     ROUTER_PROVIDERS,
