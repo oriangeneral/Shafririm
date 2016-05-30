@@ -152,6 +152,12 @@ config.copy = [{
     '/*.svg'
   ],
   dest: config.dist + '/assets/icons'
+}, {
+  base: './node_modules/material-design-icons/iconfont',
+  src: [
+    '/*.eot', '/*.woff2', '/*.woff', '/*.ttf'
+  ],
+  dest: config.dist + '/assets/iconfont'
 }];
 
 module.exports = config;
