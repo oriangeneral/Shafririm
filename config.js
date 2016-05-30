@@ -62,14 +62,14 @@ config.jspm = {
   bundles: [{
     options: [
       'build',
-      'reflect-metadata + zone.js + jquery + materialize-css + hue',
+      'reflect-metadata + zone.js + hue',
       config.dist + '/app/bundle.js',
       '--minify',
       '--skip-source-maps'
     ],
     devOptions: [
       'build',
-      'reflect-metadata + zone.js + jquery + materialize-css + hue/main.dev',
+      'reflect-metadata + zone.js + hue/main.dev',
       config.dist + '/app/bundle.js',
       '--no-mangle',
       '--source-map-contents'
@@ -135,12 +135,12 @@ config.index = {
 config.icons = {
   name: 'icons.css', // must match with the filename used in cssDest
   src: './node_modules/flat-color-icons/svg/*.svg',
-  dest: config.dist + '/fonts',
-  cssDest: '../css/icons.css', // relative to dest
-  fontDest: '../fonts/icons', // relative to cssDest
+  dest: config.dist,
+  cssDest: './css/icons.css', // relative to dest
+  fontDest: './fonts/icons', // relative to cssDest
   templatePath: './node_modules/gulp-iconfont-css/templates/_icons.css',
-  fontName: 'Icons',
-  cssClass: 'icon'
+  fontName: 'AppIcons',
+  cssClass: 'appicon'
 };
 
 /*

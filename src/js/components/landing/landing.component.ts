@@ -27,7 +27,7 @@ export class LandingComponent {
         name: 'Germany',
         value: 'de'
       }
-    ]
+    ];
   }
 
 }

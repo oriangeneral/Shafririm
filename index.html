@@ -16,7 +16,7 @@
 </head>
 
 <body class="cyan white-text">
-  <app #app>
+  <app>
     <div id="loading">
       Loading
     </div>
@@ -25,8 +25,8 @@
   <script src="/jspm_packages/system.src.js"></script>
   <script src="/system.config.js"></script>
   <script>
-    System.import("materialize-css")
-      .then(function(app) {
+    // System.import("materialize-css")
+    //   .then(function(app) {
         System.import("hue/main.dev")
           .then(function(app) {
             console.log('App was bootstrapped.');
@@ -35,11 +35,11 @@
             console.log(err);
             console.log(err.originalErr);
           });
-      })
-      .catch(function(err) {
-        console.log(err);
-        console.log(err.originalErr);
-      });
+      // })
+      // .catch(function(err) {
+      //   console.log(err);
+      //   console.log(err.originalErr);
+      // });
   </script>
 </body>
 

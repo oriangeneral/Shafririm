@@ -75,6 +75,7 @@ SystemJS.config({
     "@angular/router": "npm:@angular/router@2.0.0-rc.1",
     "@angular/router-deprecated": "npm:@angular/router-deprecated@2.0.0-rc.1",
     "angular2-materialize": "npm:angular2-materialize@3.0.0",
+    "animate.css": "npm:animate.css@3.5.1",
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
@@ -82,11 +83,11 @@ SystemJS.config({
     "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
     "css-animator": "npm:css-animator@1.0.0",
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
+    "flat-color-icons": "npm:flat-color-icons@1.0.0",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
     "http": "github:jspm/nodelibs-http@0.2.0-alpha",
     "jquery": "npm:jquery@2.2.4",
-    "materialize-css": "npm:materialize-css@0.97.6",
-    "materialize": "npm:materialize-css@0.97.6",
+    "materialize": "github:Dogfalo/materialize@0.97.6",
     "module": "github:jspm/nodelibs-module@0.2.0-alpha",
     "net": "github:jspm/nodelibs-net@0.2.0-alpha",
     "os": "github:jspm/nodelibs-os@0.2.0-alpha",
@@ -385,10 +386,10 @@ SystemJS.config({
         "querystring": "npm:querystring@0.2.0"
       }
     },
-    "npm:materialize-css@0.97.6": {
+    "github:Dogfalo/materialize@0.97.6": {
       "map": {
-        "css": "github:systemjs/plugin-css@0.1.22",
-        "jquery": "github:components/jquery@2.2.4"
+        "jquery": "npm:jquery@2.2.4",
+        "css": "github:systemjs/plugin-css@0.1.22"
       }
     }
   }

@@ -78,7 +78,7 @@
       "css-animator": "npm:css-animator@^1.0.0",
       "flat-color-icons": "npm:flat-color-icons@^1.0.0",
       "jquery": "npm:jquery@^2.2.4",
-      "materialize-css": "npm:materialize-css@^0.97.6",
+      "materialize": "github:Dogfalo/materialize@^0.97.6",
       "reflect-metadata": "npm:reflect-metadata@^0.1.3"
     },
     "devDependencies": {
@@ -117,8 +117,22 @@
       "zone.js": "npm:zone.js@^0.6.6"
     },
     "overrides": {
-      "github:components/jquery@2.2.4": {
-        "main": "jquery"
+      "github:Dogfalo/materialize@0.97.6": {
+        "main": "dist/js/materialize.js",
+        "format": "global",
+        "dependencies": {
+          "jquery": "*",
+          "css": "*"
+        },
+        "meta": {
+          "dist/js/*.js": {
+            "deps": [
+              "jquery",
+              "../css/materialize.css!"
+            ],
+            "format": "global"
+          }
+        }
       },
       "npm:@angular/common@2.0.0-rc.1": {
         "meta": {
@@ -204,25 +218,6 @@
       },
       "npm:jquery@2.2.4": {
         "format": "amd"
-      },
-      "npm:materialize-css@0.97.6": {
-        "format": "global",
-        "main": "dist/js/materialize",
-        "dependencies": {
-          "jquery": "github:components/jquery",
-          "css": "github:systemjs/plugin-css"
-        },
-        "jspmNodeConversion": false,
-        "meta": {
-          "dist/js/materialize.js": {
-            "deps": [
-              "jquery",
-              "../css/materialize.css!"
-            ],
-            "exports": "$",
-            "format": "global"
-          }
-        }
       },
       "npm:reflect-metadata@0.1.3": {
         "jspmNodeConversion": true,
