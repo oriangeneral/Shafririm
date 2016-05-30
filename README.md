@@ -1,9 +1,11 @@
-# HUE - Music Quiz
+# HUE - Angular2 Music Quiz
 
-You may also want to have a look at the packages
-[gulp-ng2-relative-path](https://github.com/fabianweb/gulp-ng2-relative-path),
-[css-animator](https://github.com/fabianweb/css-animator), [node-exec-promise](https://github.com/fabianweb/node-exec-promise) and [node-require-fallback](https://github.com/fabianweb/node-require-fallback)
-which were created just for this project.  
+You may also want to have a look at the following packages, which were created just for this project:
+
+- [css-animator](https://github.com/fabianweb/css-animator)
+- [gulp-ng2-relative-path](https://github.com/fabianweb/gulp-ng2-relative-path)
+- [node-exec-promise](https://github.com/fabianweb/node-exec-promise)
+- [node-require-fallback](https://github.com/fabianweb/node-require-fallback)
 
 More documentation will be added once we've decided for a good structure. For now please take a look at how to get the app running within seconds:
 
