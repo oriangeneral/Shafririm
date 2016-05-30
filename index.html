@@ -3,12 +3,7 @@
 
 <head lang="en">
   <title>HUE - Music Quiz</title>
-  <!-- @ifdef config.build -->
-  <base href="/dist" />
-  <!-- @endif -->
-  <!-- @ifndef config.build -->
   <base href="/" />
-  <!-- @endif -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A music quiz in Angular2 using the Spotify API.">
@@ -51,6 +46,7 @@
       var js = document.createElement("script");
       js.type = "text/javascript";
       if (!hue.devMode) {
+        document.getElementsByTagName('base')[0].setAttribute('href', '/dist');
         js.src = "/dist/app/bundle.js?v=<!-- @echo config.buildTimestamp -->";
         head.appendChild(js);
       }
