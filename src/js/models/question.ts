@@ -19,6 +19,6 @@ export interface Question {
   title: string;
   description?: string;
   answers: Answer[];
-  answered: boolean;
+  answered?: boolean;
   track: Track;
 }

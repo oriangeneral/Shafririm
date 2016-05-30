@@ -1,14 +1,15 @@
-import { Component, Inject } from 'angular2/core';
+import { Component, Inject } from '@angular/core';
 
 import { AnimationOptions } from 'css-animator';
 import { QuizService } from '../../services/quiz.service';
 import { QuestionComponent } from './question/question.component';
 import { times } from '../../helpers/common';
 
+import questionsTemplate from './questions.html';
+
 @Component({
   selector: 'questions',
-  templateUrl: './questions.html',
-  styleUrls: ['./questions.less']
+  template: questionsTemplate
 })
 export class QuestionsComponent {
 

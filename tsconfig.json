@@ -1,11 +1,15 @@
 {
-    "target": "ES5",
-    "module": "system",
+  "compilerOptions": {
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "moduleResolution": "node",
-    "exclude": [ "node_modules" ],
     "noImplicitAny": true,
     "suppressImplicitAnyIndexErrors": true,
-    "compileOnSave": false
+    "supportHtmlImports": true,
+    "sourceMap": true
+  },
+  "exclude": [
+    "node_modules",
+    "jspm_packages"
+  ]
 }

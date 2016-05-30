@@ -4,7 +4,7 @@
     <p class="section-description">
 
       <questions #questions>
-        <question *ngFor="#number of questions.questionsToCreate()" [hidden]="question.hidden" #question>
+        <question *ngFor="let number of questions.questionsToCreate()" [hidden]="question.hidden" #question>
           Question {{ question.number }}
 
           <div class="content">
@@ -22,7 +22,7 @@
           </div>
 
           <br>
-          <a [routerLink]="['Landing']">Go Home</a>
+          <a [routerLink]="['/']">Go Home</a>
           <br>
         </question>
       </questions>

@@ -6,15 +6,8 @@ import { ExceptionHandler } from '@angular/core/src/facade/exception_handler';
 import { AppExceptionHandler } from './facades/exception_handler';
 import { AppComponent } from './components/app/app.component';
 
-import { enableProdMode } from '@angular/core';
-enableProdMode();
+console.warn('-----------------------------------');
+console.warn('Application is in Development mode!');
+console.warn('-----------------------------------');
 
-let productionProviders: any[] = [];
-
-productionProviders = [
-  provide(ExceptionHandler, { useClass: AppExceptionHandler })
-];
-
-bootstrap(AppComponent, [
-  productionProviders
-]).catch(err => console.error(err));
+bootstrap(AppComponent, []).catch(err => console.error(err));

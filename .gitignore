@@ -1,5 +1,8 @@
 node_modules
+jspm_packages
+bower_components
 dist
+temp
 npm-debug.log
 server/.env
 typings

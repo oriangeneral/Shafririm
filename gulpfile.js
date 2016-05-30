@@ -7,11 +7,11 @@
 | your tasks.
 |
 */
+var requireIfExests = require('../node-require-fallback');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
 var gulpif = require('gulp-if');
-var connect = require('gulp-connect');
 var tslint = require('gulp-tslint');
 var tslintStylish = require('gulp-tslint-stylish');
 var less = require('gulp-less');
@@ -20,24 +20,13 @@ var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var filter = require('gulp-filter');
 var sourcemaps = require('gulp-sourcemaps');
-var insert = require('gulp-insert');
-var babel = require('gulp-babel');
-var inlineNg2Template = require('gulp-inline-ng2-template');
 var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
-var ts = require('gulp-typescript');
-var iconfont = require('gulp-iconfont');
-var iconfontCss = require('gulp-iconfont-css');
 var argv = require('yargs').argv;
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
-var path = require('path');
-
-var ng2RelativePath = requireIfExists(
-  '../gulp-ng2-relative-path',
-  'gulp-ng2-relative-path'
-);
+var execFile = requireIfExests('../node-exec-promise', 'node-exec-promise').execFile;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,17 +43,11 @@ var ng2RelativePath = requireIfExists(
 */
 var config = require('./config');
 config.env = process.env.NODE_ENV;
+config.mode = config.env !== 'production' ? 'bundle' : 'build';
+config.build = true;
 
 // Determine environment before it is set for initialization
 process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'development';
-
-// Setup TypeScript project
-var tsConfig = require('./tsconfig.json');
-var tsProject = ts.createProject(assign(tsConfig, {
-  sortOutput: true,
-  outFile: config.mode === 'lazy' ? false : config.ts.name
-}));
-
 
 /*
 |--------------------------------------------------------------------------
@@ -76,9 +59,8 @@ var tsProject = ts.createProject(assign(tsConfig, {
 | - clean:*
 |     Deletes the specific files, based on the clean task.
 |
-| - uglify
-|     Minifies the JavaScript sorce files and adds inline
-|     sourcemaps if the environment is not production.
+| - builder/jspm
+|     Builds and bundles the application via SystemJS.
 |
 | - less
 |     Compiles less files and saves it into the distribution
@@ -94,6 +76,7 @@ var tsProject = ts.createProject(assign(tsConfig, {
 |     Lints specific types of files.
 |
 */
+
 gulp.task('clean:all', function() {
   return gulp.src([config.dist], {
       read: false
@@ -124,17 +107,8 @@ gulp.task('clean:vendor', function() {
 gulp.task('clean:styles', function() {
   return gulp.src([
       config.dist + '/css/**/*.css',
-      config.dist + '/css/**/*.map',
-      '!' + config.dist + '/**/*/' + config.icons.name
+      config.dist + '/css/**/*.map'
     ], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
-});
-
-gulp.task('clean:iconfont', function() {
-  return gulp.src(config.icons.dest + '/**/*', {
       read: false
     })
     .pipe(clean().on('error', onError))
@@ -165,107 +139,23 @@ gulp.task('clean:assets', function() {
     .on('error', onError);
 });
 
-gulp.task('typescript:main', function() {
-  var less = require('less'),
-    jade = require('jade');
+gulp.task('jspm', function(done) {
+  var bundles = [];
 
-  less.renderSync = function(input, options) {
-    if (!options || typeof options != "object") options = {};
-    options.sync = true;
-    options.async = false;
-    var css;
-    this.render(input, options, function(err, result) {
-      if (err) throw err;
-      css = result.css;
-    });
-
-    while (css === undefined) {
-      require('deasync').sleep(100);
+  config.jspm.bundles.forEach(function(bundle) {
+    if (config.env !== 'production') {
+      bundles.push(execFile('jspm', bundle.devOptions));
+    } else {
+      bundles.push(execFile('jspm', bundle.options));
     }
+  });
 
-    return css;
-  };
-
-  var pattern = new RegExp('^(' + config.ts.appBase + '/?)');
-
-  var tsResult = gulp.src([config.ts.src], {
-      'cwd': './'
-    })
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-      loadMaps: true
-    }).on('error', onError)))
-    .pipe(preprocess({
-      context: {
-        config: config
-      }
-    }).on('error', onError))
-    .pipe(gulpif(config.mode === 'lazy', ng2RelativePath({
-      base: config.ts.base,
-      appBase: config.ts.appBase,
-      modifyPath: function (path) {
-        return path + '?v=' + config.buildTimestamp;
-      },
-      modifyStylePath: function (path) {
-        return path.replace('.less', '.css');
-      }
-    }).on('error', onError)).on('error', onError))
-    .pipe(gulpif(config.mode === 'bundle', inlineNg2Template({
-      // base: config.src + '/js',
-      target: 'es5',
-      removeLineBreaks: true,
-      useRelativePaths: true,
-      templateProcessor: function(path, file) {
-        return file;
-        // return jade.render(file);
-      },
-      styleProcessor: function(p, file) {
-        var newFile = '@import "' + path.resolve(__dirname, config.ts.lessMaster) + '";\n\n' + file;
-
-        return less.renderSync(newFile);
-      },
-      templateFunction: function(filename) {
-        return filename.replace(pattern, './');
-      }
-    }).on('error', onError)).on('error', onError))
-    .pipe(ts(tsProject).on('error', onError));
-
-  var base = path.join(__dirname, config.ts.base);
-  while (base.charAt(0) === '/') base = base.substr(1);
-
-  return tsResult.js
-    .pipe(rename(function(p) {
-      p.dirname = p.dirname.replace(base, './');
-    }).on('error', onError))
-    .pipe(gulpif(config.env === 'production', uglify({
-      mangle: config.ts.mangle
-    }).on('error', onError)))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
-    .pipe(gulp.dest(config.ts.dest))
-});
-
-gulp.task('typescript:lazy', function(done) {
-  if (config.mode === 'bundle') {
-    return done();
-  }
-
-  return gulpSequence(['typescript:lazy:css', 'typescript:lazy:html'])(done);
-});
-
-gulp.task('typescript:lazy:css', function() {
-  return gulp.src([config.ts.base + '/**/*.css', config.ts.base + '/**/*.less'])
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init().on('error', onError)))
-    .pipe(insert.prepend('@import "' + path.resolve(__dirname, config.ts.lessMaster) + '";\n\n'))
-    .pipe(less().on('error', onError))
-    .pipe(cleanCSS().on('error', onError))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
-    .pipe(gulp.dest(config.ts.dest))
-    .on('error', onError);
-});
-
-gulp.task('typescript:lazy:html', function() {
-  return gulp.src([config.ts.base + '/**/*.html'])
-    .pipe(gulp.dest(config.ts.dest))
-    .on('error', onError);
+  Promise.all(bundles)
+    .then(function(values) {
+      done();
+    }, function(error) {
+      onError(error);
+    });
 });
 
 gulp.task('less', function() {
@@ -317,58 +207,11 @@ gulp.task('copy:originals', function(done) {
   done();
 });
 
-gulp.task('bundle:vendor', function(done) {
-  var src = clone(config.vendor.files);
-  var sources = [],
-    g = gulp;
-
-  src.forEach(function(element, index) {
-    var useSrc = config.env !== 'production' && element.devSrc ? element.devSrc : element.src;
-
-    useSrc.forEach(function(path) {
-      sources.push(element.base + path);
-    });
-  });
-
-  return gulp.src(sources)
-    .pipe(gulpif(config.env !== 'production', sourcemaps.init({
-      loadMaps: true
-    }).on('error', onError)))
-    .pipe(concat(config.vendor.name))
-    .pipe(gulpif(config.env === 'production', uglify({
-      mangle: config.vendor.mangle
-    })))
-    .pipe(gulpif(config.env !== 'production', sourcemaps.write('./').on('error', onError)))
-    .pipe(gulp.dest(config.vendor.dest));
-});
-
 gulp.task('lint:ts', function() {
-  return gulp.src([config.ts.src])
+  return gulp.src([config.tslint.src])
     .pipe(tslint())
     .pipe(tslint.report(tslintStylish))
     .on('error', notifyError);
-});
-
-gulp.task('iconfont', function() {
-  f = filter(['**/*.css'], {
-    restore: true
-  });
-
-  gulp.src(config.icons.src)
-    .pipe(iconfontCss({
-      fontName: config.icons.fontName,
-      cssClass: config.icons.cssClass,
-      path: config.icons.templatePath,
-      targetPath: config.icons.cssDest,
-      fontPath: config.icons.fontDest
-    }).on('error', onError))
-    .pipe(f)
-    .pipe(cleanCSS().on('error', onError))
-    .pipe(f.restore)
-    .pipe(iconfont({
-      fontName: config.icons.fontName
-    }).on('error', onError))
-    .pipe(gulp.dest(config.icons.dest));
 });
 
 /*
@@ -376,9 +219,7 @@ gulp.task('iconfont', function() {
 | Helper Tasks
 |--------------------------------------------------------------------------
 |
-| The following tasks are used as helpers. Currently
-| tasks exist to change the envoronment and to reload
-| the browser when something has chaged (live reload).
+| The following tasks are used as helpers.
 |
 */
 gulp.task('set-dev', function() {
@@ -386,11 +227,6 @@ gulp.task('set-dev', function() {
 });
 gulp.task('set-prod', function() {
   return process.env.NODE_ENV = config.env = 'production';
-});
-
-gulp.task('reload', function() {
-  return gulp.src('./dist/*.html')
-    .pipe(connect.reload());
 });
 
 gulp.task('start', function(done) {
@@ -435,26 +271,6 @@ function clone(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
-function exists(nodeModule) {
-  try {
-    require.resolve(nodeModule)
-  } catch (e) {
-    return false;
-  }
-
-  return true;
-}
-
-function requireIfExists(nodeModule, fallbackModule) {
-  if (exists(nodeModule)) {
-    return require(nodeModule)
-  }
-
-  if (fallbackModule) {
-    return require(fallbackModule);
-  }
-}
-
 /*
 |--------------------------------------------------------------------------
 | Task Collections
@@ -482,11 +298,11 @@ function requireIfExists(nodeModule, fallbackModule) {
 |
 */
 gulp.task('master', function(done) {
-  return gulpSequence('lint', 'clean:all', ['tasks', 'bundle', 'iconfont'])(done);
+  return gulpSequence('lint', 'clean:all', ['tasks', 'jspm'])(done);
 });
 
 gulp.task('tasks', function(done) {
-  return gulpSequence(['copy', 'typescript', 'less'])(done);
+  return gulpSequence(['copy', 'less'])(done);
 });
 
 gulp.task('copy', function(done) {
@@ -497,16 +313,8 @@ gulp.task('clean:default', function(done) {
   return gulpSequence(['clean:scripts', 'clean:styles', 'clean:index'])(done);
 });
 
-gulp.task('bundle', function(done) {
-  return gulpSequence(['bundle:vendor'])(done);
-});
-
 gulp.task('lint', function(done) {
   return gulpSequence(['lint:ts'])(done);
-});
-
-gulp.task('typescript', function(done) {
-  return gulpSequence(['typescript:main', 'typescript:lazy'])(done);
 });
 
 
@@ -557,11 +365,7 @@ gulp.task('watch', function() {
   });
 });
 
-gulp.task('serve', function() {
-  connect.server({
-    root: config.dist,
-    livereload: true,
-    https: false,
-    port: 5000
-  });
+gulp.task('serve', function(done) {
+  console.log('Use npm start instead!');
+  done();
 });

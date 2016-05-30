@@ -2,7 +2,7 @@
   "name": "hue",
   "version": "0.0.1",
   "description": "A music quiz in Angular2 using the Spotify API.",
-  "main": "server/index.js",
+  "main": "main.ts",
   "scripts": {
     "start": "node server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -17,59 +17,218 @@
     "url": "https://github.com/fabianweb/hue/issues"
   },
   "homepage": "https://github.com/fabianweb/hue#readme",
-  "browserify-shim": "./browserify-shim.js",
   "dependencies": {
-    "angular2": "^2.0.0-beta.12",
     "animate.css": "^3.5.1",
     "body-parser": "^1.15.0",
     "compression": "^1.6.1",
-    "css-animator": "^0.1.0",
     "errorhandler": "^1.4.3",
-    "es6-shim": "^0.35.0",
     "express": "^4.13.4",
     "flat-color-icons": "^1.0.0",
     "http2": "^3.3.2",
     "method-override": "^2.3.5",
     "node-env-file": "^0.1.8",
-    "reflect-metadata": "0.1.2",
-    "rxjs": "5.0.0-beta.2",
-    "skeleton-css": "^2.0.4",
+    "normalize.css": "^4.1.1",
     "spdy": "^3.2.3",
-    "spotify-web-api-node": "^2.3.0",
-    "systemjs": "^0.19.24",
-    "zone.js": "^0.6.10"
+    "spotify-web-api-node": "^2.3.0"
   },
   "devDependencies": {
-    "babel-preset-es2015": "^6.6.0",
-    "deasync": "^0.1.4",
+    "clean-css": "^3.4.13",
     "gulp": "^3.9.1",
-    "gulp-babel": "^6.1.2",
     "gulp-clean": "^0.3.2",
     "gulp-clean-css": "^2.0.4",
     "gulp-concat": "^2.6.0",
-    "gulp-connect": "^3.2.0",
     "gulp-filter": "^4.0.0",
-    "gulp-iconfont": "^6.0.0",
-    "gulp-iconfont-css": "^2.1.0",
     "gulp-if": "^2.0.0",
-    "gulp-inline-ng2-template": "^1.1.2",
-    "gulp-insert": "^0.5.0",
     "gulp-less": "^3.0.5",
-    "gulp-ng2-relative-path": "^0.1.0",
     "gulp-preprocess": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-sequence": "^0.4.5",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-tslint": "^4.3.4",
     "gulp-tslint-stylish": "^1.1.1",
-    "gulp-typescript": "^2.12.1",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
-    "jade": "^1.11.0",
-    "less": "^2.6.1",
+    "jspm": "^0.17.0-beta.16",
+    "less": "^2.7.1",
     "lodash.assign": "^4.0.6",
+    "node-exec-promise": "^0.1.0",
     "node-notifier": "^4.5.0",
+    "node-require-fallback": "^0.1.0",
     "tslint": "^3.6.0",
+    "typescript": "^1.8.10",
     "yargs": "^4.3.2"
+  },
+  "jspm": {
+    "configFiles": {
+      "jspm": "system.config.js"
+    },
+    "configFile": "system.config.js",
+    "dependencies": {
+      "@angular/http": "npm:@angular/http@^2.0.0-rc.1",
+      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@^2.0.0-rc.1",
+      "@angular/router": "npm:@angular/router@^2.0.0-rc.1",
+      "@angular/router-deprecated": "npm:@angular/router-deprecated@^2.0.0-rc.1",
+      "angular2-materialize": "npm:angular2-materialize@^3.0.0",
+      "animate.css": "npm:animate.css@^3.5.1",
+      "css-animator": "npm:css-animator@^1.0.0",
+      "flat-color-icons": "npm:flat-color-icons@^1.0.0",
+      "jquery": "npm:jquery@^2.2.4",
+      "materialize": "github:Dogfalo/materialize@^0.97.6",
+      "reflect-metadata": "npm:reflect-metadata@^0.1.3"
+    },
+    "devDependencies": {
+      "core-js": "npm:core-js@^1.2.0",
+      "ts-runtime": "npm:babel-runtime@^5.8.24",
+      "typescript": "npm:typescript@1.8.10",
+      "text": "github:systemjs/plugin-text@^0.0.8",
+      "ts": "github:frankwallis/plugin-typescript@^4.0.16",
+      "plugin-babel": "npm:systemjs-plugin-babel@^0.0.11"
+    },
+    "peerDependencies": {
+      "@angular/common": "npm:@angular/common@2.0.0-rc.1",
+      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.1",
+      "@angular/core": "npm:@angular/core@2.0.0-rc.1",
+      "@angular/platform-browser": "npm:@angular/platform-browser@^2.0.0-rc.1",
+      "assert": "github:jspm/nodelibs-assert@^0.2.0-alpha",
+      "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
+      "child_process": "github:jspm/nodelibs-child_process@^0.2.0-alpha",
+      "constants": "github:jspm/nodelibs-constants@^0.2.0-alpha",
+      "crypto": "github:jspm/nodelibs-crypto@^0.2.0-alpha",
+      "events": "github:jspm/nodelibs-events@^0.2.0-alpha",
+      "fs": "github:jspm/nodelibs-fs@^0.2.0-alpha",
+      "http": "github:jspm/nodelibs-http@^0.2.0-alpha",
+      "module": "github:jspm/nodelibs-module@^0.2.0-alpha",
+      "net": "github:jspm/nodelibs-net@^0.2.0-alpha",
+      "os": "github:jspm/nodelibs-os@^0.2.0-alpha",
+      "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
+      "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
+      "rxjs": "npm:rxjs@5.0.0-beta.6",
+      "stream": "github:jspm/nodelibs-stream@^0.2.0-alpha",
+      "string_decoder": "github:jspm/nodelibs-string_decoder@^0.2.0-alpha",
+      "tty": "github:jspm/nodelibs-tty@^0.2.0-alpha",
+      "url": "github:jspm/nodelibs-url@^0.2.0-alpha",
+      "util": "github:jspm/nodelibs-util@^0.2.0-alpha",
+      "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha",
+      "zone.js": "npm:zone.js@^0.6.6"
+    },
+    "overrides": {
+      "github:Dogfalo/materialize@0.97.6": {
+        "main": "dist/js/materialize.js",
+        "format": "global",
+        "dependencies": {
+          "jquery": "*",
+          "css": "*"
+        },
+        "meta": {
+          "dist/js/materialize.js": {
+            "deps": [
+              "jquery",
+              "../css/materialize.css!"
+            ],
+            "format": "global"
+          }
+        }
+      },
+      "npm:@angular/common@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/compiler@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/core@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/http@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/platform-browser-dynamic@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/platform-browser@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:@angular/router@2.0.0-rc.1": {
+        "meta": {
+          "src/*.js": {
+            "deps": [
+              "reflect-metadata",
+              "zone.js"
+            ]
+          }
+        }
+      },
+      "npm:babel-runtime@5.8.38": {
+        "main": false,
+        "dependencies": {},
+        "optionalDependencies": {
+          "core-js": "^1.2.0"
+        }
+      },
+      "npm:inherits@2.0.1": {
+        "ignore": [
+          "test.js"
+        ]
+      },
+      "npm:jquery@2.2.4": {
+        "format": "amd"
+      },
+      "npm:reflect-metadata@0.1.3": {
+        "jspmNodeConversion": true,
+        "map": {}
+      },
+      "npm:typescript@1.8.10": {
+        "browser": {},
+        "map": {
+          "buffer": "@empty",
+          "child_process": "@empty",
+          "fs": "@empty",
+          "path": "@empty",
+          "process": "@empty",
+          "readline": "@empty"
+        }
+      }
+    }
   }
 }

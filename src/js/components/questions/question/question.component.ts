@@ -1,20 +1,20 @@
-import { Component, Inject, ElementRef, ViewChild } from 'angular2/core';
-import { RouterLink } from 'angular2/router';
+import { Component, Inject, ElementRef, ViewChild, OnInit } from '@angular/core';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimationOptions } from 'css-animator';
 import { CardComponent } from '../../card/card.component';
 import { QuestionsComponent } from '../questions.component';
 
+import questionTemplate from './question.html';
+
 @Component({
   selector: 'question',
-  templateUrl: './question.html',
-  styleUrls: ['./question.less'],
+  template: questionTemplate,
   directives: [
-    RouterLink,
-    CardComponent
+    ROUTER_DIRECTIVES
   ]
 })
-export class QuestionComponent {
+export class QuestionComponent implements OnInit {
   @ViewChild(CardComponent)
   private _cardComponent: CardComponent;
 
@@ -26,8 +26,11 @@ export class QuestionComponent {
   constructor(
     @Inject(ElementRef) private _elementRef: ElementRef,
     @Inject(QuestionsComponent) private _questionsComponent: QuestionsComponent
-    ) {
-    this.questionsComponent.addQuestion(this);
+    ) { }
+
+  public ngOnInit() {
+    console.log('init');
+    this._questionsComponent.addQuestion(this);
   }
 
   public show(options: AnimationOptions): Promise<HTMLElement> {
