@@ -19,6 +19,7 @@ var assign = require('lodash.assign');
 | Reserved:
 | - config.env
 | - config.mode
+| - config.build
 |
 */
 var config = config || {};
@@ -117,30 +118,9 @@ config.less = {
 |
 */
 config.index = {
-  src: config.src + '/index.html',
+  src: './index.html',
   dest: config.dist,
   name: 'index.html'
-};
-
-
-/*
-|--------------------------------------------------------------------------
-| Iconfont Configuration
-|--------------------------------------------------------------------------
-|
-| Set all required configurations for creating an
-| iconfont and the CSS from SVGs.
-|
-*/
-config.icons = {
-  name: 'icons.css', // must match with the filename used in cssDest
-  src: './node_modules/flat-color-icons/svg/*.svg',
-  dest: config.dist,
-  cssDest: './css/icons.css', // relative to dest
-  fontDest: './fonts/icons', // relative to cssDest
-  templatePath: './node_modules/gulp-iconfont-css/templates/_icons.css',
-  fontName: 'AppIcons',
-  cssClass: 'appicon'
 };
 
 /*
@@ -167,23 +147,11 @@ config.assets = {
 |
 */
 config.copy = [{
-  base: config.src + '/resources',
+  base: './node_modules/flat-color-icons/svg',
   src: [
-    '/favicon.ico'
+    '/*.svg'
   ],
-  dest: config.dist + '/'
-}, {
-  base: config.src + '/css/images',
-  src: [
-    '/**/*'
-  ],
-  dest: config.dist + '/css/images'
-}, {
-  base: config.src + '/css/fonts',
-  src: [
-    '/**/*'
-  ],
-  dest: config.dist + '/css/fonts'
+  dest: config.dist + '/assets/icons'
 }];
 
 module.exports = config;

@@ -23,8 +23,6 @@ var sourcemaps = require('gulp-sourcemaps');
 var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
 var clean = require('gulp-clean');
-var iconfont = require('gulp-iconfont');
-var iconfontCss = require('gulp-iconfont-css');
 var argv = require('yargs').argv;
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
@@ -45,6 +43,8 @@ var execFile = requireIfExests('../node-exec-promise', 'node-exec-promise').exec
 */
 var config = require('./config');
 config.env = process.env.NODE_ENV;
+config.mode = config.env !== 'production' ? 'bundle' : 'build';
+config.build = true;
 
 // Determine environment before it is set for initialization
 process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'development';
@@ -107,17 +107,8 @@ gulp.task('clean:vendor', function() {
 gulp.task('clean:styles', function() {
   return gulp.src([
       config.dist + '/css/**/*.css',
-      config.dist + '/css/**/*.map',
-      '!' + config.dist + '/**/*/' + config.icons.name
+      config.dist + '/css/**/*.map'
     ], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
-});
-
-gulp.task('clean:iconfont', function() {
-  return gulp.src(config.icons.dest + '/**/*', {
       read: false
     })
     .pipe(clean().on('error', onError))
@@ -223,28 +214,6 @@ gulp.task('lint:ts', function() {
     .on('error', notifyError);
 });
 
-gulp.task('iconfont', function() {
-  f = filter(['**/*.css'], {
-    restore: true
-  });
-
-  gulp.src(config.icons.src)
-    .pipe(iconfontCss({
-      fontName: config.icons.fontName,
-      cssClass: config.icons.cssClass,
-      path: config.icons.templatePath,
-      targetPath: config.icons.cssDest,
-      fontPath: config.icons.fontDest
-    }).on('error', onError))
-    .pipe(f)
-    .pipe(cleanCSS().on('error', onError))
-    .pipe(f.restore)
-    .pipe(iconfont({
-      fontName: config.icons.fontName
-    }).on('error', onError))
-    .pipe(gulp.dest(config.icons.dest));
-});
-
 /*
 |--------------------------------------------------------------------------
 | Helper Tasks
@@ -329,7 +298,7 @@ function clone(obj) {
 |
 */
 gulp.task('master', function(done) {
-  return gulpSequence('lint', 'clean:all', ['tasks', 'iconfont', 'jspm'])(done);
+  return gulpSequence('lint', 'clean:all', ['tasks', 'jspm'])(done);
 });
 
 gulp.task('tasks', function(done) {
