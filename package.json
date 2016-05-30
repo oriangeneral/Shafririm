@@ -17,7 +17,6 @@
     "url": "https://github.com/fabianweb/hue/issues"
   },
   "homepage": "https://github.com/fabianweb/hue#readme",
-  "browserify-shim": "./browserify-shim.js",
   "dependencies": {
     "animate.css": "^3.5.1",
     "body-parser": "^1.15.0",

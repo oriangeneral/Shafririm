@@ -1,49 +1,69 @@
-import { Component } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
+import { Component, ElementRef, AfterViewInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import { MaterializeDirective } from "angular2-materialize";
+import { AnimationService } from 'css-animator';
+import { RegionOptions, REGION_VALUES } from './region_options';
 
 import landingTemplate from './landing.html';
 import landingStyle from './landing.css';
 
-import { MaterializeDirective } from "angular2-materialize";
-
 @Component({
   selector: 'landing',
+  host: {
+    'hidden': true
+  },
   template: landingTemplate,
   styles: [landingStyle],
   directives: [
-    ROUTER_DIRECTIVES,
     MaterializeDirective
   ]
 })
-export class LandingComponent {
+export class LandingComponent implements AfterViewInit {
 
-  constructor() {
-    this.selectOptions = [
-      {
-        name: 'International',
-        value: ''
-      },
-      {
-        name: 'Austria',
-        value: 'at'
-      },
-      {
-        name: 'Canada',
-        value: 'ca'
-      },
-      {
-        name: 'Germany',
-        value: 'de'
-      },
-      {
-        name: 'Switzerland',
-        value: 'ch'
-      },
-      {
-        name: 'USA',
-        value: 'us'
-      }
-    ];
+  public selectOptions: RegionOptions[] = REGION_VALUES;
+
+  private _animator: AnimationBuilder;
+  private _regionSelection: any;
+
+  constructor(
+    private _elementRef: ElementRef,
+    private router: Router,
+    animationService: AnimationService) {
+    this._animator = animationService.builder();
+  }
+
+  get regionSelection() {
+    return this._regionSelection;
+  }
+
+  set regionSelection(value) {
+    this._regionSelection = value;
+  }
+
+  public startQuiz() {
+    if (this.submitted) {
+      return;
+    }
+
+    this.submitted = true;
+
+    this._animator
+      .setType('fadeOutDown')
+      .setDelay(400)
+      .setDuration(600)
+      .hide(this._elementRef.nativeElement)
+      .then(() => {
+        this.router.navigate(['/quiz']);
+      });
+  }
+
+  public ngAfterViewInit() {
+    this._animator
+      .setType('fadeInUp')
+      .setDelay(400)
+      .setDuration(600)
+      .show(this._elementRef.nativeElement);
   }
 
 }

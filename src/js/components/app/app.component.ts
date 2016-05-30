@@ -23,7 +23,7 @@ import appTemplate from './app.html';
 })
 @Routes([
   {
-    path: '/',
+    path: '/start',
     component: LandingComponent
   },
   {
@@ -33,12 +33,34 @@ import appTemplate from './app.html';
 ])
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router) {
+  private _animator: AnimationBuilder;
+
+  // DO NOT REMOVE THE ROUTER INJECTION
+  // It will break loading LandingComponent automatically
+  constructor(private router: Router, animationService: AnimationService) {
     console.log('Hello from app component.');
+    this._animator = animationService.builder();
   }
 
   public ngOnInit() {
-    // this.router.navigate(['/']);
+    let loadingElem = document.getElementById('app-loading');
+    let spinningElem = loadingElem.querySelector('.loader');
+
+    this._animator
+      .setDuration(600)
+      .setType('fadeOut')
+      .hide(loadingElem)
+      .then(() => {
+        if (this.isActiveRoute('/')) {
+          this.router.navigate(['/start']);
+        }
+        spinningElem.classList.remove('running');
+      });
+
+  }
+
+  private isActiveRoute(route: string) {
+    return this.router.serializeUrl(this.router.urlTree) === this.router.serializeUrl((this.router.createUrlTree([route])));
   }
 
 }
