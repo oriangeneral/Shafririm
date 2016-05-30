@@ -14,3 +14,8 @@ a.btn {
 .input-field /deep/ ul.dropdown-content li > span {
   color: #00bcd4;
 }
+
+.input-field /deep/ ul.dropdown-content li.selected,
+.input-field /deep/ ul.dropdown-content li:hover {
+  background-color: rgba(236, 239, 241, 0.6);
+}

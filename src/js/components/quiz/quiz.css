@@ -2,6 +2,9 @@ ul li .btn i {
   font-size: 1.3rem;
   line-height: 36px;
 }
+ul li a.menuitem:hover {
+  background-color: rgba(236, 239, 241, 1);
+}
 ul li a.btn {
   padding: 0 1.8rem 0 1.3rem;
 }
@@ -9,10 +12,11 @@ ul li a.btn {
   height: 100%;
 }
 .brand-logo img {
-  height: 1.5em;
+  cursor: pointer;
+  height: 1.3em;
   margin-left: 10px;
   display: block;
   position: absolute;
   top: 50%;
-  margin-top: -0.8em;
+  margin-top: -0.7em; // put further to top than center
 }
