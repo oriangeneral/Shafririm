@@ -1,14 +1,2 @@
-<div animates #animation="animates" [animatesOnInit]="{type:'fadeInDown', duration: 600}" hidden>
-  <nav>
-    <div class="nav-wrapper white black-text ">
-      <a (click)="goHome(animation)" class="brand-logo cyan-text hide-on-med-and-down">
-        <img src="/dist/assets/icons/idea.svg" title="logo">
-      </a>
-      <ul class="right">
-        <li><a href="" class="menuitem"><i class="material-icons blue-grey-text">refresh</i></a></li>
-        <li><a href="" class="menuitem"><i class="material-icons red-text">close</i></a></li>
-        <li><a href="https://github.com/fabianweb/hue" target="_blank" class="waves-effect waves-light btn"><i class="material-icons left">code</i>GitHub</a></li>
-      </ul>
-    </div>
-  </nav>
-</div>
+<quiz-nav (onGoHome)="onGoHome()" (onReload)="onReload()" (onClose)="onClose()"></quiz-nav>
+<quiz-card *ngFor="let question of questions" (onNextQuestion)="onNextQuestion()"></quiz-card>

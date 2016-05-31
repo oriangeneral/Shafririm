@@ -2,7 +2,7 @@ SystemJS.config({
   paths: {
     "github:": "jspm_packages/github/",
     "npm:": "jspm_packages/npm/",
-    "hue/": "src/js/"
+    "app/": "src/js/"
   },
   browserConfig: {
     "baseURL": "/"
@@ -43,7 +43,7 @@ SystemJS.config({
     "supportHtmlImports": true
   },
   packages: {
-    "hue": {
+    "app": {
       "main": "main",
       "defaultExtension": "ts",
       "meta": {
