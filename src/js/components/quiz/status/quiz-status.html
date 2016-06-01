@@ -7,7 +7,7 @@
         <span class="title black-text">Question {{ question.id }}</span>
         <p class="blue-grey-text" *ngIf="question.status.answered">
           <span class="grey-text">Your answer:</span> <span>{{ question.answers[question.status.selectedAnswer]?.title }}</span>
-          <span [hidden]="!question.status.wasCorrect"><span class="grey-text"><br>Correct answer:</span> <span>{{ quizService.getCorrectAnswer(question)?.title }}</span></span>
+          <span [hidden]="question.status.wasCorrect"><span class="grey-text"><br>Correct answer:</span> <span>{{ quizService.getCorrectAnswer(question)?.title }}</span></span>
         </p>
         <p class="grey-text" [hidden]="question.status.answered">Not yet answered</p>
         <span class="secondary-content" [hidden]="!question.status.answered"><i class="material-icons green-text" [ngClass]="{'green-text': question.status.wasCorrect, 'red-text': !question.status.wasCorrect}">{{ question.status.wasCorrect ? 'check': 'close' }}</i></span>

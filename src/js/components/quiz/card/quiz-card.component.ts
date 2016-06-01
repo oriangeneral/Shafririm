@@ -1,4 +1,9 @@
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/timeInterval';
+import 'rxjs/add/operator/take';
+
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { AnimationService, AnimationBuilder, AnimatesDirective } from 'css-animator';
 import { MaterializeDirective } from 'angular2-materialize';
@@ -31,6 +36,9 @@ export class QuizCardComponent implements OnInit {
 
   private _markedAnswer: number = -1;
 
+  private _countdown = 20;
+  private _player: HTMLAudioElement;
+
   constructor(private _elementRef: ElementRef, private _quizService: QuizService, animationService: AnimationService) {
     this._animator = animationService.builder().setDuration(600);
 
@@ -62,6 +70,10 @@ export class QuizCardComponent implements OnInit {
             count++;
           }
 
+          if (this._player) {
+            this._player.pause();
+          }
+
           this._animator.hide(this._elementRef.nativeElement);
           this._active = false;
         }
@@ -74,6 +86,29 @@ export class QuizCardComponent implements OnInit {
         this._quizService.ready();
       }, 650);
     }
+  }
+
+  public playSong(player: HTMLAudioElement, button: HTMLElement) {
+    this._player = player;
+
+    let countdown = this._countdown - 1;
+
+    Observable
+    .interval(1000)
+    .timeInterval()
+    .take(countdown)
+    .subscribe((next) => {
+      this._countdown = countdown - next.value;
+    }, (error) => {
+
+    }, () => {
+      this._countdown = 0;
+      player.pause();
+    });
+
+    player.play();
+    button.setAttribute('disabled', '');
+    button.classList.add('disabled');
   }
 
   public answerClicked(index, checked) {
@@ -112,6 +147,10 @@ export class QuizCardComponent implements OnInit {
 
   get active() {
     return this._active;
+  }
+
+  get countdown() {
+    return this._countdown;
   }
 
   get quizService() {
