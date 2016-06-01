@@ -15,6 +15,9 @@ export default [{
       "correct": false
     }],
   "answered": false,
+  "status": {
+    "answered": false
+  },
   "track": {
     "album": {
       "album_type": "single",
@@ -88,6 +91,9 @@ export default [{
         "correct": true
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "album",
@@ -161,6 +167,9 @@ export default [{
         "correct": false
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "single",
@@ -234,6 +243,9 @@ export default [{
         "correct": false
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "single",
@@ -308,6 +320,9 @@ export default [{
         "correct": false
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "album",
@@ -382,6 +397,9 @@ export default [{
         "correct": false
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "single",
@@ -456,6 +474,9 @@ export default [{
         "correct": false
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "single",
@@ -529,6 +550,9 @@ export default [{
         "correct": false
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "single",
@@ -602,6 +626,9 @@ export default [{
         "correct": false
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "album",
@@ -675,6 +702,9 @@ export default [{
         "correct": false
       }],
     "answered": false,
+    "status": {
+      "answered": false
+    },
     "track": {
       "album": {
         "album_type": "single",

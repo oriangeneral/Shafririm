@@ -83,7 +83,7 @@ SystemJS.config({
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
     "constants": "github:jspm/nodelibs-constants@0.2.0-alpha",
     "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
-    "css-animator": "npm:css-animator@1.1.3",
+    "css-animator": "npm:css-animator@1.2.0",
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
     "flat-color-icons": "npm:flat-color-icons@1.0.0",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
@@ -130,13 +130,6 @@ SystemJS.config({
     "npm:@angular/router@2.0.0-rc.1": {
       "map": {}
     },
-    "npm:asn1.js@4.6.0": {
-      "map": {
-        "bn.js": "npm:bn.js@4.11.3",
-        "inherits": "npm:inherits@2.0.1",
-        "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
-      }
-    },
     "npm:bn.js@4.11.3": {
       "map": {}
     },
@@ -175,7 +168,7 @@ SystemJS.config({
         "browserify-rsa": "npm:browserify-rsa@4.0.1",
         "create-hash": "npm:create-hash@1.1.2",
         "create-hmac": "npm:create-hmac@1.1.4",
-        "elliptic": "npm:elliptic@6.2.7",
+        "elliptic": "npm:elliptic@6.2.8",
         "inherits": "npm:inherits@2.0.1",
         "parse-asn1": "npm:parse-asn1@5.0.0"
       }
@@ -197,7 +190,7 @@ SystemJS.config({
     "npm:create-ecdh@4.0.0": {
       "map": {
         "bn.js": "npm:bn.js@4.11.3",
-        "elliptic": "npm:elliptic@6.2.7"
+        "elliptic": "npm:elliptic@6.2.8"
       }
     },
     "npm:create-hash@1.1.2": {
@@ -241,14 +234,6 @@ SystemJS.config({
         "randombytes": "npm:randombytes@2.0.3"
       }
     },
-    "npm:elliptic@6.2.7": {
-      "map": {
-        "bn.js": "npm:bn.js@4.11.3",
-        "brorand": "npm:brorand@1.0.5",
-        "hash.js": "npm:hash.js@1.0.3",
-        "inherits": "npm:inherits@2.0.1"
-      }
-    },
     "npm:evp_bytestokey@1.0.0": {
       "map": {
         "create-hash": "npm:create-hash@1.1.2"
@@ -270,7 +255,7 @@ SystemJS.config({
     },
     "npm:parse-asn1@5.0.0": {
       "map": {
-        "asn1.js": "npm:asn1.js@4.6.0",
+        "asn1.js": "npm:asn1.js@4.6.2",
         "browserify-aes": "npm:browserify-aes@1.0.6",
         "create-hash": "npm:create-hash@1.1.2",
         "evp_bytestokey": "npm:evp_bytestokey@1.0.0",
@@ -392,6 +377,21 @@ SystemJS.config({
       "map": {
         "jquery": "npm:jquery@2.2.4",
         "css": "github:systemjs/plugin-css@0.1.22"
+      }
+    },
+    "npm:elliptic@6.2.8": {
+      "map": {
+        "bn.js": "npm:bn.js@4.11.3",
+        "inherits": "npm:inherits@2.0.1",
+        "hash.js": "npm:hash.js@1.0.3",
+        "brorand": "npm:brorand@1.0.5"
+      }
+    },
+    "npm:asn1.js@4.6.2": {
+      "map": {
+        "bn.js": "npm:bn.js@4.11.3",
+        "inherits": "npm:inherits@2.0.1",
+        "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
       }
     }
   }

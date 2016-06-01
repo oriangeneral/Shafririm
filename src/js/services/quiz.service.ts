@@ -69,6 +69,16 @@ export class QuizService {
     return this._onCompleted;
   }
 
+  public getCorrectAnswer(question: Question) {
+    for (let answer of question.answers) {
+      if (answer.correct) {
+        return answer;
+      }
+    }
+
+    return null;
+  }
+
   private buildQuestions(randomTracks: Track[]) {
     let trackTransformer = new TrackTransformer(this._playlist, this._tracks);
     let questions: Question[] = [];

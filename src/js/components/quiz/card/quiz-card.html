@@ -1,12 +1,44 @@
 <div>
-<div class="row">
-  <div class="col s12">
-    <div class="card white">
-      <div class="card-content center-align black-text">
-        <span class="card-title cyan-text">Question {{ question.id }}</span>
-        <a materialize (click)="nextQuestion()" class="waves-effect waves-light btn">Next Question</a>
+  <div class="row">
+    <div class="col s12">
+      <div class="card white">
+        <div class="card-content center-align black-text">
+          <span class="card-title cyan-text">{{ question.title }} ({{ question.id }}/{{ quizService.totalQuestions }})</span>
+          <div [ngSwitch]="question.type">
+            <p *ngSwitchWhen="0">
+              <!-- AlbumNameFromImage -->
+              TODO: Add album image
+            </p>
+            <p *ngSwitchWhen="1">
+              <!-- TrackNameFromPreview -->
+              TODO: Add music player
+            </p>
+            <p *ngSwitchWhen="2">
+              <!-- ArtistNameFromTrackName -->
+              {{ question.track.name }}
+            </p>
+            <p *ngSwitchWhen="3">
+              <!-- ArtistNameFromAlbumName -->
+              {{ question.track.album.name }}
+            </p>
+            <p *ngSwitchDefault>
+              Sorry, there was an error!
+            </p>
+          </div>
+          <div class="row answers">
+            <div class="col s6" *ngFor="let answer of question.answers; let i = index">
+              <input #check type="checkbox" id="answer{{question.id}}{{i}}" (change)="answerClicked(i, check.checked)" [disabled]="!check.checked && hasMarkedAnswer">
+              <label htmlFor="answer{{question.id}}{{i}}">{{ answer.title }}</label>
+            </div>
+          </div>
+          <div animates [animatesOnInit]="{type:'fadeInDown', keepFlow: true, duration: 400}" *ngIf="hasMarkedAnswer" class="next">
+            <span materialize (click)="nextQuestion()" class="waves-effect waves-light btn">Next Question</span>
+          </div>
+          <div class="next" [hidden]="hasMarkedAnswer">
+            Select an answer to continue to the next question.
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>

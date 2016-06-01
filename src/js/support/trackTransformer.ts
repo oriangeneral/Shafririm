@@ -37,6 +37,9 @@ export class TrackTransformer {
         }
       ],
       answered: false,
+      status: {
+        answered: false
+      },
       track: track
     };
 
@@ -64,6 +67,9 @@ export class TrackTransformer {
         }
       ],
       answered: false,
+      status: {
+        answered: false
+      },
       track: track
     };
 
@@ -90,12 +96,15 @@ export class TrackTransformer {
         }
       ],
       answered: false,
+      status: {
+        answered: false
+      },
       track: track
     };
 
     for (let randomTrack of this.randomTracksExcluding(3, track.id)) {
       question.answers.push({
-        title: track.artists[0].name,
+        title: randomTrack.artists[0].name,
         correct: false
       });
     }
@@ -108,7 +117,7 @@ export class TrackTransformer {
   public toArtistNameFromAlbumNameQuestion(track: Track): Question {
     let question: Question = {
       type: QuestionType.ArtistNameFromAlbumName,
-      title: 'Who is the artist of this track?',
+      title: 'Who is the artist of this album?',
       answers: [
         {
           title: track.artists[0].name,
@@ -116,12 +125,15 @@ export class TrackTransformer {
         }
       ],
       answered: false,
+      status: {
+        answered: false
+      },
       track: track
     };
 
     for (let randomTrack of this.randomTracksExcluding(3, track.id)) {
       question.answers.push({
-        title: track.artists[0].name,
+        title: randomTrack.artists[0].name,
         correct: false
       });
     }

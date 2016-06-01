@@ -1,4 +1,5 @@
 import { Track } from './track';
+import { Status } from './status';
 
 export enum QuestionType {
   AlbumNameFromImage,
@@ -9,11 +10,6 @@ export enum QuestionType {
   // ReleaseDateFromAlbumName
 }
 
-export interface Answer {
-  title: string;
-  correct: boolean;
-}
-
 export interface Question {
   id?: number;
   type: QuestionType;
@@ -22,4 +18,10 @@ export interface Question {
   answers: Answer[];
   answered?: boolean;
   track: Track;
+  status: Status;
+}
+
+export interface Answer {
+  title: string;
+  correct: boolean;
 }

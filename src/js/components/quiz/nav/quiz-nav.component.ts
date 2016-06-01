@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimatesDirective } from 'css-animator';
 import { MaterializeDirective } from "angular2-materialize";
@@ -13,17 +12,12 @@ import navStyle from './quiz-nav.css';
   styles: [navStyle],
   directives: [
     AnimatesDirective,
-    MaterializeDirective,
-    ROUTER_DIRECTIVES
+    MaterializeDirective
   ]
 })
 export class QuizNavComponent {
 
-  constructor(private _router: Router) {
-
-  }
-
-  public goHome(animation: AnimatesDirective) {
+  constructor() {
 
   }
 

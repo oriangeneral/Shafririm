@@ -1,2 +1,3 @@
 <quiz-nav animates [animatesOnInit]="{type: 'fadeInDown', duration: 600}" (onGoHome)="onGoHome()" (onReload)="onReload()" (onClose)="onClose()"></quiz-nav>
 <quiz-card *ngFor="let question of questions" [question]="question" hidden></quiz-card>
+<quiz-status></quiz-status>
