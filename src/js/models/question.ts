@@ -15,6 +15,7 @@ export interface Answer {
 }
 
 export interface Question {
+  id?: number;
   type: QuestionType;
   title: string;
   description?: string;

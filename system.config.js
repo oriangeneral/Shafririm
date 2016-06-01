@@ -44,7 +44,7 @@ SystemJS.config({
   },
   packages: {
     "app": {
-      "main": "main",
+      "main": "main.prod",
       "defaultExtension": "ts",
       "meta": {
         "*.ts": {

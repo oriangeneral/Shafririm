@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimatesDirective } from 'css-animator';
@@ -8,6 +8,8 @@ import { QuizService } from 'app/services/quiz.service';
 
 import { QuizNavComponent } from './nav/quiz-nav.component';
 import { QuizCardComponent } from './card/quiz-card.component';
+
+import { Question } from 'app/models/question';
 
 import quizTemplate from './quiz.html';
 import quizStyle from './quiz.css';
@@ -27,22 +29,47 @@ import quizStyle from './quiz.css';
     QuizService
   ]
 })
-export class QuizComponent {
+export class QuizComponent implements OnInit {
 
-  public questions: number[] = [
-    1, 2, 3, 4, 5, 6
-  ];
+  private _questions: Question[] = [];
 
-  constructor(private _router: Router) {
+  constructor(
+    private router: Router,
+    private quizService: QuizService
+  ) {
+    this.quizService
+      .onReady.subscribe(() => {
+        this.quizService.activateQuestion(1);
+      });
+  }
+
+  public ngOnInit() {
+    console.log('getting questions...');
+    this.quizService
+      .init(10)
+      .subscribe((questions) => {
+        this._questions = questions;
+      }, (error) => handleError(error));
+  }
+
+  public onGoHome() {
 
   }
 
-  public goHome(animation: AnimatesDirective) {
-    animation
-      .hide({
-        type: 'fadeOutUp',
-        duration: 600
-      }).then(() => this._router.navigate(['/']));
+  public onReload() {
+
+  }
+
+  public onClose() {
+
+  }
+
+  get questions() {
+    return this._questions;
+  }
+
+  private handleError() {
+
   }
 
 }

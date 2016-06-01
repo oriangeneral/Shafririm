@@ -1,38 +1,72 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/of';
 
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { TrackTransformer } from '../support/TrackTransformer';
+import { TrackTransformer } from 'app/support/TrackTransformer';
 
 import { PlaylistService } from './playlist.service';
-import { QuestionsComponent } from '../components/questions/questions.component';
 
-import { shuffle } from '../helpers/common';
+import { shuffle } from 'app/helpers/common';
 
-import { Playlist } from '../models/playlist';
-import { Track } from '../models/track';
-import { Question, QuestionType } from '../models/question';
+import { Playlist } from 'app/models/playlist';
+import { Track } from 'app/models/track';
+import { Question, QuestionType } from 'app/models/question';
+
+import mockQuestions from 'app/mock/questions';
 
 @Injectable()
 export class QuizService {
 
-  private _questionsComponent: QuestionsComponent;
+  private _onReady = new EventEmitter<any>();
+  private _onActivateQuestion = new EventEmitter<any>();
+  private _onCompleted = new EventEmitter<any>();
+
+  private _numberOfQuestions: number;
   private _playlist: Playlist;
   private _tracks: Track[];
   private _random: Track[];
   private _questions: Question[];
 
   constructor(private playlistService: PlaylistService) {
-    this.playlistService.getPlaylist()
-      .map((playlist) => this.extractTracks(playlist))
-      .map((tracks) => this.extractRandom(tracks))
-      .subscribe(
-        (tracks) => this.buildQuestions(tracks),
-        error => console.error(error)
-      );
+  }
+
+  public init(numberOfQuestions: number): Observable<any> {
+    this._numberOfQuestions = numberOfQuestions;
+    this._questions = mockQuestions;
+    return Observable.of(mockQuestions);
+
+    // return this.playlistService.getPlaylist()
+    //   .map((playlist) => this.extractTracks(playlist))
+    //   .map((tracks) => this.extractRandom(tracks))
+    //   .map((tracks) => this.buildQuestions(tracks));
+  }
+
+  public ready() {
+    this._onReady.emit();
+  }
+
+  public activateQuestion(questionNumber: number) {
+    this._onActivateQuestion.emit(questionNumber);
+  }
+
+  public completed() {
+    this._onCompleted.emit();
+  }
+
+  get onReady() {
+    return this._onReady;
+  }
+
+  get onActivateQuestion() {
+    return this._onActivateQuestion;
+  }
+
+  get onCompleted() {
+    return this._onCompleted;
   }
 
   private buildQuestions(randomTracks: Track[]) {
@@ -40,12 +74,17 @@ export class QuizService {
     let questions: Question[] = [];
 
     for (let track of randomTracks) {
-      questions.push(trackTransformer.toQuestion(track));
+      let question = trackTransformer.toQuestion(track);
+      questions.push(question);
     }
 
-    console.log(questions);
+    let count = 0;
+    this._questions = shuffle(questions).map((question) => {
+      question.id = ++count;
+      return question;
+    });
 
-    this._questions = shuffle(questions);
+    return this._questions;
   }
 
   private extractTracks(playlist: Playlist) {
@@ -62,7 +101,7 @@ export class QuizService {
   }
 
   private extractRandom(tracks: Track[]) {
-    return this._random = this.getRandomTracks(10);
+    return this._random = this.getRandomTracks(this._numberOfQuestions);
   }
 
   private getRandomTracks(amount: number): Track[] {
@@ -85,14 +124,6 @@ export class QuizService {
 
   get totalQuestions(): number {
     return this.questions.length;
-  }
-
-  get questionsComponent(): QuestionsComponent {
-    return this._questionsComponent;
-  }
-
-  set questionsComponent(questionsComponent: QuestionsComponent) {
-    this._questionsComponent = questionsComponent;
   }
 
   get questions(): Question[] {
