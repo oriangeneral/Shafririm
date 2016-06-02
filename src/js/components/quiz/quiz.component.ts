@@ -59,7 +59,7 @@ export class QuizComponent implements OnInit {
       .init(2)
       .subscribe((questions) => {
         this._questions = this.quizService.questions;
-      }, (error) => this.handleError(error));
+      });
   }
 
   public onGoHome(navAnimatesDirective: AnimatesDirective) {
@@ -96,10 +96,6 @@ export class QuizComponent implements OnInit {
 
   get quizService() {
     return this._quizService;
-  }
-
-  private handleError() {
-
   }
 
 }

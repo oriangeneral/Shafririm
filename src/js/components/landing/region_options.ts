@@ -28,5 +28,13 @@ export const REGION_VALUES: RegionOptions[] = [
   {
     name: 'USA',
     value: 'us'
+  },
+  {
+    name: 'Simpulate Unhandled Exception',
+    value: {
+      that: 'object',
+      will: 'cause',
+      an: 'error'
+    }
   }
 ];
