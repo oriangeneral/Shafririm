@@ -1,3 +1,10 @@
+.questions-loading {
+  position: absolute;
+  margin-top: 15rem;
+  width: 60px;
+  left: 50%;
+  margin-left: -60px;
+}
 ul li .btn i {
   font-size: 1.3rem;
   line-height: 36px;

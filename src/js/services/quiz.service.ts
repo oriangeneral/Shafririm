@@ -58,7 +58,6 @@ export class QuizService {
   }
 
   public refresh() {
-    this._numberOfQuestions = 0;
     this._playlist = null;
     this._tracks = [];
     this._random = [];
