@@ -36,7 +36,7 @@ export class QuizCardComponent implements OnInit {
 
   private _markedAnswer: number = -1;
 
-  private _countdown = 20;
+  private _countdown = 10;
   private _player: HTMLAudioElement;
 
   constructor(private _elementRef: ElementRef, private _quizService: QuizService, animationService: AnimationService) {
@@ -100,13 +100,12 @@ export class QuizCardComponent implements OnInit {
 
   public playSong(player: HTMLAudioElement, button: HTMLElement) {
     this._player = player;
-
     let countdown = this._countdown - 1;
 
     Observable
       .interval(1000)
       .timeInterval()
-      .take(countdown)
+      .take(this._countdown)
       .subscribe((next) => {
         this._countdown = countdown - next.value;
       }, (error) => {
