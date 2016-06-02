@@ -30,9 +30,9 @@
   <script>
     var hue = hue || {};
     hue.devMode = true;
-    System.import("app/main.dev")
+    System.import("app/main.prod")
       .then(function(app) {
-        console.log('App was bootstrapped.');
+        console.info('App was bootstrapped.');
       })
       .catch(function(err) {
         console.log(err);

@@ -43,7 +43,6 @@ export class AppComponent implements OnInit {
   // DO NOT REMOVE THE ROUTER INJECTION
   // It will break loading LandingComponent automatically
   constructor(private router: Router, animationService: AnimationService) {
-    console.log('Hello from app component.');
     this._animator = animationService.builder();
   }
 

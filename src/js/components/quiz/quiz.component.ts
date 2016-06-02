@@ -44,20 +44,17 @@ export class QuizComponent implements OnInit {
   ) {
     this.quizService
       .onReady.subscribe(() => {
-        console.log('ready');
         this._ready = true;
         this.quizService.activateQuestion(1);
       });
 
     this.quizService
       .onRefresh.subscribe(() => {
-        console.log('refresh event');
         this._questions = this.quizService.questions;
       });
   }
 
   public ngOnInit() {
-    console.log('getting questions...');
     this.quizService
       .init(2)
       .subscribe((questions) => {
@@ -76,7 +73,6 @@ export class QuizComponent implements OnInit {
   }
 
   public onRefresh(navAnimatesDirective: AnimatesDirective) {
-    console.log('onrefresh');
     this.quizService.close();
     setTimeout(() => {
       this._ready = false;

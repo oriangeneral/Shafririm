@@ -22,8 +22,7 @@ export class PlaylistService {
   }
 
   public getPlaylist(): Observable<any> {
-    console.log(this.localeService.locale);
-
+    // this.localeService.locale
     return this.http.get(this._apiUrl)
       .map(this.extractData)
       .catch(this.handleError);
