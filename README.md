@@ -16,9 +16,10 @@ More documentation will be added once we've decided for a good structure. For no
 ```sh
 $ git clone git@github.com:fabianweb/hue.git
 $ cd hue
-$ npm install -g gulp typings
+$ npm install -g gulp typings jspm
 $ typings install
 $ npm install
+$ jspm install
 $ gulp build
 $ npm start
 ```
@@ -29,29 +30,51 @@ $ npm start
 
 ### Node Package Manager - `npm`
 
-We use npm to install dependencies and to bring up a server.  
-We just need [gulp](http://gulpjs.com) and [typings](https://github.com/typings/typings) to be installed globally, by using the `-g` flag.
+We use npm and jspm (currently `0.17.0-beta.16`) to install dependencies.  
+We just need [gulp](http://gulpjs.com), [typings](https://github.com/typings/typings) and [jspm](http://jspm.io) to be installed globally, by using the `-g` flag.
 
 > Make sure that you have [Node.js](https://nodejs.org/) installed, [npm](http://npmjs.com) comes
 > with it. You can check with `node --version`.
 
-To install **development dependencies**, used in gulp tasks use:
+To install **development dependencies**, used e.g. in gulp tasks use:
 
 ```sh
 $ npm install --save-dev module-name
 ```
 
-To install **application dependencies**, used on the client side or for the server use:
+To install **application dependencies**, used on the server side use:
 
 ```sh
 $ npm install --save module-name
 ```
+
+To install **client side dependencies**, use jspm:
+
+```sh
+$ jspm install modulename
+```
+
+> jspm also supports `install npm:modulename` and `install github:user/repo`
 
 To **start the sever** type:
 
 ```sh
 $ npm start
 ```
+
+> The server will be started with the `dist` directory as root, and a built version
+> of the app will be used. Make sure to run `gulp build` or `gul dev-build` first.
+
+To **start a development server** type:
+
+```sh
+$ npm start dev
+```
+
+> The server will be started on the very top level of the application code.
+> All files (including dependencies) are transpiled on-demand in the browser.
+> While developing, make sure `gulp watch` is running, to pick up index.html and
+> less-files changes.
 
 ### Gulp Tasks - `gulp`
 
@@ -67,7 +90,7 @@ $ gulp build
 #### Development Build
 
 A development build performs almost the same tasks as a production build, but
-**debugging** the application is a lot easier.
+may be faster.
 
 ```sh
 $ gulp dev-build
@@ -76,16 +99,14 @@ $ gulp dev-build
 #### Watch Changes
 
 To make it easier and, most important, faster to compile changes use the
-watch task. It will perform a dev-build on the first run, but will
-execute only some tasks (like compiling to JavaScript and CSS) on
-consecutive builds.
+watch task. It will perform only tasks to provide files, the dev-server needs
+processed (like compiling to JavaScript and CSS).
 
 ```sh
 $ gulp watch
 ```
 
-> You may also execute `gulp watch-build` to perform a very basic build. Files
-form a development or production build must already exists in the dist folder.
+> You may also execute `gulp watch-build` to perform those actions only once.
 
 ### Typings - `typings`
 
@@ -117,23 +138,7 @@ You can set some configuration for TypeScript in `tsconfig.json` and in
 Please take a closer look at the `config.js` file comment's on the configuration
 properties for more detailed explanations.
 
-> Most `src` properties will support a string or an array if not stated otherwise.
-> Please refer to the `config.js` default values to learn more about how to provide
-> the correct values.
-
-#### config.mode
-
-Type: `String`  
-
-Choose whether you want to bundle foles or not:
-
-- `lazy`
-      Files will be concatinated to a single file (+1 vendor file).
-
-- `bundle`
-      Only vendor files will be bundled, your app files will be lazy loaded.
-
-#### config.stc
+#### config.src
 
 Type: `String`  
 
@@ -154,23 +159,14 @@ Type: `String|Array<String>`
 Define which files should or shouldn't be watched, when using `gulp watch`.
 You can use the [globbing pattern](https://www.npmjs.com/package/minimatch) here.
 
-#### config.systemjs
+#### config.jspm
 
 Type: `Object`  
 
-We will configure [SystemJS](https://github.com/systemjs/systemjs) here,
-the module loader used for the application.  
+This configuration holds the command, that will be executed later via gulp when building the application.
+You can type `jspm` in the command line to see all available options.
 
-[SystemJS documentation](https://github.com/systemjs/systemjs/tree/master/docs)
-for setting this property.
-
-#### config.ts
-
-Type: `Object`  
-
-Configure the TypeScript gulp task.
-
-> Please note, that the compiler configuration is set in `tsconfig.json`.
+jspm internally uses the [SystemJS](https://github.com/systemjs/systemjs) [builder](https://github.com/systemjs/builder).
 
 #### config.less
 
@@ -179,25 +175,17 @@ Type: `Object`
 Configure the [less](http://lesscss.org) gulp task, to create CSS files
 from LESS files.
 
+#### config.tslint
+
+Type: `Object`
+
+Define a globbing pattern, which TypeScript files to lint for errors.
+
 #### config.index
 
 Type: `String`  
 
 Define the index file for the application.
-
-#### config.icons
-
-Type: `Object`  
-
-This task takes SVG files, creates an icon font out of it and a CSS
-file to easily use them within the app.
-
-#### config.vendor
-
-Type: `Object`  
-
-For faster builds, vendor files are only bundled into a single file,
-but not compiled by TypeScript. You can define those files here.
 
 #### config.assets
 
@@ -215,43 +203,20 @@ Files to copy into a desired location, but only preserve the path from the set `
 ### Server Configuration - `server/index.js`
 
 You can set environment variables in `server/.env` (not included in this repo).
-Copy `server/.env.example` and rename it to `.env`.
+Copy `server/.env.example` and rename it to `.env`.  
+
+Other options are set in `server/config/app.js` for a production server, or
+`/server.config/app.dev.js` for a development server.
 
 > Documentation for this chapter will be added in the future.
 
 ### Application Configuration
 
-The `index.html` and all TypeScript files are processed by
-[gulp-preprocess](https://github.com/jas/gulp-preprocess).
+Note, that the index.html is **not** inside the `src`, but on the very top level
+of the application code.
 
-> Documentation for this chapter will be added in the future.
+> The `index.html` is processed by
+> [gulp-preprocess](https://github.com/jas/gulp-preprocess).  
 
-## Application
-
-This section will be added soon.
-
-### Technology
-
-Angular2, TypeScript, ES6,...
-
-### Structure
-
-Application and directory structure.
-
-### Modules
-
-Also cover important annotations and decorators in the following subsections.
-
-#### Components
-
-#### Services
-
-#### Directives
-
-### Concepts
-
-#### Dependency Injection
-
-#### Shadow DOM/View Encapsulation
-
-### Animations
+For the dev server or a dev build, `src/js/main.dev.ts`
+will be used. For a production build, `src/js/main.prod.ts` is the entry point of the app.
