@@ -146,13 +146,6 @@ config.assets = {
 |
 */
 config.copy = [{
-  base: './',
-  src: [
-    // Fixing plugin-css inserting jspm path into loaded files
-    './jspm_packages/github/Dogfalo/materialize@*/dist/fonts/roboto/*'
-  ],
-  dest: config.dist + '/jspm_packages'
-}, {
   base: './node_modules/materialize-css/fonts/roboto',
   src: [
     '/*'
