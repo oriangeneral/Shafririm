@@ -70,10 +70,9 @@ config.jspm = {
     ],
     devOptions: [
       'build',
-      'reflect-metadata + zone.js + app/main.dev',
+      'reflect-metadata + zone.js + app/main.dev.ts',
       config.dist + '/app/bundle.js',
-      '--no-mangle',
-      '--source-map-contents'
+      '--no-mangle'
     ]
   }]
 };
