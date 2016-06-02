@@ -6,7 +6,7 @@ import { Injectable, EventEmitter } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { TrackTransformer } from 'app/support/TrackTransformer';
+import { TrackTransformer } from 'app/support/trackTransformer';
 
 import { PlaylistService } from './playlist.service';
 
