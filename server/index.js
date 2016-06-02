@@ -8,10 +8,18 @@ var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
 var methodOverride = require('method-override');
 var compress = require('compression');
-var config = require('./config/app');
+var appConfig = require('./config/app');
+var appDevConfig = require('./config/app.dev');
 var app = express();
 
 var envFile = __dirname + '/.env';
+
+var config;
+if (process.argv.indexOf('dev') !== -1) {
+  config = appDevConfig;
+} else {
+  config = appConfig;
+}
 
 try {
   fs.accessSync(envFile, fs.F_OK)

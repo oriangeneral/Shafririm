@@ -20,7 +20,7 @@
   height: 100%;
 }
 
-#app-loading .loader {
+.loader {
   left: 50%;
   top: 50%;
   margin-top: -100px; // put further to top than center
@@ -42,12 +42,12 @@
   width: 60px;
 }
 
-#app-loading .loader.running {
+.loader.running {
   animation-iteration-count: infinite;
   animation-play-state: running;
 }
 
-#app-loading .loader:after {
+.loader:after {
   content: '';
   position: absolute;
   width: 30px;
