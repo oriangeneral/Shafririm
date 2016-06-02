@@ -42,8 +42,9 @@ export class QuizComponent implements OnInit {
   ) {
     this.quizService
       .onReady.subscribe(() => {
-        this.quizService.activateQuestion(1);
+        console.log('ready');
         this._ready = true;
+        this.quizService.activateQuestion(1);
       });
 
     this.quizService
@@ -76,12 +77,11 @@ export class QuizComponent implements OnInit {
     console.log('onrefresh');
     this.quizService.close();
     setTimeout(() => {
-      this._questions = [];
       this._ready = false;
       setTimeout(() => {
         this.quizService.refresh();
       });
-    }, 600);
+    }, 700);
   }
 
   public onClose(navAnimatesDirective: AnimatesDirective) {
