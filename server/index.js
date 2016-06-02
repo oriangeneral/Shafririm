@@ -37,7 +37,7 @@ if (!config.production) {
 app.use(compress());
 
 // Request middleware
-app.use(require('./middleware/httpsRedirect'));
+// app.use(require('./middleware/httpsRedirect'));
 app.use(require('./middleware/isFile'));
 app.use(express.static(path.join(__dirname, config.publicDir)));
 
@@ -68,21 +68,29 @@ app.use(errorHandler({
 }));
 
 // SSL certificate
-var options = {
-  key: fs.readFileSync('./server/ssl/server.key'),
-  cert: fs.readFileSync('./server/ssl/server.crt')
-};
+// var options = {
+//   key: fs.readFileSync('./server/ssl/server.key'),
+//   cert: fs.readFileSync('./server/ssl/server.crt')
+// };
 
-// Create a HTTP2 server
-require('spdy').createServer(options, app).listen(config.production ? 443 : 5000);
+// var options = {
+//   ssl: false,
+//   plain: true
+// };
+//
+// // Create a HTTP2 server
+// require('spdy').createServer(options, app).listen(config.production ? process.env.PORT : 5000);
+
+var port = config.production ? process.env.PORT : 5000;
+app.listen(port);
+
+console.log('Server listening on port ' + port);
+console.log('');
 
 // Create HTTP server for redirecting
-require('http').createServer(function(req, res) {
-  res.writeHead(301, {
-    "Location": "https://" + req.headers['host'] + req.url
-  });
-  res.end();
-}).listen(config.production ? 80 : 5001);
-
-console.log('Server listening at https://localhost:5000');
-console.log('');
+// require('http').createServer(function(req, res) {
+//   res.writeHead(301, {
+//     "Location": "https://" + req.headers['host'] + req.url
+//   });
+//   res.end();
+// }).listen(config.production ? 80 : 5001);
