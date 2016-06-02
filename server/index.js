@@ -12,6 +12,12 @@ var appConfig = require('./config/app');
 var appDevConfig = require('./config/app.dev');
 var app = express();
 
+express.static.mime.define({
+  'application/x-font-woff': ['woff'],
+  'application/x-font-woff2': ['woff2'],
+  'application/x-font-ttf': ['ttf']
+});
+
 var envFile = __dirname + '/.env';
 
 var config;
