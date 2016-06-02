@@ -63,6 +63,7 @@
     "node-require-fallback": "^0.1.0",
     "tslint": "^3.6.0",
     "typescript": "^1.8.10",
+    "typings": "^1.0.4",
     "yargs": "^4.3.2"
   },
   "jspm": {
