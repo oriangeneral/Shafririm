@@ -40,7 +40,7 @@ export class QuizComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private quizService: QuizService
+    private _quizService: QuizService
   ) {
     this.quizService
       .onReady.subscribe(() => {
@@ -59,7 +59,7 @@ export class QuizComponent implements OnInit {
   public ngOnInit() {
     console.log('getting questions...');
     this.quizService
-      .init(10)
+      .init(2)
       .subscribe((questions) => {
         this._questions = this.quizService.questions;
       }, (error) => this.handleError(error));
@@ -96,6 +96,10 @@ export class QuizComponent implements OnInit {
 
   get ready() {
     return this._ready;
+  }
+
+  get quizService() {
+    return this._quizService;
   }
 
   private handleError() {

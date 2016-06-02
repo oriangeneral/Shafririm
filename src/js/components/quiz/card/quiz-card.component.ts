@@ -56,10 +56,6 @@ export class QuizCardComponent implements OnInit {
         } else if (this.active) {
           this._animator.setType('fadeOutLeft').setDelay(0).setDuration(600);
 
-          if (this.question.id === this._quizService.totalQuestions) {
-            this._animator.setType('fadeOutDown');
-          }
-
           this.question.answered = true;
           this.question.status.answered = true;
           this.question.status.selectedAnswer = this._markedAnswer;
@@ -69,9 +65,13 @@ export class QuizCardComponent implements OnInit {
             this._player.pause();
           }
 
+          if (this.question.id === this._quizService.totalQuestions) {
+            this._animator.setType('fadeOutDown');
+            this._quizService.completed();
+          }
+
           this._animator.hide(this._elementRef.nativeElement);
           this._active = false;
-          this._quizService.completed();
         }
       });
 
