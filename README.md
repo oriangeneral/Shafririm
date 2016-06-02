@@ -9,8 +9,6 @@ You may also want to have a look at the following packages, which were created j
 
 More documentation will be added once we've decided for a good structure. For now please take a look at how to get the app running within seconds:
 
-**NOTE: This readme is outdated and will be updated soon.**
-
 # Quickstart
 
 ```sh
@@ -28,7 +26,7 @@ $ npm start
 
 ## CLI
 
-### Node Package Manager - `npm`
+### `npm` and `jspm`
 
 We use npm and jspm (currently `0.17.0-beta.16`) to install dependencies.  
 We just need [gulp](http://gulpjs.com), [typings](https://github.com/typings/typings) and [jspm](http://jspm.io) to be installed globally, by using the `-g` flag.
@@ -207,8 +205,6 @@ Copy `server/.env.example` and rename it to `.env`.
 
 Other options are set in `server/config/app.js` for a production server, or
 `/server.config/app.dev.js` for a development server.
-
-> Documentation for this chapter will be added in the future.
 
 ### Application Configuration
 
