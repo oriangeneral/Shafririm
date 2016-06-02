@@ -15,7 +15,7 @@ import { Album } from '../models/album';
 @Injectable()
 export class PlaylistService {
 
-  private _apiUrl = 'api/playlist/random';
+  private _apiUrl = '/api/playlist/random';
 
   constructor(private http: Http, private localeService: LocaleService) {
 

@@ -21,6 +21,8 @@ if (process.argv.indexOf('dev') !== -1) {
   config = appConfig;
 }
 
+console.log('Server public dir set to ' + config.publicDir);
+
 try {
   fs.accessSync(envFile, fs.F_OK)
 } catch(e) {

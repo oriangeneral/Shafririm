@@ -3,14 +3,19 @@
 
 <head lang="en">
   <title>HUE - Music Quiz</title>
+  <!-- @ifndef config.build -->
+  <base href="/dist/" />
+  <!-- @endif -->
+  <!-- @ifdef config.build -->
   <base href="/" />
+  <!-- @endif -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="A music quiz in Angular2 using the Spotify API.">
   <meta name="author" content="Lorenz Krautgartner, Fabian Pirklbauer, Sascha Zarhuber">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="/dist/assets/favicon.ico?v=<!-- @echo config.buildTimestamp -->" type="image/x-icon">
-  <link rel="stylesheet" href="/dist/css/app.css?v=<!-- @echo config.buildTimestamp -->">
+  <link rel="icon" href="assets/favicon.ico?v=<!-- @echo config.buildTimestamp -->" type="image/x-icon">
+  <link rel="stylesheet" href="css/app.css?v=<!-- @echo config.buildTimestamp -->">
 </head>
 
 <body class="cyan white-text">
@@ -21,7 +26,7 @@
     </div>
   </div>
 
-  <!-- @ifndef config.build -->
+  <!-- @exclude -->
   <script src="/jspm_packages/system.src.js"></script>
   <script src="/system.config.js"></script>
   <script>
@@ -36,27 +41,8 @@
         console.log(err.originalErr);
       });
   </script>
-  <!-- @endif -->
-  <!-- @ifdef config.build -->
-  <script>
-    var hue = hue || {};
-    hue.init = function init() {
-      var head = document.getElementsByTagName('head')[0];
-      var js = document.createElement("script");
-      js.type = "text/javascript";
-      if (!hue.devMode) {
-        document.getElementsByTagName('base')[0].setAttribute('href', '/dist');
-        js.src = "/dist/app/bundle.js?v=<!-- @echo config.buildTimestamp -->";
-        head.appendChild(js);
-      }
-    };
-    hue.init();
-    //  Remove the above in production and use the following script tag before body:
-    //  Also move this index.html one level up to the server root.
-    //
-    //  <script src="/dist/app/bundle.js?v=<!-- @echo config.buildTimestamp -->"></script>
-  </script>
-  <!-- @endif -->
+  <!-- @endexclude -->
+  <!-- @include production.html -->
 </body>
 
 </html>
