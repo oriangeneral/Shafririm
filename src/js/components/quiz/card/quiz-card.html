@@ -10,7 +10,7 @@
               <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel grey lighten-5 z-depth-1">
                   <div class="row valign-wrapper">
-                    <div class="col s12">
+                    <div class="col s12 truncate">
                       {{ question.title }}
                       <br>
                       <div class="album-cover">
@@ -29,7 +29,7 @@
                     <div class="col s2">
                       <i class="material-icons circle blue white-text">hearing</i>
                     </div>
-                    <div class="col s10">
+                    <div class="col s10 truncate">
                       {{ question.title }}
                       <br>
                       <div class="song-preview">
@@ -53,7 +53,7 @@
                     <div class="col s2">
                       <i class="material-icons circle blue white-text">audiotrack</i>
                     </div>
-                    <div class="col s10">
+                    <div class="col s10 truncate">
                       {{ question.title }}
                       <br>
                       <span class="black-text flow-text">
@@ -72,7 +72,7 @@
                     <div class="col s2">
                       <i class="material-icons circle red white-text">album</i>
                     </div>
-                    <div class="col s10">
+                    <div class="col s10 truncate">
                       {{ question.title }}
                       <br>
                       <span class="black-text flow-text">
@@ -94,7 +94,7 @@
             </div>
           </div>
           <div animates [animatesOnInit]="{type:'fadeInDown', keepFlow: true, duration: 400}" *ngIf="hasMarkedAnswer" class="next">
-            <span materialize (click)="nextQuestion()" class="waves-effect waves-light btn-large">Next Question</span>
+            <span #button materialize (click)="nextQuestion(button)" class="waves-effect waves-light btn-large">Next Question</span>
           </div>
           <div class="next grey-text text-lighten-1" [hidden]="hasMarkedAnswer">
             Select an answer to continue to the next question.

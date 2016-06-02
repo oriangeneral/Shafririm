@@ -8,6 +8,7 @@ import { QuizService } from 'app/services/quiz.service';
 
 import { QuizNavComponent } from './nav/quiz-nav.component';
 import { QuizCardComponent } from './card/quiz-card.component';
+import { QuizDoneComponent } from './done/quiz-done.component';
 import { QuizStatusComponent } from './status/quiz-status.component';
 
 import { Question } from 'app/models/question';
@@ -22,6 +23,7 @@ import quizStyle from './quiz.css';
   directives: [
     QuizNavComponent,
     QuizCardComponent,
+    QuizDoneComponent,
     QuizStatusComponent,
     AnimatesDirective,
     MaterializeDirective,

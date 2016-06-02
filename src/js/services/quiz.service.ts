@@ -45,8 +45,8 @@ export class QuizService {
       .map((tracks) => this.extractRandom(tracks))
       .map((tracks) => this.buildQuestions(tracks));
 
-      // this._questions = mockQuestions;
-      // return Observable.of(mockQuestions);
+    // this._questions = mockQuestions;
+    // return Observable.of(mockQuestions);
   }
 
   public ready() {
@@ -58,6 +58,7 @@ export class QuizService {
   }
 
   public refresh() {
+    this._progress = 0;
     this._playlist = null;
     this._tracks = [];
     this._random = [];
@@ -76,6 +77,10 @@ export class QuizService {
 
   public completed() {
     this._onCompleted.emit();
+  }
+
+  public progress() {
+    return this.calculateProgress();
   }
 
   get onReady() {
@@ -106,6 +111,18 @@ export class QuizService {
     }
 
     return null;
+  }
+
+  private calculateProgress() {
+    let count = 0;
+
+    for (let question of this.questions) {
+      if (question.status.answered) {
+        count++;
+      }
+    }
+
+    return (count / this.totalQuestions) * 100;
   }
 
   private buildQuestions(randomTracks: Track[]) {

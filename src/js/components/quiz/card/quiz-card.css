@@ -1,7 +1,17 @@
+.question-status {
+  z-index: 100;
+  position: absolute;
+  width: 7rem;
+  left: 50%;
+  margin-left: -3.5rem;
+  bottom: 6rem;
+}
+.question-status img {
+  width: 7rem;
+}
 audio {
   display: none;
 }
-
 .card-panel {
   margin-top: 1.5em;
 }

@@ -27,6 +27,7 @@ var argv = require('yargs').argv;
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
 var execFile = requireIfExests('../node-exec-promise', 'node-exec-promise').execFile;
+var exec = requireIfExests('../node-exec-promise', 'node-exec-promise').exec;
 
 /*
 |--------------------------------------------------------------------------
@@ -347,6 +348,8 @@ gulp.task('lint', function(done) {
 |     locally.
 |
 */
+gulp.task('default', ['build']);
+
 gulp.task('build', function(done) {
   return gulpSequence('set-prod', 'start', 'master', 'finish')(done);
 });
@@ -360,12 +363,12 @@ gulp.task('watch-build', function(done) {
 });
 
 gulp.task('watch', function() {
-  gulpSequence('dev-build')(function() {
+  gulpSequence('watch-build')(function() {
     gulp.watch(config.watch, ['watch-build']);
   });
 });
 
 gulp.task('serve', function(done) {
-  console.log('Use npm start instead!');
+  gutil.log(gutil.colors.blue('Use "npm start [dev]" instead.'));
   done();
 });

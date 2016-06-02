@@ -1,7 +1,9 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
 import { AnimatesDirective } from 'css-animator';
-import { MaterializeDirective } from "angular2-materialize";
+import { MaterializeDirective } from 'angular2-materialize';
+
+import { QuizService } from 'app/services/quiz.service';
 
 import navTemplate from './quiz-nav.html';
 import navStyle from './quiz-nav.css';
@@ -20,8 +22,12 @@ export class QuizNavComponent {
   @Output() public onRefresh = new EventEmitter<any>();
   @Output() public onClose = new EventEmitter<any>();
 
-  constructor() {
+  constructor(private _quizService: QuizService) {
 
+  }
+
+  public get progress() {
+    return this._quizService.progress();
   }
 
   public goHome() {

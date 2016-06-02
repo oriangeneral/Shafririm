@@ -54,21 +54,16 @@ export class QuizCardComponent implements OnInit {
 
           this._animator.show(this._elementRef.nativeElement);
         } else if (this.active) {
-          this._animator.setType('fadeOutLeft').setDelay(0);
+          this._animator.setType('fadeOutLeft').setDelay(0).setDuration(600);
+
+          if (this.question.id === this._quizService.totalQuestions) {
+            this._animator.setType('fadeOutDown');
+          }
 
           this.question.answered = true;
           this.question.status.answered = true;
           this.question.status.selectedAnswer = this._markedAnswer;
-          this.question.status.wasCorrect = false;
-
-          let count = 0;
-          for (let answer of this.question.answers) {
-            if (answer.correct && this._markedAnswer === count) {
-              this.question.status.wasCorrect = true;
-            }
-
-            count++;
-          }
+          this.question.status.wasCorrect = this.answerIsCorrect();
 
           if (this._player) {
             this._player.pause();
@@ -76,6 +71,7 @@ export class QuizCardComponent implements OnInit {
 
           this._animator.hide(this._elementRef.nativeElement);
           this._active = false;
+          this._quizService.completed();
         }
       });
 
@@ -88,6 +84,19 @@ export class QuizCardComponent implements OnInit {
             .hide(this._elementRef.nativeElement);
         }
       });
+  }
+
+  public answerIsCorrect() {
+    let count = 0;
+    for (let answer of this.question.answers) {
+      if (answer.correct && this._markedAnswer === count) {
+        return true;
+      }
+
+      count++;
+    }
+
+    return false;
   }
 
   public ngOnInit() {
@@ -131,13 +140,19 @@ export class QuizCardComponent implements OnInit {
     this._markedAnswer = index;
   }
 
-  public nextQuestion() {
+  public nextQuestion(button: HTMLElement) {
     if (this._nextTimeout !== null) {
       clearTimeout(this._nextTimeout);
     }
 
     if (!this.hasMarkedAnswer) {
       return;
+    }
+
+    if (this.answerIsCorrect()) {
+      button.classList.add('green');
+    } else {
+      button.classList.add('red');
     }
 
     this._nextTimeout = setTimeout(() => {
