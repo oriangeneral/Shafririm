@@ -7,8 +7,6 @@ You may also want to have a look at the following packages, which were created j
 - [node-exec-promise](https://github.com/fabianweb/node-exec-promise)
 - [node-require-fallback](https://github.com/fabianweb/node-require-fallback)
 
-More documentation will be added once we've decided for a good structure. For now please take a look at how to get the app running within seconds:
-
 # Quickstart
 
 ```sh
@@ -21,6 +19,12 @@ $ jspm install
 $ gulp build
 $ npm start
 ```
+
+# Live Example
+
+[https://hueapp.herokuapp.com/](https://hueapp.herokuapp.com/)
+
+> Since the app is hosted on a free Heroku instance, it may need some time for it to boot.
 
 # Documentation
 
