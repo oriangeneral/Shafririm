@@ -24,6 +24,8 @@ export class QuizService {
   private _onReady = new EventEmitter<any>();
   private _onActivateQuestion = new EventEmitter<any>();
   private _onCompleted = new EventEmitter<any>();
+  private _onClose = new EventEmitter<any>();
+  private _onRefresh = new EventEmitter<any>();
 
   private _numberOfQuestions: number;
   private _playlist: Playlist;
@@ -32,21 +34,41 @@ export class QuizService {
   private _questions: Question[];
 
   constructor(private playlistService: PlaylistService) {
+
   }
 
   public init(numberOfQuestions: number): Observable<any> {
     this._numberOfQuestions = numberOfQuestions;
-    this._questions = mockQuestions;
-    return Observable.of(mockQuestions);
 
-    // return this.playlistService.getPlaylist()
-    //   .map((playlist) => this.extractTracks(playlist))
-    //   .map((tracks) => this.extractRandom(tracks))
-    //   .map((tracks) => this.buildQuestions(tracks));
+    return this.playlistService.getPlaylist()
+      .map((playlist) => this.extractTracks(playlist))
+      .map((tracks) => this.extractRandom(tracks))
+      .map((tracks) => this.buildQuestions(tracks));
+
+      // this._questions = mockQuestions;
+      // return Observable.of(mockQuestions);
   }
 
   public ready() {
     this._onReady.emit();
+  }
+
+  public close() {
+    this.onClose.emit();
+  }
+
+  public refresh() {
+    this._numberOfQuestions = 0;
+    this._playlist = null;
+    this._tracks = [];
+    this._random = [];
+    this._questions = [];
+
+    this.init(this._numberOfQuestions)
+      .subscribe((questions) => {
+        this.onRefresh.emit();
+      });
+
   }
 
   public activateQuestion(questionNumber: number) {
@@ -67,6 +89,14 @@ export class QuizService {
 
   get onCompleted() {
     return this._onCompleted;
+  }
+
+  get onClose() {
+    return this._onClose;
+  }
+
+  get onRefresh() {
+    return this._onRefresh;
   }
 
   public getCorrectAnswer(question: Question) {

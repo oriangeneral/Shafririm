@@ -6,6 +6,8 @@ import 'rxjs/add/operator/catch';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
+import { LocaleService } from './locale.service';
+
 import { Playlist } from '../models/playlist';
 import { Track } from '../models/track';
 import { Album } from '../models/album';
@@ -15,9 +17,13 @@ export class PlaylistService {
 
   private _apiUrl = 'api/playlist/random';
 
-  constructor(private http: Http) { }
+  constructor(private http: Http, private localeService: LocaleService) {
+
+  }
 
   public getPlaylist(): Observable<any> {
+    console.log(this.localeService.locale);
+
     return this.http.get(this._apiUrl)
       .map(this.extractData)
       .catch(this.handleError);

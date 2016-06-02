@@ -1,8 +1,9 @@
-import { Component, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { MaterializeDirective } from "angular2-materialize";
 import { AnimationService } from 'css-animator';
+import { LocaleService } from 'app/services/locale.service';
 import { RegionOptions, REGION_VALUES } from './region_options';
 
 import landingTemplate from './landing.html';
@@ -19,7 +20,7 @@ import landingStyle from './landing.css';
     MaterializeDirective
   ]
 })
-export class LandingComponent implements AfterViewInit {
+export class LandingComponent implements OnInit, AfterViewInit {
 
   public selectOptions: RegionOptions[] = REGION_VALUES;
 
@@ -29,8 +30,21 @@ export class LandingComponent implements AfterViewInit {
   constructor(
     private _elementRef: ElementRef,
     private router: Router,
+    private _localeService: LocaleService,
     animationService: AnimationService) {
     this._animator = animationService.builder();
+  }
+
+  public ngOnInit() {
+    this._regionSelection = this._localeService.locale;
+  }
+
+  public ngAfterViewInit() {
+    this._animator
+      .setType('fadeInUp')
+      .setDelay(150)
+      .setDuration(700)
+      .show(this._elementRef.nativeElement);
   }
 
   get regionSelection() {
@@ -38,6 +52,7 @@ export class LandingComponent implements AfterViewInit {
   }
 
   set regionSelection(value) {
+    this._localeService.locale = value;
     this._regionSelection = value;
   }
 
@@ -56,14 +71,6 @@ export class LandingComponent implements AfterViewInit {
       .then(() => {
         this.router.navigate(['/quiz']);
       });
-  }
-
-  public ngAfterViewInit() {
-    this._animator
-      .setType('fadeInUp')
-      .setDelay(150)
-      .setDuration(700)
-      .show(this._elementRef.nativeElement);
   }
 
 }

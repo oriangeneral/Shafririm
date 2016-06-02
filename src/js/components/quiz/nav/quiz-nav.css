@@ -1,7 +1,9 @@
 .nav-wrapper {
   margin-bottom: 3rem;
 }
-
+.menuitem {
+  cursor: pointer;
+}
 ul li .btn i {
   font-size: 1.3rem;
   line-height: 36px;

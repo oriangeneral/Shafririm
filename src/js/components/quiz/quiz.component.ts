@@ -34,6 +34,7 @@ import quizStyle from './quiz.css';
 export class QuizComponent implements OnInit {
 
   private _questions: Question[] = [];
+  private _ready: boolean = false;
 
   constructor(
     private router: Router,
@@ -42,6 +43,13 @@ export class QuizComponent implements OnInit {
     this.quizService
       .onReady.subscribe(() => {
         this.quizService.activateQuestion(1);
+        this._ready = true;
+      });
+
+    this.quizService
+      .onRefresh.subscribe(() => {
+        console.log('refresh event');
+        this._questions = this.quizService.questions;
       });
   }
 
@@ -50,24 +58,42 @@ export class QuizComponent implements OnInit {
     this.quizService
       .init(10)
       .subscribe((questions) => {
-        this._questions = questions;
+        this._questions = this.quizService.questions;
       }, (error) => handleError(error));
   }
 
-  public onGoHome() {
+  public onGoHome(navAnimatesDirective: AnimatesDirective) {
+    navAnimatesDirective
+      .hide({ type: 'fadeOutUp', delay: 400, duration: 600 })
+      .then(() => {
+        this.router.navigate(['/']);
+      });
 
+    this.quizService.close();
   }
 
-  public onReload() {
-
+  public onRefresh(navAnimatesDirective: AnimatesDirective) {
+    console.log('onrefresh');
+    this.quizService.close();
+    setTimeout(() => {
+      this._questions = [];
+      this._ready = false;
+      setTimeout(() => {
+        this.quizService.refresh();
+      });
+    }, 600);
   }
 
-  public onClose() {
-
+  public onClose(navAnimatesDirective: AnimatesDirective) {
+    this.onGoHome(navAnimatesDirective);
   }
 
   get questions() {
     return this._questions;
+  }
+
+  get ready() {
+    return this._ready;
   }
 
   private handleError() {

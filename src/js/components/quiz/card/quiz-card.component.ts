@@ -78,6 +78,16 @@ export class QuizCardComponent implements OnInit {
           this._active = false;
         }
       });
+
+    this._quizService
+      .onClose.subscribe((questionNumber) => {
+        if (this._active) {
+          this._animator
+            .setType('fadeOutDown')
+            .setDuration(600)
+            .hide(this._elementRef.nativeElement);
+        }
+      });
   }
 
   public ngOnInit() {
@@ -94,17 +104,17 @@ export class QuizCardComponent implements OnInit {
     let countdown = this._countdown - 1;
 
     Observable
-    .interval(1000)
-    .timeInterval()
-    .take(countdown)
-    .subscribe((next) => {
-      this._countdown = countdown - next.value;
-    }, (error) => {
+      .interval(1000)
+      .timeInterval()
+      .take(countdown)
+      .subscribe((next) => {
+        this._countdown = countdown - next.value;
+      }, (error) => {
 
-    }, () => {
-      this._countdown = 0;
-      player.pause();
-    });
+      }, () => {
+        this._countdown = 0;
+        player.pause();
+      });
 
     player.play();
     button.setAttribute('disabled', '');
