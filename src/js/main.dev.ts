@@ -1,4 +1,4 @@
-// /// <reference path="../../typings/browser.d.ts" />
+/// <reference path="../../typings/browser.d.ts" />
 
 import { provide } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
