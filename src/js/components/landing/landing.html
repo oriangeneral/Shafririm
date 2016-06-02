@@ -3,6 +3,11 @@
     <div class="card white">
       <div class="card-content center-align black-text">
         <span class="card-title cyan-text">You're almost ready to start!</span>
+        <blockquote>
+          This is a music quiz, realized with <a class="btn-flat" href="https://angular.io/" target="_blank">Angular2</a>
+          and with data from the <a class="btn-flat" href="https://developer.spotify.com/web-api/" target="_blank">Spotify</a> API,
+          developed with <span class="red-text text-lighten-2">&hearts;</span> in Austria.
+        </blockquote>
         <div class="input-field col s12">
           <select [(ngModel)]="regionSelection" materialize="material_select" [materializeSelectOptions]="selectOptions">
             <option *ngFor="let option of selectOptions" [ngValue]="option">{{option.name}}</option>

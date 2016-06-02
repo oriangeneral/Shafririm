@@ -4,18 +4,25 @@
   margin-right: auto;
   margin-top: 10rem;
 }
-
+.card blockquote {
+  width: 30rem;
+  margin: 15px auto 25px auto;
+  line-height: 1.7;
+}
+.card blockquote a.btn-flat {
+  margin: 0;
+  height: 20px;
+  padding: 0 5px;
+  line-height: 20px;
+  margin-top: -2px;
+}
 a.btn {
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
-.input-field /deep/ ul.dropdown-content li > a,
-.input-field /deep/ ul.dropdown-content li > span {
+.input-field /deep/ ul.dropdown-content li > a, .input-field /deep/ ul.dropdown-content li > span {
   color: #00bcd4;
 }
-
-.input-field /deep/ ul.dropdown-content li.selected,
-.input-field /deep/ ul.dropdown-content li:hover {
+.input-field /deep/ ul.dropdown-content li.selected, .input-field /deep/ ul.dropdown-content li:hover {
   background-color: rgba(236, 239, 241, 0.6);
 }
