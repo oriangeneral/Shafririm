@@ -7,7 +7,7 @@
 | your tasks.
 |
 */
-var requireIfExests = require('../node-require-fallback');
+var requireIfExests = require('node-require-fallback');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
