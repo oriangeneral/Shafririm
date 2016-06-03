@@ -83,7 +83,7 @@ SystemJS.config({
     "child_process": "github:jspm/nodelibs-child_process@0.2.0-alpha",
     "constants": "github:jspm/nodelibs-constants@0.2.0-alpha",
     "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
-    "css-animator": "npm:css-animator@1.2.1",
+    "css-animator": "npm:css-animator@1.2.2",
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
     "flat-color-icons": "npm:flat-color-icons@1.0.0",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",

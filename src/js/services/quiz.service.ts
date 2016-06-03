@@ -44,7 +44,7 @@ export class QuizService {
       .map((playlist) => this.extractTracks(playlist))
       .map((tracks) => this.extractRandom(tracks))
       .map((tracks) => this.buildQuestions(tracks));
-
+    // For testing, you can use some mock data:
     // this._questions = mockQuestions;
     // return Observable.of(mockQuestions);
   }

@@ -21,12 +21,12 @@
             </div>
             <div *ngSwitchWhen="2">
                 <!-- ArtistNameFromTrackName -->
-                <i class="material-icons circle blue">check_circle</i>
+                <i class="material-icons circle blue white-text">audiotrack</i>
                 <span class="title black-text">Who is the artist of the track <em>{{ question.track.name }}</em>?</span>
             </div>
             <div *ngSwitchWhen="3">
                 <!-- ArtistNameFromAlbumName -->
-                <i class="material-icons circle blue">check_circle</i>
+                <i class="material-icons circle red white-text">album</i>
                 <span class="title black-text">Who is the artist of the album <em>{{ question.track.album.name }}</em>?</span>
             </div>
             <div *ngSwitchDefault>
