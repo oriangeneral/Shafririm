@@ -1,21 +1,24 @@
 import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MaterializeDirective } from "angular2-materialize";
-import { AnimationService } from 'css-animator';
+import { AnimationService, AnimationBuilder } from 'css-animator';
+import { MaterializeDirective } from 'angular2-materialize';
+
 import { LocaleService } from 'app/services/locale.service';
 import { RegionOptions, REGION_VALUES } from './region_options';
 
-import landingTemplate from './landing.html';
-import landingStyle from './landing.css';
+import template from './landing.html';
+import mainStyle from './landing.css';
 
 @Component({
   selector: 'landing',
   host: {
     'hidden': true
   },
-  template: landingTemplate,
-  styles: [landingStyle],
+  template: template,
+  styles: [
+    mainStyle
+  ],
   directives: [
     MaterializeDirective
   ]

@@ -40,9 +40,11 @@
   <script src="/jspm_packages/system.src.js"></script>
   <script src="/system.config.js"></script>
   <script>
-    System.import("app/main.dev")
+    // Change to 'app/main.prod' to use the
+    // production entry point while developing
+    System.import('app/main.dev')
       .then(function(app) {
-        console.info('App was bootstrapped.');
+        console.log('Application finished loading and is now running.');
       })
       .catch(function(err) {
         console.log(err);

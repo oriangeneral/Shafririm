@@ -1,24 +1,21 @@
 import { Component, ElementRef } from '@angular/core';
 
-import { AnimatesDirective, AnimationService, AnimationBuilder } from 'css-animator';
-import { MaterializeDirective } from 'angular2-materialize';
+import { AnimationService, AnimationBuilder } from 'css-animator';
 
 import { QuizService } from 'app/services/quiz.service';
 
-import doneTemplate from './quiz-done.html';
-import doneStyle from './quiz-done.css';
+import template from './quiz-done.html';
+import mainStyle from './quiz-done.css';
 
 @Component({
   selector: 'quiz-done',
-  template: doneTemplate,
-  styles: [doneStyle],
+  template: template,
+  styles: [
+    mainStyle
+  ],
   host: {
     'hidden': true
-  },
-  directives: [
-    AnimatesDirective,
-    MaterializeDirective
-  ]
+  }
 })
 export class QuizDoneComponent {
 

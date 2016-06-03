@@ -1,19 +1,19 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
-import { AnimatesDirective } from 'css-animator';
 import { MaterializeDirective } from 'angular2-materialize';
 
 import { QuizService } from 'app/services/quiz.service';
 
-import navTemplate from './quiz-nav.html';
-import navStyle from './quiz-nav.css';
+import template from './quiz-nav.html';
+import mainStyle from './quiz-nav.css';
 
 @Component({
   selector: 'quiz-nav',
-  template: navTemplate,
-  styles: [navStyle],
+  template: template,
+  styles: [
+    mainStyle
+  ],
   directives: [
-    AnimatesDirective,
     MaterializeDirective
   ]
 })

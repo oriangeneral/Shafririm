@@ -94,7 +94,7 @@
             </div>
           </div>
           <div animates [animatesOnInit]="{type:'fadeInDown', keepFlow: true, duration: 400}" *ngIf="hasMarkedAnswer" class="next">
-            <span #button materialize (click)="nextQuestion(button)" class="waves-effect waves-light btn-large">Next Question</span>
+            <span #button (click)="nextQuestion(button)" class="waves-effect waves-light btn-large">Next Question</span>
           </div>
           <div class="next grey-text text-lighten-1" [hidden]="hasMarkedAnswer">
             Select an answer to continue to the next question.

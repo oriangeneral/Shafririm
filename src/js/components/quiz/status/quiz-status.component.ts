@@ -1,20 +1,15 @@
 import { Component } from '@angular/core';
 
-import { AnimatesDirective } from 'css-animator';
-import { MaterializeDirective } from 'angular2-materialize';
-
 import { QuizService } from 'app/services/quiz.service';
 
-import statusTemplate from './quiz-status.html';
-import statusStyle from './quiz-status.css';
+import template from './quiz-status.html';
+import mainStyle from './quiz-status.css';
 
 @Component({
   selector: 'quiz-status',
-  template: statusTemplate,
-  styles: [statusStyle],
-  directives: [
-    AnimatesDirective,
-    MaterializeDirective
+  template: template,
+  styles: [
+    mainStyle
   ]
 })
 export class QuizStatusComponent {

@@ -1,23 +1,20 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, Routes, ROUTER_PROVIDERS, ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimationService } from 'css-animator';
-import { PlaylistService } from 'app/services/playlist.service';
 import { LocaleService } from 'app/services/locale.service';
+import { PlaylistService } from 'app/services/playlist.service';
 
 import { LandingComponent } from '../landing/landing.component';
 import { QuizComponent } from '../quiz/quiz.component';
 
-import { MaterializeDirective } from "angular2-materialize";
-
-import appTemplate from './app.html';
+import template from './app.html';
 
 @Component({
   selector: 'app',
-  template: appTemplate,
+  template: template,
   directives: [
-    ROUTER_DIRECTIVES,
-    MaterializeDirective
+    ROUTER_DIRECTIVES
   ],
   providers: [
     ROUTER_PROVIDERS,
@@ -42,7 +39,7 @@ export class AppComponent implements OnInit {
 
   // DO NOT REMOVE THE ROUTER INJECTION
   // It will break loading LandingComponent automatically
-  constructor(private router: Router, animationService: AnimationService) {
+  constructor(private _router: Router, animationService: AnimationService) {
     this._animator = animationService.builder();
   }
 
@@ -55,16 +52,13 @@ export class AppComponent implements OnInit {
       .setType('fadeOut')
       .hide(loadingElem)
       .then(() => {
-        // if (!this.isActiveRoute('/')) {
-        //   this.router.navigate(['/']);
-        // }
         spinningElem.classList.remove('running');
       });
 
   }
 
   private isActiveRoute(route: string) {
-    return this.router.serializeUrl(this.router.urlTree) === this.router.serializeUrl((this.router.createUrlTree([route])));
+    return this._router.serializeUrl(this._router.urlTree) === this._router.serializeUrl((this._router.createUrlTree([route])));
   }
 
 }

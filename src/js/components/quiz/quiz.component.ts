@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ROUTER_DIRECTIVES } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { AnimatesDirective } from 'css-animator';
-import { MaterializeDirective } from "angular2-materialize";
 
 import { QuizService } from 'app/services/quiz.service';
 
@@ -13,21 +12,21 @@ import { QuizStatusComponent } from './status/quiz-status.component';
 
 import { Question } from 'app/models/question';
 
-import quizTemplate from './quiz.html';
-import quizStyle from './quiz.css';
+import template from './quiz.html';
+import mainStyle from './quiz.css';
 
 @Component({
   selector: 'quiz',
-  template: quizTemplate,
-  styles: [quizStyle],
+  template: template,
+  styles: [
+    mainStyle
+  ],
   directives: [
     QuizNavComponent,
     QuizCardComponent,
     QuizDoneComponent,
     QuizStatusComponent,
-    AnimatesDirective,
-    MaterializeDirective,
-    ROUTER_DIRECTIVES
+    AnimatesDirective
   ],
   providers: [
     QuizService
@@ -39,7 +38,7 @@ export class QuizComponent implements OnInit {
   private _ready: boolean = false;
 
   constructor(
-    private router: Router,
+    private _router: Router,
     private _quizService: QuizService
   ) {
     this.quizService
@@ -66,7 +65,7 @@ export class QuizComponent implements OnInit {
     navAnimatesDirective
       .hide({ type: 'fadeOutUp', delay: 400, duration: 600 })
       .then(() => {
-        this.router.navigate(['/']);
+        this._router.navigate(['/']);
       });
 
     this.quizService.close();

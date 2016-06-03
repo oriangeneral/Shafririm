@@ -6,22 +6,22 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { Observable } from 'rxjs/Observable';
 
 import { AnimationService, AnimationBuilder, AnimatesDirective } from 'css-animator';
-import { MaterializeDirective } from 'angular2-materialize';
 
 import { QuizService } from 'app/services/quiz.service';
 
 import { Answer } from 'app/models/question';
 
-import cardTemplate from './quiz-card.html';
-import cardStyle from './quiz-card.css';
+import template from './quiz-card.html';
+import mainStyle from './quiz-card.css';
 
 @Component({
   selector: 'quiz-card',
-  template: cardTemplate,
-  styles: [cardStyle],
+  template: template,
+  styles: [
+    mainStyle
+  ],
   directives: [
-    AnimatesDirective,
-    MaterializeDirective
+    AnimatesDirective
   ]
 })
 export class QuizCardComponent implements OnInit {
@@ -142,33 +142,9 @@ export class QuizCardComponent implements OnInit {
     this._quizService
       .onActivateQuestion.subscribe((questionNumber) => {
         if (questionNumber === this.question.id) {
-          this._active = true;
-          this._animator.setType('fadeInRight').setDelay(200);
-
-          if (questionNumber === 1) {
-            this._animator.setType('fadeInUp');
-          }
-
-          this._animator.show(this._elementRef.nativeElement);
+          this.activateQuestion();
         } else if (this.active) {
-          this._animator.setType('fadeOutLeft').setDelay(0).setDuration(600);
-
-          this.question.answered = true;
-          this.question.status.answered = true;
-          this.question.status.selectedAnswer = this._markedAnswer;
-          this.question.status.wasCorrect = this.answerIsCorrect();
-
-          if (this._player) {
-            this._player.pause();
-          }
-
-          if (this.question.id === this._quizService.totalQuestions) {
-            this._animator.setType('fadeOutDown');
-            this._quizService.completed();
-          }
-
-          this._animator.hide(this._elementRef.nativeElement);
-          this._active = false;
+          this.deactivateQuestion();
         }
       });
   }
@@ -183,6 +159,38 @@ export class QuizCardComponent implements OnInit {
             .hide(this._elementRef.nativeElement);
         }
       });
+  }
+
+  private activateQuestion() {
+    this._active = true;
+    this._animator.setType('fadeInRight').setDelay(200);
+
+    if (this.question.id === 1) {
+      this._animator.setType('fadeInUp');
+    }
+
+    this._animator.show(this._elementRef.nativeElement);
+  }
+
+  private deactivateQuestion() {
+    this._animator.setType('fadeOutLeft').setDelay(0).setDuration(600);
+
+    this.question.answered = true;
+    this.question.status.answered = true;
+    this.question.status.selectedAnswer = this._markedAnswer;
+    this.question.status.wasCorrect = this.answerIsCorrect();
+
+    if (this._player) {
+      this._player.pause();
+    }
+
+    if (this.question.id === this._quizService.totalQuestions) {
+      this._animator.setType('fadeOutDown');
+      this._quizService.completed();
+    }
+
+    this._animator.hide(this._elementRef.nativeElement);
+    this._active = false;
   }
 
 }
