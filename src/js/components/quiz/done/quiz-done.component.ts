@@ -30,21 +30,7 @@ export class QuizDoneComponent {
     private _elementRef: ElementRef,
     animationService: AnimationService) {
     this._animator = animationService.builder();
-
-    this._quizService
-      .onCompleted.subscribe(() => {
-        this.show();
-      });
-
-    this._quizService
-      .onRefresh.subscribe(() => {
-        this.hide();
-      });
-
-    this._quizService
-      .onClose.subscribe(() => {
-        this.hide();
-      });
+    this.subscribe();
   }
 
   public show() {
@@ -72,6 +58,23 @@ export class QuizDoneComponent {
       .setDelay(100)
       .setDuration(600)
       .hide(this._elementRef.nativeElement);
+  }
+
+  private subscribe() {
+    this._quizService
+      .onCompleted.subscribe(() => {
+        this.show();
+      });
+
+    this._quizService
+      .onRefresh.subscribe(() => {
+        this.hide();
+      });
+
+    this._quizService
+      .onClose.subscribe(() => {
+        this.hide();
+      });
   }
 
 }

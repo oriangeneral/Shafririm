@@ -30,60 +30,25 @@ export class QuizCardComponent implements OnInit {
   @Output() public hideNextButton = new EventEmitter();
 
   private _animator: AnimationBuilder;
-  private _active: boolean = false;
-
-  private _nextTimeout: any = null;
-
-  private _markedAnswer: number = -1;
-
-  private _countdown = 10;
   private _player: HTMLAudioElement;
+
+  private _active: boolean = false;
+  private _markedAnswer: number = -1;
+  private _countdown = 10;
+  private _nextTimeout: any = null;
 
   constructor(private _elementRef: ElementRef, private _quizService: QuizService, animationService: AnimationService) {
     this._animator = animationService.builder().setDuration(600);
+    this.subscribeToActivate();
+    this.subscribeToClose();
+  }
 
-    this._quizService
-      .onActivateQuestion.subscribe((questionNumber) => {
-        if (questionNumber === this.question.id) {
-          this._active = true;
-          this._animator.setType('fadeInRight').setDelay(200);
-
-          if (questionNumber === 1) {
-            this._animator.setType('fadeInUp');
-          }
-
-          this._animator.show(this._elementRef.nativeElement);
-        } else if (this.active) {
-          this._animator.setType('fadeOutLeft').setDelay(0).setDuration(600);
-
-          this.question.answered = true;
-          this.question.status.answered = true;
-          this.question.status.selectedAnswer = this._markedAnswer;
-          this.question.status.wasCorrect = this.answerIsCorrect();
-
-          if (this._player) {
-            this._player.pause();
-          }
-
-          if (this.question.id === this._quizService.totalQuestions) {
-            this._animator.setType('fadeOutDown');
-            this._quizService.completed();
-          }
-
-          this._animator.hide(this._elementRef.nativeElement);
-          this._active = false;
-        }
-      });
-
-    this._quizService
-      .onClose.subscribe((questionNumber) => {
-        if (this._active) {
-          this._animator
-            .setType('fadeOutDown')
-            .setDuration(600)
-            .hide(this._elementRef.nativeElement);
-        }
-      });
+  public ngOnInit() {
+    if (this.question.id === this._quizService.totalQuestions) {
+      setTimeout(() => {
+        this._quizService.ready();
+      }, 650);
+    }
   }
 
   public answerIsCorrect() {
@@ -97,14 +62,6 @@ export class QuizCardComponent implements OnInit {
     }
 
     return false;
-  }
-
-  public ngOnInit() {
-    if (this.question.id === this._quizService.totalQuestions) {
-      setTimeout(() => {
-        this._quizService.ready();
-      }, 650);
-    }
   }
 
   public playSong(player: HTMLAudioElement, button: HTMLElement) {
@@ -179,6 +136,53 @@ export class QuizCardComponent implements OnInit {
 
   get quizService() {
     return this._quizService;
+  }
+
+  private subscribeToActivate() {
+    this._quizService
+      .onActivateQuestion.subscribe((questionNumber) => {
+        if (questionNumber === this.question.id) {
+          this._active = true;
+          this._animator.setType('fadeInRight').setDelay(200);
+
+          if (questionNumber === 1) {
+            this._animator.setType('fadeInUp');
+          }
+
+          this._animator.show(this._elementRef.nativeElement);
+        } else if (this.active) {
+          this._animator.setType('fadeOutLeft').setDelay(0).setDuration(600);
+
+          this.question.answered = true;
+          this.question.status.answered = true;
+          this.question.status.selectedAnswer = this._markedAnswer;
+          this.question.status.wasCorrect = this.answerIsCorrect();
+
+          if (this._player) {
+            this._player.pause();
+          }
+
+          if (this.question.id === this._quizService.totalQuestions) {
+            this._animator.setType('fadeOutDown');
+            this._quizService.completed();
+          }
+
+          this._animator.hide(this._elementRef.nativeElement);
+          this._active = false;
+        }
+      });
+  }
+
+  private subscribeToClose() {
+    this._quizService
+      .onClose.subscribe((questionNumber) => {
+        if (this._active) {
+          this._animator
+            .setType('fadeOutDown')
+            .setDuration(600)
+            .hide(this._elementRef.nativeElement);
+        }
+      });
   }
 
 }
