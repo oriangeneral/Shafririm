@@ -12,14 +12,14 @@ var appConfig = require('./config/app');
 var appDevConfig = require('./config/app.dev');
 var app = express();
 
+// Define font mime types
 express.static.mime.define({
   'application/x-font-woff': ['woff'],
   'application/x-font-woff2': ['woff2'],
   'application/x-font-ttf': ['ttf']
 });
 
-var envFile = __dirname + '/.env';
-
+// Set app config depending on argument passed to start script
 var config;
 if (process.argv.indexOf('dev') !== -1) {
   config = appDevConfig;
@@ -27,9 +27,10 @@ if (process.argv.indexOf('dev') !== -1) {
   config = appConfig;
 }
 
-console.log('Server public dir set to ' + config.publicDir);
-
+// Use local env file in development
 if (!config.production) {
+  var envFile = __dirname + '/.env';
+
   try {
     fs.accessSync(envFile, fs.F_OK)
   } catch (e) {
@@ -38,6 +39,9 @@ if (!config.production) {
 
   env(__dirname + '/.env');
 }
+
+console.log('Server environment is ' + process.env.NODE_ENV);
+console.log('Server public dir set to ' + config.publicDir);
 
 // Compress responses
 app.use(compress());
@@ -73,30 +77,11 @@ app.use(errorHandler({
   showStack: !config.production
 }));
 
-// SSL certificate
-// var options = {
-//   key: fs.readFileSync('./server/ssl/server.key'),
-//   cert: fs.readFileSync('./server/ssl/server.crt')
-// };
-
-// var options = {
-//   ssl: false,
-//   plain: true
-// };
-//
-// // Create a HTTP2 server
-// require('spdy').createServer(options, app).listen(config.production ? process.env.PORT : 5000);
-
+// Use port 5000 in development
 var port = config.production ? process.env.PORT : 5000;
+
+// Start the server
 app.listen(port);
 
 console.log('Server listening on port ' + port);
 console.log('');
-
-// Create HTTP server for redirecting
-// require('http').createServer(function(req, res) {
-//   res.writeHead(301, {
-//     "Location": "https://" + req.headers['host'] + req.url
-//   });
-//   res.end();
-// }).listen(config.production ? 80 : 5001);
