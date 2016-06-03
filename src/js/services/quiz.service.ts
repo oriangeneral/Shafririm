@@ -166,13 +166,22 @@ export class QuizService {
 
     for (let i = 0; i < amount; i++) {
       let current: number;
+      let track: Track;
 
       do {
         current = Math.floor(Math.random() * this._tracks.length);
-      } while (taken.indexOf(current) >= 0);
+        track = this._tracks[current];
+      } while (
+        taken.indexOf(current) >= 0 ||
+        !track.preview_url ||
+        !track.album ||
+        !track.album.images ||
+        !track.album.images[0] ||
+        !track.album.images[0].url
+      );
 
       taken.push(current);
-      randomTracks.push(this._tracks[current]);
+      randomTracks.push(track);
     }
 
     return randomTracks;
