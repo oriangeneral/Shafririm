@@ -30,10 +30,11 @@ audio {
   margin-top: 2em;
   margin-bottom: 2em;
 }
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 992px) {
   .row.answers .col:nth-child(even) {
     text-align: right;
     padding-right: 15%;
+    direction: rtl;
   }
   .row.answers .col:nth-child(even) [type="checkbox"] + label {
     padding-right: 35px;
@@ -54,7 +55,6 @@ audio {
     white-space: nowrap;
     overflow: visible;
     text-overflow: ellipsis;
-    direction: rtl;
   }
 }
 .answers {
