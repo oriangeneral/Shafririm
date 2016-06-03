@@ -88,7 +88,7 @@
             </div>
           </div>
           <div class="row answers">
-            <div class="col s6" *ngFor="let answer of question.answers; let i = index">
+            <div class="col m6 s12" *ngFor="let answer of question.answers; let i = index">
               <input #check type="checkbox" id="answer{{question.id}}{{i}}" (change)="answerClicked(i, check.checked)" [disabled]="!check.checked && hasMarkedAnswer">
               <label htmlFor="answer{{question.id}}{{i}}" class="grey-text text-darken-3">{{ answer.title }}</label>
             </div>
