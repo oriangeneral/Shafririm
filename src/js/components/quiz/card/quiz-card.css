@@ -32,9 +32,16 @@ audio {
 }
 .row.answers .col:nth-child(even) {
   text-align: right;
+  padding-right: 15%;
 }
 .row.answers .col:nth-child(odd) {
   text-align: left;
+  padding-left: 12%;
+}
+.row.answers .col {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .answers {
   padding-bottom: 4.5em;
