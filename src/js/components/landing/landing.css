@@ -5,7 +5,7 @@
   margin-top: 10rem;
 }
 .card blockquote {
-  width: 30rem;
+  max-width: 30rem;
   margin: 15px auto 25px auto;
   line-height: 1.7;
 }
