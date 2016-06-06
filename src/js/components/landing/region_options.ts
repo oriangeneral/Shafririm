@@ -30,7 +30,7 @@ export const REGION_VALUES: RegionOptions[] = [
     value: 'us'
   },
   {
-    name: 'Simpulate Unhandled Exception',
+    name: 'Simulate Unhandled Exception',
     value: {
       that: 'object',
       will: 'cause',
