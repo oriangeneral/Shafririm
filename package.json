@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/fabianweb/hue.git"
+    "url": "https://github.com/fabiandev/hue.git"
   },
   "author": "Lorenz Krautgartner, Fabian Pirklbauer, Sascha Zarhuber",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/fabianweb/hue/issues"
+    "url": "https://github.com/fabiandev/hue/issues"
   },
-  "homepage": "https://github.com/fabianweb/hue#readme",
+  "homepage": "https://github.com/fabiandev/hue#readme",
   "dependencies": {
     "animate.css": "^3.5.1",
     "body-parser": "^1.15.0",
