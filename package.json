@@ -92,9 +92,9 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.11"
     },
     "peerDependencies": {
-      "@angular/common": "npm:@angular/common@2.0.0-rc.1",
-      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.1",
-      "@angular/core": "npm:@angular/core@2.0.0-rc.1",
+      "@angular/common": "npm:@angular/common@^2.0.0-rc",
+      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.3",
+      "@angular/core": "npm:@angular/core@^2.0.0-rc",
       "@angular/platform-browser": "npm:@angular/platform-browser@^2.0.0-rc.1",
       "assert": "github:jspm/nodelibs-assert@^0.2.0-alpha",
       "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
@@ -136,7 +136,7 @@
           }
         }
       },
-      "npm:@angular/common@2.0.0-rc.1": {
+      "npm:@angular/common@2.0.0-rc.3": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -146,7 +146,7 @@
           }
         }
       },
-      "npm:@angular/compiler@2.0.0-rc.1": {
+      "npm:@angular/compiler@2.0.0-rc.3": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -156,7 +156,7 @@
           }
         }
       },
-      "npm:@angular/core@2.0.0-rc.1": {
+      "npm:@angular/core@2.0.0-rc.3": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -166,7 +166,7 @@
           }
         }
       },
-      "npm:@angular/http@2.0.0-rc.1": {
+      "npm:@angular/http@2.0.0-rc.3": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -176,7 +176,7 @@
           }
         }
       },
-      "npm:@angular/platform-browser-dynamic@2.0.0-rc.1": {
+      "npm:@angular/platform-browser-dynamic@2.0.0-rc.3": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -186,7 +186,7 @@
           }
         }
       },
-      "npm:@angular/platform-browser@2.0.0-rc.1": {
+      "npm:@angular/platform-browser@2.0.0-rc.3": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -196,7 +196,7 @@
           }
         }
       },
-      "npm:@angular/router@2.0.0-rc.1": {
+      "npm:@angular/router@2.0.0-rc.2": {
         "meta": {
           "src/*.js": {
             "deps": [
