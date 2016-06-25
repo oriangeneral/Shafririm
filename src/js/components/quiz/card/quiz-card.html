@@ -5,7 +5,7 @@
         <div class="card-content center-align black-text">
           <span class="card-title teal-text">Question {{ question.id }} of {{ quizService.totalQuestions }}</span>
           <div [ngSwitch]="question.type">
-            <div class="question-detail" *ngSwitchWhen="0">
+            <div class="question-detail" *ngSwitchCase="0">
               <!-- AlbumNameFromImage -->
               <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel grey lighten-5 z-depth-1">
@@ -21,7 +21,7 @@
                 </div>
               </div>
             </div>
-            <div *ngSwitchWhen="1">
+            <div *ngSwitchCase="1">
               <!-- TrackNameFromPreview -->
               <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel grey lighten-5 z-depth-1">
@@ -45,7 +45,7 @@
                 </div>
               </div>
             </div>
-            <div *ngSwitchWhen="2">
+            <div *ngSwitchCase="2">
               <!-- ArtistNameFromTrackName -->
               <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel grey lighten-5 z-depth-1">
@@ -64,7 +64,7 @@
                 </div>
               </div>
             </div>
-            <div *ngSwitchWhen="3">
+            <div *ngSwitchCase="3">
               <!-- ArtistNameFromAlbumName -->
               <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="card-panel grey lighten-5 z-depth-1">
