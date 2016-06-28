@@ -24,8 +24,11 @@ ul li a.btn {
 .brand-logo {
   height: 100%;
 }
+a.brand-logo {
+  cursor: default;
+}
 .brand-logo img {
-  cursor: pointer;
+  cursor: default;
   height: 1.3em;
   margin-left: 10px;
   display: block;
