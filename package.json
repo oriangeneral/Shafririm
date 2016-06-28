@@ -5,6 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "postinstall": "typings install && jspm install && gulp build",
+    "heroku-postbuild": "npm uninstall animate.css normalize.css && npm prune",
     "start": "node server/index.js"
   },
   "engines": {
