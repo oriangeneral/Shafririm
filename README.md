@@ -12,7 +12,7 @@ You may also want to have a look at the following packages, which were created j
 ```sh
 $ git clone git@github.com:fabianweb/hue.git
 $ cd hue
-$ npm install -g gulp typings jspm
+$ npm install -g gulp typings jspm@beta
 $ typings install
 $ npm install
 $ jspm install
@@ -24,7 +24,7 @@ $ npm start
 
 [https://hueapp.herokuapp.com/](https://hueapp.herokuapp.com/)
 
-> Since the app is hosted on a free Heroku instance, it may need some time for it to boot up.
+> Since the app is hosted on a free [Heroku](https://www.heroku.com/) instance, it may need some time for it to boot up.
 
 # Documentation
 
@@ -32,7 +32,7 @@ $ npm start
 
 ### `npm` and `jspm`
 
-We use npm and jspm (currently `0.17.0-beta.16`) to install dependencies.  
+We use npm and jspm (currently `jspm@beta`) to install dependencies.  
 We just need [gulp](http://gulpjs.com), [typings](https://github.com/typings/typings) and [jspm](http://jspm.io) to be installed globally, by using the `-g` flag.
 
 > Make sure that you have [Node.js](https://nodejs.org/) installed, [npm](http://npmjs.com) comes
