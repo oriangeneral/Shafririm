@@ -204,7 +204,7 @@ function createCopyTask(element, index) {
       .on('error', onError);
   });
 
-  copyTasks.unshift(name);
+  copyTasks.push(name);
 }
 
 clone(config.copy).forEach(function(element, index) {
