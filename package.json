@@ -1,5 +1,5 @@
 {
-  "name": "hue",
+  "name": "angular2-quiz-app",
   "version": "1.1.13",
   "description": "A music quiz in Angular2 using the Spotify API.",
   "main": "server/index.js",
@@ -14,7 +14,7 @@
     "type": "git",
     "url": "https://github.com/fabiandev/hue.git"
   },
-  "author": "Lorenz Krautgartner, Fabian Pirklbauer, Sascha Zarhuber",
+  "author": "Fabian Pirklbauer, Sascha Zarhuber, Lorenz Krautgartner",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fabiandev/hue/issues"

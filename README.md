@@ -1,16 +1,11 @@
-# HUE - Angular2 Music Quiz
+# Angular2 Music Quiz Using The Spotify API
 
-You may also want to have a look at the following packages, which were created just for this project:
-
-- [css-animator](https://github.com/fabianweb/css-animator)
-- [gulp-ng2-relative-path](https://github.com/fabianweb/gulp-ng2-relative-path)
-- [node-exec-promise](https://github.com/fabianweb/node-exec-promise)
-- [node-require-fallback](https://github.com/fabianweb/node-require-fallback)
+This app uses [css-animator](https://github.com/fabiandev/css-animator) for animations.
 
 # Quickstart
 
 ```sh
-$ git clone git@github.com:fabianweb/hue.git
+$ git clone git@github.com:fabiandev/angular2-quiz-app.git
 $ cd hue
 $ npm install -g gulp typings jspm@beta
 $ typings install
