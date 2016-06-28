@@ -188,24 +188,31 @@ gulp.task('copy:assets', function() {
     .on('error', onError);
 });
 
-gulp.task('copy:originals', function(done) {
-  var src = clone(config.copy);
-  var sources = [],
-    destinations = [];
+var copyTasks = [];
 
-  src.forEach(function(element, index) {
-    sources = [];
+function createCopyTask(element, index) {
+  var name = 'copy:originals:' + index;
+  var sources = [];
 
-    element.src.forEach(function(path) {
-      sources.push(element.base + path);
-    });
+  element.src.forEach(function(path) {
+    sources.push(element.base + path);
+  });
 
-    gulp.src(sources)
-      .pipe(gulp.dest(element.dest))
+  gulp.task(name, function() {
+    return gulp.src(sources)
+      .pipe(gulp.dest(element.dest), { base: element.base })
       .on('error', onError);
   });
 
-  done();
+  copyTasks.unshift(name);
+}
+
+clone(config.copy).forEach(function(element, index) {
+  createCopyTask(element, index);
+});
+
+gulp.task('copy:originals', function(done) {
+  return gulpSequence(copyTasks)(done);
 });
 
 gulp.task('lint:ts', function() {
