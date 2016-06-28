@@ -21,6 +21,9 @@ $ npm start
 
 > Since the app is hosted on a free [Heroku](https://www.heroku.com/) instance, it may need some time for it to boot up.
 
+*Fun fact:* The app is named "hue", because the course at University, where this project was born,
+was called "Hypermedia User Experience Engineering".
+
 # Documentation
 
 ## CLI
