@@ -4,9 +4,6 @@
   "description": "A music quiz in Angular2 using the Spotify API.",
   "main": "server/index.js",
   "scripts": {
-    "heroku-prebuild": "",
-    "heroku-postbuild": "",
-    "preinstall": "",
     "postinstall": "typings install && jspm install && gulp build",
     "start": "node server/index.js"
   },

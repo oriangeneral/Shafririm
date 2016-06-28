@@ -30,7 +30,7 @@ $ npm start
 
 ## CLI
 
-### `npm` and `jspm`
+### Dependencies
 
 We use npm and jspm (currently `jspm@beta`) to install dependencies.  
 We just need [gulp](http://gulpjs.com), [typings](https://github.com/typings/typings) and [jspm](http://jspm.io) to be installed globally, by using the `-g` flag.
@@ -58,27 +58,24 @@ $ jspm install modulename
 
 > jspm also supports `install npm:modulename` and `install github:user/repo`
 
-To **start the sever** type:
+### Typings
+
+Typings are used to tell the [TypeScript](https://www.typescriptlang.org)
+compiler about definitions. You can **search** for definitions like this:
 
 ```sh
-$ npm start
+$ typings search es6-shim
 ```
 
-> The server will be started with the `dist` directory as root, and a built version
-> of the app will be used. Make sure to run `gulp build` or `gul dev-build` first.
-
-To **start a development server** type:
+Installing is as easy as:
 
 ```sh
-$ npm start dev
+$ typings install es6-shim --ambient --save
 ```
 
-> The server will be started on the very top level of the application code.
-> All files (including dependencies) are transpiled on-demand in the browser.
-> While developing, make sure `gulp watch` is running, to pick up index.html and
-> less-files changes.
+> Definitions will be referenced automatically in the entry TypeScript file.
 
-### Gulp Tasks - `gulp`
+### Building
 
 #### Production Build
 
@@ -110,22 +107,51 @@ $ gulp watch
 
 > You may also execute `gulp watch-build` to perform those actions only once.
 
-### Typings - `typings`
+### Local Server
 
-Typings are used to tell the [TypeScript](https://www.typescriptlang.org)
-compiler about definitions. You can **search** for definitions like this:
+Before starting the server copy `.env.example` in `/server` and name it `.env`, get
+[Spotify API](https://developer.spotify.com/my-applications/#!/) keys and fill them in.
 
-```sh
-$ typings search es6-shim
-```
+> NEVER PASTE YOUR KEYS IN THE EXAMPLE FILE OR ANYWHERE ELSE!
 
-Installing is as easy as:
+To **start the sever** type:
 
 ```sh
-$ typings install es6-shim --ambient --save
+$ npm start
 ```
 
-> Definitions will be referenced automatically in the entry TypeScript file.
+> The server will be started with the `dist` directory as root, and a built version
+> of the app will be used. Make sure to run `gulp build` or `gul dev-build` first.
+
+To **start a development server** type:
+
+```sh
+$ npm start dev
+```
+
+> The server will be started on the very top level of the application code.
+> All files (including dependencies) are transpiled on-demand in the browser.
+> While developing, make sure `gulp watch` is running, to pick up index.html and
+> less-files changes.
+
+### Deployment
+
+This app supports deployment on Heroku:
+
+```sh
+$ git push heroku master
+```
+
+Just make sure to set the correct Node and npm environment variables:
+
+```sh
+NODE_ENV=production
+NPM_CONFIG_PRODUCTION=false
+```
+
+> The npm production flag must be set to false that we can build the app on Heroku after pushing the repository.
+
+And of course you have to add `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` as environment variables.
 
 ## Configuration
 
