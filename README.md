@@ -12,7 +12,7 @@ This app uses:
 
 ```sh
 $ git clone git@github.com:fabiandev/angular2-quiz-app.git
-$ cd hue
+$ cd angular2-quiz-app
 $ npm install -g gulp typings jspm@beta
 $ npm install
 $ npm start
