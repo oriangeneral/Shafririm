@@ -24,7 +24,7 @@ $ npm start
 
 [https://hueapp.herokuapp.com/](https://hueapp.herokuapp.com/)
 
-> Since the app is hosted on a free Heroku instance, it may need some time for it to boot.
+> Since the app is hosted on a free Heroku instance, it may need some time for it to boot up.
 
 # Documentation
 
