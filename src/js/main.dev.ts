@@ -2,6 +2,7 @@
 
 import { provide } from '@angular/core';
 import { APP_BASE_HREF } from '@angular/common';
+import { APP_ROUTER_PROVIDERS } from './routes/app.routes';
 import { HTTP_PROVIDERS } from '@angular/http';
 import { bootstrap } from '@angular/platform-browser-dynamic';
 import { ExceptionHandler } from '@angular/core/src/facade/exception_handler';
@@ -13,6 +14,7 @@ console.warn('Application is in Development mode!');
 console.warn('-----------------------------------');
 
 bootstrap(AppComponent, [
-  HTTP_PROVIDERS,
-  provide(APP_BASE_HREF, { useValue: '/' })
+  provide(APP_BASE_HREF, { useValue: '/' }),
+  APP_ROUTER_PROVIDERS,
+  HTTP_PROVIDERS
 ]).catch(err => console.error(err));

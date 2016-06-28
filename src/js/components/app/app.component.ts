@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, Routes, ROUTER_PROVIDERS, ROUTER_DIRECTIVES } from '@angular/router';
+import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimationService } from 'css-animator';
 import { LocaleService } from 'app/services/locale.service';
@@ -17,29 +17,16 @@ import template from './app.html';
     ROUTER_DIRECTIVES
   ],
   providers: [
-    ROUTER_PROVIDERS,
     AnimationService,
     LocaleService,
     PlaylistService
   ]
 })
-@Routes([
-  {
-    path: '/',
-    component: LandingComponent
-  },
-  {
-    path: '/quiz',
-    component: QuizComponent
-  }
-])
 export class AppComponent implements OnInit {
 
   private _animator: AnimationBuilder;
 
-  // DO NOT REMOVE THE ROUTER INJECTION
-  // It will break loading LandingComponent automatically
-  constructor(private _router: Router, animationService: AnimationService) {
+  constructor(animationService: AnimationService) {
     this._animator = animationService.builder();
   }
 
@@ -55,10 +42,6 @@ export class AppComponent implements OnInit {
         spinningElem.classList.remove('running');
       });
 
-  }
-
-  private isActiveRoute(route: string) {
-    return this._router.serializeUrl(this._router.urlTree) === this._router.serializeUrl((this._router.createUrlTree([route])));
   }
 
 }
