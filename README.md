@@ -1,6 +1,12 @@
-# Angular2 Music Quiz Using The Spotify API
+# Angular2 Music Quiz
 
-This app uses [css-animator](https://github.com/fabiandev/css-animator) for animations.
+This app uses:
+- [Angular2](https://angular.io) as a front-end framework.
+- [Express](https://github.com/expressjs/express) with [spotify-web-api-node](https://github.com/thelinmichael/spotify-web-api-node) for the server.
+- [Spotify API](https://developer.spotify.com/web-api/) for the quiz data.
+- [css-animator](https://github.com/fabiandev/css-animator) and [animate.css](https://daneden.github.io/animate.css/) for animations.
+- [Materialize](http://materializecss.com/) for styling.
+- [Material icons](https://github.com/google/material-design-icons/) and [Icons8 Flat Color Icons](https://github.com/icons8/flat-color-icons) for icons.
 
 # Quickstart
 
@@ -8,10 +14,7 @@ This app uses [css-animator](https://github.com/fabiandev/css-animator) for anim
 $ git clone git@github.com:fabiandev/angular2-quiz-app.git
 $ cd hue
 $ npm install -g gulp typings jspm@beta
-$ typings install
 $ npm install
-$ jspm install
-$ gulp build
 $ npm start
 ```
 
