@@ -13,6 +13,10 @@ try {
   fileExists = true;
 } catch (e) {
   try {
+    if (production) {
+      return;
+    }
+
     fs.writeFileSync(envFile, fs.readFileSync(envFile + '.example'));
     fileExists = true;
   } catch (e) {
