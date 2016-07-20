@@ -152,7 +152,12 @@ NPM_CONFIG_PRODUCTION=false
 
 > The npm production flag must be set to false that we can build the app on Heroku after pushing the repository.
 
-And of course you have to add `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` as environment variables.
+And of course you have to add `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET` as environment variables.  
+
+Optionally you may also add `NEW_RELIC_LICENSE_KEY` to enable monitoring by [New Relic](https://newrelic.com/).
+If you do not provide a license key, New Relic simply won't be enabled.
+
+> Tip: If you deploy to Heroku, you can add the [New Relic Add-on](https://elements.heroku.com/addons/newrelic) for free.
 
 ## Configuration
 
