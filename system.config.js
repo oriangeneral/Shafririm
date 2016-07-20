@@ -11,7 +11,7 @@ SystemJS.config({
     "map": {
       "ts-runtime": "npm:babel-runtime@5.8.38",
       "typescript": "npm:typescript@1.8.10",
-      "core-js": "npm:core-js@1.2.6",
+      "core-js": "npm:core-js@1.2.7",
       "plugin-babel": "npm:systemjs-plugin-babel@0.0.11",
       "text": "github:systemjs/plugin-text@0.0.8",
       "ts": "github:frankwallis/plugin-typescript@4.0.16"
@@ -68,14 +68,14 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "@angular/common": "npm:@angular/common@2.0.0-rc.3",
-    "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.3",
-    "@angular/core": "npm:@angular/core@2.0.0-rc.3",
-    "@angular/http": "npm:@angular/http@2.0.0-rc.3",
-    "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0-rc.3",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0-rc.3",
-    "@angular/router": "npm:@angular/router@3.0.0-alpha.8",
-    "angular2-materialize": "npm:angular2-materialize@3.0.1",
+    "@angular/common": "npm:@angular/common@2.0.0-rc.4",
+    "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.4",
+    "@angular/core": "npm:@angular/core@2.0.0-rc.4",
+    "@angular/http": "npm:@angular/http@2.0.0-rc.4",
+    "@angular/platform-browser": "npm:@angular/platform-browser@2.0.0-rc.4",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.0-rc.4",
+    "@angular/router": "npm:@angular/router@3.0.0-beta.2",
+    "angular2-materialize": "npm:angular2-materialize@3.0.3",
     "animate.css": "npm:animate.css@3.5.1",
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
     "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
@@ -130,13 +130,13 @@ SystemJS.config({
     },
     "npm:browserify-rsa@4.0.1": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.4",
+        "bn.js": "npm:bn.js@4.11.5",
         "randombytes": "npm:randombytes@2.0.3"
       }
     },
     "npm:browserify-sign@4.0.0": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.4",
+        "bn.js": "npm:bn.js@4.11.5",
         "browserify-rsa": "npm:browserify-rsa@4.0.1",
         "create-hash": "npm:create-hash@1.1.2",
         "create-hmac": "npm:create-hmac@1.1.4",
@@ -161,7 +161,7 @@ SystemJS.config({
     },
     "npm:create-ecdh@4.0.0": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.4",
+        "bn.js": "npm:bn.js@4.11.5",
         "elliptic": "npm:elliptic@6.3.1"
       }
     },
@@ -201,7 +201,7 @@ SystemJS.config({
     },
     "npm:diffie-hellman@5.0.2": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.4",
+        "bn.js": "npm:bn.js@4.11.5",
         "miller-rabin": "npm:miller-rabin@4.0.0",
         "randombytes": "npm:randombytes@2.0.3"
       }
@@ -221,13 +221,13 @@ SystemJS.config({
     },
     "npm:miller-rabin@4.0.0": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.4",
+        "bn.js": "npm:bn.js@4.11.5",
         "brorand": "npm:brorand@1.0.5"
       }
     },
     "npm:parse-asn1@5.0.0": {
       "map": {
-        "asn1.js": "npm:asn1.js@4.6.2",
+        "asn1.js": "npm:asn1.js@4.8.0",
         "browserify-aes": "npm:browserify-aes@1.0.6",
         "create-hash": "npm:create-hash@1.1.2",
         "evp_bytestokey": "npm:evp_bytestokey@1.0.0",
@@ -241,7 +241,7 @@ SystemJS.config({
     },
     "npm:public-encrypt@4.0.0": {
       "map": {
-        "bn.js": "npm:bn.js@4.11.4",
+        "bn.js": "npm:bn.js@4.11.5",
         "browserify-rsa": "npm:browserify-rsa@4.0.1",
         "create-hash": "npm:create-hash@1.1.2",
         "parse-asn1": "npm:parse-asn1@5.0.0",
@@ -278,7 +278,7 @@ SystemJS.config({
     },
     "github:jspm/nodelibs-buffer@0.2.0-alpha": {
       "map": {
-        "buffer-browserify": "npm:buffer@4.7.0"
+        "buffer-browserify": "npm:buffer@4.7.1"
       }
     },
     "github:jspm/nodelibs-stream@0.2.0-alpha": {
@@ -344,26 +344,26 @@ SystemJS.config({
         "css": "github:systemjs/plugin-css@0.1.23"
       }
     },
-    "npm:asn1.js@4.6.2": {
-      "map": {
-        "bn.js": "npm:bn.js@4.11.4",
-        "inherits": "npm:inherits@2.0.1",
-        "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
-      }
-    },
-    "npm:buffer@4.7.0": {
-      "map": {
-        "ieee754": "npm:ieee754@1.1.6",
-        "isarray": "npm:isarray@1.0.0",
-        "base64-js": "npm:base64-js@1.1.2"
-      }
-    },
     "npm:elliptic@6.3.1": {
       "map": {
         "inherits": "npm:inherits@2.0.1",
-        "bn.js": "npm:bn.js@4.11.4",
+        "bn.js": "npm:bn.js@4.11.5",
         "brorand": "npm:brorand@1.0.5",
         "hash.js": "npm:hash.js@1.0.3"
+      }
+    },
+    "npm:buffer@4.7.1": {
+      "map": {
+        "isarray": "npm:isarray@1.0.0",
+        "base64-js": "npm:base64-js@1.1.2",
+        "ieee754": "npm:ieee754@1.1.6"
+      }
+    },
+    "npm:asn1.js@4.8.0": {
+      "map": {
+        "inherits": "npm:inherits@2.0.1",
+        "bn.js": "npm:bn.js@4.11.5",
+        "minimalistic-assert": "npm:minimalistic-assert@1.0.0"
       }
     }
   }

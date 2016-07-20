@@ -1,8 +1,10 @@
-console.log('Starting server...');
+require('./bootstrap');
 
-var env = require('node-env-file');
+if (process.env.NEW_RELIC_LICENSE_KEY) {
+  require('newrelic');
+}
+
 var express = require('express')
-var fs = require('fs');
 var path = require('path');
 var bodyParser = require('body-parser');
 var errorHandler = require('errorhandler');
@@ -27,19 +29,7 @@ if (process.argv.indexOf('dev') !== -1) {
   config = appConfig;
 }
 
-// Use local env file in development
-if (!config.production) {
-  var envFile = __dirname + '/.env';
-
-  try {
-    fs.accessSync(envFile, fs.F_OK)
-  } catch (e) {
-    fs.writeFileSync(envFile, fs.readFileSync(envFile + '.example'));
-  }
-
-  env(__dirname + '/.env');
-}
-
+console.log('');
 console.log('Server environment is ' + process.env.NODE_ENV);
 console.log('Server public dir set to ' + config.publicDir);
 
