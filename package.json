@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "postinstall": "typings install && jspm install && gulp build",
-    "heroku-postbuild": "npm prune",
+    "heroku-postbuild": "typings prune --production && jspm clean && npm prune --production",
     "start": "node server/index.js"
   },
   "engines": {
@@ -31,6 +31,7 @@
     "material-design-icons": "^2.2.3",
     "materialize-css": "^0.97.6",
     "method-override": "^2.3.5",
+    "newrelic": "^1.28.3",
     "node-env-file": "^0.1.8",
     "normalize.css": "^4.1.1",
     "spotify-web-api-node": "^2.3.0"
@@ -69,8 +70,8 @@
     },
     "configFile": "system.config.js",
     "dependencies": {
-      "@angular/http": "npm:@angular/http@^2.0.0-rc.3",
-      "@angular/router": "npm:@angular/router@^3.0.0-alpha.8",
+      "@angular/http": "npm:@angular/http@^2.0.0-rc.4",
+      "@angular/router": "npm:@angular/router@^3.0.0-beta.2",
       "angular2-materialize": "npm:angular2-materialize@^3.0.0",
       "animate.css": "npm:animate.css@^3.5.1",
       "css-animator": "npm:css-animator@^1.0.0",
@@ -88,11 +89,11 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.11"
     },
     "peerDependencies": {
-      "@angular/common": "npm:@angular/common@2.0.0-rc.3",
-      "@angular/compiler": "npm:@angular/compiler@2.0.0-rc.3",
-      "@angular/core": "npm:@angular/core@2.0.0-rc.3",
-      "@angular/platform-browser": "npm:@angular/platform-browser@^2.0.0-rc.3",
-      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@^2.0.0-rc.3",
+      "@angular/common": "npm:@angular/common@^2.0.0-rc.4",
+      "@angular/compiler": "npm:@angular/compiler@^2.0.0-rc.4",
+      "@angular/core": "npm:@angular/core@^2.0.0-rc.4",
+      "@angular/platform-browser": "npm:@angular/platform-browser@^2.0.0-rc.4",
+      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@^2.0.0-rc.4",
       "assert": "github:jspm/nodelibs-assert@^0.2.0-alpha",
       "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
       "child_process": "github:jspm/nodelibs-child_process@^0.2.0-alpha",
@@ -133,7 +134,7 @@
           }
         }
       },
-      "npm:@angular/common@2.0.0-rc.3": {
+      "npm:@angular/common@2.0.0-rc.4": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -143,7 +144,7 @@
           }
         }
       },
-      "npm:@angular/compiler@2.0.0-rc.3": {
+      "npm:@angular/compiler@2.0.0-rc.4": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -153,7 +154,7 @@
           }
         }
       },
-      "npm:@angular/core@2.0.0-rc.3": {
+      "npm:@angular/core@2.0.0-rc.4": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -163,7 +164,7 @@
           }
         }
       },
-      "npm:@angular/http@2.0.0-rc.3": {
+      "npm:@angular/http@2.0.0-rc.4": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -173,7 +174,7 @@
           }
         }
       },
-      "npm:@angular/platform-browser-dynamic@2.0.0-rc.3": {
+      "npm:@angular/platform-browser-dynamic@2.0.0-rc.4": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -183,7 +184,7 @@
           }
         }
       },
-      "npm:@angular/platform-browser@2.0.0-rc.3": {
+      "npm:@angular/platform-browser@2.0.0-rc.4": {
         "meta": {
           "src/*.js": {
             "deps": [
