@@ -4,7 +4,7 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
   console.log('Enabling New Relic...');
   require('newrelic');
 } else {
-  console.log('No New Relic license key found.');
+  console.log('New Relic not enabled.');
 }
 
 var express = require('express')
