@@ -1,14 +1,10 @@
-import { ExceptionHandler } from '@angular/core/src/facade/exception_handler';
+import { ErrorHandler } from '@angular/core';
 import $ from 'jquery';
 
-export interface ExceptionHandlerContract {
-  call(exception: any, stackTrace?: any, reason?: string): void;
-}
+export class AppErrorHandler implements ErrorHandler {
 
-export class AppExceptionHandler implements ExceptionHandlerContract {
-
-  public call(exception: any, stackTrace?: any, reason?: string): void {
-    if (exception.message.indexOf('animation_aborted') !== -1) {
+  public handleError(error) {
+    if (error.message.indexOf('animation_aborted') !== -1) {
       // An animation was interrupted or replaced.
       // No need for reporting an error.
       return;

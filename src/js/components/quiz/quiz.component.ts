@@ -4,12 +4,6 @@ import { Router } from '@angular/router';
 import { AnimatesDirective } from 'css-animator';
 
 import { QuizService } from 'app/services/quiz.service';
-
-import { QuizNavComponent } from './nav/quiz-nav.component';
-import { QuizCardComponent } from './card/quiz-card.component';
-import { QuizDoneComponent } from './done/quiz-done.component';
-import { QuizStatusComponent } from './status/quiz-status.component';
-
 import { Question } from 'app/models/question';
 
 import template from './quiz.html';
@@ -20,13 +14,6 @@ import mainStyle from './quiz.css';
   template: template,
   styles: [
     mainStyle
-  ],
-  directives: [
-    QuizNavComponent,
-    QuizCardComponent,
-    QuizDoneComponent,
-    QuizStatusComponent,
-    AnimatesDirective
   ],
   providers: [
     QuizService

@@ -5,7 +5,7 @@ import 'rxjs/add/operator/take';
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
-import { AnimationService, AnimationBuilder, AnimatesDirective } from 'css-animator';
+import { AnimationService, AnimationBuilder } from 'css-animator';
 
 import { QuizService } from 'app/services/quiz.service';
 
@@ -19,9 +19,6 @@ import mainStyle from './quiz-card.css';
   template: template,
   styles: [
     mainStyle
-  ],
-  directives: [
-    AnimatesDirective
   ]
 })
 export class QuizCardComponent implements OnInit {

@@ -1,21 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ROUTER_DIRECTIVES } from '@angular/router';
 
 import { AnimationService } from 'css-animator';
 import { LocaleService } from 'app/services/locale.service';
 import { PlaylistService } from 'app/services/playlist.service';
-
-import { LandingComponent } from '../landing/landing.component';
-import { QuizComponent } from '../quiz/quiz.component';
 
 import template from './app.html';
 
 @Component({
   selector: 'app',
   template: template,
-  directives: [
-    ROUTER_DIRECTIVES
-  ],
   providers: [
     AnimationService,
     LocaleService,

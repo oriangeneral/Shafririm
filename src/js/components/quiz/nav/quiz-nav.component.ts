@@ -1,7 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
-import { MaterializeDirective } from 'angular2-materialize';
-
 import { QuizService } from 'app/services/quiz.service';
 
 import template from './quiz-nav.html';
@@ -12,9 +10,6 @@ import mainStyle from './quiz-nav.css';
   template: template,
   styles: [
     mainStyle
-  ],
-  directives: [
-    MaterializeDirective
   ]
 })
 export class QuizNavComponent {

@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, AfterViewInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AnimationService, AnimationBuilder } from 'css-animator';
-import { MaterializeDirective } from 'angular2-materialize';
 
 import { LocaleService } from 'app/services/locale.service';
 import { RegionOptions, REGION_VALUES } from './region_options';
@@ -18,9 +17,6 @@ import mainStyle from './landing.css';
   template: template,
   styles: [
     mainStyle
-  ],
-  directives: [
-    MaterializeDirective
   ]
 })
 export class LandingComponent implements OnInit, AfterViewInit {

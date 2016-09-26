@@ -212,7 +212,7 @@ clone(config.copy).forEach(function(element, index) {
 });
 
 gulp.task('copy:originals', function(done) {
-  return gulpSequence(copyTasks)(done);
+  return gulpSequence(clone(copyTasks))(done);
 });
 
 gulp.task('lint:ts', function() {
