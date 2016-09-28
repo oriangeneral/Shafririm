@@ -59,10 +59,12 @@
     "node-exec-promise": "^0.1.0",
     "node-notifier": "^4.5.0",
     "node-require-fallback": "^0.1.0",
+    "reflect-metadata": "^0.1.8",
     "tslint": "^3.6.0",
     "typescript": "^1.8.10",
     "typings": "^1.0.4",
-    "yargs": "^4.3.2"
+    "yargs": "^4.3.2",
+    "zone.js": "^0.6.25"
   },
   "jspm": {
     "configFiles": {
