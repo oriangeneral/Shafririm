@@ -9,7 +9,7 @@
     "start": "node server/index.js"
   },
   "engines": {
-    "node": "5.10.1"
+    "node": "4.6.*"
   },
   "repository": {
     "type": "git",
