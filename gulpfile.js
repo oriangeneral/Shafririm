@@ -147,7 +147,7 @@ gulp.task('jspm', function(done) {
     command = command.slice(0);
     command.unshift('jspm');
 
-    exec(command.join(' '));
+    bundles.push(exec(command.join(' ')));
   });
 
   Promise.all(bundles)
