@@ -26,7 +26,6 @@ var clean = require('gulp-clean');
 var argv = require('yargs').argv;
 var notifier = require('node-notifier');
 var assign = require('lodash.assign');
-var execFile = requireIfExests('../node-exec-promise', 'node-exec-promise').execFile;
 var exec = requireIfExests('../node-exec-promise', 'node-exec-promise').exec;
 
 /*
@@ -144,18 +143,18 @@ gulp.task('jspm', function(done) {
   var bundles = [];
 
   config.jspm.bundles.forEach(function(bundle) {
-    if (config.env !== 'production') {
-      bundles.push(execFile('jspm', bundle.devOptions));
-    } else {
-      bundles.push(execFile('jspm', bundle.options));
-    }
+    var command = config.env !== 'production' ? bundle.devOptions : bundle.options;
+    command = command.slice(0);
+    command.unshift('jspm');
+
+    exec(command.join(' '));
   });
 
   Promise.all(bundles)
     .then(function(values) {
       done();
     }, function(error) {
-      onError(error);
+      onError('Error bundling with jspm.');
     });
 });
 
