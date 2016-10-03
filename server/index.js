@@ -72,6 +72,7 @@ app.use(errorHandler({
 
 // Use port 5000 in development
 var port = config.production ? process.env.PORT : 5000;
+port = !port ? 5000 : port;
 
 // Start the server
 app.listen(port);
