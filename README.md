@@ -3,7 +3,7 @@
 # Quickstart
 
 ```sh
-$ git clone git@github.com:fabiandev/angular2-quiz-app.git
+$ git clone https://github.com/fabiandev/angular2-quiz-app.git
 $ cd angular2-quiz-app
 $ npm install -g gulp typings jspm@beta
 $ npm install
