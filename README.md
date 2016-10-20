@@ -10,13 +10,13 @@ $ npm install
 $ npm start
 ```
 
-> Tip: You can use [yarn](https://yarnpkg.com/) instead of [npm](http://npmjs.com) for adding dependencies.
+> Tip: You can use [yarn](https://yarnpkg.com/) instead of [npm](https://npmjs.com) for adding dependencies.
 
 # Live Example
 
 [https://hueapp.herokuapp.com/](https://hueapp.herokuapp.com/)
 
-> Since the app is hosted on a free [Heroku](https://www.heroku.com/) instance, it may need some time for it to boot up.
+> Since the app is hosted on a free [Heroku](https://www.heroku.com/) instance, it may need some time to boot up.
 
 *Fun fact:* The app is named "hue", because the course at University, where this project was born,
 was called "Hypermedia User Experience Engineering".
