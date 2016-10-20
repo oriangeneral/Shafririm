@@ -40,7 +40,7 @@ This app uses:
 We use npm or yarn and jspm (currently `jspm@beta`) to install dependencies.  
 We just need [gulp](http://gulpjs.com), [typings](https://github.com/typings/typings) and [jspm](http://jspm.io) to be installed globally, by using the `-g` flag.
 
-> Make sure that you have [Node.js](https://nodejs.org/) installed, [npm](http://npmjs.com) comes
+> Make sure that you have [Node.js](https://nodejs.org/) installed, [npm](https://npmjs.com) comes
 > with it. You can check with `node --version`. For faster npm dependency installs, use [yarn](https://yarnpkg.com/).
 
 To install **development dependencies**, used e.g. in gulp tasks use:
