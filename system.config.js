@@ -68,14 +68,14 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "@angular/common": "npm:@angular/common@2.0.1",
-    "@angular/compiler": "npm:@angular/compiler@2.0.1",
-    "@angular/core": "npm:@angular/core@2.0.1",
-    "@angular/forms": "npm:@angular/forms@2.0.1",
-    "@angular/http": "npm:@angular/http@2.0.1",
-    "@angular/platform-browser": "npm:@angular/platform-browser@2.0.1",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.0.1",
-    "@angular/router": "npm:@angular/router@3.0.1",
+    "@angular/common": "npm:@angular/common@2.1.0",
+    "@angular/compiler": "npm:@angular/compiler@2.1.0",
+    "@angular/core": "npm:@angular/core@2.1.0",
+    "@angular/forms": "npm:@angular/forms@2.1.0",
+    "@angular/http": "npm:@angular/http@2.1.0",
+    "@angular/platform-browser": "npm:@angular/platform-browser@2.1.0",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.1.0",
+    "@angular/router": "npm:@angular/router@3.1.0",
     "angular2-materialize": "npm:angular2-materialize@3.0.3",
     "animate.css": "npm:animate.css@3.5.2",
     "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
@@ -104,7 +104,7 @@ SystemJS.config({
     "url": "github:jspm/nodelibs-url@0.2.0-alpha",
     "util": "github:jspm/nodelibs-util@0.2.0-alpha",
     "vm": "github:jspm/nodelibs-vm@0.2.0-alpha",
-    "zone.js": "npm:zone.js@0.6.25"
+    "zone.js": "npm:zone.js@0.6.26"
   },
   packages: {
     "npm:browserify-aes@1.0.6": {
@@ -185,7 +185,7 @@ SystemJS.config({
         "create-hmac": "npm:create-hmac@1.1.4",
         "diffie-hellman": "npm:diffie-hellman@5.0.2",
         "inherits": "npm:inherits@2.0.3",
-        "pbkdf2": "npm:pbkdf2@3.0.8",
+        "pbkdf2": "npm:pbkdf2@3.0.9",
         "public-encrypt": "npm:public-encrypt@4.0.0",
         "randombytes": "npm:randombytes@2.0.3"
       }
@@ -225,7 +225,7 @@ SystemJS.config({
         "browserify-aes": "npm:browserify-aes@1.0.6",
         "create-hash": "npm:create-hash@1.1.2",
         "evp_bytestokey": "npm:evp_bytestokey@1.0.0",
-        "pbkdf2": "npm:pbkdf2@3.0.8"
+        "pbkdf2": "npm:pbkdf2@3.0.9"
       }
     },
     "npm:public-encrypt@4.0.0": {
@@ -301,7 +301,7 @@ SystemJS.config({
     "github:Dogfalo/materialize@0.97.7": {
       "map": {
         "jquery": "npm:jquery@2.2.4",
-        "css": "github:systemjs/plugin-css@0.1.29"
+        "css": "github:systemjs/plugin-css@0.1.31"
       }
     },
     "npm:stream-http@2.4.0": {
@@ -324,14 +324,9 @@ SystemJS.config({
         "isarray": "npm:isarray@1.0.0"
       }
     },
-    "npm:pbkdf2@3.0.8": {
-      "map": {
-        "create-hmac": "npm:create-hmac@1.1.4"
-      }
-    },
     "npm:buffer@4.9.1": {
       "map": {
-        "ieee754": "npm:ieee754@1.1.6",
+        "ieee754": "npm:ieee754@1.1.8",
         "isarray": "npm:isarray@1.0.0",
         "base64-js": "npm:base64-js@1.2.0"
       }
@@ -368,7 +363,12 @@ SystemJS.config({
     },
     "npm:rxjs@5.0.0-beta.12": {
       "map": {
-        "symbol-observable": "npm:symbol-observable@1.0.2"
+        "symbol-observable": "npm:symbol-observable@1.0.4"
+      }
+    },
+    "npm:pbkdf2@3.0.9": {
+      "map": {
+        "create-hmac": "npm:create-hmac@1.1.4"
       }
     }
   }
