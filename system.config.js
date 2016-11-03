@@ -99,6 +99,7 @@ SystemJS.config({
     "rxjs": "npm:rxjs@5.0.0-beta.12",
     "stream": "github:jspm/nodelibs-stream@0.2.0-alpha",
     "string_decoder": "github:jspm/nodelibs-string_decoder@0.2.0-alpha",
+    "systemjs/plugin-css": "github:systemjs/plugin-css@0.1.32",
     "timers": "github:jspm/nodelibs-timers@0.2.0-alpha",
     "tty": "github:jspm/nodelibs-tty@0.2.0-alpha",
     "url": "github:jspm/nodelibs-url@0.2.0-alpha",
