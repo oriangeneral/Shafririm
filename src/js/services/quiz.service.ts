@@ -128,17 +128,25 @@ export class QuizService {
   private buildQuestions(randomTracks: Track[]) {
     let trackTransformer = new TrackTransformer(this._playlist, this._tracks);
     let questions: Question[] = [];
+    let count = 0;
 
     for (let track of randomTracks) {
-      let question = trackTransformer.toQuestion(track);
+      count++;
+      let type = count === 1 || count === randomTracks.length ?
+        QuestionType.TrackNameFromPreview : null;
+
+      let question = trackTransformer.toQuestion(track, type);
       questions.push(question);
     }
 
-    let count = 0;
-    this._questions = shuffle(questions).map((question) => {
+    count = 1;
+    this._questions = shuffle(questions.slice(1)).map((question) => {
       question.id = ++count;
       return question;
     });
+
+    questions[0].id = 1;
+    this._questions.unshift(questions[0]);
 
     return this._questions;
   }
