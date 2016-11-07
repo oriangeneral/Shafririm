@@ -10,7 +10,7 @@ $ npm install
 $ npm start
 ```
 
-> Tip: You can use [yarn](https://yarnpkg.com/) instead of [npm](https://npmjs.com) for adding dependencies.
+> Tip: You can use [yarn](https://yarnpkg.com/) instead of [npm](https://npmjs.com).
 
 # Live Example
 
@@ -46,18 +46,18 @@ We just need [gulp](http://gulpjs.com), [typings](https://github.com/typings/typ
 To install **development dependencies**, used e.g. in gulp tasks use:
 
 ```sh
-$ yarn add module-name --dev
+$ npm install --save-dev module-name
 ```
 
-> or: `npm install --save-dev module-name`
+> or `yarn add module-name --dev`
 
 To install **application dependencies**, used on the server side use:
 
 ```sh
-$ yarn add module-name
+$ npm install --save module-name
 ```
 
-> or: `npm install --save module-name`
+> or `yarn add module-name`
 
 To install **client side dependencies**, use jspm:
 
@@ -129,6 +129,8 @@ To **start the sever** type:
 $ npm start
 ```
 
+> or `yarn start`
+
 > The server will be started with the `dist` directory as root, and a built version
 > of the app will be used. Make sure to run `gulp build` or `gul dev-build` first.
 
@@ -137,6 +139,8 @@ To **start a development server** type:
 ```sh
 $ npm start dev
 ```
+
+> or `yarn start dev`
 
 > The server will be started on the very top level of the application code.
 > All files (including dependencies) are transpiled on-demand in the browser.
