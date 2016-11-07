@@ -8,8 +8,16 @@ export class AppErrorHandler implements ErrorHandler {
 
   private _console: Console = console;
 
+  private _modal: any;
+
   constructor(rethrowError = true) {
     this.rethrowError = rethrowError;
+    this._modal = $('#exception-modal').modal({
+      dismissible: false,
+      opacity: .3,
+      in_duration: 200,
+      out_duration: 150
+    });
   }
 
   public handleError(error: any) {
@@ -58,12 +66,7 @@ export class AppErrorHandler implements ErrorHandler {
       return;
     }
 
-    $('#exception-modal').openModal({
-      dismissible: false,
-      opacity: .3,
-      in_duration: 200,
-      out_duration: 150
-    });
+    this._modal.modal('open');
 
     console.groupCollapsed('Whoops, something went wrong.');
     console.warn('Please run the app in development mode to debug.');

@@ -132,10 +132,10 @@ export class QuizService {
 
     for (let track of randomTracks) {
       count++;
-      let type = count === 1 || count === randomTracks.length ?
-        QuestionType.TrackNameFromPreview : null;
 
+      let type = count === 1 ? QuestionType.TrackNameFromPreview : null;
       let question = trackTransformer.toQuestion(track, type);
+
       questions.push(question);
     }
 

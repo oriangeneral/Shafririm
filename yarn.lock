@@ -2428,9 +2428,9 @@ material-design-icons@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/material-design-icons/-/material-design-icons-2.2.3.tgz#b6817364a7803b0509a8002305b7fe201b0fda9f"
 
-materialize-css@^0.97.6:
-  version "0.97.7"
-  resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-0.97.7.tgz#8c50a76191d05d29b982de1ab4e0876dfc73a1da"
+materialize-css@0.97.6:
+  version "0.97.6"
+  resolved "https://registry.yarnpkg.com/materialize-css/-/materialize-css-0.97.6.tgz#b4a7f7875005d5c43b2b22eaa7bdb74b050450fe"
   dependencies:
     hammerjs "^2.0.4"
     jquery "^2.1.4"
