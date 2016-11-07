@@ -1,5 +1,3 @@
-/// <reference path="../../typings/browser.d.ts" />
-
 import './bootstrap';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';

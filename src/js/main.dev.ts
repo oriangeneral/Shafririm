@@ -1,5 +1,3 @@
-/// <reference path="../../typings/browser.d.ts" />
-
 console.warn('-----------------------------------');
 console.warn('Application is in Development mode!');
 console.warn('-----------------------------------');
