@@ -79,7 +79,7 @@ $ typings search es6-shim
 Installing is as easy as:
 
 ```sh
-$ typings install es6-shim --global --save
+$ typings install dt~es6-shim --global --save
 ```
 
 > Definitions will be referenced automatically in the entry TypeScript file.
