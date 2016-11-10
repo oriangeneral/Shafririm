@@ -239,7 +239,7 @@ export const REGION_VALUES: RegionOptions[] = [
   },
   {
     name: 'United Kingdom',
-    value: 'uk'
+    value: 'gb'
   },
   {
     name: 'USA',
