@@ -35,7 +35,7 @@ export class LandingComponent implements OnInit, AfterViewInit {
   }
 
   public ngOnInit() {
-    this._regionSelection = this._localeService.locale;
+    this._regionSelection = this._localeService.locale.value;
   }
 
   public ngAfterViewInit() {
@@ -51,7 +51,15 @@ export class LandingComponent implements OnInit, AfterViewInit {
   }
 
   set regionSelection(value) {
-    this._localeService.locale = value;
+    let locale;
+
+    for (let region of this.selectOptions) {
+      if (region.value === value) {
+        locale = region;
+      }
+    }
+
+    this._localeService.locale = locale || value;
     this._regionSelection = value;
   }
 

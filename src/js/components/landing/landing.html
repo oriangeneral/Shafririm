@@ -10,7 +10,7 @@
         </blockquote>
         <div class="input-field col s12">
           <select [(ngModel)]="regionSelection" materialize="material_select" [materializeSelectOptions]="selectOptions">
-            <option *ngFor="let option of selectOptions" [ngValue]="option">{{option.name}}</option>
+            <option *ngFor="let option of selectOptions" [ngValue]="option.value">{{option.name}}</option>
           </select>
           <label>Choose your region</label>
         </div>

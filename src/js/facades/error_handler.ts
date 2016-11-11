@@ -12,12 +12,6 @@ export class AppErrorHandler implements ErrorHandler {
 
   constructor(rethrowError = true) {
     this.rethrowError = rethrowError;
-    this._modal = $('#exception-modal').modal({
-      dismissible: false,
-      opacity: .3,
-      in_duration: 200,
-      out_duration: 150
-    });
   }
 
   public handleError(error: any) {
@@ -64,6 +58,15 @@ export class AppErrorHandler implements ErrorHandler {
       // An animation was interrupted or replaced.
       // No need for reporting an error.
       return;
+    }
+
+    if (!this._modal) {
+      this._modal = $('#exception-modal').modal({
+        dismissible: false,
+        opacity: .3,
+        in_duration: 200,
+        out_duration: 150
+      });
     }
 
     this._modal.modal('open');
