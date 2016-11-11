@@ -2,7 +2,7 @@
   <div class="modal-content">
     <h4 class="blue-grey-text">Quiz Status</h4>
     <ul class="collection">
-      <li *ngFor="let question of quizService.questions" class="collection-item avatar">
+      <li *ngFor="let question of quizService.questions; let i = index" class="collection-item avatar">
         <i class="material-icons circle blue grey lighten-2" [hidden]="question.status.answered">check_circle</i>
         <span class="title black-text" [hidden]="question.status.answered">Question {{ question.id }}</span>
         <div [ngSwitch]="question.type" [hidden]="!question.status.answered">
@@ -13,10 +13,10 @@
             </div>
             <div *ngSwitchCase="1">
                 <!-- TrackNameFromPreview -->
-                <audio #player id="audio{{ question.track.id }}" src="{{ question.track.preview_url }}" preload="auto">
+                <audio #player id="audio{{ question.track.id }}" src="{{ question.track.preview_url }}" (ended)="stopPlayback(player)" preload="auto">
                   <p>Sorry, your browser does not support the <code>audio</code> element.</p>
                 </audio>
-                <i class="material-icons circle blue-grey play-button waves-effect waves-light" (click)="player.currentTime = 0; player.ended || player.paused ? player.play() : player.pause()">{{ player.ended || player.paused ? 'play_arrow' : 'stop' }}</i>
+                <i class="material-icons circle blue-grey play-button waves-effect waves-light" (click)="togglePlayback(player)">{{ !isAudioPlaying(player) ? 'play_arrow' : 'stop' }}</i>
                 <span class="title black-text">What is the name of this song?</span>
             </div>
             <div *ngSwitchCase="2">
@@ -45,7 +45,7 @@
     </ul>
   </div>
   <div class="done-button modal-footer">
-    <span class="modal-action modal-close waves-effect waves-green btn-flat">Done</span>
+    <span class="modal-action modal-close waves-effect waves-green btn-flat" (click)="stopAllPlayers()">Done</span>
   </div>
   <div class="spacing">
     &nbsp;
