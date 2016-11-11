@@ -70,7 +70,7 @@ config.jspm = {
     ],
     devOptions: [
       'build',
-      'reflect-metadata + zone.js + app/main.dev.ts - app/mock/**/* + app/mock/factory',
+      'reflect-metadata + zone.js + app/main.dev.ts',
       config.dist + '/app/bundle.js',
       '--no-mangle'
     ]
