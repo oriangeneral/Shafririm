@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/frompromise';
+import 'rxjs/add/observable/of';
 
 import { Injectable, EventEmitter, isDevMode } from '@angular/core';
 import { Http, Response } from '@angular/http';
@@ -16,6 +15,7 @@ import { Playlist } from 'app/models/playlist';
 import { Track } from 'app/models/track';
 import { Question, QuestionType } from 'app/models/question';
 
+// import mockQuestions from 'app/mock/questions.ts#?devMode';
 import mockFactory from 'app/mock/factory';
 
 @Injectable()
@@ -40,16 +40,11 @@ export class QuizService {
   public init(numberOfQuestions: number): Observable<any> {
     this._numberOfQuestions = numberOfQuestions;
 
-    if (isDevMode()) {
-      return Observable.fromPromise(mockFactory('questions')
-        .then((mock) => {
-          this._questions = mock;
-          return this._questions;
-        }).catch((err) => {
-          console.log(err);
-          return this.loadProductionData();
-        }));
-    }
+    // Uncomment the following lines and the mockQuestions
+    // import above, to prevent Spotify API calls
+    //
+    // this._questions = mockQuestions;
+    // return Observable.of(this._questions);
 
     return this.loadProductionData();
   }
