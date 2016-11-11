@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import IScroll from 'iscroll';
+import { AfterContentInit, Component, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { MaterializeAction } from 'angular2-materialize';
 
 import { QuizService } from 'app/services/quiz.service';
@@ -13,14 +14,42 @@ import mainStyle from './quiz-status.css';
     mainStyle
   ]
 })
-export class QuizStatusComponent {
+export class QuizStatusComponent implements AfterContentInit, OnDestroy {
 
   @Output() public modalActions = new EventEmitter<string | MaterializeAction>();
 
   private _players = [];
+  private _scroll = null;
 
-  constructor(private _quizService: QuizService) {
+  constructor(private _quizService: QuizService, private _elementRef: ElementRef) {
 
+  }
+
+  public ngAfterContentInit() {
+    let element = this._elementRef
+      .nativeElement
+      .querySelector('#status');
+
+    this._scroll = new IScroll(element, {
+      deceleration: 0.005,
+      mouseWheel: true,
+      mouseWheelSpeed: 10,
+      probeType: 2,
+      tap: false
+    });
+
+    element.style.display = 'initial';
+    setTimeout(() => {
+      element.style.display = 'hidden';
+      this._scroll.refresh();
+    });
+  }
+
+  public ngOnDestroy() {
+    if (this._scroll) {
+      this._scroll.destroy();
+      this._scroll = null;
+    }
   }
 
   public openModal() {
@@ -33,7 +62,9 @@ export class QuizStatusComponent {
 
   public allowScrolling() {
     let html = document.querySelector('html');
+    let body = document.querySelector('body');
     html.style.overflow = 'initial';
+    body.style.overflow = 'initial';
   }
 
   public stopAllPlayers() {

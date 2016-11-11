@@ -30,6 +30,7 @@ This app uses:
 - [css-animator](https://github.com/fabiandev/css-animator) and [animate.css](https://daneden.github.io/animate.css/) for animations.
 - [Materialize](http://materializecss.com/) for styling.
 - [Material icons](https://github.com/google/material-design-icons/) and [Icons8 Flat Color Icons](https://github.com/icons8/flat-color-icons) for icons.
+- [iScroll](https://github.com/cubiq/iscroll) for a better mobile scrolling experience.
 
 # Documentation
 

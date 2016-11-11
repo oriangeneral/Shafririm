@@ -2,12 +2,25 @@
   overflow-y: hidden;
 }
 
-.modal-content {
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
+.modal {
+  overflow-y: hidden;
 }
 
-div.modal.bottom-sheet {
+/*.scroll-wrapper {
+  height: 100%;
+  z-index: 6003;
+}*/
+
+.modal-content {
+  z-index: 5003;
+}
+
+/*.modal.bottom-sheet {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}*/
+
+.modal.bottom-sheet {
   max-height: 100%;
 }
 

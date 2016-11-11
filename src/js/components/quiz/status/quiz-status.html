@@ -6,32 +6,32 @@
         <i class="material-icons circle blue grey lighten-2" [hidden]="question.status.answered">check_circle</i>
         <span class="title black-text" [hidden]="question.status.answered">Question {{ question.id }}</span>
         <div [ngSwitch]="question.type" [hidden]="!question.status.answered">
-            <div class="question-detail" *ngSwitchCase="0">
-                <!-- AlbumNameFromImage -->
-                <img src="{{ question.track.album?.images[0]?.url }}" class="circle">
-                <span class="title black-text">Who is the artist of the album <em>{{ question.track.album.name }}</em>?</span>
-            </div>
-            <div *ngSwitchCase="1">
-                <!-- TrackNameFromPreview -->
-                <audio #player id="audio{{ question.track.id }}" src="{{ question.track.preview_url }}" (ended)="stopPlayback(player)" preload="auto">
+          <div class="question-detail" *ngSwitchCase="0">
+            <!-- AlbumNameFromImage -->
+            <img src="{{ question.track.album?.images[0]?.url }}" class="circle">
+            <span class="title black-text">Who is the artist of the album <em>{{ question.track.album.name }}</em>?</span>
+          </div>
+          <div *ngSwitchCase="1">
+            <!-- TrackNameFromPreview -->
+            <audio #player id="audio{{ question.track.id }}" src="{{ question.track.preview_url }}" (ended)="stopPlayback(player)" preload="auto">
                   <p>Sorry, your browser does not support the <code>audio</code> element.</p>
                 </audio>
-                <i class="material-icons circle blue-grey play-button waves-effect waves-light" (click)="togglePlayback(player)">{{ !isAudioPlaying(player) ? 'play_arrow' : 'stop' }}</i>
-                <span class="title black-text">What is the name of this song?</span>
-            </div>
-            <div *ngSwitchCase="2">
-                <!-- ArtistNameFromTrackName -->
-                <i class="material-icons circle blue white-text">audiotrack</i>
-                <span class="title black-text">Who is the artist of the track <em>{{ question.track.name }}</em>?</span>
-            </div>
-            <div *ngSwitchCase="3">
-                <!-- ArtistNameFromAlbumName -->
-                <i class="material-icons circle red white-text">album</i>
-                <span class="title black-text">Who is the artist of the album <em>{{ question.track.album.name }}</em>?</span>
-            </div>
-            <div *ngSwitchDefault>
-                Sorry, there was an error!
-            </div>
+            <i class="material-icons circle blue-grey play-button waves-effect waves-light" (click)="togglePlayback(player)">{{ !isAudioPlaying(player) ? 'play_arrow' : 'stop' }}</i>
+            <span class="title black-text">What is the name of this song?</span>
+          </div>
+          <div *ngSwitchCase="2">
+            <!-- ArtistNameFromTrackName -->
+            <i class="material-icons circle blue white-text">audiotrack</i>
+            <span class="title black-text">Who is the artist of the track <em>{{ question.track.name }}</em>?</span>
+          </div>
+          <div *ngSwitchCase="3">
+            <!-- ArtistNameFromAlbumName -->
+            <i class="material-icons circle red white-text">album</i>
+            <span class="title black-text">Who is the artist of the album <em>{{ question.track.album.name }}</em>?</span>
+          </div>
+          <div *ngSwitchDefault>
+            Sorry, there was an error!
+          </div>
         </div>
 
 
@@ -43,11 +43,11 @@
         <span class="secondary-content" [hidden]="!question.status.answered"><i class="material-icons green-text" [ngClass]="{'green-text': question.status.wasCorrect, 'red-text': !question.status.wasCorrect}">{{ question.status.wasCorrect ? 'check': 'close' }}</i></span>
       </li>
     </ul>
+    <div class="spacing">
+      &nbsp;
+    </div>
   </div>
   <div class="done-button modal-footer">
     <span class="modal-action modal-close waves-effect waves-green btn-flat" (click)="stopAllPlayers(); allowScrolling()">Done</span>
-  </div>
-  <div class="spacing">
-    &nbsp;
   </div>
 </div>

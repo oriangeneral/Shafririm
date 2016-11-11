@@ -80,6 +80,7 @@
       "animate.css": "npm:animate.css@^3.5.1",
       "css-animator": "npm:css-animator@^1.0.0",
       "flat-color-icons": "npm:flat-color-icons@^1.0.0",
+      "iscroll": "npm:iscroll@^5.2.0",
       "jquery": "npm:jquery@^2.2.4",
       "materialize": "github:Dogfalo/materialize@^0.97.6",
       "reflect-metadata": "npm:reflect-metadata@^0.1.3",

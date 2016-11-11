@@ -15,7 +15,7 @@ import { Playlist } from 'app/models/playlist';
 import { Track } from 'app/models/track';
 import { Question, QuestionType } from 'app/models/question';
 
-// import mockQuestions from 'app/mock/questions.ts#?devMode';
+// import mockQuestions from 'app/mock/questions';
 
 @Injectable()
 export class QuizService {

@@ -77,6 +77,7 @@ SystemJS.config({
     "flat-color-icons": "npm:flat-color-icons@1.0.0",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
     "http": "github:jspm/nodelibs-http@0.2.0-alpha",
+    "iscroll": "npm:iscroll@5.2.0",
     "jquery": "npm:jquery@2.2.4",
     "materialize": "github:Dogfalo/materialize@0.97.8",
     "materialize-css": "npm:materialize-css@0.97.8",
