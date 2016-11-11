@@ -48,6 +48,10 @@ export class QuizComponent implements OnInit {
       });
   }
 
+  public trackByQuestion(question: Question) {
+    return question.id;
+  }
+
   public onGoHome(navAnimatesDirective: AnimatesDirective) {
     navAnimatesDirective
       .hide({ type: 'fadeOutUp', delay: 400, duration: 600 })
