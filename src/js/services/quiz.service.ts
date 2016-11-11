@@ -1,8 +1,8 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
+import 'rxjs/add/observable/frompromise';
 
-import { Injectable, EventEmitter } from '@angular/core';
+import { Injectable, EventEmitter, isDevMode } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,7 +16,7 @@ import { Playlist } from 'app/models/playlist';
 import { Track } from 'app/models/track';
 import { Question, QuestionType } from 'app/models/question';
 
-import mockQuestions from 'app/mock/questions';
+import mockFactory from 'app/mock/factory';
 
 @Injectable()
 export class QuizService {
@@ -40,13 +40,25 @@ export class QuizService {
   public init(numberOfQuestions: number): Observable<any> {
     this._numberOfQuestions = numberOfQuestions;
 
+    if (isDevMode()) {
+      return Observable.fromPromise(mockFactory('questions')
+      .then((mock) => {
+        this._questions = mock;
+        return this._questions;
+      }).catch((err) => {
+        console.log(err);
+        return this.loadProductionData();
+      }));
+    }
+
+    return this.loadProductionData();
+  }
+
+  private loadProductionData(): Observable<any> {
     return this.playlistService.getPlaylist()
       .map((playlist) => this.extractTracks(playlist))
       .map((tracks) => this.extractRandom(tracks))
       .map((tracks) => this.buildQuestions(tracks));
-    // For testing, you can use some mock data:
-    // this._questions = mockQuestions;
-    // return Observable.of(mockQuestions);
   }
 
   public ready() {
