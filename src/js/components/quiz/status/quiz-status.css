@@ -1,3 +1,12 @@
+:host {
+  overflow-y: hidden;
+}
+
+.modal-content {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
 div.modal.bottom-sheet {
   max-height: 100%;
 }
@@ -14,12 +23,6 @@ audio {
 
 .play-button {
   cursor: pointer;
-}
-
-.modal.bottom-sheet {
-  z-index: 0;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
 }
 
 .done-button {
