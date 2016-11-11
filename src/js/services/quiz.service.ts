@@ -16,7 +16,6 @@ import { Track } from 'app/models/track';
 import { Question, QuestionType } from 'app/models/question';
 
 // import mockQuestions from 'app/mock/questions.ts#?devMode';
-import mockFactory from 'app/mock/factory';
 
 @Injectable()
 export class QuizService {
