@@ -5,28 +5,36 @@
   background-color: transparent;
   bottom: 0;
 }
+
 .nav-wrapper {
   margin-bottom: 3rem;
 }
+
 .menuitem {
   cursor: pointer;
 }
+
 ul li .btn i {
   font-size: 1.3rem;
   line-height: 36px;
 }
+
 ul li a.menuitem:hover {
   background-color: rgba(236, 239, 241, 1);
 }
+
 ul li a.btn {
   padding: 0 1.8rem 0 1.3rem;
 }
+
 .brand-logo {
   height: 100%;
 }
+
 a.brand-logo {
   cursor: default;
 }
+
 .brand-logo img {
   cursor: default;
   height: 1.3em;
@@ -36,6 +44,7 @@ a.brand-logo {
   top: 50%;
   margin-top: -0.7em; // put further to top than center
 }
+
 @media only screen and (max-width: 369px) {
   .github-button {
     display: none;
