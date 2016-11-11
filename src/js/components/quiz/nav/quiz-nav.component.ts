@@ -21,6 +21,11 @@ export class QuizNavComponent {
 
   }
 
+  public preventScrolling() {
+    let html = document.querySelector('html');
+    html.style.overflow = 'hidden';
+  }
+
   public get progress() {
     return this._quizService.progress();
   }

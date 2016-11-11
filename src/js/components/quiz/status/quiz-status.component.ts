@@ -31,6 +31,11 @@ export class QuizStatusComponent {
     this.modalActions.emit({ action: 'modal', params: ['close'] });
   }
 
+  public allowScrolling() {
+    let html = document.querySelector('html');
+    html.style.overflow = 'initial';
+  }
+
   public stopAllPlayers() {
     for (let p of this._players) {
       this.stopPlayback(p.player);

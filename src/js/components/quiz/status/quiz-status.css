@@ -16,6 +16,12 @@ audio {
   cursor: pointer;
 }
 
+.modal.bottom-sheet {
+  z-index: 0;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
 .done-button {
   z-index: 5;
   position: fixed;
@@ -31,6 +37,6 @@ audio {
 
 .spacing {
   padding: 4px 6px;
-  height: 56px;
+  height: 40px;
   width: 100%;
 }
