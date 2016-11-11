@@ -39,7 +39,7 @@ export class QuizDoneComponent {
 
     this._animator
       .setType('fadeInUp')
-      .setDelay(300)
+      .setDelay(400)
       .setDuration(600)
       .show(this._elementRef.nativeElement);
   }
