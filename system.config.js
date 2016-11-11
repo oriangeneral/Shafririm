@@ -28,20 +28,13 @@ SystemJS.config({
   },
   transpiler: "plugin-babel",
   typescriptOptions: {
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "module": "system",
-    "target": "es6",
-    "typeCheck": false,
-    "tsconfig": true,
-    "sourceMap": true,
-    "removeComments": false,
-    "supportHtmlImports": true
+    "tsconfig": true
   },
   packages: {
     "app": {
       "main": "main.prod",
       "defaultExtension": "ts",
+      "map": {},
       "meta": {
         "*.ts": {
           "loader": "ts"
