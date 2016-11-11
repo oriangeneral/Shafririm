@@ -63,7 +63,7 @@ config.jspm = {
   bundles: [{
     options: [
       'build',
-      'reflect-metadata + zone.js + app - app/mock/**/* + app/mock/factory',
+      'reflect-metadata + zone.js + app - app/mock/**/*',
       config.dist + '/app/bundle.js',
       '--minify',
       '--skip-source-maps'
