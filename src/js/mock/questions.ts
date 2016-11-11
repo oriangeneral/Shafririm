@@ -237,7 +237,7 @@ export default [{
   },
   "id": 3
 }, {
-  "type": 0,
+  "type": 2,
   "title": "What is the name of this album?",
   "answers": [{
     "title": "Stadium Pow Wow",
@@ -626,7 +626,7 @@ export default [{
   },
   "id": 8
 }, {
-  "type": 0,
+  "type": 2,
   "title": "What is the name of this album?",
   "answers": [{
     "title": "My Environment",
