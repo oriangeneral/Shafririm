@@ -42,23 +42,16 @@ export class QuizService {
 
     if (isDevMode()) {
       return Observable.fromPromise(mockFactory('questions')
-      .then((mock) => {
-        this._questions = mock;
-        return this._questions;
-      }).catch((err) => {
-        console.log(err);
-        return this.loadProductionData();
-      }));
+        .then((mock) => {
+          this._questions = mock;
+          return this._questions;
+        }).catch((err) => {
+          console.log(err);
+          return this.loadProductionData();
+        }));
     }
 
     return this.loadProductionData();
-  }
-
-  private loadProductionData(): Observable<any> {
-    return this.playlistService.getPlaylist()
-      .map((playlist) => this.extractTracks(playlist))
-      .map((tracks) => this.extractRandom(tracks))
-      .map((tracks) => this.buildQuestions(tracks));
   }
 
   public ready() {
@@ -123,6 +116,13 @@ export class QuizService {
     }
 
     return null;
+  }
+
+  private loadProductionData(): Observable<any> {
+    return this.playlistService.getPlaylist()
+      .map((playlist) => this.extractTracks(playlist))
+      .map((tracks) => this.extractRandom(tracks))
+      .map((tracks) => this.buildQuestions(tracks));
   }
 
   private calculateProgress() {
