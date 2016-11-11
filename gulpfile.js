@@ -154,7 +154,7 @@ gulp.task('jspm', function(done) {
     .then(function(values) {
       done();
     }, function(error) {
-      onError('Error bundling with jspm.');
+      onError('Error bundling with jspm.', error);
     });
 });
 
@@ -262,8 +262,11 @@ gulp.task('finish', function(done) {
 |
 */
 
-function onError(error) {
+function onError(error, details) {
   gutil.log(gutil.colors.red('Error: ' + error));
+  if (details) {
+    gutil.log(details);
+  }
   notifyError(error);
 }
 
