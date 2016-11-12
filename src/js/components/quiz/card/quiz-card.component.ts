@@ -163,41 +163,6 @@ export class QuizCardComponent extends Unsubscriber implements OnInit {
     this.subscriptions.push(subscription);
   }
 
-  private subscribeToRefresh() {
-    // let subscription = this._quizService
-    //   .onRefresh
-    //   .subscribe(() => {
-    //     this._active = false;
-    //
-    //     if (this._nextTimeout !== null) {
-    //       clearTimeout(this._nextTimeout);
-    //       this._nextTimeout = null;
-    //     }
-    //
-    //     this._markedAnswer = -1;
-    //     this._countdown = 10;
-    //
-    //     this.question.answered = false;
-    //     this.question.status.answered = false;
-    //     this.question.status.selectedAnswer = null;
-    //     this.question.status.wasCorrect = null;
-    //
-    //     if (this._player) {
-    //       this._player.pause();
-    //     }
-    //
-    //     this.hideNextButton.next();
-    //
-    //     if (this.question.id === this._quizService.totalQuestions) {
-    //       setTimeout(() => {
-    //         this._quizService.onReady.emit();
-    //       });
-    //     }
-    //   });
-    //
-    // this.subscriptions.push(subscription);
-  }
-
   private activateQuestion() {
     this._active = true;
     this._animator.setType('fadeInRight').setDelay(200);

@@ -38,9 +38,10 @@ export class QuizService {
   public init(numberOfQuestions: number): Observable<any> {
     this._numberOfQuestions = numberOfQuestions;
 
-    // Uncomment the following lines and the mockQuestions
-    // import above, to prevent Spotify API calls
-    //
+    /**
+     * Uncomment the following lines and the mockQuestions
+     * import above, to prevent Spotify API calls
+     */
     // this._questions = mockQuestions.slice();
     // return Observable.of(this._questions);
 

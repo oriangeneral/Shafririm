@@ -43,7 +43,6 @@ export class QuizComponent extends Unsubscriber implements OnInit {
       .subscribe(() => {
         this._questions = this.quizService.questions;
         this._ready = true;
-        // this.quizService.activateQuestion(1);
       });
 
     this.subscriptions.push(onReady);
