@@ -3,26 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule }   from '@angular/forms';
 import { HttpModule }   from '@angular/http';
 import { APP_BASE_HREF } from '@angular/common';
-import { routing } from 'app/routes/app.routes';
-import { AppErrorHandler } from 'app/facades/error_handler';
+
+import { AppRoutes } from 'app/routes';
+import { AppErrorHandler } from 'app/facades';
 
 import { AnimatesDirective } from 'css-animator';
 import { MaterializeDirective } from "angular2-materialize";
 
-import { AppComponent } from 'app/components/app/app.component';
-import { LandingComponent } from 'app/components/landing/landing.component';
-import { QuizComponent } from 'app/components/quiz/quiz.component';
-import { QuizNavComponent } from 'app/components/quiz/nav/quiz-nav.component';
-import { QuizCardComponent } from 'app/components/quiz/card/quiz-card.component';
-import { QuizDoneComponent } from 'app/components/quiz/done/quiz-done.component';
-import { QuizStatusComponent } from 'app/components/quiz/status/quiz-status.component';
+import {
+  AppComponent,
+  LandingComponent,
+  QuizComponent,
+  QuizCardComponent,
+  QuizDoneComponent,
+  QuizNavComponent,
+  QuizStatusComponent
+} from 'app/components';
 
 @NgModule({
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    routing
+    AppRoutes
   ],
   declarations: [
     AnimatesDirective,
@@ -44,3 +47,5 @@ import { QuizStatusComponent } from 'app/components/quiz/status/quiz-status.comp
   ]
 })
 export class AppModule { }
+
+export default AppModule;

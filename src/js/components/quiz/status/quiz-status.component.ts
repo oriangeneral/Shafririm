@@ -2,7 +2,8 @@ import IScroll from 'iscroll';
 import { AfterContentInit, Component, ElementRef, EventEmitter, OnDestroy, Output } from '@angular/core';
 import { MaterializeAction } from 'angular2-materialize';
 
-import { QuizService } from 'app/services/quiz.service';
+import { Unsubscriber } from 'app/components';
+import { QuizService } from 'app/services';
 
 import template from './quiz-status.html';
 import mainStyle from './quiz-status.css';
@@ -14,35 +15,46 @@ import mainStyle from './quiz-status.css';
     mainStyle
   ]
 })
-export class QuizStatusComponent implements AfterContentInit, OnDestroy {
+export class QuizStatusComponent extends Unsubscriber implements AfterContentInit, OnDestroy {
 
   @Output() public modalActions = new EventEmitter<string | MaterializeAction>();
 
-  private _players = [];
-  private _scroll = null;
+  private _players: any = [];
+  private _modal: HTMLElement = null;
+  private _scroll: IScroll = null;
 
   constructor(private _quizService: QuizService, private _elementRef: ElementRef) {
-
+    super();
   }
 
   public ngAfterContentInit() {
-    let element = this._elementRef
+    this._modal = this._elementRef
       .nativeElement
       .querySelector('#status');
 
-    this._scroll = new IScroll(element, {
+    this._scroll = new IScroll(this._modal, {
       deceleration: 0.005,
       mouseWheel: true,
       mouseWheelSpeed: 10,
       probeType: 2,
-      tap: false
+      tap: false,
+      click: true
     });
 
-    element.style.display = 'initial';
-    setTimeout(() => {
-      element.style.display = 'hidden';
-      this._scroll.refresh();
+    let onActivateQuestion = this._quizService
+    .onActivateQuestion
+    .subscribe(() => {
+      this.refreshScroll();
     });
+
+    let onCompleted = this._quizService
+    .onCompleted
+    .subscribe(() => {
+      this.refreshScroll();
+    });
+
+    this.subscriptions.push(onActivateQuestion);
+    this.subscriptions.push(onCompleted);
   }
 
   public ngOnDestroy() {
@@ -52,19 +64,20 @@ export class QuizStatusComponent implements AfterContentInit, OnDestroy {
     }
   }
 
+  public refreshScroll() {
+    this._modal.style.display = 'initial';
+    setTimeout(() => {
+      this._modal.style.display = 'hidden';
+      this._scroll.refresh();
+    });
+  }
+
   public openModal() {
     this.modalActions.emit({ action: 'modal', params: ['open'] });
   }
 
   public closeModal() {
     this.modalActions.emit({ action: 'modal', params: ['close'] });
-  }
-
-  public allowScrolling() {
-    let html = document.querySelector('html');
-    let body = document.querySelector('body');
-    html.style.overflow = 'initial';
-    body.style.overflow = 'initial';
   }
 
   public stopAllPlayers() {
@@ -127,3 +140,5 @@ export class QuizStatusComponent implements AfterContentInit, OnDestroy {
   }
 
 }
+
+export default QuizStatusComponent;

@@ -1,6 +1,6 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 
-import { QuizService } from 'app/services/quiz.service';
+import { QuizService } from 'app/services';
 
 import template from './quiz-nav.html';
 import mainStyle from './quiz-nav.css';
@@ -21,13 +21,6 @@ export class QuizNavComponent {
 
   }
 
-  public preventScrolling() {
-    let html = document.querySelector('html');
-    let body = document.querySelector('body');
-    html.style.overflow = 'hidden';
-    body.style.overflow = 'hidden';
-  }
-
   public get progress() {
     return this._quizService.progress();
   }
@@ -45,3 +38,5 @@ export class QuizNavComponent {
   }
 
 }
+
+export default QuizNavComponent;

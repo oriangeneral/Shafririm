@@ -40,3 +40,5 @@ export class LocaleService {
   }
 
 }
+
+export default LocaleService;

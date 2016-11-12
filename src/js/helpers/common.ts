@@ -1,4 +1,4 @@
-export let times = (i: number, cb: (n: number) => any, l = i) => {
+export const times = (i: number, cb: (n: number) => any, l = i) => {
   if (i === 0) {
     return;
   }
@@ -7,7 +7,7 @@ export let times = (i: number, cb: (n: number) => any, l = i) => {
   times(i - 1, cb, l);
 };
 
-export let shuffle = (array: Array<any>): Array<any> => {
+export const shuffle = (array: Array<any>): Array<any> => {
   let currentIndex = array.length;
   let temporaryValue: any;
   let randomIndex: number;

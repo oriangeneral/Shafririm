@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import { AnimationService } from 'css-animator';
-import { LocaleService } from 'app/services/locale.service';
-import { PlaylistService } from 'app/services/playlist.service';
+import { Unsubscriber } from 'app/components';
+import { LocaleService, PlaylistService } from 'app/services';
 
 import template from './app.html';
 
@@ -38,3 +38,5 @@ export class AppComponent implements OnInit {
   }
 
 }
+
+export default AppComponent;

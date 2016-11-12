@@ -3,7 +3,8 @@ import { Router } from '@angular/router';
 
 import { AnimatesDirective } from 'css-animator';
 
-import { QuizService } from 'app/services/quiz.service';
+import { Unsubscriber } from 'app/components';
+import { QuizService } from 'app/services';
 import { Question } from 'app/models/question';
 
 import template from './quiz.html';
@@ -19,7 +20,7 @@ import mainStyle from './quiz.css';
     QuizService
   ]
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent extends Unsubscriber implements OnInit {
 
   private _questions: Question[] = [];
   private _ready: boolean = false;
@@ -28,16 +29,25 @@ export class QuizComponent implements OnInit {
     private _router: Router,
     private _quizService: QuizService
   ) {
-    this.quizService
-      .onReady.subscribe(() => {
+    super();
+
+    let onReady = this.quizService
+      .onReady
+      .subscribe(() => {
         this._ready = true;
         this.quizService.activateQuestion(1);
       });
 
-    this.quizService
-      .onRefresh.subscribe(() => {
+    let onRefresh = this.quizService
+      .onRefresh
+      .subscribe(() => {
         this._questions = this.quizService.questions;
+        this._ready = true;
+        // this.quizService.activateQuestion(1);
       });
+
+    this.subscriptions.push(onReady);
+    this.subscriptions.push(onRefresh);
   }
 
   public ngOnInit() {
@@ -64,6 +74,7 @@ export class QuizComponent implements OnInit {
 
   public onRefresh(navAnimatesDirective: AnimatesDirective) {
     this.quizService.close();
+
     setTimeout(() => {
       this._ready = false;
       setTimeout(() => {
@@ -89,3 +100,5 @@ export class QuizComponent implements OnInit {
   }
 
 }
+
+export default QuizComponent;

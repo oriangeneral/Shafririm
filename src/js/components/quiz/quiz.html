@@ -1,5 +1,5 @@
 <quiz-nav animates #animation="animates" [animatesOnInit]="{type: 'fadeInDown', duration: 600}" (onGoHome)="onGoHome(animation)" (onRefresh)="onRefresh(animation)" (onClose)="onClose(animation)"></quiz-nav>
-<quiz-card *ngFor="let question of questions; trackBy: trackByQuestion" [question]="question" hidden></quiz-card>
+<quiz-card *ngFor="let question of questions" [question]="question" hidden></quiz-card>
 <quiz-done></quiz-done>
 <quiz-status></quiz-status>
 <div id="questions-loading" *ngIf="!ready">

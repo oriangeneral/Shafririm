@@ -1,18 +1,17 @@
-import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/first';
+import 'rxjs/add/operator/map';
 
 import { Injectable, EventEmitter, isDevMode } from '@angular/core';
 import { Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 
-import { TrackTransformer } from 'app/support/trackTransformer';
+import { shuffle } from 'app/helpers';
+import { TrackTransformer } from 'app/support';
+import { PlaylistService } from 'app/services';
 
-import { PlaylistService } from './playlist.service';
-
-import { shuffle } from 'app/helpers/common';
-
-import { Playlist } from 'app/models/playlist';
-import { Track } from 'app/models/track';
+import Playlist from 'app/models/playlist';
+import Track from 'app/models/track';
 import { Question, QuestionType } from 'app/models/question';
 
 // import mockQuestions from 'app/mock/questions';
@@ -42,7 +41,7 @@ export class QuizService {
     // Uncomment the following lines and the mockQuestions
     // import above, to prevent Spotify API calls
     //
-    // this._questions = mockQuestions;
+    // this._questions = mockQuestions.slice();
     // return Observable.of(this._questions);
 
     return this.loadProductionData();
@@ -64,10 +63,10 @@ export class QuizService {
     this._questions = [];
 
     this.init(this._numberOfQuestions)
+      .first()
       .subscribe((questions) => {
         this.onRefresh.emit();
       });
-
   }
 
   public activateQuestion(questionNumber: number) {
@@ -210,3 +209,5 @@ export class QuizService {
   }
 
 }
+
+export default QuizService;

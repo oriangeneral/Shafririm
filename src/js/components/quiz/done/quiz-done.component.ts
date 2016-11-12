@@ -1,8 +1,10 @@
 import { Component, ElementRef } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
 import { AnimationService, AnimationBuilder } from 'css-animator';
 
-import { QuizService } from 'app/services/quiz.service';
+import { Unsubscriber } from 'app/components';
+import { QuizService } from 'app/services';
 
 import template from './quiz-done.html';
 import mainStyle from './quiz-done.css';
@@ -17,7 +19,7 @@ import mainStyle from './quiz-done.css';
     'hidden': true
   }
 })
-export class QuizDoneComponent {
+export class QuizDoneComponent extends Unsubscriber {
 
   private _animator: AnimationBuilder;
   private _hidden: boolean = true;
@@ -26,8 +28,9 @@ export class QuizDoneComponent {
     private _quizService: QuizService,
     private _elementRef: ElementRef,
     animationService: AnimationService) {
-    this._animator = animationService.builder();
-    this.subscribe();
+      super();
+      this._animator = animationService.builder();
+      this.subscribe();
   }
 
   public show() {
@@ -58,20 +61,29 @@ export class QuizDoneComponent {
   }
 
   private subscribe() {
-    this._quizService
-      .onCompleted.subscribe(() => {
+    let onCompleted = this._quizService
+      .onCompleted
+      .subscribe(() => {
         this.show();
       });
 
-    this._quizService
-      .onRefresh.subscribe(() => {
+    let onRefresh = this._quizService
+      .onRefresh
+      .subscribe(() => {
         this.hide();
       });
 
-    this._quizService
-      .onClose.subscribe(() => {
+    let onClose = this._quizService
+      .onClose
+      .subscribe(() => {
         this.hide();
       });
+
+    this.subscriptions.push(onCompleted);
+    this.subscriptions.push(onRefresh);
+    this.subscriptions.push(onClose);
   }
 
 }
+
+export default QuizDoneComponent;

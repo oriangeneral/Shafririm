@@ -6,9 +6,8 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { Observable } from 'rxjs/Observable';
 
 import { AnimationService, AnimationBuilder } from 'css-animator';
-
-import { QuizService } from 'app/services/quiz.service';
-
+import { Unsubscriber } from 'app/components';
+import { QuizService } from 'app/services';
 import { Answer } from 'app/models/question';
 
 import template from './quiz-card.html';
@@ -21,8 +20,8 @@ import mainStyle from './quiz-card.css';
     mainStyle
   ]
 })
-export class QuizCardComponent implements OnInit {
-  @Input() public question: any; // Should be Question instead of any. (Bug in systemjs builder)
+export class QuizCardComponent extends Unsubscriber implements OnInit {
+  @Input() public question: any; // Should be of type Question
   @Output() public showNextButton = new EventEmitter();
   @Output() public hideNextButton = new EventEmitter();
 
@@ -35,6 +34,7 @@ export class QuizCardComponent implements OnInit {
   private _nextTimeout: any = null;
 
   constructor(private _elementRef: ElementRef, private _quizService: QuizService, animationService: AnimationService) {
+    super();
     this._animator = animationService.builder().setDuration(600);
     this.subscribeToActivate();
     this.subscribeToClose();
@@ -44,7 +44,7 @@ export class QuizCardComponent implements OnInit {
     if (this.question.id === this._quizService.totalQuestions) {
       setTimeout(() => {
         this._quizService.ready();
-      }, 650);
+      }, 100);
     }
   }
 
@@ -136,7 +136,7 @@ export class QuizCardComponent implements OnInit {
   }
 
   private subscribeToActivate() {
-    this._quizService
+    let subscription = this._quizService
       .onActivateQuestion.subscribe((questionNumber) => {
         if (questionNumber === this.question.id) {
           this.activateQuestion();
@@ -144,11 +144,14 @@ export class QuizCardComponent implements OnInit {
           this.deactivateQuestion();
         }
       });
+
+    this.subscriptions.push(subscription);
   }
 
   private subscribeToClose() {
-    this._quizService
-      .onClose.subscribe((questionNumber) => {
+    let subscription = this._quizService
+      .onClose
+      .subscribe((questionNumber) => {
         if (this._active) {
           this._animator
             .setType('fadeOutDown')
@@ -156,6 +159,43 @@ export class QuizCardComponent implements OnInit {
             .hide(this._elementRef.nativeElement);
         }
       });
+
+    this.subscriptions.push(subscription);
+  }
+
+  private subscribeToRefresh() {
+    // let subscription = this._quizService
+    //   .onRefresh
+    //   .subscribe(() => {
+    //     this._active = false;
+    //
+    //     if (this._nextTimeout !== null) {
+    //       clearTimeout(this._nextTimeout);
+    //       this._nextTimeout = null;
+    //     }
+    //
+    //     this._markedAnswer = -1;
+    //     this._countdown = 10;
+    //
+    //     this.question.answered = false;
+    //     this.question.status.answered = false;
+    //     this.question.status.selectedAnswer = null;
+    //     this.question.status.wasCorrect = null;
+    //
+    //     if (this._player) {
+    //       this._player.pause();
+    //     }
+    //
+    //     this.hideNextButton.next();
+    //
+    //     if (this.question.id === this._quizService.totalQuestions) {
+    //       setTimeout(() => {
+    //         this._quizService.onReady.emit();
+    //       });
+    //     }
+    //   });
+    //
+    // this.subscriptions.push(subscription);
   }
 
   private activateQuestion() {
@@ -191,3 +231,5 @@ export class QuizCardComponent implements OnInit {
   }
 
 }
+
+export default QuizCardComponent;

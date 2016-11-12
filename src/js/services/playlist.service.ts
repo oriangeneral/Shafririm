@@ -6,11 +6,11 @@ import 'rxjs/add/operator/catch';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { LocaleService } from './locale.service';
+import LocaleService from './locale.service';
 
-import { Playlist } from '../models/playlist';
-import { Track } from '../models/track';
-import { Album } from '../models/album';
+import Playlist from 'app/models/playlist';
+import Track from 'app/models/track';
+import Album from 'app/models/album';
 
 @Injectable()
 export class PlaylistService {
@@ -48,3 +48,5 @@ export class PlaylistService {
   }
 
 }
+
+export default PlaylistService;

@@ -116,3 +116,5 @@ export class AppErrorHandler implements ErrorHandler {
   }
 
 }
+
+export default AppErrorHandler;
