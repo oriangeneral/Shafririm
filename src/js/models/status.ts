@@ -3,3 +3,5 @@ export interface Status {
   selectedAnswer?: number;
   wasCorrect?: boolean;
 }
+
+export default Status;

@@ -1,5 +1,5 @@
-import { Track } from './track';
-import { Status } from './status';
+import Track from 'app/models/track';
+import Status from 'app/models/status';
 
 export enum QuestionType {
   AlbumNameFromImage,
@@ -25,3 +25,5 @@ export interface Answer {
   title: string;
   correct: boolean;
 }
+
+export default Question;

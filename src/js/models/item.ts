@@ -1,7 +1,4 @@
-import { Album } from './album';
-import { Artist } from './artist';
-import { Image } from './image';
-import { Track } from './track';
+import Track from 'app/models/track';
 
 export interface Item {
   added_at: string;
@@ -10,3 +7,5 @@ export interface Item {
   // href: string;
   track: Track;
 }
+
+export default Item;

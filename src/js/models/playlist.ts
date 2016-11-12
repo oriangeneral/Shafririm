@@ -1,5 +1,5 @@
-import { Image } from './image';
-import { Item } from './item';
+import Image from 'app/models/image';
+import Item from 'app/models/item';
 
 export interface Playlist {
 
@@ -39,3 +39,5 @@ export interface Playlist {
   type: string;
   uri: string;
 }
+
+export default Playlist;

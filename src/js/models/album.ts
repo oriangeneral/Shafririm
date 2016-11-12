@@ -1,4 +1,4 @@
-import { Image } from './image';
+import Image from 'app/models/image';
 
 export interface Album {
   album_type: string;
@@ -13,3 +13,5 @@ export interface Album {
   type: string;
   uri: string;
 }
+
+export default Album;

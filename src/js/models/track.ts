@@ -1,5 +1,5 @@
-import { Album } from './album';
-import { Artist } from './artist';
+import Album from 'app/models/album';
+import Artist from 'app/models/artist';
 
 export interface Track {
   album: Album;
@@ -17,3 +17,5 @@ export interface Track {
   type: string;
   uri: string;
 }
+
+export default Track;

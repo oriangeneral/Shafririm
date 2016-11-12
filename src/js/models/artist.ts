@@ -8,3 +8,5 @@ export interface Artist {
   type: string;
   uri: string;
 }
+
+export default Artist;

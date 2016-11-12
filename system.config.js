@@ -34,10 +34,28 @@ SystemJS.config({
     "app": {
       "main": "main.prod",
       "defaultExtension": "ts",
-      "map": {},
+      "map": {
+        "./services": "./services/index",
+        "./components": "./components/index",
+        "./components/app": "./components/app/index",
+        "./components/landing": "./components/landing/index",
+        "./components/quiz": "./components/quiz/index",
+        "./components/quiz/card": "./components/quiz/card/index",
+        "./components/quiz/done": "./components/quiz/done/index",
+        "./components/quiz/nav": "./components/quiz/nav/index",
+        "./components/quiz/status": "./components/quiz/status/index",
+        "./facades": "./facades/index",
+        "./helpers": "./helpers/index",
+        "./modules": "./modules/index",
+        "./routes": "./routes/index",
+        "./support": "./support/index"
+      },
       "meta": {
         "*.ts": {
           "loader": "ts"
+        },
+        "*.js": {
+          "loader": "plugin-babel"
         },
         "*.css": {
           "loader": "text"
@@ -72,7 +90,7 @@ SystemJS.config({
     "child_process": "npm:jspm-nodelibs-child_process@0.2.0",
     "constants": "github:jspm/nodelibs-constants@0.2.0-alpha",
     "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
-    "css-animator": "npm:css-animator@1.2.4",
+    "css-animator": "npm:css-animator@1.2.5",
     "events": "github:jspm/nodelibs-events@0.2.0-alpha",
     "flat-color-icons": "npm:flat-color-icons@1.0.0",
     "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
@@ -82,7 +100,7 @@ SystemJS.config({
     "materialize": "github:Dogfalo/materialize@0.97.8",
     "materialize-css": "npm:materialize-css@0.97.8",
     "module": "npm:jspm-nodelibs-module@0.2.0",
-    "net": "github:jspm/nodelibs-net@0.2.0-alpha",
+    "net": "npm:jspm-nodelibs-net@0.2.0",
     "os": "github:jspm/nodelibs-os@0.2.0-alpha",
     "path": "github:jspm/nodelibs-path@0.2.0-alpha",
     "process": "github:jspm/nodelibs-process@0.2.0-alpha",
@@ -159,7 +177,7 @@ SystemJS.config({
         "cipher-base": "npm:cipher-base@1.0.3",
         "inherits": "npm:inherits@2.0.3",
         "ripemd160": "npm:ripemd160@1.0.1",
-        "sha.js": "npm:sha.js@2.4.5"
+        "sha.js": "npm:sha.js@2.4.8"
       }
     },
     "npm:create-hmac@1.1.4": {
@@ -235,11 +253,6 @@ SystemJS.config({
     "npm:ripemd160@1.0.1": {
       "map": {}
     },
-    "npm:sha.js@2.4.5": {
-      "map": {
-        "inherits": "npm:inherits@2.0.3"
-      }
-    },
     "npm:string_decoder@0.10.31": {
       "map": {}
     },
@@ -261,7 +274,7 @@ SystemJS.config({
     "npm:stream-browserify@2.0.1": {
       "map": {
         "inherits": "npm:inherits@2.0.3",
-        "readable-stream": "npm:readable-stream@2.1.5"
+        "readable-stream": "npm:readable-stream@2.2.1"
       }
     },
     "github:jspm/nodelibs-string_decoder@0.2.0-alpha": {
@@ -288,17 +301,6 @@ SystemJS.config({
       "map": {
         "punycode": "npm:punycode@1.3.2",
         "querystring": "npm:querystring@0.2.0"
-      }
-    },
-    "npm:readable-stream@2.1.5": {
-      "map": {
-        "string_decoder": "npm:string_decoder@0.10.31",
-        "inherits": "npm:inherits@2.0.3",
-        "util-deprecate": "npm:util-deprecate@1.0.2",
-        "buffer-shims": "npm:buffer-shims@1.0.0",
-        "process-nextick-args": "npm:process-nextick-args@1.0.7",
-        "core-util-is": "npm:core-util-is@1.0.2",
-        "isarray": "npm:isarray@1.0.0"
       }
     },
     "npm:buffer@4.9.1": {
@@ -345,7 +347,7 @@ SystemJS.config({
       "map": {
         "inherits": "npm:inherits@2.0.3",
         "xtend": "npm:xtend@4.0.1",
-        "readable-stream": "npm:readable-stream@2.1.5",
+        "readable-stream": "npm:readable-stream@2.2.1",
         "to-arraybuffer": "npm:to-arraybuffer@1.0.1",
         "builtin-status-codes": "npm:builtin-status-codes@2.0.0"
       }
@@ -371,6 +373,22 @@ SystemJS.config({
     },
     "npm:typescript@1.8.10": {
       "map": {}
+    },
+    "npm:readable-stream@2.2.1": {
+      "map": {
+        "isarray": "npm:isarray@1.0.0",
+        "inherits": "npm:inherits@2.0.3",
+        "string_decoder": "npm:string_decoder@0.10.31",
+        "util-deprecate": "npm:util-deprecate@1.0.2",
+        "process-nextick-args": "npm:process-nextick-args@1.0.7",
+        "buffer-shims": "npm:buffer-shims@1.0.0",
+        "core-util-is": "npm:core-util-is@1.0.2"
+      }
+    },
+    "npm:sha.js@2.4.8": {
+      "map": {
+        "inherits": "npm:inherits@2.0.3"
+      }
     }
   }
 });
