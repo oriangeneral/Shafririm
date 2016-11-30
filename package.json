@@ -15,7 +15,11 @@
     "type": "git",
     "url": "https://github.com/fabiandev/angular2-quiz-app.git"
   },
-  "author": "Fabian Pirklbauer",
+  "author": "Fabian Pirklbauer <hi@fabiandev.io>",
+  "contributors": [
+    "Sascha Zarhuber",
+    "Lorenz Krautgartner"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/fabiandev/angular2-quiz-app/issues"
