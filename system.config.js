@@ -75,46 +75,46 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "@angular/common": "npm:@angular/common@2.1.2",
-    "@angular/compiler": "npm:@angular/compiler@2.1.2",
-    "@angular/core": "npm:@angular/core@2.1.2",
-    "@angular/forms": "npm:@angular/forms@2.1.2",
-    "@angular/http": "npm:@angular/http@2.1.2",
-    "@angular/platform-browser": "npm:@angular/platform-browser@2.1.2",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.1.2",
-    "@angular/router": "npm:@angular/router@3.1.2",
-    "angular2-materialize": "npm:angular2-materialize@6.0.1",
+    "@angular/common": "npm:@angular/common@2.3.0",
+    "@angular/compiler": "npm:@angular/compiler@2.3.0",
+    "@angular/core": "npm:@angular/core@2.3.0",
+    "@angular/forms": "npm:@angular/forms@2.3.0",
+    "@angular/http": "npm:@angular/http@2.3.0",
+    "@angular/platform-browser": "npm:@angular/platform-browser@2.3.0",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@2.3.0",
+    "@angular/router": "npm:@angular/router@3.3.0",
+    "angular2-materialize": "npm:angular2-materialize@6.3.0",
     "animate.css": "npm:animate.css@3.5.2",
-    "assert": "github:jspm/nodelibs-assert@0.2.0-alpha",
-    "buffer": "github:jspm/nodelibs-buffer@0.2.0-alpha",
+    "assert": "npm:jspm-nodelibs-assert@0.2.0",
+    "buffer": "npm:jspm-nodelibs-buffer@0.2.1",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.0",
-    "constants": "github:jspm/nodelibs-constants@0.2.0-alpha",
-    "crypto": "github:jspm/nodelibs-crypto@0.2.0-alpha",
+    "constants": "npm:jspm-nodelibs-constants@0.2.0",
+    "crypto": "npm:jspm-nodelibs-crypto@0.2.0",
     "css-animator": "npm:css-animator@1.2.5",
-    "events": "github:jspm/nodelibs-events@0.2.0-alpha",
+    "events": "npm:jspm-nodelibs-events@0.2.0",
     "flat-color-icons": "npm:flat-color-icons@1.0.0",
-    "fs": "github:jspm/nodelibs-fs@0.2.0-alpha",
-    "http": "github:jspm/nodelibs-http@0.2.0-alpha",
+    "fs": "npm:jspm-nodelibs-fs@0.2.0",
+    "http": "npm:jspm-nodelibs-http@0.2.0",
     "iscroll": "npm:iscroll@5.2.0",
     "jquery": "npm:jquery@2.2.4",
     "materialize": "github:Dogfalo/materialize@0.97.8",
     "materialize-css": "npm:materialize-css@0.97.8",
     "module": "npm:jspm-nodelibs-module@0.2.0",
     "net": "npm:jspm-nodelibs-net@0.2.0",
-    "os": "github:jspm/nodelibs-os@0.2.0-alpha",
-    "path": "github:jspm/nodelibs-path@0.2.0-alpha",
-    "process": "github:jspm/nodelibs-process@0.2.0-alpha",
+    "os": "npm:jspm-nodelibs-os@0.2.0",
+    "path": "npm:jspm-nodelibs-path@0.2.1",
+    "process": "npm:jspm-nodelibs-process@0.2.0",
     "reflect-metadata": "npm:reflect-metadata@0.1.8",
-    "rxjs": "npm:rxjs@5.0.0-beta.12",
-    "stream": "github:jspm/nodelibs-stream@0.2.0-alpha",
-    "string_decoder": "github:jspm/nodelibs-string_decoder@0.2.0-alpha",
-    "timers": "github:jspm/nodelibs-timers@0.2.0-alpha",
+    "rxjs": "npm:rxjs@5.0.0-rc.4",
+    "stream": "npm:jspm-nodelibs-stream@0.2.0",
+    "string_decoder": "npm:jspm-nodelibs-string_decoder@0.2.0",
+    "timers": "npm:jspm-nodelibs-timers@0.2.0",
     "tty": "npm:jspm-nodelibs-tty@0.2.0",
     "typescript": "npm:typescript@1.8.10",
-    "url": "github:jspm/nodelibs-url@0.2.0-alpha",
-    "util": "github:jspm/nodelibs-util@0.2.0-alpha",
-    "vm": "github:jspm/nodelibs-vm@0.2.0-alpha",
-    "zone.js": "npm:zone.js@0.6.26"
+    "url": "npm:jspm-nodelibs-url@0.2.0",
+    "util": "npm:jspm-nodelibs-util@0.2.1",
+    "vm": "npm:jspm-nodelibs-vm@0.2.0",
+    "zone.js": "npm:zone.js@0.7.2"
   },
   packages: {
     "npm:browserify-aes@1.0.6": {
@@ -256,45 +256,10 @@ SystemJS.config({
     "npm:string_decoder@0.10.31": {
       "map": {}
     },
-    "github:jspm/nodelibs-crypto@0.2.0-alpha": {
-      "map": {
-        "crypto-browserify": "npm:crypto-browserify@3.11.0"
-      }
-    },
-    "github:jspm/nodelibs-buffer@0.2.0-alpha": {
-      "map": {
-        "buffer-browserify": "npm:buffer@4.9.1"
-      }
-    },
-    "github:jspm/nodelibs-stream@0.2.0-alpha": {
-      "map": {
-        "stream-browserify": "npm:stream-browserify@2.0.1"
-      }
-    },
     "npm:stream-browserify@2.0.1": {
       "map": {
         "inherits": "npm:inherits@2.0.3",
         "readable-stream": "npm:readable-stream@2.2.1"
-      }
-    },
-    "github:jspm/nodelibs-string_decoder@0.2.0-alpha": {
-      "map": {
-        "string_decoder-browserify": "npm:string_decoder@0.10.31"
-      }
-    },
-    "github:jspm/nodelibs-os@0.2.0-alpha": {
-      "map": {
-        "os-browserify": "npm:os-browserify@0.2.1"
-      }
-    },
-    "github:jspm/nodelibs-http@0.2.0-alpha": {
-      "map": {
-        "http-browserify": "npm:stream-http@2.5.0"
-      }
-    },
-    "github:jspm/nodelibs-url@0.2.0-alpha": {
-      "map": {
-        "url-browserify": "npm:url@0.11.0"
       }
     },
     "npm:url@0.11.0": {
@@ -323,19 +288,9 @@ SystemJS.config({
         "inherits": "npm:inherits@2.0.3"
       }
     },
-    "github:jspm/nodelibs-timers@0.2.0-alpha": {
-      "map": {
-        "timers-browserify": "npm:timers-browserify@1.4.2"
-      }
-    },
     "npm:timers-browserify@1.4.2": {
       "map": {
         "process": "npm:process@0.11.9"
-      }
-    },
-    "npm:rxjs@5.0.0-beta.12": {
-      "map": {
-        "symbol-observable": "npm:symbol-observable@1.0.4"
       }
     },
     "npm:pbkdf2@3.0.9": {
@@ -388,6 +343,51 @@ SystemJS.config({
     "npm:sha.js@2.4.8": {
       "map": {
         "inherits": "npm:inherits@2.0.3"
+      }
+    },
+    "npm:jspm-nodelibs-os@0.2.0": {
+      "map": {
+        "os-browserify": "npm:os-browserify@0.2.1"
+      }
+    },
+    "npm:jspm-nodelibs-crypto@0.2.0": {
+      "map": {
+        "crypto-browserify": "npm:crypto-browserify@3.11.0"
+      }
+    },
+    "npm:jspm-nodelibs-string_decoder@0.2.0": {
+      "map": {
+        "string_decoder-browserify": "npm:string_decoder@0.10.31"
+      }
+    },
+    "npm:jspm-nodelibs-stream@0.2.0": {
+      "map": {
+        "stream-browserify": "npm:stream-browserify@2.0.1"
+      }
+    },
+    "npm:jspm-nodelibs-http@0.2.0": {
+      "map": {
+        "http-browserify": "npm:stream-http@2.5.0"
+      }
+    },
+    "npm:jspm-nodelibs-url@0.2.0": {
+      "map": {
+        "url-browserify": "npm:url@0.11.0"
+      }
+    },
+    "npm:jspm-nodelibs-timers@0.2.0": {
+      "map": {
+        "timers-browserify": "npm:timers-browserify@1.4.2"
+      }
+    },
+    "npm:rxjs@5.0.0-rc.4": {
+      "map": {
+        "symbol-observable": "npm:symbol-observable@1.0.4"
+      }
+    },
+    "npm:jspm-nodelibs-buffer@0.2.1": {
+      "map": {
+        "buffer": "npm:buffer@4.9.1"
       }
     }
   }

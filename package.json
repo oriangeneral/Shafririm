@@ -98,33 +98,33 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.11"
     },
     "peerDependencies": {
-      "@angular/common": "npm:@angular/common@2.1.2",
-      "@angular/compiler": "npm:@angular/compiler@2.1.2",
-      "@angular/core": "npm:@angular/core@2.1.2",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.1.2",
-      "assert": "github:jspm/nodelibs-assert@^0.2.0-alpha",
-      "buffer": "github:jspm/nodelibs-buffer@^0.2.0-alpha",
+      "@angular/common": "npm:@angular/common@2.3.0",
+      "@angular/compiler": "npm:@angular/compiler@2.3.0",
+      "@angular/core": "npm:@angular/core@2.3.0",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.3.0",
+      "assert": "npm:jspm-nodelibs-assert@^0.2.0",
+      "buffer": "npm:jspm-nodelibs-buffer@^0.2.0",
       "child_process": "npm:jspm-nodelibs-child_process@^0.2.0",
-      "constants": "github:jspm/nodelibs-constants@^0.2.0-alpha",
-      "crypto": "github:jspm/nodelibs-crypto@^0.2.0-alpha",
-      "events": "github:jspm/nodelibs-events@^0.2.0-alpha",
-      "fs": "github:jspm/nodelibs-fs@^0.2.0-alpha",
-      "http": "github:jspm/nodelibs-http@^0.2.0-alpha",
-      "materialize-css": "npm:materialize-css@^0.97.7",
+      "constants": "npm:jspm-nodelibs-constants@^0.2.0",
+      "crypto": "npm:jspm-nodelibs-crypto@^0.2.0",
+      "events": "npm:jspm-nodelibs-events@^0.2.0",
+      "fs": "npm:jspm-nodelibs-fs@^0.2.0",
+      "http": "npm:jspm-nodelibs-http@^0.2.0",
+      "materialize-css": "npm:materialize-css@^0.97.8",
       "module": "npm:jspm-nodelibs-module@^0.2.0",
       "net": "npm:jspm-nodelibs-net@^0.2.0",
-      "os": "github:jspm/nodelibs-os@^0.2.0-alpha",
-      "path": "github:jspm/nodelibs-path@^0.2.0-alpha",
-      "process": "github:jspm/nodelibs-process@^0.2.0-alpha",
-      "rxjs": "npm:rxjs@5.0.0-beta.12",
-      "stream": "github:jspm/nodelibs-stream@^0.2.0-alpha",
-      "string_decoder": "github:jspm/nodelibs-string_decoder@^0.2.0-alpha",
-      "timers": "github:jspm/nodelibs-timers@^0.2.0-alpha",
+      "os": "npm:jspm-nodelibs-os@^0.2.0",
+      "path": "npm:jspm-nodelibs-path@^0.2.0",
+      "process": "npm:jspm-nodelibs-process@^0.2.0",
+      "rxjs": "npm:rxjs@5.0.0-rc.4",
+      "stream": "npm:jspm-nodelibs-stream@^0.2.0",
+      "string_decoder": "npm:jspm-nodelibs-string_decoder@^0.2.0",
+      "timers": "npm:jspm-nodelibs-timers@^0.2.0",
       "tty": "npm:jspm-nodelibs-tty@^0.2.0",
-      "url": "github:jspm/nodelibs-url@^0.2.0-alpha",
-      "util": "github:jspm/nodelibs-util@^0.2.0-alpha",
-      "vm": "github:jspm/nodelibs-vm@^0.2.0-alpha",
-      "zone.js": "npm:zone.js@^0.6.21"
+      "url": "npm:jspm-nodelibs-url@^0.2.0",
+      "util": "npm:jspm-nodelibs-util@^0.2.0",
+      "vm": "npm:jspm-nodelibs-vm@^0.2.0",
+      "zone.js": "npm:zone.js@^0.7.2"
     },
     "overrides": {
       "github:Dogfalo/materialize@0.97.8": {
@@ -144,7 +144,7 @@
           }
         }
       },
-      "npm:@angular/common@2.1.2": {
+      "npm:@angular/common@2.3.0": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -154,7 +154,7 @@
           }
         }
       },
-      "npm:@angular/compiler@2.1.2": {
+      "npm:@angular/compiler@2.3.0": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -168,7 +168,7 @@
           "./testing": "./bundles/compiler-testing.umd.js"
         }
       },
-      "npm:@angular/core@2.1.2": {
+      "npm:@angular/core@2.3.0": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -182,7 +182,7 @@
           "./testing": "./bundles/core-testing.umd.js"
         }
       },
-      "npm:@angular/http@2.1.2": {
+      "npm:@angular/http@2.3.0": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -192,7 +192,7 @@
           }
         }
       },
-      "npm:@angular/platform-browser-dynamic@2.1.2": {
+      "npm:@angular/platform-browser-dynamic@2.3.0": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -206,7 +206,7 @@
           "./testing": "./bundles/platform-browser-dynamic-testing.umd.js"
         }
       },
-      "npm:@angular/platform-browser@2.1.2": {
+      "npm:@angular/platform-browser@2.3.0": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -216,7 +216,7 @@
           }
         }
       },
-      "npm:@angular/router@3.1.2": {
+      "npm:@angular/router@3.3.0": {
         "meta": {
           "src/*.js": {
             "deps": [
