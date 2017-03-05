@@ -98,10 +98,10 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.11"
     },
     "peerDependencies": {
-      "@angular/common": "npm:@angular/common@2.3.0",
-      "@angular/compiler": "npm:@angular/compiler@2.3.0",
-      "@angular/core": "npm:@angular/core@2.3.0",
-      "@angular/platform-browser": "npm:@angular/platform-browser@2.3.0",
+      "@angular/common": "npm:@angular/common@2.4.9",
+      "@angular/compiler": "npm:@angular/compiler@2.4.9",
+      "@angular/core": "npm:@angular/core@2.4.9",
+      "@angular/platform-browser": "npm:@angular/platform-browser@2.4.9",
       "assert": "npm:jspm-nodelibs-assert@^0.2.0",
       "buffer": "npm:jspm-nodelibs-buffer@^0.2.0",
       "child_process": "npm:jspm-nodelibs-child_process@^0.2.0",
@@ -116,7 +116,7 @@
       "os": "npm:jspm-nodelibs-os@^0.2.0",
       "path": "npm:jspm-nodelibs-path@^0.2.0",
       "process": "npm:jspm-nodelibs-process@^0.2.0",
-      "rxjs": "npm:rxjs@5.0.0-rc.4",
+      "rxjs": "npm:rxjs@^5.0.1",
       "stream": "npm:jspm-nodelibs-stream@^0.2.0",
       "string_decoder": "npm:jspm-nodelibs-string_decoder@^0.2.0",
       "timers": "npm:jspm-nodelibs-timers@^0.2.0",
@@ -144,7 +144,7 @@
           }
         }
       },
-      "npm:@angular/common@2.3.0": {
+      "npm:@angular/common@2.4.9": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -154,7 +154,7 @@
           }
         }
       },
-      "npm:@angular/compiler@2.3.0": {
+      "npm:@angular/compiler@2.4.9": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -168,7 +168,7 @@
           "./testing": "./bundles/compiler-testing.umd.js"
         }
       },
-      "npm:@angular/core@2.3.0": {
+      "npm:@angular/core@2.4.9": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -182,7 +182,7 @@
           "./testing": "./bundles/core-testing.umd.js"
         }
       },
-      "npm:@angular/http@2.3.0": {
+      "npm:@angular/http@2.4.9": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -192,7 +192,7 @@
           }
         }
       },
-      "npm:@angular/platform-browser-dynamic@2.3.0": {
+      "npm:@angular/platform-browser-dynamic@2.4.9": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -206,7 +206,7 @@
           "./testing": "./bundles/platform-browser-dynamic-testing.umd.js"
         }
       },
-      "npm:@angular/platform-browser@2.3.0": {
+      "npm:@angular/platform-browser@2.4.9": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -216,7 +216,7 @@
           }
         }
       },
-      "npm:@angular/router@3.3.0": {
+      "npm:@angular/router@3.4.9": {
         "meta": {
           "src/*.js": {
             "deps": [
@@ -264,7 +264,7 @@
           }
         }
       },
-      "npm:reflect-metadata@0.1.8": {
+      "npm:reflect-metadata@0.1.10": {
         "jspmNodeConversion": true,
         "map": {}
       },
