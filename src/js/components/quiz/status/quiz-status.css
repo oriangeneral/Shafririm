@@ -16,8 +16,16 @@
 
 @media (min-height: 739px) {
   div.modal.bottom-sheet {
-    max-height: 55%;
+    max-height: 60%;
   }
+}
+
+.modal.bottom-sheet .modal-footer {
+  display: none;
+}
+
+.modal.bottom-sheet.open .modal-footer {
+  display: initial;
 }
 
 audio {

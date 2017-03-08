@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { AnimatesDirective } from 'css-animator';
 
 import { QuizService } from 'app/services';
 
@@ -29,12 +30,13 @@ export class QuizNavComponent {
     this.onGoHome.next();
   }
 
-  public refresh() {
+  public refresh(navAnimatesDirective: AnimatesDirective) {
     this.onRefresh.next();
   }
 
-  public close() {
+  public close(navAnimatesDirective: AnimatesDirective) {
     this.onClose.next();
+    navAnimatesDirective.hide({ type: 'fadeOutUp', delay: 400, duration: 600 });
   }
 
 }

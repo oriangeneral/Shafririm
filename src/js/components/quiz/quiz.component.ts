@@ -62,11 +62,9 @@ export class QuizComponent extends Unsubscriber implements OnInit {
   }
 
   public onGoHome(navAnimatesDirective: AnimatesDirective) {
-    navAnimatesDirective
-      .hide({ type: 'fadeOutUp', delay: 400, duration: 600 })
-      .then(() => {
-        this._router.navigate(['/']);
-      });
+    setTimeout(() => {
+      this._router.navigate(['/']);
+    }, 1000);
 
     this.quizService.close();
   }

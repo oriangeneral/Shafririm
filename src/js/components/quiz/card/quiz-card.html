@@ -93,7 +93,7 @@
               <label htmlFor="answer{{question.id}}{{i}}" class="grey-text text-darken-3">{{ answer.title }}</label>
             </div>
           </div>
-          <div animates [animatesOnInit]="{type:'fadeInDown', keepFlow: true, duration: 400}" *ngIf="hasMarkedAnswer" class="next">
+          <div animates animatesInitMode="show" [animatesOnInit]="{type:'fadeInDown', keepFlow: true, duration: 400}" *ngIf="hasMarkedAnswer" class="next" hidden>
             <span #button (click)="nextQuestion(button)" class="waves-effect waves-light btn-large">Next Question</span>
           </div>
           <div class="next grey-text text-lighten-1" [hidden]="hasMarkedAnswer">
