@@ -65,7 +65,7 @@
     "normalize.css": "^4.1.1",
     "reflect-metadata": "^0.1.8",
     "tslint": "^3.6.0",
-    "typescript": "^1.8.10",
+    "typescript": "^2.2.1",
     "typings": "^1.0.4",
     "yargs": "^4.3.2",
     "zone.js": "^0.6.25"
@@ -82,7 +82,7 @@
       "@angular/router": "npm:@angular/router@^3.1.0",
       "angular2-materialize": "npm:angular2-materialize@^6.0.1",
       "animate.css": "npm:animate.css@^3.5.1",
-      "css-animator": "npm:css-animator@^1.0.0",
+      "css-animator": "npm:css-animator@next",
       "flat-color-icons": "npm:flat-color-icons@^1.0.0",
       "iscroll": "npm:iscroll@^5.2.0",
       "jquery": "npm:jquery@^2.2.4",
