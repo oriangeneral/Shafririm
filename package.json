@@ -82,7 +82,7 @@
       "@angular/router": "npm:@angular/router@^3.1.0",
       "angular2-materialize": "npm:angular2-materialize@^6.0.1",
       "animate.css": "npm:animate.css@^3.5.1",
-      "css-animator": "npm:css-animator@next",
+      "css-animator": "npm:css-animator@^2.0.1",
       "flat-color-icons": "npm:flat-color-icons@^1.0.0",
       "iscroll": "npm:iscroll@^5.2.0",
       "jquery": "npm:jquery@^2.2.4",

@@ -73,7 +73,7 @@ export class LandingComponent implements OnInit, AfterViewInit {
       .setType('fadeOutDown')
       .setDelay(350)
       .setDuration(600)
-      .hide(this._elementRef.nativeElement)
+      .hide(this._elementRef.nativeElement.firstChild)
       .then(() => {
         this.router.navigate(['/quiz']);
       });
