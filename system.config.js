@@ -90,7 +90,7 @@ SystemJS.config({
     "child_process": "npm:jspm-nodelibs-child_process@0.2.0",
     "constants": "npm:jspm-nodelibs-constants@0.2.0",
     "crypto": "npm:jspm-nodelibs-crypto@0.2.0",
-    "css-animator": "npm:css-animator@2.0.1",
+    "css-animator": "npm:css-animator@2.0.2",
     "events": "npm:jspm-nodelibs-events@0.2.0",
     "flat-color-icons": "npm:flat-color-icons@1.0.0",
     "fs": "npm:jspm-nodelibs-fs@0.2.0",
