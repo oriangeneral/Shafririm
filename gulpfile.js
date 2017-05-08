@@ -16,7 +16,6 @@ var tslint = require('gulp-tslint');
 var tslintStylish = require('gulp-tslint-stylish');
 var less = require('gulp-less');
 var cleanCSS = require('gulp-clean-css');
-var uglify = require('gulp-uglify');
 var concat = require('gulp-concat');
 var filter = require('gulp-filter');
 var sourcemaps = require('gulp-sourcemaps');
@@ -25,7 +24,6 @@ var rename = require('gulp-rename');
 var clean = require('gulp-clean');
 var argv = require('yargs').argv;
 var notifier = require('node-notifier');
-var assign = require('lodash.assign');
 var exec = requireIfExests('../node-exec-promise', 'node-exec-promise').exec;
 
 /*

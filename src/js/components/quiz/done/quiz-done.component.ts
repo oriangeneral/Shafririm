@@ -1,5 +1,8 @@
 import { Component, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+
+// import { Observable } from 'rxjs/Observable' => Observable undefined
+import RxObservable from 'rxjs/Observable';
+const Observable = RxObservable.Observable;
 
 import { AnimationService, AnimationBuilder } from 'css-animator';
 

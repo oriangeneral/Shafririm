@@ -248,13 +248,5 @@ export const REGION_VALUES: RegionOptions[] = [
   {
     name: 'Uruguay',
     value: 'uy'
-  },
-  {
-    name: 'Simulate Unhandled Exception',
-    value: {
-      that: 'object',
-      will: 'cause',
-      an: 'error'
-    }
   }
 ];

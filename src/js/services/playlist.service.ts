@@ -1,6 +1,9 @@
-import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+
+// import { Observable } from 'rxjs/Observable' => Observable undefined
+import RxObservable from 'rxjs/Observable';
+const Observable = RxObservable.Observable;
 
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';

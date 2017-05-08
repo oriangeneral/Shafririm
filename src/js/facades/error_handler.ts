@@ -1,7 +1,9 @@
+import $ from 'jquery';
+import { Injectable, Optional } from '@angular/core';
 import { WrappedError } from '@angular/core/src/facade/errors';
 import { ErrorHandler, isDevMode } from '@angular/core';
-import $ from 'jquery';
 
+@Injectable()
 export class AppErrorHandler implements ErrorHandler {
 
   protected rethrowError: boolean;
@@ -10,8 +12,8 @@ export class AppErrorHandler implements ErrorHandler {
 
   private _modal: any;
 
-  constructor(rethrowError = true) {
-    this.rethrowError = rethrowError;
+  constructor(@Optional() rethrowError?: boolean) {
+    if (rethrowError === void 0) { this.rethrowError = rethrowError; }
   }
 
   public handleError(error: any) {
@@ -84,13 +86,14 @@ export class AppErrorHandler implements ErrorHandler {
     if (error) {
       return error.context ? error.context :
         this._findContext((error as WrappedError).originalError);
-    } else {
-      return null;
     }
+
+    return null;
   }
 
   private _findOriginalError(error: any): any {
     let e = (error as WrappedError).originalError;
+
     while (e && (e as WrappedError).originalError) {
       e = (e as WrappedError).originalError;
     }
