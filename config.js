@@ -64,14 +64,14 @@ config.jspm = {
     options: [
       'build',
       'reflect-metadata + zone.js + app - app/mock/**/*',
-      config.dist + '/app/bundle.js',
+      config.dist + '/js/app.js',
       '--minify',
       '--skip-source-maps'
     ],
     devOptions: [
       'build',
       'reflect-metadata + zone.js + app/main.dev.ts',
-      config.dist + '/app/bundle.js',
+      config.dist + '/js/app.js',
       '--no-mangle'
     ]
   }]
@@ -150,7 +150,7 @@ config.copy = [{
   src: [
     '/*'
   ],
-  dest: config.dist + '/fonts/roboto'
+  dest: config.dist + '/assets/fonts/roboto'
 }, {
   base: './node_modules/flat-color-icons/svg',
   src: [
@@ -162,7 +162,7 @@ config.copy = [{
   src: [
     '/*.eot', '/*.woff2', '/*.woff', '/*.ttf'
   ],
-  dest: config.dist + '/assets/iconfont'
+  dest: config.dist + '/assets/fonts/iconfont'
 }];
 
 module.exports = config;

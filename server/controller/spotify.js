@@ -5,16 +5,15 @@ var SpotifyWebApi = require('spotify-web-api-node');
 
 class Spotify {
   constructor() {
-    let self = this;
     this.clientId = process.env.SPOTIFY_CLIENT_ID;
     this.clientSecret = process.env.SPOTIFY_CLIENT_SECRET;
     this.redirectUri = process.env.SPOTIFY_REDIRECT_URI;
     this.accessToken = null;
 
     this.api = new SpotifyWebApi({
-      clientId: self.clientId,
-      clientSecret: self.clientSecret,
-      redirectUri: self.redirectUri
+      clientId: this.clientId,
+      clientSecret: this.clientSecret,
+      redirectUri: this.redirectUri
     });
   }
 
@@ -46,31 +45,29 @@ class Spotify {
   }
 
   fetchToken() {
-    let self = this;
     return new Promise((resolve, reject) => {
-      if (self.accessToken === null || !self.isTokenValid()) {
-        self.api.clientCredentialsGrant()
+      if (this.accessToken === null || !this.isTokenValid()) {
+        this.api.clientCredentialsGrant()
         .then(d => {
-          self.accessToken = d.body['access_token'];
-          self.tokenTimeout = Date.now() + 3500;      // Initially keep 100ms buffer before timeout
-          self.api.setAccessToken(d.body['access_token']);
+          this.accessToken = d.body['access_token'];
+          this.tokenTimeout = Date.now() + 3500;      // Initially keep 100ms buffer before timeout
+          this.api.setAccessToken(d.body['access_token']);
           resolve(d.body['access_token']);
         })
         .catch(e => reject("Error while fetching access token: " + e));
       } else {
-        resolve(self.accessToken);
+        resolve(this.accessToken);
       }
     });
   }
 
   fetchPlaylistData(user, id) {
-    let self = this;
     return new Promise((resolve, reject) => {
       if (!user || !id) {
         reject("Necessary data missing, User: " + user + ", Playlist: " + id);
       }
-      self.fetchToken()
-      .then(d => self.api.getPlaylist(user, id))
+      this.fetchToken()
+      .then(d => this.api.getPlaylist(user, id))
       .then(d => resolve(d.body))
       .catch(e => reject("Error while fetching playlist data: " + e));
     });
@@ -85,10 +82,9 @@ class Spotify {
     obj.timestamp = obj.timestamp || new Date();
     obj.timestamp = new Date(obj.timestamp).toISOString();
 
-    let self = this;
     return new Promise((resolve, reject) => {
-      self.fetchToken()
-      .then(d => self.api.getFeaturedPlaylists({
+      this.fetchToken()
+      .then(d => this.api.getFeaturedPlaylists({
           country: obj.country,
           locale: obj.locale,
           limit: obj.limit,
@@ -102,7 +98,6 @@ class Spotify {
   }
 
   fetchSearchedPlaylists(obj) {
-    let self = this;
     return new Promise((resolve, reject) => {
       if (!obj || !obj.query ) {
         reject("No search query given...");
@@ -116,19 +111,19 @@ class Spotify {
         delete(obj.query);
         delete(obj.country);
 
-        let qs = self.createQueryString(obj);
+        let qs = this.createQueryString(obj);
         if (!qs) {
           reject("No valid query given...");
         }
 
-        self.fetchToken()
+        this.fetchToken()
         .then(d => {
           let opts = {
             protocol: "https:",
             hostname: "api.spotify.com",
             path: "/v1/search?" + qs,
             headers: {
-              "Authorization" : "Bearer " + self.accessToken
+              "Authorization" : "Bearer " + this.accessToken
             }
           }
           let xhr = https.get(opts, res => {
