@@ -94,10 +94,10 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.21"
     },
     "peerDependencies": {
-      "@angular/common": "npm:@angular/common@4.1.1",
-      "@angular/compiler": "npm:@angular/compiler@4.1.1",
-      "@angular/core": "npm:@angular/core@4.1.1",
-      "@angular/platform-browser": "npm:@angular/platform-browser@4.1.1",
+      "@angular/common": "npm:@angular/common@4.2.2",
+      "@angular/compiler": "npm:@angular/compiler@4.2.2",
+      "@angular/core": "npm:@angular/core@4.2.2",
+      "@angular/platform-browser": "npm:@angular/platform-browser@4.2.2",
       "assert": "npm:jspm-nodelibs-assert@^0.2.0",
       "buffer": "npm:jspm-nodelibs-buffer@^0.2.0",
       "child_process": "npm:jspm-nodelibs-child_process@^0.2.0",
@@ -152,11 +152,28 @@
           }
         }
       },
+      "npm:pbkdf2@3.0.12": {
+        "main": "browser.js"
+      },
       "npm:reflect-metadata@0.1.10": {
         "jspmNodeConversion": true,
         "map": {}
       },
-      "npm:typescript@2.3.2": {
+      "npm:safe-buffer@5.0.1": {
+        "browser": "index.js"
+      },
+      "npm:safe-buffer@5.1.0": {
+        "browser": "index.js"
+      },
+      "npm:tslib@1.7.1": {
+        "format": "cjs",
+        "meta": {
+          "tslib.js": {
+            "esModule": true
+          }
+        }
+      },
+      "npm:typescript@2.4.0": {
         "browser": {},
         "map": {
           "buffer": "@empty",
