@@ -4,7 +4,7 @@ import 'rxjs/add/operator/take';
 
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 
-// import { Observable } from 'rxjs/Observable' => Observable undefined
+// import { Observable } from 'rxjs/Observable';
 import RxObservable from 'rxjs/Observable';
 const Observable = RxObservable.Observable;
 
@@ -86,7 +86,7 @@ export class QuizCardComponent extends Unsubscriber implements OnInit {
     button.classList.add('disabled');
   }
 
-  public answerClicked(index, checked) {
+  public answerClicked(index: number, checked: boolean) {
     if (!checked) {
       this._markedAnswer = -1;
       this.hideNextButton.next();
@@ -140,7 +140,7 @@ export class QuizCardComponent extends Unsubscriber implements OnInit {
 
   private subscribeToActivate() {
     let subscription = this._quizService
-      .onActivateQuestion.subscribe((questionNumber) => {
+      .onActivateQuestion.subscribe((questionNumber: number) => {
         if (questionNumber === this.question.id) {
           this.activateQuestion();
         } else if (this.active) {
@@ -154,7 +154,7 @@ export class QuizCardComponent extends Unsubscriber implements OnInit {
   private subscribeToClose() {
     let subscription = this._quizService
       .onClose
-      .subscribe((questionNumber) => {
+      .subscribe((questionNumber: number) => {
         if (this._active) {
           this._animator
             .setType('fadeOutDown')

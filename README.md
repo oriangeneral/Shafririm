@@ -5,7 +5,7 @@
 ```sh
 $ git clone https://github.com/fabiandev/angular2-quiz-app.git
 $ cd angular2-quiz-app
-$ npm install -g gulp typings jspm@beta
+$ npm install -g gulp jspm@beta
 $ npm install
 $ npm start
 ```
@@ -63,27 +63,24 @@ $ npm install --save module-name
 To install **client side dependencies**, use jspm:
 
 ```sh
-$ jspm install modulename
+$ jspm install modulename && npm run update-paths
 ```
 
 > jspm also supports `install npm:modulename` and `install github:user/repo`
 
+The execution of `update-paths` is required, to have all jspm package also mapped
+in `compilerOptions.paths` of `tsconfig.json`.
+
 ### Typings
 
 Typings are used to tell the [TypeScript](https://www.typescriptlang.org)
-compiler about definitions. You can **search** for definitions like this:
+compiler about definitions. You can install them via npm just like this:
 
 ```sh
-$ typings search es6-shim
+$ npm install @types/core-js
 ```
 
-Installing is as easy as:
-
-```sh
-$ typings install dt~es6-shim --global --save
-```
-
-> Definitions will be referenced automatically in the entry TypeScript file.
+> Definitions will be available automatically in the TypeScript project.
 
 ### Building
 

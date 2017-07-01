@@ -1,17 +1,15 @@
 import { OnDestroy } from '@angular/core';
 
-// import { Observable } from 'rxjs/Observable' => Observable undefined
-import RxObservable from 'rxjs/Observable';
-const Observable = RxObservable.Observable;
+import { Subscription } from 'rxjs/Subscription';
 
-export class Unsubscriber implements OnDestroy {
+export class Unsubscriber {
 
-  protected _subscriptions: Observable<any>[] = [];
+  protected _subscriptions: Subscription[] = [];
 
   public constructor() {
-    let destroy = this.ngOnDestroy;
+    let destroy = (this as any).ngOnDestroy;
 
-    this.ngOnDestroy = function() {
+    (this as any).ngOnDestroy = function() {
       if (destroy) {
         destroy.bind(this)();
       }

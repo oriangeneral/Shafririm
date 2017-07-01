@@ -11,7 +11,7 @@ import mainStyle from './landing.css';
 @Component({
   selector: 'landing',
   host: {
-    'hidden': true
+    'hidden': 'true'
   },
   template: template,
   styles: [
@@ -21,6 +21,7 @@ import mainStyle from './landing.css';
 export class LandingComponent implements OnInit, AfterViewInit {
 
   public selectOptions: RegionOptions[] = REGION_VALUES;
+  public submitted = false;
 
   private _animator: AnimationBuilder;
   private _regionSelection: any;

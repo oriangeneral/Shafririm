@@ -8,3 +8,4 @@ server/.env
 typings
 .idea
 newrelic_agent.log
+pathmap.json

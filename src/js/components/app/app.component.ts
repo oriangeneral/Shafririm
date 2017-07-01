@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { AnimationService } from 'css-animator';
+import { AnimationService, AnimationBuilder } from 'css-animator';
 import { Unsubscriber } from 'app/components';
 import { LocaleService, PlaylistService } from 'app/services';
 

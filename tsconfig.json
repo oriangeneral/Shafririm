@@ -1,28 +1,334 @@
 {
-  "compileOnSave": false,
-  "compilerOptions": {
-    "allowJs": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "moduleResolution": "node",
-    "module": "system",
-    "noImplicitAny": true,
-    "removeComments": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "sourceMap": false,
-    "target": "es5",
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
-    "types": [
-      "core-js"
-    ]
-  },
-  "exclude": [
-    "node_modules",
-    "jspm_packages",
-    "typings",
-    "server",
-    "dist"
-  ]
+	"compileOnSave": false,
+	"compilerOptions": {
+		"allowJs": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"moduleResolution": "node",
+		"module": "system",
+		"noImplicitAny": true,
+		"removeComments": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"sourceMap": false,
+		"target": "es5",
+		"baseUrl": ".",
+		"typeRoots": [
+			"node_modules/@types",
+			"src/types"
+		],
+		"paths": {
+			"app/*": [
+				"src/js/*",
+				"src/js/*/index"
+			],
+			"ts-runtime": [
+				"jspm_packages/npm/babel-runtime@6.23.0"
+			],
+			"ts-runtime/*": [
+				"jspm_packages/npm/babel-runtime@6.23.0/*",
+				"jspm_packages/npm/babel-runtime@6.23.0/*/index"
+			],
+			"core-js": [
+				"jspm_packages/npm/core-js@2.4.1"
+			],
+			"core-js/*": [
+				"jspm_packages/npm/core-js@2.4.1/*",
+				"jspm_packages/npm/core-js@2.4.1/*/index"
+			],
+			"plugin-babel": [
+				"jspm_packages/npm/systemjs-plugin-babel@0.0.21"
+			],
+			"plugin-babel/*": [
+				"jspm_packages/npm/systemjs-plugin-babel@0.0.21/*",
+				"jspm_packages/npm/systemjs-plugin-babel@0.0.21/*/index"
+			],
+			"text": [
+				"jspm_packages/github/systemjs/plugin-text@0.0.9"
+			],
+			"text/*": [
+				"jspm_packages/github/systemjs/plugin-text@0.0.9/*",
+				"jspm_packages/github/systemjs/plugin-text@0.0.9/*/index"
+			],
+			"ts": [
+				"jspm_packages/github/frankwallis/plugin-typescript@7.0.6"
+			],
+			"ts/*": [
+				"jspm_packages/github/frankwallis/plugin-typescript@7.0.6/*",
+				"jspm_packages/github/frankwallis/plugin-typescript@7.0.6/*/index"
+			],
+			"@angular/compiler": [
+				"jspm_packages/npm/@angular/compiler@4.2.5"
+			],
+			"@angular/compiler/*": [
+				"jspm_packages/npm/@angular/compiler@4.2.5/*",
+				"jspm_packages/npm/@angular/compiler@4.2.5/*/index"
+			],
+			"@angular/core": [
+				"jspm_packages/npm/@angular/core@4.2.5"
+			],
+			"@angular/core/*": [
+				"jspm_packages/npm/@angular/core@4.2.5/*",
+				"jspm_packages/npm/@angular/core@4.2.5/*/index"
+			],
+			"@angular/forms": [
+				"jspm_packages/npm/@angular/forms@4.2.5"
+			],
+			"@angular/forms/*": [
+				"jspm_packages/npm/@angular/forms@4.2.5/*",
+				"jspm_packages/npm/@angular/forms@4.2.5/*/index"
+			],
+			"@angular/http": [
+				"jspm_packages/npm/@angular/http@4.2.5"
+			],
+			"@angular/http/*": [
+				"jspm_packages/npm/@angular/http@4.2.5/*",
+				"jspm_packages/npm/@angular/http@4.2.5/*/index"
+			],
+			"@angular/platform-browser": [
+				"jspm_packages/npm/@angular/platform-browser@4.2.5"
+			],
+			"@angular/platform-browser/*": [
+				"jspm_packages/npm/@angular/platform-browser@4.2.5/*",
+				"jspm_packages/npm/@angular/platform-browser@4.2.5/*/index"
+			],
+			"@angular/platform-browser-dynamic": [
+				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.5"
+			],
+			"@angular/platform-browser-dynamic/*": [
+				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.5/*",
+				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.5/*/index"
+			],
+			"@angular/router": [
+				"jspm_packages/npm/@angular/router@4.2.5"
+			],
+			"@angular/router/*": [
+				"jspm_packages/npm/@angular/router@4.2.5/*",
+				"jspm_packages/npm/@angular/router@4.2.5/*/index"
+			],
+			"angular2-materialize": [
+				"jspm_packages/npm/angular2-materialize@15.0.4"
+			],
+			"angular2-materialize/*": [
+				"jspm_packages/npm/angular2-materialize@15.0.4/*",
+				"jspm_packages/npm/angular2-materialize@15.0.4/*/index"
+			],
+			"assert": [
+				"jspm_packages/npm/jspm-nodelibs-assert@0.2.1"
+			],
+			"assert/*": [
+				"jspm_packages/npm/jspm-nodelibs-assert@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-assert@0.2.1/*/index"
+			],
+			"buffer": [
+				"jspm_packages/npm/jspm-nodelibs-buffer@0.2.3"
+			],
+			"buffer/*": [
+				"jspm_packages/npm/jspm-nodelibs-buffer@0.2.3/*",
+				"jspm_packages/npm/jspm-nodelibs-buffer@0.2.3/*/index"
+			],
+			"child_process": [
+				"jspm_packages/npm/jspm-nodelibs-child_process@0.2.1"
+			],
+			"child_process/*": [
+				"jspm_packages/npm/jspm-nodelibs-child_process@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-child_process@0.2.1/*/index"
+			],
+			"constants": [
+				"jspm_packages/npm/jspm-nodelibs-constants@0.2.1"
+			],
+			"constants/*": [
+				"jspm_packages/npm/jspm-nodelibs-constants@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-constants@0.2.1/*/index"
+			],
+			"crypto": [
+				"jspm_packages/npm/jspm-nodelibs-crypto@0.2.1"
+			],
+			"crypto/*": [
+				"jspm_packages/npm/jspm-nodelibs-crypto@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-crypto@0.2.1/*/index"
+			],
+			"css-animator": [
+				"jspm_packages/npm/css-animator@2.1.1"
+			],
+			"css-animator/*": [
+				"jspm_packages/npm/css-animator@2.1.1/*",
+				"jspm_packages/npm/css-animator@2.1.1/*/index"
+			],
+			"events": [
+				"jspm_packages/npm/jspm-nodelibs-events@0.2.2"
+			],
+			"events/*": [
+				"jspm_packages/npm/jspm-nodelibs-events@0.2.2/*",
+				"jspm_packages/npm/jspm-nodelibs-events@0.2.2/*/index"
+			],
+			"fs": [
+				"jspm_packages/npm/jspm-nodelibs-fs@0.2.1"
+			],
+			"fs/*": [
+				"jspm_packages/npm/jspm-nodelibs-fs@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-fs@0.2.1/*/index"
+			],
+			"http": [
+				"jspm_packages/npm/jspm-nodelibs-http@0.2.0"
+			],
+			"http/*": [
+				"jspm_packages/npm/jspm-nodelibs-http@0.2.0/*",
+				"jspm_packages/npm/jspm-nodelibs-http@0.2.0/*/index"
+			],
+			"iscroll": [
+				"jspm_packages/npm/iscroll@5.2.0"
+			],
+			"iscroll/*": [
+				"jspm_packages/npm/iscroll@5.2.0/*",
+				"jspm_packages/npm/iscroll@5.2.0/*/index"
+			],
+			"jquery": [
+				"jspm_packages/npm/jquery@2.2.4"
+			],
+			"jquery/*": [
+				"jspm_packages/npm/jquery@2.2.4/*",
+				"jspm_packages/npm/jquery@2.2.4/*/index"
+			],
+			"materialize-css": [
+				"jspm_packages/npm/materialize-css@0.98.2"
+			],
+			"materialize-css/*": [
+				"jspm_packages/npm/materialize-css@0.98.2/*",
+				"jspm_packages/npm/materialize-css@0.98.2/*/index"
+			],
+			"module": [
+				"jspm_packages/npm/jspm-nodelibs-module@0.2.1"
+			],
+			"module/*": [
+				"jspm_packages/npm/jspm-nodelibs-module@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-module@0.2.1/*/index"
+			],
+			"net": [
+				"jspm_packages/npm/jspm-nodelibs-net@0.2.1"
+			],
+			"net/*": [
+				"jspm_packages/npm/jspm-nodelibs-net@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-net@0.2.1/*/index"
+			],
+			"os": [
+				"jspm_packages/npm/jspm-nodelibs-os@0.2.2"
+			],
+			"os/*": [
+				"jspm_packages/npm/jspm-nodelibs-os@0.2.2/*",
+				"jspm_packages/npm/jspm-nodelibs-os@0.2.2/*/index"
+			],
+			"path": [
+				"jspm_packages/npm/jspm-nodelibs-path@0.2.3"
+			],
+			"path/*": [
+				"jspm_packages/npm/jspm-nodelibs-path@0.2.3/*",
+				"jspm_packages/npm/jspm-nodelibs-path@0.2.3/*/index"
+			],
+			"process": [
+				"jspm_packages/npm/jspm-nodelibs-process@0.2.1"
+			],
+			"process/*": [
+				"jspm_packages/npm/jspm-nodelibs-process@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-process@0.2.1/*/index"
+			],
+			"reflect-metadata": [
+				"jspm_packages/npm/reflect-metadata@0.1.10"
+			],
+			"reflect-metadata/*": [
+				"jspm_packages/npm/reflect-metadata@0.1.10/*",
+				"jspm_packages/npm/reflect-metadata@0.1.10/*/index"
+			],
+			"rxjs": [
+				"jspm_packages/npm/rxjs@5.4.1"
+			],
+			"rxjs/*": [
+				"jspm_packages/npm/rxjs@5.4.1/*",
+				"jspm_packages/npm/rxjs@5.4.1/*/index"
+			],
+			"stream": [
+				"jspm_packages/npm/jspm-nodelibs-stream@0.2.1"
+			],
+			"stream/*": [
+				"jspm_packages/npm/jspm-nodelibs-stream@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-stream@0.2.1/*/index"
+			],
+			"string_decoder": [
+				"jspm_packages/npm/jspm-nodelibs-string_decoder@0.2.1"
+			],
+			"string_decoder/*": [
+				"jspm_packages/npm/jspm-nodelibs-string_decoder@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-string_decoder@0.2.1/*/index"
+			],
+			"timers": [
+				"jspm_packages/npm/jspm-nodelibs-timers@0.2.1"
+			],
+			"timers/*": [
+				"jspm_packages/npm/jspm-nodelibs-timers@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-timers@0.2.1/*/index"
+			],
+			"tty": [
+				"jspm_packages/npm/jspm-nodelibs-tty@0.2.1"
+			],
+			"tty/*": [
+				"jspm_packages/npm/jspm-nodelibs-tty@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-tty@0.2.1/*/index"
+			],
+			"typescript": [
+				"jspm_packages/npm/typescript@2.4.1"
+			],
+			"typescript/*": [
+				"jspm_packages/npm/typescript@2.4.1/*",
+				"jspm_packages/npm/typescript@2.4.1/*/index"
+			],
+			"url": [
+				"jspm_packages/npm/jspm-nodelibs-url@0.2.1"
+			],
+			"url/*": [
+				"jspm_packages/npm/jspm-nodelibs-url@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-url@0.2.1/*/index"
+			],
+			"util": [
+				"jspm_packages/npm/jspm-nodelibs-util@0.2.2"
+			],
+			"util/*": [
+				"jspm_packages/npm/jspm-nodelibs-util@0.2.2/*",
+				"jspm_packages/npm/jspm-nodelibs-util@0.2.2/*/index"
+			],
+			"vm": [
+				"jspm_packages/npm/jspm-nodelibs-vm@0.2.1"
+			],
+			"vm/*": [
+				"jspm_packages/npm/jspm-nodelibs-vm@0.2.1/*",
+				"jspm_packages/npm/jspm-nodelibs-vm@0.2.1/*/index"
+			],
+			"zlib": [
+				"jspm_packages/npm/jspm-nodelibs-zlib@0.2.3"
+			],
+			"zlib/*": [
+				"jspm_packages/npm/jspm-nodelibs-zlib@0.2.3/*",
+				"jspm_packages/npm/jspm-nodelibs-zlib@0.2.3/*/index"
+			],
+			"zone.js": [
+				"jspm_packages/npm/zone.js@0.8.12"
+			],
+			"zone.js/*": [
+				"jspm_packages/npm/zone.js@0.8.12/*",
+				"jspm_packages/npm/zone.js@0.8.12/*/index"
+			],
+			"@angular/common": [
+				"jspm_packages/npm/@angular/common@4.2.5"
+			],
+			"@angular/common/*": [
+				"jspm_packages/npm/@angular/common@4.2.5/*",
+				"jspm_packages/npm/@angular/common@4.2.5/*/index"
+			]
+		}
+	},
+	"exclude": [
+		"node_modules",
+		"jspm_packages",
+		"typings",
+		"server",
+		"dist"
+	]
 }

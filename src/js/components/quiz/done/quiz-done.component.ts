@@ -1,6 +1,6 @@
 import { Component, ElementRef } from '@angular/core';
 
-// import { Observable } from 'rxjs/Observable' => Observable undefined
+// import { Observable } from 'rxjs/Observable';
 import RxObservable from 'rxjs/Observable';
 const Observable = RxObservable.Observable;
 
@@ -19,7 +19,7 @@ import mainStyle from './quiz-done.css';
     mainStyle
   ],
   host: {
-    'hidden': true
+    hidden: 'true'
   }
 })
 export class QuizDoneComponent extends Unsubscriber {

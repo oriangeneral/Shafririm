@@ -7,13 +7,11 @@
 | your tasks.
 |
 */
-var requireIfExests = require('node-require-fallback');
 var gulp = require('gulp');
 var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
 var gulpif = require('gulp-if');
 var tslint = require('gulp-tslint');
-var tslintStylish = require('gulp-tslint-stylish');
 var less = require('gulp-less');
 var cleanCSS = require('gulp-clean-css');
 var concat = require('gulp-concat');
@@ -21,10 +19,11 @@ var filter = require('gulp-filter');
 var sourcemaps = require('gulp-sourcemaps');
 var preprocess = require('gulp-preprocess');
 var rename = require('gulp-rename');
-var clean = require('gulp-clean');
 var argv = require('yargs').argv;
+var del = require('del');
+var exec = require('node-exec-promise').exec;
 var notifier = require('node-notifier');
-var exec = requireIfExests('../node-exec-promise', 'node-exec-promise').exec;
+var path = require('path');
 
 /*
 |--------------------------------------------------------------------------
@@ -76,65 +75,47 @@ process.env.NODE_ENV = config.env = argv._[0] === 'build' ? 'production' : 'deve
 */
 
 gulp.task('clean:all', function() {
-  return gulp.src([config.dist], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
+  return del([
+    path.normalize(path.join(config.dist, '**/*'))
+  ]);
 });
 
 gulp.task('clean:scripts', function() {
-  return gulp.src([
-      config.dist + '/js/**/*.js',
-      config.dist + '/js/**/*.map'
-    ], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
+  return del([
+    path.normalize(path.join(config.dist, 'js/**/*.js')),
+    path.normalize(path.join(config.dist, 'js/**/*.map'))
+  ]);
 });
 
 gulp.task('clean:vendor', function() {
-  return gulp.src([config.vendor.dest], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
+  return del([
+    path.normalize(path.join(config.vendor.dest, '**/*'))
+  ]);
 });
 
 gulp.task('clean:styles', function() {
-  return gulp.src([
-      config.dist + '/css/**/*.css',
-      config.dist + '/css/**/*.map'
-    ], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
+  return del([
+    path.normalize(path.join(config.dist, 'css/**/*.css')),
+    path.normalize(path.join(config.dist, 'css/**/*.map'))
+  ]);
 });
 
 gulp.task('clean:index', function() {
-  return gulp.src([config.dist + '/index.html'], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
+  return del([
+    path.normalize(path.join(config.dist, 'index.html'))
+  ]);
 });
 
 gulp.task('clean:html', function() {
-  return gulp.src([config.dist + '/**/*.html'], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
+  return del([
+    path.normalize(path.join(config.dist, '**/*.html'))
+  ]);
 });
 
 gulp.task('clean:assets', function() {
-  return gulp.src([config.dist + '/assets/**/*'], {
-      read: false
-    })
-    .pipe(clean().on('error', onError))
-    .on('error', onError);
+  return del([
+    path.normalize(path.join(config.dist, 'assets/**/*'))
+  ]);
 });
 
 gulp.task('jspm', function(done) {
@@ -191,8 +172,8 @@ function createCopyTask(element, index) {
   var name = 'copy:originals:' + index;
   var sources = [];
 
-  element.src.forEach(function(path) {
-    sources.push(element.base + path);
+  element.src.forEach(function(p) {
+    sources.push(path.join(element.base, p));
   });
 
   gulp.task(name, function() {
@@ -214,8 +195,10 @@ gulp.task('copy:originals', function(done) {
 
 gulp.task('lint:ts', function() {
   return gulp.src([config.tslint.src])
-    .pipe(tslint())
-    .pipe(tslint.report(tslintStylish))
+    .pipe(tslint({
+      formatter: 'stylish'
+    }))
+    .pipe(tslint.report())
     .on('error', notifyError);
 });
 

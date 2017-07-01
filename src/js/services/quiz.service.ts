@@ -5,7 +5,7 @@ import 'rxjs/add/operator/map';
 import { Injectable, EventEmitter, isDevMode } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-// import { Observable } from 'rxjs/Observable' => Observable undefined
+// import Observable from 'rxjs/Observable';
 import RxObservable from 'rxjs/Observable';
 const Observable = RxObservable.Observable;
 
@@ -29,6 +29,7 @@ export class QuizService {
   private _onRefresh = new EventEmitter<any>();
 
   private _numberOfQuestions: number;
+  private _progress: number;
   private _playlist: Playlist;
   private _tracks: Track[];
   private _random: Track[];
@@ -117,9 +118,9 @@ export class QuizService {
 
   private loadProductionData(): Observable<any> {
     return this.playlistService.getPlaylist()
-      .map((playlist) => this.extractTracks(playlist))
-      .map((tracks) => this.extractRandom(tracks))
-      .map((tracks) => this.buildQuestions(tracks));
+      .map((playlist: Playlist) => this.extractTracks(playlist))
+      .map((tracks: Track[]) => this.extractRandom(tracks))
+      .map((tracks: Track[]) => this.buildQuestions(tracks));
   }
 
   private calculateProgress() {
