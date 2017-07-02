@@ -4,7 +4,7 @@
   "description": "A music quiz in Angular2 using the Spotify API.",
   "main": "server/index.js",
   "scripts": {
-    "postinstall": "jspm install && npm run update-paths && gulp build",
+    "postinstall": "node_modules/.bin/jspm install && npm run update-paths && gulp build",
     "heroku-postbuild": "node_modules/.bin/jspm clean && npm prune --production",
     "update-paths": "node_modules/.bin/jspm-tsc-update",
     "start": "node server"
