@@ -5,7 +5,6 @@
 ```sh
 $ git clone https://github.com/fabiandev/angular2-quiz-app.git
 $ cd angular2-quiz-app
-$ npm install -g gulp jspm@beta
 $ npm install
 $ npm start
 ```
@@ -39,7 +38,11 @@ This app uses:
 ### Dependencies
 
 We use npm or yarn and jspm (currently `jspm@beta`) to install dependencies.  
-We just need [gulp](http://gulpjs.com), [typings](https://github.com/typings/typings) and [jspm](http://jspm.io) to be installed globally, by using the `-g` flag.
+We just need [gulp](http://gulpjs.com) and [jspm](http://jspm.io) to be installed globally, by using the `-g` flag.
+
+```sh
+$ npm install -g gulp jspm@beta
+```
 
 > Make sure that you have [Node.js](https://nodejs.org/) installed, [npm](https://npmjs.com) comes
 > with it. You can check with `node --version`. For faster npm dependency installs, use [yarn](https://yarnpkg.com/).
@@ -66,10 +69,10 @@ To install **client side dependencies**, use jspm:
 $ jspm install modulename && npm run update-paths
 ```
 
-> jspm also supports `install npm:modulename` and `install github:user/repo`
-
 The execution of `update-paths` is required, to have all jspm package also mapped
 in `compilerOptions.paths` of `tsconfig.json`.
+
+> jspm also supports `install npm:modulename` and `install github:user/repo`
 
 ### Typings
 
