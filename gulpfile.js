@@ -124,7 +124,7 @@ gulp.task('jspm', function(done) {
   config.jspm.bundles.forEach(function(bundle) {
     var command = config.env !== 'production' ? bundle.devOptions : bundle.options;
     command = command.slice(0);
-    command.unshift('jspm');
+    command.unshift('node_modules/.bin/jspm');
 
     bundles.push(exec(command.join(' ')));
   });
