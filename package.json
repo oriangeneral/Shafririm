@@ -93,10 +93,10 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.21"
     },
     "peerDependencies": {
-      "@angular/common": "npm:@angular/common@4.2.5",
-      "@angular/compiler": "npm:@angular/compiler@4.2.5",
-      "@angular/core": "npm:@angular/core@4.2.5",
-      "@angular/platform-browser": "npm:@angular/platform-browser@4.2.5",
+      "@angular/common": "npm:@angular/common@4.2.6",
+      "@angular/compiler": "npm:@angular/compiler@4.2.6",
+      "@angular/core": "npm:@angular/core@4.2.6",
+      "@angular/platform-browser": "npm:@angular/platform-browser@4.2.6",
       "assert": "npm:jspm-nodelibs-assert@^0.2.0",
       "buffer": "npm:jspm-nodelibs-buffer@^0.2.0",
       "child_process": "npm:jspm-nodelibs-child_process@^0.2.0",

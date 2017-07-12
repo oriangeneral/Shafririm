@@ -57,53 +57,53 @@
 				"jspm_packages/github/frankwallis/plugin-typescript@7.0.6/*/index"
 			],
 			"@angular/compiler": [
-				"jspm_packages/npm/@angular/compiler@4.2.5"
+				"jspm_packages/npm/@angular/compiler@4.2.6"
 			],
 			"@angular/compiler/*": [
-				"jspm_packages/npm/@angular/compiler@4.2.5/*",
-				"jspm_packages/npm/@angular/compiler@4.2.5/*/index"
+				"jspm_packages/npm/@angular/compiler@4.2.6/*",
+				"jspm_packages/npm/@angular/compiler@4.2.6/*/index"
 			],
 			"@angular/core": [
-				"jspm_packages/npm/@angular/core@4.2.5"
+				"jspm_packages/npm/@angular/core@4.2.6"
 			],
 			"@angular/core/*": [
-				"jspm_packages/npm/@angular/core@4.2.5/*",
-				"jspm_packages/npm/@angular/core@4.2.5/*/index"
+				"jspm_packages/npm/@angular/core@4.2.6/*",
+				"jspm_packages/npm/@angular/core@4.2.6/*/index"
 			],
 			"@angular/forms": [
-				"jspm_packages/npm/@angular/forms@4.2.5"
+				"jspm_packages/npm/@angular/forms@4.2.6"
 			],
 			"@angular/forms/*": [
-				"jspm_packages/npm/@angular/forms@4.2.5/*",
-				"jspm_packages/npm/@angular/forms@4.2.5/*/index"
+				"jspm_packages/npm/@angular/forms@4.2.6/*",
+				"jspm_packages/npm/@angular/forms@4.2.6/*/index"
 			],
 			"@angular/http": [
-				"jspm_packages/npm/@angular/http@4.2.5"
+				"jspm_packages/npm/@angular/http@4.2.6"
 			],
 			"@angular/http/*": [
-				"jspm_packages/npm/@angular/http@4.2.5/*",
-				"jspm_packages/npm/@angular/http@4.2.5/*/index"
+				"jspm_packages/npm/@angular/http@4.2.6/*",
+				"jspm_packages/npm/@angular/http@4.2.6/*/index"
 			],
 			"@angular/platform-browser": [
-				"jspm_packages/npm/@angular/platform-browser@4.2.5"
+				"jspm_packages/npm/@angular/platform-browser@4.2.6"
 			],
 			"@angular/platform-browser/*": [
-				"jspm_packages/npm/@angular/platform-browser@4.2.5/*",
-				"jspm_packages/npm/@angular/platform-browser@4.2.5/*/index"
+				"jspm_packages/npm/@angular/platform-browser@4.2.6/*",
+				"jspm_packages/npm/@angular/platform-browser@4.2.6/*/index"
 			],
 			"@angular/platform-browser-dynamic": [
-				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.5"
+				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.6"
 			],
 			"@angular/platform-browser-dynamic/*": [
-				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.5/*",
-				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.5/*/index"
+				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.6/*",
+				"jspm_packages/npm/@angular/platform-browser-dynamic@4.2.6/*/index"
 			],
 			"@angular/router": [
-				"jspm_packages/npm/@angular/router@4.2.5"
+				"jspm_packages/npm/@angular/router@4.2.6"
 			],
 			"@angular/router/*": [
-				"jspm_packages/npm/@angular/router@4.2.5/*",
-				"jspm_packages/npm/@angular/router@4.2.5/*/index"
+				"jspm_packages/npm/@angular/router@4.2.6/*",
+				"jspm_packages/npm/@angular/router@4.2.6/*/index"
 			],
 			"angular2-materialize": [
 				"jspm_packages/npm/angular2-materialize@15.0.4"
@@ -239,11 +239,11 @@
 				"jspm_packages/npm/reflect-metadata@0.1.10/*/index"
 			],
 			"rxjs": [
-				"jspm_packages/npm/rxjs@5.4.1"
+				"jspm_packages/npm/rxjs@5.4.2"
 			],
 			"rxjs/*": [
-				"jspm_packages/npm/rxjs@5.4.1/*",
-				"jspm_packages/npm/rxjs@5.4.1/*/index"
+				"jspm_packages/npm/rxjs@5.4.2/*",
+				"jspm_packages/npm/rxjs@5.4.2/*/index"
 			],
 			"stream": [
 				"jspm_packages/npm/jspm-nodelibs-stream@0.2.1"
@@ -316,11 +316,11 @@
 				"jspm_packages/npm/zone.js@0.8.12/*/index"
 			],
 			"@angular/common": [
-				"jspm_packages/npm/@angular/common@4.2.5"
+				"jspm_packages/npm/@angular/common@4.2.6"
 			],
 			"@angular/common/*": [
-				"jspm_packages/npm/@angular/common@4.2.5/*",
-				"jspm_packages/npm/@angular/common@4.2.5/*/index"
+				"jspm_packages/npm/@angular/common@4.2.6/*",
+				"jspm_packages/npm/@angular/common@4.2.6/*/index"
 			]
 		}
 	},
