@@ -15,8 +15,6 @@ import Playlist from 'app/models/playlist';
 import Track from 'app/models/track';
 import { Question, QuestionType } from 'app/models/question';
 
-// import mockPlaylist from 'app/mock/playlist';
-
 @Injectable()
 export class QuizService {
 
@@ -42,11 +40,9 @@ export class QuizService {
   public init(numberOfQuestions: number): Rx.Observable<Question[]> {
     this._numberOfQuestions = numberOfQuestions;
 
-    /**
-     * Uncomment the following line and the mockPlaylist
-     * import above, to prevent Spotify API calls.
-     */
-    // return this.loadExistingData(mockPlaylist);
+    if (isDevMode()) {
+      return this.loadMockData();
+    }
 
     return this.loadProductionData();
   }
@@ -134,6 +130,14 @@ export class QuizService {
 
   private loadExistingData(data: Playlist, delay = 1000): Rx.Observable<Question[]> {
     return Rx.Observable.of(data)
+      .delay(delay)
+      .map((playlist: Playlist) => this.extractTracks(playlist))
+      .map((tracks: Track[]) => this.extractRandom(tracks))
+      .map((tracks: Track[]) => this.buildQuestions(tracks));
+  }
+
+  private loadMockData(delay = 500): Rx.Observable<Question[]> {
+    return this.playlistService.getMockPlaylist()
       .delay(delay)
       .map((playlist: Playlist) => this.extractTracks(playlist))
       .map((tracks: Track[]) => this.extractRandom(tracks))

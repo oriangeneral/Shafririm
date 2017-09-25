@@ -12,9 +12,18 @@ import Playlist from 'app/models/playlist';
 export class PlaylistService {
 
   private _apiUrl = '/api/playlist/random';
+  private _mockUrl = 'assets/mock/playlist.json';
 
   constructor(private http: Http, private localeService: LocaleService) {
 
+  }
+
+  public getMockPlaylist(): Rx.Observable<Playlist> {
+    let requestUrl = this._mockUrl;
+
+    return this.http.get(requestUrl)
+      .map(this.extractData)
+      .catch(this.handleError);
   }
 
   public getPlaylist(): Rx.Observable<Playlist> {

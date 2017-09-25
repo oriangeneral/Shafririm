@@ -1,4 +1,4 @@
-export default [{
+[{
   "type": 1,
   "title": "What is the name of this song?",
   "description": "You can play 30 seconds of the song.",
@@ -778,4 +778,4 @@ export default [{
     "uri": "spotify:track:0mIdQnrTO7JLL3G7OR30yY"
   },
   "id": 10
-}];
+}]
