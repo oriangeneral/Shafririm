@@ -7,8 +7,8 @@ import { APP_BASE_HREF } from '@angular/common';
 import { AppRoutes } from 'app/routes';
 import { AppErrorHandler } from 'app/facades';
 
-import { AnimatesDirective } from 'css-animator';
-import { MaterializeDirective } from "angular2-materialize";
+import { AnimatorModule } from 'css-animator';
+import { MaterializeModule } from "angular2-materialize";
 
 import {
   AppComponent,
@@ -25,11 +25,11 @@ import {
     BrowserModule,
     FormsModule,
     HttpModule,
-    AppRoutes
+    AppRoutes,
+    MaterializeModule,
+    AnimatorModule
   ],
   declarations: [
-    AnimatesDirective,
-    MaterializeDirective,
     AppComponent,
     LandingComponent,
     QuizComponent,
