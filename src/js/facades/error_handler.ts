@@ -1,4 +1,3 @@
-import $ from 'jquery';
 import { Injectable, ErrorHandler, isDevMode } from '@angular/core';
 
 @Injectable()
