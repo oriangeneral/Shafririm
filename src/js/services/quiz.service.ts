@@ -2,12 +2,9 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/map';
 
+import { Observable } from 'rxjs/Observable';
 import { Injectable, EventEmitter, isDevMode } from '@angular/core';
 import { Http, Response } from '@angular/http';
-
-// import Observable from 'rxjs/Observable';
-import RxObservable from 'rxjs/Observable';
-const Observable = RxObservable.Observable;
 
 import { shuffle } from 'app/helpers';
 import { TrackTransformer } from 'app/support';
@@ -39,7 +36,7 @@ export class QuizService {
 
   }
 
-  public init(numberOfQuestions: number): Observable<any> {
+  public init(numberOfQuestions: number): Observable<Question[]> {
     this._numberOfQuestions = numberOfQuestions;
 
     /**
@@ -69,7 +66,7 @@ export class QuizService {
 
     this.init(this._numberOfQuestions)
       .first()
-      .subscribe((questions) => {
+      .subscribe((questions: Question[]) => {
         this.onRefresh.emit();
       });
   }
@@ -116,7 +113,7 @@ export class QuizService {
     return null;
   }
 
-  private loadProductionData(): Observable<any> {
+  private loadProductionData(): Observable<Question[]> {
     return this.playlistService.getPlaylist()
       .map((playlist: Playlist) => this.extractTracks(playlist))
       .map((tracks: Track[]) => this.extractRandom(tracks))
