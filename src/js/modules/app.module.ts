@@ -8,7 +8,7 @@ import { AppRoutes } from 'app/routes';
 import { AppErrorHandler } from 'app/facades';
 
 import { AnimatorModule } from 'css-animator';
-import { MaterializeModule } from "angular2-materialize";
+import { MaterializeModule } from 'angular2-materialize';
 
 import {
   AppComponent,
