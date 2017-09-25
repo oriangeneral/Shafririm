@@ -1,12 +1,13 @@
+import Rx from 'rxjs/Observable';
+import 'rxjs/add/operator/delay';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/first';
 import 'rxjs/add/operator/map';
 
-import { Observable } from 'rxjs/Observable';
 import { Injectable, EventEmitter, isDevMode } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
-import { shuffle } from 'app/helpers';
+import { shuffle, scrollTo } from 'app/helpers';
 import { TrackTransformer } from 'app/support';
 import { PlaylistService } from 'app/services';
 
@@ -14,16 +15,18 @@ import Playlist from 'app/models/playlist';
 import Track from 'app/models/track';
 import { Question, QuestionType } from 'app/models/question';
 
-// import mockQuestions from 'app/mock/questions';
+// import mockPlaylist from 'app/mock/playlist';
 
 @Injectable()
 export class QuizService {
 
-  private _onReady = new EventEmitter<any>();
-  private _onActivateQuestion = new EventEmitter<any>();
-  private _onCompleted = new EventEmitter<any>();
-  private _onClose = new EventEmitter<any>();
-  private _onRefresh = new EventEmitter<any>();
+  private _scrollDuration = 100;
+
+  private _onReady = new EventEmitter<void>();
+  private _onActivateQuestion = new EventEmitter<number>();
+  private _onCompleted = new EventEmitter<void>();
+  private _onClose = new EventEmitter<void>();
+  private _onRefresh = new EventEmitter<void>();
 
   private _numberOfQuestions: number;
   private _progress: number;
@@ -36,25 +39,28 @@ export class QuizService {
 
   }
 
-  public init(numberOfQuestions: number): Observable<Question[]> {
+  public init(numberOfQuestions: number): Rx.Observable<Question[]> {
     this._numberOfQuestions = numberOfQuestions;
 
     /**
-     * Uncomment the following lines and the mockQuestions
-     * import above, to prevent Spotify API calls
+     * Uncomment the following line and the mockPlaylist
+     * import above, to prevent Spotify API calls.
      */
-    // this._questions = mockQuestions.slice();
-    // return Observable.of(this._questions);
+    // return this.loadExistingData(mockPlaylist);
 
     return this.loadProductionData();
   }
 
   public ready() {
-    this._onReady.emit();
+    scrollTo(document.body, 0, this._scrollDuration).then(() => {
+      this._onReady.emit();
+    });
   }
 
   public close() {
-    this.onClose.emit();
+    scrollTo(document.body, 0, this._scrollDuration).then(() => {
+      this.onClose.emit();
+    });
   }
 
   public refresh() {
@@ -67,16 +73,22 @@ export class QuizService {
     this.init(this._numberOfQuestions)
       .first()
       .subscribe((questions: Question[]) => {
-        this.onRefresh.emit();
+        scrollTo(document.body, 0, this._scrollDuration).then(() => {
+          this.onRefresh.emit();
+        });
       });
   }
 
   public activateQuestion(questionNumber: number) {
-    this._onActivateQuestion.emit(questionNumber);
+    scrollTo(document.body, 0, this._scrollDuration).then(() => {
+      this._onActivateQuestion.emit(questionNumber);
+    });
   }
 
   public completed() {
-    this._onCompleted.emit();
+    scrollTo(document.body, 0, this._scrollDuration).then(() => {
+      this._onCompleted.emit();
+    });
   }
 
   public progress() {
@@ -113,8 +125,16 @@ export class QuizService {
     return null;
   }
 
-  private loadProductionData(): Observable<Question[]> {
+  private loadProductionData(): Rx.Observable<Question[]> {
     return this.playlistService.getPlaylist()
+      .map((playlist: Playlist) => this.extractTracks(playlist))
+      .map((tracks: Track[]) => this.extractRandom(tracks))
+      .map((tracks: Track[]) => this.buildQuestions(tracks));
+  }
+
+  private loadExistingData(data: Playlist, delay = 1000): Rx.Observable<Question[]> {
+    return Rx.Observable.of(data)
+      .delay(delay)
       .map((playlist: Playlist) => this.extractTracks(playlist))
       .map((tracks: Track[]) => this.extractRandom(tracks))
       .map((tracks: Track[]) => this.buildQuestions(tracks));

@@ -1,15 +1,12 @@
+import Rx from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import LocaleService from './locale.service';
-
 import Playlist from 'app/models/playlist';
-import Track from 'app/models/track';
-import Album from 'app/models/album';
 
 @Injectable()
 export class PlaylistService {
@@ -20,7 +17,7 @@ export class PlaylistService {
 
   }
 
-  public getPlaylist(): Observable<any> {
+  public getPlaylist(): Rx.Observable<Playlist> {
     let requestUrl = this._apiUrl;
 
     if (this.localeService.locale && this.localeService.locale.value) {
@@ -43,7 +40,7 @@ export class PlaylistService {
   private handleError(error: any) {
     let errMsg = error.message || 'Error requesting playlist.';
     console.error(errMsg);
-    return Observable.throw(errMsg);
+    return Rx.Observable.throw(errMsg);
   }
 
 }

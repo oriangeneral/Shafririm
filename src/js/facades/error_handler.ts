@@ -17,7 +17,7 @@ export class AppErrorHandler extends ErrorHandler {
       return;
     }
 
-    if (isDevMode()) {
+    if (!isDevMode()) {
       this.showErrorMessage();
       return;
     }

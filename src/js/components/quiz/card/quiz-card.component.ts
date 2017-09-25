@@ -1,8 +1,8 @@
+import Rx from 'rxjs/Observable';
 import 'rxjs/add/observable/interval';
 import 'rxjs/add/operator/timeInterval';
 import 'rxjs/add/operator/take';
 
-import { Observable } from 'rxjs/Observable';
 import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 
 import { AnimationService, AnimationBuilder } from 'css-animator';
@@ -65,7 +65,7 @@ export class QuizCardComponent extends Unsubscriber implements OnInit {
     this._player = player;
     let countdown = this._countdown - 1;
 
-    Observable
+    Rx.Observable
       .interval(1000)
       .timeInterval()
       .take(this._countdown)

@@ -1,4 +1,3 @@
-import { Observable } from 'rxjs/Observable';
 import { Component, ElementRef } from '@angular/core';
 
 import { AnimationService, AnimationBuilder } from 'css-animator';

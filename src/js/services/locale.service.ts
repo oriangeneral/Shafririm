@@ -1,11 +1,16 @@
 import { Injectable } from '@angular/core';
 
+export interface LocaleData {
+  name: string;
+  value: string;
+}
+
 @Injectable()
 export class LocaleService {
 
-  private _locale: any;
+  private _locale: LocaleData;
 
-  private localStorageAvailable() {
+  private localStorageAvailable(): boolean {
     if (typeof (Storage) !== "undefined" && localStorage) {
       return true;
     }
@@ -13,7 +18,7 @@ export class LocaleService {
     return false;
   }
 
-  get locale() {
+  get locale(): LocaleData {
     let region = null;
 
     if (this.localStorageAvailable()) {
@@ -26,10 +31,10 @@ export class LocaleService {
       this._locale = region;
     }
 
-    return this._locale || '';
+    return this._locale || { name: '', value: '' };
   }
 
-  set locale(locale) {
+  set locale(locale: LocaleData) {
     if (this.localStorageAvailable()) {
       try {
         localStorage.setItem('hue.region', JSON.stringify(locale));
