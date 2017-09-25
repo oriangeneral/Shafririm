@@ -30,7 +30,7 @@ export class QuizComponent extends Unsubscriber implements OnInit {
     private _quizService: QuizService
   ) {
     super();
-console.log('test');
+
     let onReady = this.quizService
       .onReady
       .subscribe(() => {
