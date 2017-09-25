@@ -5,4 +5,4 @@ import { AnimationBuilder } from 'css-animator/builder';
 import 'materialize-css';
 import 'angular2-materialize';
 
-AnimationBuilder.defaults.fixed = true;
+AnimationBuilder.defaults.fixed = false;
