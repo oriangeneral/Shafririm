@@ -60,7 +60,7 @@
     "gulp-tslint": "^8.1.1",
     "gulp-util": "^3.0.7",
     "jspm": "^0.17.0-beta.41",
-    "jspm-tsc-update": "^0.1.1",
+    "jspm-tsc-update": "^0.2.0-beta.2",
     "less": "^2.7.1",
     "lodash.assign": "^4.0.6",
     "material-design-icons": "^3.0.1",
@@ -76,10 +76,10 @@
     },
     "configFile": "system.config.js",
     "dependencies": {
-      "@angular/forms": "npm:@angular/forms@^4.1.1",
-      "@angular/http": "npm:@angular/http@^4.1.1",
-      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@^4.1.1",
-      "@angular/router": "npm:@angular/router@^4.1.1",
+      "@angular/forms": "npm:@angular/forms@^5.0.2",
+      "@angular/http": "npm:@angular/http@^5.0.2",
+      "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@^5.0.2",
+      "@angular/router": "npm:@angular/router@^5.0.2",
       "angular2-materialize": "npm:angular2-materialize@^15.0.1",
       "css-animator": "npm:css-animator@^2.0.1",
       "hammerjs": "npm:hammerjs@^2.0.8",
@@ -96,10 +96,10 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.21"
     },
     "peerDependencies": {
-      "@angular/common": "npm:@angular/common@4.4.3",
-      "@angular/compiler": "npm:@angular/compiler@4.4.3",
-      "@angular/core": "npm:@angular/core@^4.1.1",
-      "@angular/platform-browser": "npm:@angular/platform-browser@4.4.3",
+      "@angular/common": "npm:@angular/common@5.0.2",
+      "@angular/compiler": "npm:@angular/compiler@5.0.2",
+      "@angular/core": "npm:@angular/core@5.0.2",
+      "@angular/platform-browser": "npm:@angular/platform-browser@5.0.2",
       "assert": "npm:jspm-nodelibs-assert@^0.2.0",
       "buffer": "npm:jspm-nodelibs-buffer@^0.2.0",
       "child_process": "npm:jspm-nodelibs-child_process@^0.2.0",
@@ -114,7 +114,7 @@
       "os": "npm:jspm-nodelibs-os@^0.2.0",
       "path": "npm:jspm-nodelibs-path@^0.2.0",
       "process": "npm:jspm-nodelibs-process@^0.2.0",
-      "rxjs": "npm:rxjs@^5.0.1",
+      "rxjs": "npm:rxjs@^5.5.0",
       "stream": "npm:jspm-nodelibs-stream@^0.2.0",
       "string_decoder": "npm:jspm-nodelibs-string_decoder@^0.2.0",
       "timers": "npm:jspm-nodelibs-timers@^0.2.0",
@@ -153,7 +153,7 @@
       "npm:safe-buffer@5.1.1": {
         "browser": "index.js"
       },
-      "npm:tslib@1.7.1": {
+      "npm:tslib@1.8.0": {
         "format": "cjs",
         "meta": {
           "tslib.js": {
@@ -161,7 +161,7 @@
           }
         }
       },
-      "npm:typescript@2.5.2": {
+      "npm:typescript@2.6.1": {
         "browser": {},
         "map": {
           "buffer": "@empty",
