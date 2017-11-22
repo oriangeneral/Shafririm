@@ -10,3 +10,4 @@ typings
 newrelic_agent.log
 pathmap.json
 .DS_Store
+tsconfig.json.backup
