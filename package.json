@@ -1,12 +1,15 @@
 {
   "name": "angular2-quiz-app",
   "version": "1.8.12",
-  "description": "A music quiz in Angular2 using the Spotify API.",
+  "description": "A music quiz in Angular 2+ using the Spotify API.",
   "main": "server/index.js",
   "scripts": {
-    "postinstall": "node_modules/.bin/jspm install && npm run update-paths && node_modules/.bin/gulp build",
-    "heroku-postbuild": "node_modules/.bin/jspm clean && npm prune --production",
+    "postinstall": "node_modules/.bin/jspm install && npm run update-paths && npm run build",
+    "heroku-postbuild": "npm run prune",
     "update-paths": "node_modules/.bin/jspm-tsc-update",
+    "prune": "node_modules/.bin/jspm clean && npm prune --production",
+    "update": "yarn upgrade && jspm update && npm run update-paths",
+    "build": "node_modules/.bin/gulp build",
     "start": "node server"
   },
   "engines": {
@@ -96,10 +99,10 @@
       "plugin-babel": "npm:systemjs-plugin-babel@^0.0.21"
     },
     "peerDependencies": {
-      "@angular/common": "npm:@angular/common@5.0.2",
-      "@angular/compiler": "npm:@angular/compiler@5.0.2",
-      "@angular/core": "npm:@angular/core@5.0.2",
-      "@angular/platform-browser": "npm:@angular/platform-browser@5.0.2",
+      "@angular/common": "npm:@angular/common@5.0.3",
+      "@angular/compiler": "npm:@angular/compiler@5.0.3",
+      "@angular/core": "npm:@angular/core@5.0.3",
+      "@angular/platform-browser": "npm:@angular/platform-browser@5.0.3",
       "assert": "npm:jspm-nodelibs-assert@^0.2.0",
       "buffer": "npm:jspm-nodelibs-buffer@^0.2.0",
       "child_process": "npm:jspm-nodelibs-child_process@^0.2.0",
@@ -161,7 +164,7 @@
           }
         }
       },
-      "npm:typescript@2.6.1": {
+      "npm:typescript@2.6.2": {
         "browser": {},
         "map": {
           "buffer": "@empty",

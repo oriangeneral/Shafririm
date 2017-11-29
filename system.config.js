@@ -73,14 +73,14 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "@angular/common": "npm:@angular/common@5.0.2",
-    "@angular/compiler": "npm:@angular/compiler@5.0.2",
-    "@angular/core": "npm:@angular/core@5.0.2",
-    "@angular/forms": "npm:@angular/forms@5.0.2",
-    "@angular/http": "npm:@angular/http@5.0.2",
-    "@angular/platform-browser": "npm:@angular/platform-browser@5.0.2",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@5.0.2",
-    "@angular/router": "npm:@angular/router@5.0.2",
+    "@angular/common": "npm:@angular/common@5.0.3",
+    "@angular/compiler": "npm:@angular/compiler@5.0.3",
+    "@angular/core": "npm:@angular/core@5.0.3",
+    "@angular/forms": "npm:@angular/forms@5.0.3",
+    "@angular/http": "npm:@angular/http@5.0.3",
+    "@angular/platform-browser": "npm:@angular/platform-browser@5.0.3",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@5.0.3",
+    "@angular/router": "npm:@angular/router@5.0.3",
     "angular2-materialize": "npm:angular2-materialize@15.1.10",
     "assert": "npm:jspm-nodelibs-assert@0.2.1",
     "buffer": "npm:jspm-nodelibs-buffer@0.2.3",
@@ -106,7 +106,7 @@ SystemJS.config({
     "string_decoder": "npm:jspm-nodelibs-string_decoder@0.2.2",
     "timers": "npm:jspm-nodelibs-timers@0.2.1",
     "tty": "npm:jspm-nodelibs-tty@0.2.1",
-    "typescript": "npm:typescript@2.6.1",
+    "typescript": "npm:typescript@2.6.2",
     "url": "npm:jspm-nodelibs-url@0.2.1",
     "util": "npm:jspm-nodelibs-util@0.2.2",
     "vm": "npm:jspm-nodelibs-vm@0.2.1",
@@ -382,39 +382,9 @@ SystemJS.config({
         "jquery": "npm:jquery@2.2.4"
       }
     },
-    "npm:@angular/forms@5.0.2": {
-      "map": {
-        "tslib": "npm:tslib@1.8.0"
-      }
-    },
-    "npm:@angular/http@5.0.2": {
-      "map": {
-        "tslib": "npm:tslib@1.8.0"
-      }
-    },
-    "npm:@angular/platform-browser-dynamic@5.0.2": {
-      "map": {
-        "tslib": "npm:tslib@1.8.0"
-      }
-    },
-    "npm:@angular/router@5.0.2": {
-      "map": {
-        "tslib": "npm:tslib@1.8.0"
-      }
-    },
     "npm:rxjs@5.5.2": {
       "map": {
-        "symbol-observable": "npm:symbol-observable@1.0.4"
-      }
-    },
-    "npm:@angular/core@5.0.2": {
-      "map": {
-        "tslib": "npm:tslib@1.8.0"
-      }
-    },
-    "npm:@angular/common@5.0.2": {
-      "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "symbol-observable": "npm:symbol-observable@1.1.0"
       }
     },
     "npm:crypto-browserify@3.12.0": {
@@ -436,11 +406,6 @@ SystemJS.config({
       "map": {
         "randombytes": "npm:randombytes@2.0.5",
         "safe-buffer": "npm:safe-buffer@5.1.1"
-      }
-    },
-    "npm:@angular/platform-browser@5.0.2": {
-      "map": {
-        "tslib": "npm:tslib@1.8.0"
       }
     },
     "npm:browserify-aes@1.1.1": {
@@ -472,24 +437,59 @@ SystemJS.config({
         "base64-js": "npm:base64-js@1.2.1"
       }
     },
-    "npm:@angular/compiler@5.0.2": {
-      "map": {
-        "tslib": "npm:tslib@1.8.0"
-      }
-    },
     "npm:jspm-nodelibs-string_decoder@0.2.2": {
       "map": {
         "string_decoder": "npm:string_decoder@0.10.31"
       }
     },
-    "npm:typescript@2.6.1": {
+    "npm:source-map-support@0.5.0": {
+      "map": {
+        "source-map": "npm:source-map@0.6.1"
+      }
+    },
+    "npm:typescript@2.6.2": {
       "map": {
         "source-map-support": "npm:source-map-support@0.5.0"
       }
     },
-    "npm:source-map-support@0.5.0": {
+    "npm:@angular/router@5.0.3": {
       "map": {
-        "source-map": "npm:source-map@0.6.1"
+        "tslib": "npm:tslib@1.8.0"
+      }
+    },
+    "npm:@angular/platform-browser-dynamic@5.0.3": {
+      "map": {
+        "tslib": "npm:tslib@1.8.0"
+      }
+    },
+    "npm:@angular/forms@5.0.3": {
+      "map": {
+        "tslib": "npm:tslib@1.8.0"
+      }
+    },
+    "npm:@angular/http@5.0.3": {
+      "map": {
+        "tslib": "npm:tslib@1.8.0"
+      }
+    },
+    "npm:@angular/core@5.0.3": {
+      "map": {
+        "tslib": "npm:tslib@1.8.0"
+      }
+    },
+    "npm:@angular/common@5.0.3": {
+      "map": {
+        "tslib": "npm:tslib@1.8.0"
+      }
+    },
+    "npm:@angular/platform-browser@5.0.3": {
+      "map": {
+        "tslib": "npm:tslib@1.8.0"
+      }
+    },
+    "npm:@angular/compiler@5.0.3": {
+      "map": {
+        "tslib": "npm:tslib@1.8.0"
       }
     }
   }
