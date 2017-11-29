@@ -1,6 +1,6 @@
 {
   "name": "angular2-quiz-app",
-  "version": "1.8.12",
+  "version": "1.8.13",
   "description": "A music quiz in Angular 2+ using the Spotify API.",
   "main": "server/index.js",
   "scripts": {
