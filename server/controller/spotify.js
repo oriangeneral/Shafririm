@@ -1,7 +1,7 @@
 "use strict";
 
-var https = require('https');
-var SpotifyWebApi = require('spotify-web-api-node');
+const https = require('https');
+const SpotifyWebApi = require('spotify-web-api-node');
 
 class Spotify {
   constructor() {
@@ -29,10 +29,10 @@ class Spotify {
   createQueryString(obj) {
     if (typeof obj === 'object' && !Array.isArray(obj) && obj !== null) {
       let qs = [];
-      for (var key in obj) {
-        qs.push(key + "=" + obj[key]);
+      for (let key in obj) {
+        qs.push(key + '=' + obj[key]);
       }
-      return qs.join("&");
+      return qs.join('&');
     }
     return false;
   }
@@ -54,7 +54,7 @@ class Spotify {
           this.api.setAccessToken(d.body['access_token']);
           resolve(d.body['access_token']);
         })
-        .catch(e => reject("Error while fetching access token: " + e));
+        .catch(e => reject('Error while fetching access token: ' + e));
       } else {
         resolve(this.accessToken);
       }
@@ -64,19 +64,19 @@ class Spotify {
   fetchPlaylistData(user, id) {
     return new Promise((resolve, reject) => {
       if (!user || !id) {
-        reject("Necessary data missing, User: " + user + ", Playlist: " + id);
+        reject('Necessary data missing, User: ' + user + ', Playlist: ' + id);
       }
       this.fetchToken()
       .then(d => this.api.getPlaylist(user, id))
       .then(d => resolve(d.body))
-      .catch(e => reject("Error while fetching playlist data: " + e));
+      .catch(e => reject('Error while fetching playlist data: ' + e));
     });
   }
 
   fetchFeaturedPlaylists(obj) {
     obj = obj || {};
     obj.country = !obj.country ? 'US' : obj.country.toUpperCase();
-    obj.locale = obj.locale || "en_US";
+    obj.locale = obj.locale || 'en_US';
     obj.limit = obj.limit || 20;
     obj.offset = obj.offset || 0;
     obj.timestamp = obj.timestamp || new Date();
@@ -93,45 +93,45 @@ class Spotify {
         })
       )
       .then(d => resolve(d.body))
-      .catch(e => reject("Error while fetching playlist: " + e));
+      .catch(e => reject('Error while fetching playlist: ' + e));
     });
   }
 
   fetchSearchedPlaylists(obj) {
     return new Promise((resolve, reject) => {
       if (!obj || !obj.query ) {
-        reject("No search query given...");
+        reject('No search query given...');
       } else {
         obj.q = encodeURIComponent(obj.query);
         obj.limit = obj.limit || 20;
         obj.offset = obj.offset || 0;
-        obj.type = "playlist";
-        obj.market = !obj.country ? "US" : obj.country.toUpperCase();
+        obj.type = 'playlist';
+        obj.market = !obj.country ? 'US' : obj.country.toUpperCase();
 
         delete(obj.query);
         delete(obj.country);
 
         let qs = this.createQueryString(obj);
         if (!qs) {
-          reject("No valid query given...");
+          reject('No valid query given...');
         }
 
         this.fetchToken()
         .then(d => {
           let opts = {
-            protocol: "https:",
-            hostname: "api.spotify.com",
-            path: "/v1/search?" + qs,
+            protocol: 'https:',
+            hostname: 'api.spotify.com',
+            path: '/v1/search?' + qs,
             headers: {
-              "Authorization" : "Bearer " + this.accessToken
+              'Authorization' : 'Bearer ' + this.accessToken
             }
           }
           let xhr = https.get(opts, res => {
-            let data = "";
+            let data = '';
             res.on('data', d => data += d);
             res.on('end', () => resolve(JSON.parse(data)));
           });
-          xhr.on('error', e => reject("Error while retrieving search data: " + e));
+          xhr.on('error', e => reject('Error while retrieving search data: ' + e));
         })
         .catch(e => reject(e));
       }

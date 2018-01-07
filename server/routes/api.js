@@ -1,9 +1,7 @@
 "use strict";
 
-var router = require('express').Router();
-var spotify = require('../controller/spotify');
-
-// define middleware and routes here
+const router = require('express').Router();
+const spotify = require('../controller/spotify');
 
 function isObject(item) {
   return (typeof item === "object" && !Array.isArray(item) && item !== null);
