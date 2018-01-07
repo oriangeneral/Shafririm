@@ -1,5 +1,5 @@
-import Image from 'app/contracts/image';
-import Item from 'app/contracts/item';
+import Image from './image';
+import Item from './item';
 
 export interface Playlist {
 

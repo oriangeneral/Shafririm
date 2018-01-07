@@ -9,7 +9,7 @@ import { Http, Response } from '@angular/http';
 
 import { shuffle, scrollTo } from 'app/helpers';
 import { TrackTransformer } from 'app/support';
-import { PlaylistService } from 'app/services/playlist.service';
+import { PlaylistService } from './playlist.service';
 
 import { Playlist, Track, Question, QuestionType } from 'app/contracts';
 

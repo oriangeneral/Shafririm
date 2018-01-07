@@ -1,7 +1,7 @@
-import Track from 'app/contracts/track';
-import Status from 'app/contracts/status';
-import QuestionType from 'app/contracts/question_type';
-import Answer from 'app/contracts/answer';
+import Track from './track';
+import Status from './status';
+import QuestionType from './question_type';
+import Answer from './answer';
 
 export interface Question {
   id?: number;

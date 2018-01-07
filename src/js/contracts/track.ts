@@ -1,5 +1,5 @@
-import Album from 'app/contracts/album';
-import Artist from 'app/contracts/artist';
+import Album from './album';
+import Artist from './artist';
 
 export interface Track {
   album: Album;

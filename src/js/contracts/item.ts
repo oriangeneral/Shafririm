@@ -1,4 +1,4 @@
-import Track from 'app/contracts/track';
+import Track from './track';
 
 export interface Item {
   added_at: string;
