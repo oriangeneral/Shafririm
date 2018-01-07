@@ -33,7 +33,6 @@ SystemJS.config({
       "main": "main.prod",
       "defaultExtension": "ts",
       "map": {
-        "./services": "./services/index",
         "./components": "./components/index",
         "./components/app": "./components/app/index",
         "./components/landing": "./components/landing/index",
@@ -42,10 +41,12 @@ SystemJS.config({
         "./components/quiz/done": "./components/quiz/done/index",
         "./components/quiz/nav": "./components/quiz/nav/index",
         "./components/quiz/status": "./components/quiz/status/index",
+        "./contracts": "./contracts/index",
         "./facades": "./facades/index",
         "./helpers": "./helpers/index",
         "./modules": "./modules/index",
         "./routes": "./routes/index",
+        "./services": "./services/index",
         "./support": "./support/index"
       },
       "meta": {

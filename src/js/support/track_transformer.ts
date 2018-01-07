@@ -1,8 +1,6 @@
 import { shuffle } from 'app/helpers';
 
-import Playlist from 'app/models/playlist';
-import Track from 'app/models/track';
-import { Question, QuestionType } from 'app/models/question';
+import { Playlist, Track, Question, QuestionType } from 'app/contracts';
 
 export class TrackTransformer {
 

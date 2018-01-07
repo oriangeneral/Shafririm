@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { AnimationService, AnimationBuilder } from 'css-animator';
 import { Unsubscriber } from 'app/components';
 import { QuizService } from 'app/services';
-import { Answer } from 'app/models/question';
+import { Question } from 'app/contracts';
 
 import template from './quiz-card.html';
 import mainStyle from './quiz-card.css';
@@ -21,7 +21,7 @@ import mainStyle from './quiz-card.css';
   ]
 })
 export class QuizCardComponent extends Unsubscriber implements OnInit {
-  @Input() public question: any; // Should be of type Question
+  @Input() public question: Question;
   @Output() public showNextButton = new EventEmitter();
   @Output() public hideNextButton = new EventEmitter();
 

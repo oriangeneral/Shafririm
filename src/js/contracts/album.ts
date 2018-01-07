@@ -1,4 +1,4 @@
-import Image from 'app/models/image';
+import Image from 'app/contracts/image';
 
 export interface Album {
   album_type: string;

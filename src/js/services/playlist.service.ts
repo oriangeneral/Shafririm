@@ -6,7 +6,7 @@ import { Injectable } from '@angular/core';
 import { Http, Response } from '@angular/http';
 
 import LocaleService from './locale.service';
-import Playlist from 'app/models/playlist';
+import { Playlist } from 'app/contracts';
 
 @Injectable()
 export class PlaylistService {

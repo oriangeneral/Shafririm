@@ -11,9 +11,7 @@ import { shuffle, scrollTo } from 'app/helpers';
 import { TrackTransformer } from 'app/support';
 import { PlaylistService } from 'app/services/playlist.service';
 
-import Playlist from 'app/models/playlist';
-import Track from 'app/models/track';
-import { Question, QuestionType } from 'app/models/question';
+import { Playlist, Track, Question, QuestionType } from 'app/contracts';
 
 @Injectable()
 export class QuizService {

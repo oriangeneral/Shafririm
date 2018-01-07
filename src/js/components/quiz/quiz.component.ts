@@ -5,7 +5,7 @@ import { AnimatesDirective } from 'css-animator';
 
 import { Unsubscriber } from 'app/components';
 import { QuizService } from 'app/services';
-import { Question } from 'app/models/question';
+import { Question } from 'app/contracts';
 
 import template from './quiz.html';
 import mainStyle from './quiz.css';
