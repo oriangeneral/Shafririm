@@ -1,3 +1,5 @@
+"use strict";
+
 require('./bootstrap');
 
 if (process.env.NEW_RELIC_LICENSE_KEY) {
@@ -7,15 +9,14 @@ if (process.env.NEW_RELIC_LICENSE_KEY) {
   console.log('New Relic not enabled.');
 }
 
-var express = require('express')
-var path = require('path');
-var bodyParser = require('body-parser');
-var errorHandler = require('errorhandler');
-var methodOverride = require('method-override');
-var compress = require('compression');
-var appConfig = require('./config/app');
-var appDevConfig = require('./config/app.dev');
-var app = express();
+const express = require('express')
+const path = require('path');
+const bodyParser = require('body-parser');
+const errorHandler = require('errorhandler');
+const methodOverride = require('method-override');
+const compress = require('compression');
+const config = require('./config');
+const app = express();
 
 // Define font mime types
 express.static.mime.define({
@@ -24,17 +25,9 @@ express.static.mime.define({
   'application/x-font-ttf': ['ttf']
 });
 
-// Set app config depending on argument passed to start script
-var config;
-if (process.argv.indexOf('dev') !== -1) {
-  config = appDevConfig;
-} else {
-  config = appConfig;
-}
-
 console.log('');
-console.log('Server environment is ' + process.env.NODE_ENV);
-console.log('Server public dir set to ' + config.publicDir);
+console.log(`Server environment is ${process.env.NODE_ENV}`);
+console.log(`Server public dir set to ${config.publicDir}`);
 
 // Compress responses
 app.use(compress());
@@ -77,5 +70,5 @@ port = !port ? 5000 : port;
 // Start the server
 app.listen(port);
 
-console.log('Server listening on port ' + port);
+console.log(`Server listening on port ${port}`);
 console.log('');

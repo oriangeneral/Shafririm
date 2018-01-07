@@ -1,29 +1,21 @@
+"use strict";
+
 console.log('Starting server...');
 
-var path = require('path');
-var fs = require('fs');
-var env = require('node-env-file');
-var production = process.argv.indexOf('dev') !== -1 ? false : true;
+const path = require('path');
+const fs = require('fs');
+const env = require('node-env-file');
+const config = require('./config');
 
-var envFile = path.join(__dirname, '/.env');
-var fileExists = false;
+const envFile = path.join(__dirname, '/.env');
 
-try {
-  fs.accessSync(envFile, fs.F_OK)
-  fileExists = true;
-} catch (e) {
-  try {
-    if (production) {
-      return;
-    }
+let envFileExists = fs.existsSync(envFile);
 
-    fs.writeFileSync(envFile, fs.readFileSync(envFile + '.example'));
-    fileExists = true;
-  } catch (e) {
-    console.log('.env file could not be created.')
-  }
+if (!config.production && !envFileExists) {
+    fs.writeFileSync(envFile, fs.readFileSync(`${envFile}.example`));
 }
 
-if (fileExists) {
-  env(__dirname + '/.env');
+if (envFileExists) {
+  env(`${__dirname}/.env`);
+  console.log(`Loaded env vars from file.`);
 }
