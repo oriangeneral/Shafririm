@@ -10,7 +10,7 @@ SystemJS.config({
   devConfig: {
     "map": {
       "ts-runtime": "npm:babel-runtime@6.26.0",
-      "core-js": "npm:core-js@2.5.1",
+      "core-js": "npm:core-js@2.5.3",
       "plugin-babel": "npm:systemjs-plugin-babel@0.0.21",
       "text": "github:systemjs/plugin-text@0.0.9",
       "ts": "github:frankwallis/plugin-typescript@7.1.1"
@@ -18,8 +18,8 @@ SystemJS.config({
     "packages": {
       "npm:babel-runtime@6.26.0": {
         "map": {
-          "core-js": "npm:core-js@2.5.1",
-          "regenerator-runtime": "npm:regenerator-runtime@0.11.0"
+          "core-js": "npm:core-js@2.5.3",
+          "regenerator-runtime": "npm:regenerator-runtime@0.11.1"
         }
       }
     }
@@ -74,21 +74,21 @@ SystemJS.config({
     "github:*/*.json"
   ],
   map: {
-    "@angular/common": "npm:@angular/common@5.0.3",
-    "@angular/compiler": "npm:@angular/compiler@5.0.3",
-    "@angular/core": "npm:@angular/core@5.0.3",
-    "@angular/forms": "npm:@angular/forms@5.0.3",
-    "@angular/http": "npm:@angular/http@5.0.3",
-    "@angular/platform-browser": "npm:@angular/platform-browser@5.0.3",
-    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@5.0.3",
-    "@angular/router": "npm:@angular/router@5.0.3",
+    "@angular/common": "npm:@angular/common@5.1.3",
+    "@angular/compiler": "npm:@angular/compiler@5.1.3",
+    "@angular/core": "npm:@angular/core@5.1.3",
+    "@angular/forms": "npm:@angular/forms@5.1.3",
+    "@angular/http": "npm:@angular/http@5.1.3",
+    "@angular/platform-browser": "npm:@angular/platform-browser@5.1.3",
+    "@angular/platform-browser-dynamic": "npm:@angular/platform-browser-dynamic@5.1.3",
+    "@angular/router": "npm:@angular/router@5.1.3",
     "angular2-materialize": "npm:angular2-materialize@15.1.10",
     "assert": "npm:jspm-nodelibs-assert@0.2.1",
     "buffer": "npm:jspm-nodelibs-buffer@0.2.3",
     "child_process": "npm:jspm-nodelibs-child_process@0.2.1",
     "constants": "npm:jspm-nodelibs-constants@0.2.1",
     "crypto": "npm:jspm-nodelibs-crypto@0.2.1",
-    "css-animator": "npm:css-animator@2.1.1",
+    "css-animator": "npm:css-animator@2.2.1",
     "events": "npm:jspm-nodelibs-events@0.2.2",
     "fs": "npm:jspm-nodelibs-fs@0.2.1",
     "hammerjs": "npm:hammerjs@2.0.8",
@@ -102,7 +102,7 @@ SystemJS.config({
     "path": "npm:jspm-nodelibs-path@0.2.3",
     "process": "npm:jspm-nodelibs-process@0.2.1",
     "reflect-metadata": "npm:reflect-metadata@0.1.10",
-    "rxjs": "npm:rxjs@5.5.2",
+    "rxjs": "npm:rxjs@5.5.6",
     "stream": "npm:jspm-nodelibs-stream@0.2.1",
     "string_decoder": "npm:jspm-nodelibs-string_decoder@0.2.2",
     "timers": "npm:jspm-nodelibs-timers@0.2.1",
@@ -112,7 +112,7 @@ SystemJS.config({
     "util": "npm:jspm-nodelibs-util@0.2.2",
     "vm": "npm:jspm-nodelibs-vm@0.2.1",
     "zlib": "npm:jspm-nodelibs-zlib@0.2.3",
-    "zone.js": "npm:zone.js@0.8.18"
+    "zone.js": "npm:zone.js@0.8.19"
   },
   packages: {
     "npm:browserify-cipher@1.0.0": {
@@ -383,11 +383,6 @@ SystemJS.config({
         "jquery": "npm:jquery@2.2.4"
       }
     },
-    "npm:rxjs@5.5.2": {
-      "map": {
-        "symbol-observable": "npm:symbol-observable@1.1.0"
-      }
-    },
     "npm:crypto-browserify@3.12.0": {
       "map": {
         "randomfill": "npm:randomfill@1.0.3",
@@ -453,44 +448,49 @@ SystemJS.config({
         "source-map-support": "npm:source-map-support@0.5.0"
       }
     },
-    "npm:@angular/router@5.0.3": {
+    "npm:@angular/forms@5.1.3": {
       "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "tslib": "npm:tslib@1.8.1"
       }
     },
-    "npm:@angular/platform-browser-dynamic@5.0.3": {
+    "npm:@angular/http@5.1.3": {
       "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "tslib": "npm:tslib@1.8.1"
       }
     },
-    "npm:@angular/forms@5.0.3": {
+    "npm:@angular/platform-browser-dynamic@5.1.3": {
       "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "tslib": "npm:tslib@1.8.1"
       }
     },
-    "npm:@angular/http@5.0.3": {
+    "npm:@angular/router@5.1.3": {
       "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "tslib": "npm:tslib@1.8.1"
       }
     },
-    "npm:@angular/core@5.0.3": {
+    "npm:rxjs@5.5.6": {
       "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "symbol-observable": "npm:symbol-observable@1.0.1"
       }
     },
-    "npm:@angular/common@5.0.3": {
+    "npm:@angular/core@5.1.3": {
       "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "tslib": "npm:tslib@1.8.1"
       }
     },
-    "npm:@angular/platform-browser@5.0.3": {
+    "npm:@angular/platform-browser@5.1.3": {
       "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "tslib": "npm:tslib@1.8.1"
       }
     },
-    "npm:@angular/compiler@5.0.3": {
+    "npm:@angular/common@5.1.3": {
       "map": {
-        "tslib": "npm:tslib@1.8.0"
+        "tslib": "npm:tslib@1.8.1"
+      }
+    },
+    "npm:@angular/compiler@5.1.3": {
+      "map": {
+        "tslib": "npm:tslib@1.8.1"
       }
     }
   }
