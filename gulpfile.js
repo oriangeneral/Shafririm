@@ -8,7 +8,6 @@
 |
 */
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var gulpSequence = require('gulp-sequence');
 var gulpif = require('gulp-if');
 var tslint = require('gulp-tslint');
@@ -22,6 +21,8 @@ var rename = require('gulp-rename');
 var argv = require('yargs').argv;
 var del = require('del');
 var exec = require('node-exec-promise').exec;
+var log = require('fancy-log');
+var colors = require('ansi-colors');
 var notifier = require('node-notifier');
 var path = require('path');
 
@@ -218,13 +219,13 @@ gulp.task('set-prod', function() {
 });
 
 gulp.task('start', function(done) {
-  gutil.log(gutil.colors.green('Starting ' + config.env + ' build...'));
+  log(colors.green('Starting ' + config.env + ' build...'));
 
   return done();
 });
 
 gulp.task('finish', function(done) {
-  gutil.log(gutil.colors.green('Build has finished.'));
+  log(colors.green('Build has finished.'));
 
   notifier.notify({
     title: 'Build Successful',
@@ -244,9 +245,9 @@ gulp.task('finish', function(done) {
 */
 
 function onError(error, details) {
-  gutil.log(gutil.colors.red('Error: ' + error));
+  log(colors.red('Error: ' + error));
   if (details) {
-    gutil.log(details);
+    log(details);
   }
   notifyError(error);
 }
@@ -359,6 +360,6 @@ gulp.task('watch', function() {
 });
 
 gulp.task('serve', function(done) {
-  gutil.log(gutil.colors.blue('Use "npm start [dev]" instead.'));
+  log(colors.blue('Use "npm start [dev]" instead.'));
   done();
 });
