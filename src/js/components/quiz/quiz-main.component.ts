@@ -7,11 +7,11 @@ import { Unsubscriber } from 'app/components';
 import { QuizService } from 'app/services';
 import { Question } from 'app/contracts';
 
-import template from './quiz.html';
-import mainStyle from './quiz.css';
+import template from './quiz-main.html';
+import mainStyle from './quiz-main.css';
 
 @Component({
-  selector: 'quiz',
+  selector: 'quiz-main',
   template: template,
   styles: [
     mainStyle

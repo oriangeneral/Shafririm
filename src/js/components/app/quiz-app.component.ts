@@ -4,10 +4,10 @@ import { AnimationService, AnimationBuilder } from 'css-animator';
 import { Unsubscriber } from 'app/components';
 import { LocaleService, PlaylistService } from 'app/services';
 
-import template from './app.html';
+import template from './quiz-app.html';
 
 @Component({
-  selector: 'app',
+  selector: 'quiz-app',
   template: template,
   providers: [
     AnimationService,
