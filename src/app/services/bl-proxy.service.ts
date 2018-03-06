@@ -26,7 +26,7 @@ export class BlProxyService {
   }
 
   private getUrl(entityType: string, id: number = null): string {
-    let result = this.baseUrl + '/' + entityType;
+    let result = this.baseUrl + entityType;
     if (id) {
       result += '/' + id;
     }
