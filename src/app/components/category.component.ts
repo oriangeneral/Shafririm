@@ -19,7 +19,7 @@ import {Category} from '../models/category.model';
     <h3>{{category.title}}</h3>
     <p>{{category.description}}</p>
     <div *ngFor="let scenario of scenarios">
-      <a [href]="'#/categories/' + categoryId + '/scenarios/' + scenario.id">{{scenario.title}}</a>
+      <a [href]="'/#/categories/' + categoryId + '/scenarios/' + scenario.id">{{scenario.title}}</a>
     </div>
   `
 })
