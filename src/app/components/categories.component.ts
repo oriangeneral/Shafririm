@@ -47,7 +47,7 @@ export class CategoriesComponent implements OnInit{
   }
 
   onSelectedCategory(){
-    this.blService.getScenarios().subscribe(data => {
+    this.blService.getScenarios(this.selectedCategory).subscribe(data => {
       this.scenarios = data;
     });
   }
