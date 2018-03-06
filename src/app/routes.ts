@@ -1,15 +1,24 @@
 import {LoginComponent} from "./components/login.component";
 import {Routes} from "@angular/router";
+import {CategoriesComponent} from "./components/categories.component";
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: '/home',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {
-    path: 'home',
+    path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'categories',
+    component: CategoriesComponent
+  },
+  {
+    path: 'categories/:categoryId',
+    component: CategoriesComponent
   },
   {
     path: '**',
