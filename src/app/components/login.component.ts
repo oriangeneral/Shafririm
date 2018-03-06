@@ -32,7 +32,8 @@ import {map} from 'rxjs/operators/map';
       </mat-form-field>
     </form>
     
-    <button mat-button>Click me!</button>
+    <!--<button mat-button>Click me!</button>-->
+    <a mat-button href="/#/categories">Click me!</a>
   `
 })
 export class LoginComponent {

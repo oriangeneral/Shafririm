@@ -6,7 +6,9 @@ import {BlService} from '../services/bl.service';
   styles: [`
   `],
   template: `
-    <div *ngFor="let c of categories">{{c.id}}</div>
+    <div *ngFor="let c of categories">
+      <a [href]="'#/categories/'+c.id">{{c.id}}</a>
+    </div>
   `
 })
 export class CategoriesComponent {
