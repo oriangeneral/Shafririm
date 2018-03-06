@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShafririmModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Shafririm.dbo.Categories' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Categories">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Title" Type="text" />
+    <Property Name="Desc" Type="text" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Shafririm.dbo.Dilemas' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Dilemas">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Title" Type="text" />
+    <Property Name="Desc" Type="text" />
+    <Property Name="MediaUrl" Type="text" />
+    <Property Name="Level" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Shafririm.dbo.Games' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Games">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="ScenarioId" Type="int" />
+    <Property Name="CreatedDate" Type="date" />
+    <Property Name="UpdatedDate" Type="date" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Shafririm.dbo.GameSelections' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="GameSelections">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="GameId" Type="int" />
+    <Property Name="OptionId" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Shafririm.dbo.Options' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Options">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Desc" Type="text" />
+    <Property Name="Remarks" Type="text" />
+    <Property Name="Score" Type="int" />
+    <Property Name="MediaUrl" Type="text" />
+    <Property Name="DilemaId" Type="int" />
+    <Property Name="NextDilemaId" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Shafririm.dbo.Scenarios' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Scenarios">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Title" Type="text" />
+    <Property Name="Desc" Type="text" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+    <Property Name="CategoryId" Type="int" Nullable="false" />
+    <Property Name="Level" Type="int" />
+    <Property Name="Status" Type="text" />
+    <Property Name="FirstDilemaId" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'Shafririm.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" />
+    <Property Name="Name" Type="text" />
+    <Property Name="ProfileId" Type="int" />
+    <Property Name="CreatedDate" Type="datetime" />
+    <Property Name="UpdatedDate" Type="datetime" />
+  </EntityType>
+  <EntityContainer Name="ShafririmModelStoreContainer">
+    <EntitySet Name="Categories" EntityType="Self.Categories" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Categories].[Id] AS [Id], 
+    [Categories].[Title] AS [Title], 
+    [Categories].[Desc] AS [Desc]
+    FROM [dbo].[Categories] AS [Categories]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Dilemas" EntityType="Self.Dilemas" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Dilemas].[Id] AS [Id], 
+    [Dilemas].[Title] AS [Title], 
+    [Dilemas].[Desc] AS [Desc], 
+    [Dilemas].[MediaUrl] AS [MediaUrl], 
+    [Dilemas].[Level] AS [Level], 
+    [Dilemas].[CreatedDate] AS [CreatedDate], 
+    [Dilemas].[UpdatedDate] AS [UpdatedDate]
+    FROM [dbo].[Dilemas] AS [Dilemas]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Games" EntityType="Self.Games" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Games].[Id] AS [Id], 
+    [Games].[UserId] AS [UserId], 
+    [Games].[ScenarioId] AS [ScenarioId], 
+    [Games].[CreatedDate] AS [CreatedDate], 
+    [Games].[UpdatedDate] AS [UpdatedDate]
+    FROM [dbo].[Games] AS [Games]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="GameSelections" EntityType="Self.GameSelections" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [GameSelections].[Id] AS [Id], 
+    [GameSelections].[GameId] AS [GameId], 
+    [GameSelections].[OptionId] AS [OptionId], 
+    [GameSelections].[CreatedDate] AS [CreatedDate], 
+    [GameSelections].[UpdatedDate] AS [UpdatedDate]
+    FROM [dbo].[GameSelections] AS [GameSelections]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Options" EntityType="Self.Options" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Options].[Id] AS [Id], 
+    [Options].[Desc] AS [Desc], 
+    [Options].[Remarks] AS [Remarks], 
+    [Options].[Score] AS [Score], 
+    [Options].[MediaUrl] AS [MediaUrl], 
+    [Options].[DilemaId] AS [DilemaId], 
+    [Options].[NextDilemaId] AS [NextDilemaId], 
+    [Options].[CreatedDate] AS [CreatedDate], 
+    [Options].[UpdatedDate] AS [UpdatedDate]
+    FROM [dbo].[Options] AS [Options]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Scenarios" EntityType="Self.Scenarios" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Scenarios].[Id] AS [Id], 
+    [Scenarios].[Title] AS [Title], 
+    [Scenarios].[Desc] AS [Desc], 
+    [Scenarios].[CreatedDate] AS [CreatedDate], 
+    [Scenarios].[UpdatedDate] AS [UpdatedDate], 
+    [Scenarios].[CategoryId] AS [CategoryId], 
+    [Scenarios].[Level] AS [Level], 
+    [Scenarios].[Status] AS [Status], 
+    [Scenarios].[FirstDilemaId] AS [FirstDilemaId]
+    FROM [dbo].[Scenarios] AS [Scenarios]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Users].[Id] AS [Id], 
+    [Users].[Name] AS [Name], 
+    [Users].[ProfileId] AS [ProfileId], 
+    [Users].[CreatedDate] AS [CreatedDate], 
+    [Users].[UpdatedDate] AS [UpdatedDate]
+    FROM [dbo].[Users] AS [Users]</DefiningQuery>
+    </EntitySet>
+  </EntityContainer>
+</Schema>
