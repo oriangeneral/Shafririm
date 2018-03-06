@@ -16,27 +16,33 @@ import {Option} from '../models/option.model';
   template: `
     <h3>{{dilema.title}}</h3>
     <p>{{dilema.description}}</p>
-    <div *ngFor="let option of options">{{option.title}}</div>
+    <div *ngFor="let option of options">
+      <a [href]="'#/categories/' + categoryId +'/scenarios/' + scenarioId + '/' + option.nextDilemaId">{{option.title}}</a>
+    </div>
   `
 })
 export class DilemaComponent implements OnInit {
-  private options: Option[] = [];
+  private categoryId: number;
+  private scenarioId: number;
+  private dilemaId: number;
   private dilema: Dilema;
+  private options: Option[] = [];
 
   constructor(private blService: BlService, private activatedRoute: ActivatedRoute) {
   }
 
   public ngOnInit() {
-    this.blService.getDilemaOptions(this.activatedRoute.params['categoryId'],
-      this.activatedRoute.params['scenarioId'],
-      this.activatedRoute.params['dilemaId']
+    this.categoryId = this.activatedRoute.params['categoryId'];
+    this.scenarioId = this.activatedRoute.params['scenarioId'];
+    this.dilemaId = this.activatedRoute.params['dilemaId'];
+    this.blService.getDilemaOptions(
+      this.dilemaId
     ).subscribe(data => {
       this.options = data;
     });
 
-    this.blService.getDilema(this.activatedRoute.params['categoryId'],
-      this.activatedRoute.params['scenarioId'],
-      this.activatedRoute.params['dilemaId']
+    this.blService.getDilema(
+      this.dilemaId
     ).subscribe(data => {
       this.dilema = data;
     });

@@ -47,6 +47,9 @@ import {
 import {CdkTableModule} from "@angular/cdk/table";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import DilemaComponent from './components/dilema.component';
+import {Category} from './models/category.model';
+import CategoryComponent from './components/category.component';
 
 
 
@@ -55,7 +58,9 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   declarations: [
     AppComponent,
     LoginComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    CategoryComponent,
+    DilemaComponent
   ],
   imports: [
     RouterModule.forRoot(routes, {useHash: true}),
