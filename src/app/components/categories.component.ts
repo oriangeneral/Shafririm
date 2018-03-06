@@ -27,8 +27,8 @@ import {ActivatedRoute} from "@angular/router";
   `
 })
 export class CategoriesComponent implements OnInit{
-  public categories;
-  public scenarios;
+  public categories = [];
+  public scenarios = [];
   public selectedCategory = undefined;
 
   constructor(private route: ActivatedRoute,
