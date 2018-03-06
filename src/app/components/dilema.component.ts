@@ -17,7 +17,7 @@ import {Option} from '../models/option.model';
     <h3>{{dilema.title}}</h3>
     <p>{{dilema.description}}</p>
     <div *ngFor="let option of options">
-      <a href="categories/{{categoryId}}/scenarios/{{scenarioId}}/option.nextDilemaId" class="href">{{option.title}}</a>
+      <a [href]="'#/categories/' + categoryId +'/scenarios/' + scenarioId + '/' + option.nextDilemaId">{{option.title}}</a>
     </div>
   `
 })
@@ -35,16 +35,14 @@ export class DilemaComponent implements OnInit {
     this.categoryId = this.activatedRoute.params['categoryId'];
     this.scenarioId = this.activatedRoute.params['scenarioId'];
     this.dilemaId = this.activatedRoute.params['dilemaId'];
-    this.blService.getDilemaOptions(this.categoryId,
-      this.scenarioId,
+    this.blService.getDilemaOptions(
       this.dilemaId
     ).subscribe(data => {
       this.options = data;
     });
 
-    this.blService.getDilema(this.activatedRoute.params['categoryId'],
-      this.activatedRoute.params['scenarioId'],
-      this.activatedRoute.params['dilemaId']
+    this.blService.getDilema(
+      this.dilemaId
     ).subscribe(data => {
       this.dilema = data;
     });
