@@ -1,6 +1,7 @@
-import {LoginComponent} from "./components/login.component";
-import {Routes} from "@angular/router";
-import {CategoriesComponent} from "./components/categories.component";
+import {LoginComponent} from './components/login.component';
+import {Routes} from '@angular/router';
+import {CategoriesComponent} from './components/categories.component';
+import DilemaComponent from './components/dilema.component';
 
 export const routes: Routes = [
   {
@@ -19,6 +20,10 @@ export const routes: Routes = [
   {
     path: 'categories/:categoryId',
     component: CategoriesComponent
+  },
+  {
+    path: 'categories/:categoryId/scenario/:scenarioId/dilemas/:dilemaId',
+    component: DilemaComponent
   },
   {
     path: '**',
