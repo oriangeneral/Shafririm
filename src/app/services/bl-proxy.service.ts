@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class BlProxyService {
-  private baseUrl: string = '';
+  private baseUrl: string = 'http://192.168.1.213/shafririm/api/';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -39,7 +39,7 @@ export class BlProxyService {
   }
 
   private getUrl(entityType: string, id: number = null): string {
-    let result = this.baseUrl + '/' + entityType;
+    let result = this.baseUrl + entityType;
     if (id) {
       result += '/' + id;
     }
