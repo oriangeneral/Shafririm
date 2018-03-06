@@ -25,7 +25,7 @@ export class DilemaComponent implements OnInit {
   private categoryId: number;
   private scenarioId: number;
   private dilemaId: number;
-  private dilema: Dilema;
+  private dilema: Dilema = new Dilema();
   private options: Option[] = [];
 
   constructor(private blService: BlService, private activatedRoute: ActivatedRoute) {
