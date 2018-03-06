@@ -31,7 +31,7 @@ export class BlService {
   public getScenarios(categoryId: number): Observable<Scenario[]> {
     return this.blProxyService.getNested({
       'categories': categoryId,
-      'scenario': null,
+      'scenarios': null,
     });
   }
 
