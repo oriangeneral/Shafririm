@@ -23,7 +23,7 @@ import {map} from 'rxjs/operators/map';
 
     <form class="example-form">
       <mat-form-field class="example-full-width">
-        <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+        <input type="text" placeholder="שם משתמש" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
         <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
           <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
             {{ option }}
