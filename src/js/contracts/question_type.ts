@@ -3,8 +3,6 @@ export enum QuestionType {
   TrackNameFromPreview,
   ArtistNameFromTrackName,
   ArtistNameFromAlbumName
-  // ,ReleaseDateFromTrackName,
-  // ReleaseDateFromAlbumName
 }
 
 export default QuestionType;

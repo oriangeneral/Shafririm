@@ -1,17 +1,17 @@
 import Track from './track';
 import Status from './status';
 import QuestionType from './question_type';
-import Answer from './answer';
+import Option from './option';
 
-export interface Question {
+export interface Dilema {
   id?: number;
   type: QuestionType;
   title: string;
   description?: string;
-  answers: Answer[];
+  options: Option[];
   answered?: boolean;
   track: Track;
   status: Status;
 }
 
-export default Question;
+export default Dilema;

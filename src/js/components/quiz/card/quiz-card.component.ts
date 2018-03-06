@@ -8,7 +8,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { AnimationService, AnimationBuilder } from 'css-animator';
 import { Unsubscriber } from 'app/components';
 import { QuizService } from 'app/services';
-import { Question } from 'app/contracts';
+import { Dilema } from 'app/contracts';
 
 import template from './quiz-card.html';
 import mainStyle from './quiz-card.css';
@@ -21,7 +21,7 @@ import mainStyle from './quiz-card.css';
   ]
 })
 export class QuizCardComponent extends Unsubscriber implements OnInit {
-  @Input() public question: Question;
+  @Input() public question: Dilema;
   @Output() public showNextButton = new EventEmitter();
   @Output() public hideNextButton = new EventEmitter();
 
@@ -50,7 +50,7 @@ export class QuizCardComponent extends Unsubscriber implements OnInit {
 
   public answerIsCorrect() {
     let count = 0;
-    for (let answer of this.question.answers) {
+    for (let answer of this.question.options) {
       if (answer.correct && this._markedAnswer === count) {
         return true;
       }

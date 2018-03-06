@@ -2,7 +2,7 @@
   <div class="modal-content">
     <h4 class="blue-grey-text">Quiz Status</h4>
     <ul class="collection">
-      <li *ngFor="let question of quizService.questions; let i = index" class="collection-item avatar">
+      <li *ngFor="let question of quizService.dilemas; let i = index" class="collection-item avatar">
         <i class="material-icons circle blue grey lighten-2" [hidden]="question.status.answered">check_circle</i>
         <span class="title black-text" [hidden]="question.status.answered">Question {{ question.id }}</span>
         <div [ngSwitch]="question.type" [hidden]="!question.status.answered">
@@ -36,7 +36,7 @@
 
 
         <p class="blue-grey-text" *ngIf="question.status.answered">
-          <span class="grey-text">Your answer:</span> <span>{{ question.answers[question.status.selectedAnswer]?.title }}</span>
+          <span class="grey-text">Your answer:</span> <span>{{ question.options[question.status.selectedAnswer]?.title }}</span>
           <span [hidden]="question.status.wasCorrect"><span class="grey-text"><br>Correct answer:</span> <span>{{ quizService.getCorrectAnswer(question)?.title }}</span></span>
         </p>
         <p class="grey-text" [hidden]="question.status.answered">Not yet answered</p>

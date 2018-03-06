@@ -10,7 +10,7 @@
     "prune": "node_modules/.bin/jspm clean && npm prune --production",
     "update": "yarn upgrade && jspm update && npm run update-paths",
     "build": "node_modules/.bin/gulp build",
-    "start": "node server"
+    "start": "node $NODE_DEBUG_OPTION server"
   },
   "engines": {
     "node": "6.x.x"

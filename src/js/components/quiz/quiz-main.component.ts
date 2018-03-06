@@ -5,7 +5,7 @@ import { AnimatesDirective } from 'css-animator';
 
 import { Unsubscriber } from 'app/components';
 import { QuizService } from 'app/services';
-import { Question } from 'app/contracts';
+import { Dilema } from 'app/contracts';
 
 import template from './quiz-main.html';
 import mainStyle from './quiz-main.css';
@@ -22,7 +22,7 @@ import mainStyle from './quiz-main.css';
 })
 export class QuizComponent extends Unsubscriber implements OnInit {
 
-  private _questions: Question[] = [];
+  private _questions: Dilema[] = [];
   private _ready: boolean = false;
 
   constructor(
@@ -41,7 +41,7 @@ export class QuizComponent extends Unsubscriber implements OnInit {
     let onRefresh = this.quizService
       .onRefresh
       .subscribe(() => {
-        this._questions = this.quizService.questions;
+        this._questions = this.quizService.dilemas;
         this._ready = true;
       });
 
@@ -53,11 +53,11 @@ export class QuizComponent extends Unsubscriber implements OnInit {
     this.quizService
       .init(10)
       .subscribe((questions) => {
-        this._questions = this.quizService.questions;
+        this._questions = this.quizService.dilemas;
       });
   }
 
-  public trackByQuestion(question: Question) {
+  public trackByQuestion(question: Dilema) {
     return question.id;
   }
 

@@ -11,7 +11,7 @@ import { shuffle, scrollTo } from 'app/helpers';
 import { TrackTransformer } from 'app/support';
 import { PlaylistService } from './playlist.service';
 
-import { Playlist, Track, Question, QuestionType } from 'app/contracts';
+import { Playlist, Track, Dilema, QuestionType } from 'app/contracts';
 
 @Injectable()
 export class QuizService {
@@ -29,13 +29,13 @@ export class QuizService {
   private _playlist: Playlist;
   private _tracks: Track[];
   private _random: Track[];
-  private _questions: Question[];
+  private _dilemas: Dilema[];
 
   constructor(private playlistService: PlaylistService) {
 
   }
 
-  public init(numberOfQuestions: number): Rx.Observable<Question[]> {
+  public init(numberOfQuestions: number): Rx.Observable<Dilema[]> {
     this._numberOfQuestions = numberOfQuestions;
 
     if (isDevMode()) {
@@ -62,11 +62,11 @@ export class QuizService {
     this._playlist = null;
     this._tracks = [];
     this._random = [];
-    this._questions = [];
+    this._dilemas = [];
 
     this.init(this._numberOfQuestions)
       .first()
-      .subscribe((questions: Question[]) => {
+      .subscribe((questions: Dilema[]) => {
         scrollTo(document.body, 0, this._scrollDuration).then(() => {
           this.onRefresh.emit();
         });
@@ -109,8 +109,8 @@ export class QuizService {
     return this._onRefresh;
   }
 
-  public getCorrectAnswer(question: Question) {
-    for (let answer of question.answers) {
+  public getCorrectAnswer(question: Dilema) {
+    for (let answer of question.options) {
       if (answer.correct) {
         return answer;
       }
@@ -119,14 +119,14 @@ export class QuizService {
     return null;
   }
 
-  private loadProductionData(): Rx.Observable<Question[]> {
+  private loadProductionData(): Rx.Observable<Dilema[]> {
     return this.playlistService.getPlaylist()
       .map((playlist: Playlist) => this.extractTracks(playlist))
       .map((tracks: Track[]) => this.extractRandom(tracks))
       .map((tracks: Track[]) => this.buildQuestions(tracks));
   }
 
-  private loadExistingData(data: Playlist, delay = 1000): Rx.Observable<Question[]> {
+  private loadExistingData(data: Playlist, delay = 1000): Rx.Observable<Dilema[]> {
     return Rx.Observable.of(data)
       .delay(delay)
       .map((playlist: Playlist) => this.extractTracks(playlist))
@@ -134,7 +134,7 @@ export class QuizService {
       .map((tracks: Track[]) => this.buildQuestions(tracks));
   }
 
-  private loadMockData(delay = 500): Rx.Observable<Question[]> {
+  private loadMockData(delay = 500): Rx.Observable<Dilema[]> {
     return this.playlistService.getMockPlaylist()
       .delay(delay)
       .map((playlist: Playlist) => this.extractTracks(playlist))
@@ -145,7 +145,7 @@ export class QuizService {
   private calculateProgress() {
     let count = 0;
 
-    for (let question of this.questions) {
+    for (let question of this.dilemas) {
       if (question.status.answered) {
         count++;
       }
@@ -156,7 +156,7 @@ export class QuizService {
 
   private buildQuestions(randomTracks: Track[]) {
     let trackTransformer = new TrackTransformer(this._playlist, this._tracks);
-    let questions: Question[] = [];
+    let questions: Dilema[] = [];
     let count = 0;
 
     for (let track of randomTracks) {
@@ -169,15 +169,15 @@ export class QuizService {
     }
 
     count = 1;
-    this._questions = shuffle(questions.slice(1)).map((question) => {
+    this._dilemas = shuffle(questions.slice(1)).map((question) => {
       question.id = ++count;
       return question;
     });
 
     questions[0].id = 1;
-    this._questions.unshift(questions[0]);
+    this._dilemas.unshift(questions[0]);
 
-    return this._questions;
+    return this._dilemas;
   }
 
   private extractTracks(playlist: Playlist) {
@@ -225,11 +225,11 @@ export class QuizService {
   }
 
   get totalQuestions(): number {
-    return this.questions.length;
+    return this.dilemas.length;
   }
 
-  get questions(): Question[] {
-    return this._questions || [];
+  get dilemas(): Dilema[] {
+    return this._dilemas || [];
   }
 
 }

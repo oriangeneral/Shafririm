@@ -1,12 +1,12 @@
 import { shuffle } from 'app/helpers';
 
-import { Playlist, Track, Question, QuestionType } from 'app/contracts';
+import { Playlist, Track, Dilema, QuestionType } from 'app/contracts';
 
 export class TrackTransformer {
 
   constructor(private _playlist: Playlist, private _tracks: Track[]) { }
 
-  public toQuestion(track: Track, type?: QuestionType): Question {
+  public toQuestion(track: Track, type?: QuestionType): Dilema {
     let questionType: string;
     let functionName: string;
 
@@ -25,11 +25,11 @@ export class TrackTransformer {
     return this[functionName](track);
   }
 
-  public toAlbumNameFromImageQuestion(track: Track): Question {
-    let question: Question = {
+  public toAlbumNameFromImageQuestion(track: Track): Dilema {
+    let question: Dilema = {
       type: QuestionType.AlbumNameFromImage,
       title: 'What is the name of this album?',
-      answers: [
+      options: [
         {
           title: track.album.name,
           correct: true
@@ -43,23 +43,23 @@ export class TrackTransformer {
     };
 
     for (let randomTrack of this.randomTracksExcluding(3, track.id)) {
-      question.answers.push({
+      question.options.push({
         title: randomTrack.album.name,
         correct: false
       });
     }
 
-    shuffle(question.answers);
+    shuffle(question.options);
 
     return question;
   }
 
-  public toTrackNameFromPreviewQuestion(track: Track): Question {
-    let question: Question = {
+  public toTrackNameFromPreviewQuestion(track: Track): Dilema {
+    let question: Dilema = {
       type: QuestionType.TrackNameFromPreview,
       title: 'What is the name of this song?',
       description: 'You can play 30 seconds of the song.',
-      answers: [
+      options: [
         {
           title: track.name,
           correct: true
@@ -73,22 +73,22 @@ export class TrackTransformer {
     };
 
     for (let randomTrack of this.randomTracksExcluding(3, track.id)) {
-      question.answers.push({
+      question.options.push({
         title: randomTrack.name,
         correct: false
       });
     }
 
-    shuffle(question.answers);
+    shuffle(question.options);
 
     return question;
   }
 
-  public toArtistNameFromTrackNameQuestion(track: Track): Question {
-    let question: Question = {
+  public toArtistNameFromTrackNameQuestion(track: Track): Dilema {
+    let question: Dilema = {
       type: QuestionType.ArtistNameFromTrackName,
       title: 'Who is the artist of this track?',
-      answers: [
+      options: [
         {
           title: track.artists[0].name,
           correct: true
@@ -102,22 +102,22 @@ export class TrackTransformer {
     };
 
     for (let randomTrack of this.randomTracksExcluding(3, track.id)) {
-      question.answers.push({
+      question.options.push({
         title: randomTrack.artists[0].name,
         correct: false
       });
     }
 
-    shuffle(question.answers);
+    shuffle(question.options);
 
     return question;
   }
 
-  public toArtistNameFromAlbumNameQuestion(track: Track): Question {
-    let question: Question = {
+  public toArtistNameFromAlbumNameQuestion(track: Track): Dilema {
+    let question: Dilema = {
       type: QuestionType.ArtistNameFromAlbumName,
       title: 'Who is the artist of this album?',
-      answers: [
+      options: [
         {
           title: track.artists[0].name,
           correct: true
@@ -131,22 +131,22 @@ export class TrackTransformer {
     };
 
     for (let randomTrack of this.randomTracksExcluding(3, track.id)) {
-      question.answers.push({
+      question.options.push({
         title: randomTrack.artists[0].name,
         correct: false
       });
     }
 
-    shuffle(question.answers);
+    shuffle(question.options);
 
     return question;
   }
 
-  public toReleaseDateFromTrackNameQuestion(track: Track): Question {
+  public toReleaseDateFromTrackNameQuestion(track: Track): Dilema {
     return null;
   }
 
-  public toReleaseDateFromAlbumNameQuestion(track: Track): Question {
+  public toReleaseDateFromAlbumNameQuestion(track: Track): Dilema {
     return null;
   }
 
