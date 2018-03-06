@@ -1,5 +1,5 @@
 export class Constants {
-  public static readonly SCENARIO: string = 'scenario';
-  public static readonly DILEMA: string = 'dilema';
-  public static readonly USER: string = 'user';
+  public static readonly SCENARIO: string = 'scenarios';
+  public static readonly DILEMA: string = 'dilemas';
+  public static readonly USER: string = 'users';
 }
