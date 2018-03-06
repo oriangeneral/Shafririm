@@ -15,14 +15,13 @@ export class BlProxyService {
 
   getNested<T>(entityTypeIds: any): Observable<T> {
     let finalUrl = '';
-    entityTypeIds.forEach((entityType, entityId) => {
-        if (entityId) {
+    Object.keys(entityTypeIds).forEach((entityType) => {
+        if (!entityTypeIds[entityType]) {
           finalUrl += '/' + entityType;
         } else {
-          finalUrl += '/' + entityType + '/' + entityId;
+          finalUrl += '/' + entityType + '/' + entityTypeIds[entityType];
         }
-       }
-     );
+    });
     return <Observable<T>>this.httpClient.get(this.baseUrl + '/' + finalUrl);
   }
 

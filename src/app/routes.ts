@@ -22,7 +22,7 @@ export const routes: Routes = [
     component: CategoriesComponent
   },
   {
-    path: 'categories/:categoryId/scenario/:scenarioId/dilemas/:dilemaId',
+    path: 'dilemas/:dilemaId',
     component: DilemaComponent
   },
   {

@@ -32,7 +32,7 @@ export class CategoryComponent implements OnInit {
   }
 
   public ngOnInit() {
-    this.categoryId = this.activatedRoute.params['categoryId'];
+    this.categoryId = this.activatedRoute.params['value']['categoryId'];
     this.blService.getScenarios(this.categoryId,
     ).subscribe(data => {
       this.scenarios = data;
