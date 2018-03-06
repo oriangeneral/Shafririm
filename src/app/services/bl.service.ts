@@ -11,14 +11,14 @@ import {Observable} from 'rxjs/Observable';
 export class BlService {
   public currentUser: User;
 
-  constructor(private blProxyService: BlProxyService, activatedRoute) {
+  constructor(private blProxyService: BlProxyService) {
   }
 
   public getDilemaOptions(categoryId: number, scenarioId: number, dilemaId: number): Observable<Option[]> {
     return this.blProxyService.getNested({
       'categories': categoryId,
-      'scenario': scenarioId,
-      'dilema': dilemaId,
+      'scenarios': scenarioId,
+      'dilemas': dilemaId,
       'options': null
     });
   }
@@ -27,7 +27,7 @@ export class BlService {
     return this.blProxyService.getNested({
       'categories': categoryId,
       'scenario': scenarioId,
-      'dilema': dilemaId
+      'dilemas': dilemaId
     });
   }
 

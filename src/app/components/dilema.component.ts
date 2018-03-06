@@ -7,31 +7,38 @@ import { Component, OnInit, Input, Output, EventEmitter, ElementRef } from '@ang
 import { Dilema } from '../models/dilema.model';
 import {BlService} from '../services/bl.service';
 
-import template from './dilema.html';
 import {ActivatedRoute} from '@angular/router';
 import {Option} from '../models/option.model';
 
 
 @Component({
   selector: 'app-dilema',
-  template: template,
-  styles: [
-    // mainStyle
-  ]
+  template: `
+    <h3>{{dilema.title}}</h3>
+    <p>{{dilema.description}}</p>
+    <div *ngFor="let option of options">{{option.title}}</div>
+  `
 })
 export class DilemaComponent implements OnInit {
-  @Input() public dilema: Dilema;
   private options: Option[] = [];
+  private dilema: Dilema;
 
   constructor(private blService: BlService, private activatedRoute: ActivatedRoute) {
   }
 
   public ngOnInit() {
-    this.blService.getDilemaOptions(this.activatedRoute.params.categoryId,
-      this.activatedRoute.params.scenarioId,
-      this.activatedRoute.params.dilemaId
+    this.blService.getDilemaOptions(this.activatedRoute.params['categoryId'],
+      this.activatedRoute.params['scenarioId'],
+      this.activatedRoute.params['dilemaId']
     ).subscribe(data => {
       this.options = data;
+    });
+
+    this.blService.getDilema(this.activatedRoute.params['categoryId'],
+      this.activatedRoute.params['scenarioId'],
+      this.activatedRoute.params['dilemaId']
+    ).subscribe(data => {
+      this.dilema = data;
     });
   }
 }
