@@ -11,6 +11,7 @@ body{
   width: 100%;
   height: 100%;
   margin: 0;
+  font-family: sans-serif;
 }
 
 .margin-top-0{
@@ -21,4 +22,10 @@ body{
   text-align: -webkit-center;
 }
 
+.header {
+  font-size: -webkit-xxx-large;
+}
 
+.title {
+  font-size: -webkit-xxx-large;
+}

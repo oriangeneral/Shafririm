@@ -16,8 +16,8 @@ import {ActivatedRoute} from "@angular/router";
   template: `
     <div fxLayout="column" class="categories-wrapper">
       <div fxFlex="20"></div>
-      <h1  class="horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
-      <h2  class="horizontal-alignment-center">בחר מגרש לשחק</h2>
+      <h1 class="header" class="horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
+      <h2  class="horizontal-alignment-center">בחר מגרש משחקים</h2>
       <div  class="horizontal-alignment-center" fxLayout="column">
         <div fxFlex>
           <div *ngFor="let c of categories">
