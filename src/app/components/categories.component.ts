@@ -36,7 +36,7 @@ export class CategoriesComponent implements OnInit{
 
     this.route.params.subscribe(params => {
       this.selectedCategory = this.route.snapshot.params['categoryId'];
-      this.onSelectedCategory();
+      this.onSelectedCategory(this.selectedCategory);
     });
 
     this.blService.getCategories().subscribe(data => {

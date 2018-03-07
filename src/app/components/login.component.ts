@@ -24,25 +24,32 @@ import {map} from 'rxjs/operators/map';
       background-image: url('../../assets/images/parkImg.jpg');
       background-repeat: no-repeat;
       background-size: 100%;
+      color: #ffffff;
     }
-  `],
-  template: `    
-    <div class="login">
-      <h1>ברוכים הבאים</h1>
-      <h2>מרחב למידה חוויתי</h2>
-      <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <input type="text" placeholder="שם משתמש" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-          <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-              {{ option }}
-            </mat-option>
-          </mat-autocomplete>
-        </mat-form-field>
-      </form>
     
-    <!--<button mat-button>Click me!</button>-->
-      <a mat-button href="/#/categories">Click me!</a>
+    
+    
+  `],
+  template: `
+    
+    <div fxLayout="column" class="login">
+      <div fxFlex="20">1</div>
+      <div fxFlex>
+        <h1 class="horizontal-alignment-center margin-top-0">ברוכים הבאים</h1>
+        <h2 class="horizontal-alignment-center">מרחב למידה חוויתי</h2>
+        <form class="example-form" dir="rtl">
+          <mat-form-field class="example-full-width">
+            <input type="text" placeholder="שם משתמש" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form>
+        <a mat-button href="/#/categories">כניסה</a>
+      </div>
+      <div fxFlex="20">3</div>
     </div>
   `
 })

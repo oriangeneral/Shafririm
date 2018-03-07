@@ -5,8 +5,7 @@ import { Component } from '@angular/core';
   styles: [`
   `],
   template: `
-    <div>home</div>
-    <router-outlet></router-outlet>
+    <router-outlet dir="rtl"></router-outlet>
   `
 })
 export class AppComponent {
