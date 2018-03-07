@@ -34,9 +34,7 @@ namespace ShafririmWebapi.Controllers
         public IHttpActionResult GetScenario(int id)
         {
             Scenario scenario = db.Scenarios.Find(id);
-
-            var a = CommonHandler.ObjectToJson(scenario);
-
+            
             if (scenario == null)
             {
                 return NotFound();

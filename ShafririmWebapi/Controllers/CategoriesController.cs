@@ -35,11 +35,7 @@ namespace ShafririmWebapi.Controllers
         public IHttpActionResult GetCategory(int id)
         {
             Category category = db.Categories.Find(id);
-
-
-            var a = CommonHandler.ObjectToJson(category);
-
-
+           
             if (category == null)
             {
                 return NotFound();

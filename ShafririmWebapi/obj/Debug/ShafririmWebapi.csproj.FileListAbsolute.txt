@@ -33,3 +33,4 @@ C:\Users\Shlomi\Downloads\ShafririmApi\ShafririmWebapi\bin\System.Web.Http.xml
 C:\Users\Shlomi\Downloads\ShafririmApi\ShafririmWebapi\bin\System.Web.Http.WebHost.xml
 C:\Users\Shlomi\Downloads\ShafririmApi\ShafririmWebapi\obj\Debug\ShafririmWebapi.dll
 C:\Users\Shlomi\Downloads\ShafririmApi\ShafririmWebapi\obj\Debug\ShafririmWebapi.pdb
+C:\Users\Shlomi\Downloads\ShafririmApi\ShafririmWebapi\obj\Debug\ShafririmWebapi.csprojResolveAssemblyReference.cache

@@ -44,8 +44,6 @@ namespace ShafririmWebapi.Controllers
         {
             Dilema dilema = db.Dilemas.Find(id);
 
-            var a = CommonHandler.ObjectToJson(dilema);
-
             if (dilema == null)
             {
                 return NotFound();

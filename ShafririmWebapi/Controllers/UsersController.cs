@@ -35,8 +35,6 @@ namespace ShafririmWebapi.Controllers
         {
             User user = db.Users.Find(id);
 
-            var a = CommonHandler.ObjectToJson(user);
-
             if (user == null)
             {
                 return NotFound();
@@ -95,11 +93,17 @@ namespace ShafririmWebapi.Controllers
             {
                 return BadRequest(ModelState);
             }
-
-            db.Users.Add(user);
-            db.SaveChanges();
-
-
+            // User name and id don't exist in db
+            if (!string.IsNullOrEmpty(user.Name) && !UserExists(user.Name))
+            {
+                db.Users.Add(user);
+                db.SaveChanges();
+            }
+            // User exists
+            else
+            {
+                user = db.Users.Single(u => u.Name == user.Name);
+            }
             return Ok(user);
         }
         #endregion
@@ -138,7 +142,12 @@ namespace ShafririmWebapi.Controllers
         private bool UserExists(int id)
         {
             return db.Users.Count(e => e.Id == id) > 0;
-        } 
+        }
+
+        private bool UserExists(string name)
+        {
+            return db.Users.Count(e => e.Name == name) > 0;
+        }
         #endregion
     }
 }
