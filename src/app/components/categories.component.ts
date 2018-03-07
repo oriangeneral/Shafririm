@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {BlService} from '../services/bl.service';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'categories',
   styles: [`
-    .categories-wrapper{
+    .categories-wrapper {
       width: 100%;
       height: 100%;
       background-image: url('../../assets/images/park2.jpeg');
@@ -13,6 +13,7 @@ import {ActivatedRoute} from "@angular/router";
       background-size: 100%;
       color: #ffffff;
     }
+
     .minimized {
       max-width: 30%
     }
@@ -20,16 +21,18 @@ import {ActivatedRoute} from "@angular/router";
   template: `
     <div fxLayout="column" class="categories-wrapper">
       <div fxFlex="20"></div>
-      <h1 class="header horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
-      <h1  class="horizontal-alignment-center">בחר מגרש משחקים</h1>
-      <div  class="horizontal-alignment-center" fxLayout="column">
+      <h1 class="title horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
+      <h1 class="horizontal-alignment-center">בחר מגרש משחקים</h1>
+      <div class="horizontal-alignment-center" fxLayout="column">
         <div fxFlex>
-          <div *ngFor="let c of categories" style="display: inline; float: right; min-width: 30%; padding: 20px" >
+          <div *ngFor="let c of categories" class="div-wrapper">
             <a [href]="'#/categories/'+c.id">
-              
-              <mat-card class="example-card">
+
+              <mat-card class="example-card" >
                 <mat-card-header>
-                  <mat-card-title><div class="header">{{c.title}}</div></mat-card-title>
+                  <mat-card-title>
+                    <div class="title">{{c.title}}</div>
+                  </mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <p>
@@ -44,7 +47,7 @@ import {ActivatedRoute} from "@angular/router";
     </div>
   `
 })
-export class CategoriesComponent implements OnInit{
+export class CategoriesComponent implements OnInit {
   public categories = [];
   public scenarios = [];
 

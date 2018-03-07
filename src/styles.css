@@ -31,5 +31,19 @@ a{
 }
 
 .title {
-  font-size: -webkit-xxx-large;
+  font-size: xx-large;
+}
+
+.div-wrapper {
+  display: inline;
+  float: right;
+  min-width: 30%;
+  padding: 20px;
+}
+
+.odd {
+  background: blue;
+}
+.even  {
+  background: green;
 }
