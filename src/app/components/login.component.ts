@@ -3,6 +3,8 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
+import {BlService} from "../services/bl.service";
+import {ActivatedRoute} from "@angular/router";
 
 
 @Component({
@@ -57,7 +59,8 @@ import {map} from 'rxjs/operators/map';
             </mat-autocomplete>
           </mat-form-field>
         </form>
-        <a mat-raised-button color="primary" href="/#/categories" class="login-button">כניסה</a>
+        <!--<a mat-raised-button color="primary" href="/#/categories" class="login-button">כניסה</a>-->
+        <button mat-raised-button color="primary" (click)="onLogin();" class="login-button">כניסה</button>
       </div>
       <div fxFlex="20"></div>
     </div>
@@ -65,8 +68,18 @@ import {map} from 'rxjs/operators/map';
 })
 export class LoginComponent {
   myControl: FormControl = new FormControl();
-  options = [];//['One', 'Two', 'Three'];
+  users = [];//['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
+  public isBusy: boolean = false;
+
+  constructor(private route: ActivatedRoute,
+              private blService: BlService) {
+    this.isBusy = true;
+    this.blService.getUsers().subscribe(data => {
+      this.isBusy = false;
+      this.users = data;
+    });
+  }
 
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
@@ -77,5 +90,12 @@ export class LoginComponent {
 
   filter(val: string): string[] {
     return this.options.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  }
+
+  onLogin(){
+    this.blService.currentUser = this.myControl.value;
+    this.blService.login().subscribe(data => {
+
+    });
   }
 }

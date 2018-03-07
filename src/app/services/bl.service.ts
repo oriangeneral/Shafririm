@@ -45,6 +45,10 @@ export class BlService {
     return this.blProxyService.getAll(Constants.CATEGORY);
   }
 
+  public getUsers() {
+    return this.blProxyService.getAll(Constants.USER);
+  }
+
   public login() {
     return this.blProxyService.post(Constants.USER, this.currentUser);
   }
