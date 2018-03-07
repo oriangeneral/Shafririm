@@ -15,11 +15,43 @@ import {Category} from '../models/category.model';
 
 @Component({
   selector: 'app-category',
+  styles: [`
+    .category-wrapper{
+      width: 100%;
+      height: 100%;
+      background-image: url('../../assets/images/sky.jpeg');
+      background-repeat: round;
+      background-size: 100%;
+      color: #ffffff;
+    }
+  `],
   template: `
-    <h3>{{category.title}}</h3>
-    <p>{{category.description}}</p>
-    <div *ngFor="let scenario of scenarios">
-      <a [href]="'/#/dilemas/' + scenario.firstDilema.id">{{scenario.title}}</a>
+    <div fxLayout="column" class="category-wrapper">
+      <div fxFlex="20">
+        <h3>שלום {{currentUser.name}}</h3>
+      </div>
+      <h1 class="header horizontal-alignment-center margin-top-0">{{category.title}}</h1>
+      <h1 class="horizontal-alignment-center">{{category.desc}}</h1>
+      <h1 class="horizontal-alignment-center">בחר אפשרות</h1>
+        <div fxFlex>
+          <mat-spinner *ngIf="isBusy"></mat-spinner>
+          <div *ngFor="let scenario of scenarios" style="display: inline; float: right; min-width: 30%; padding: 20px" >
+            <a [href]="'/#/dilemas/' + scenario.firstDilemaId">
+
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title><div class="title">{{scenario.title}}</div></mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <p class="subtitle">
+                    {{scenario.desc}}
+                  </p>
+                  <img [src]="selectImage(scenario.level)" style="max-width: 30px;"/>
+                </mat-card-content>
+              </mat-card>
+            </a>
+          </div>
+        </div>
     </div>
   `
 })
@@ -27,21 +59,50 @@ export class CategoryComponent implements OnInit {
   private categoryId: number;
   private category: Category = new Category();
   private scenarios: Scenario[] = [];
+  public isBusy = true;
 
-  constructor(private blService: BlService, private activatedRoute: ActivatedRoute) {
+  get currentUser(){
+    return this.blService.currentUser;
+  }
+
+  constructor(private blService: BlService, private route: ActivatedRoute) {
   }
 
   public ngOnInit() {
-    this.categoryId = this.activatedRoute.params['value']['categoryId'];
-    this.blService.getScenarios(this.categoryId,
-    ).subscribe(data => {
-      this.scenarios = data;
+    this.route.params.subscribe(params => {
+      this.isBusy = true;
+      this.categoryId = this.route.snapshot.params['categoryId'];
+      this.blService.getScenarios(this.categoryId,
+      ).subscribe(data => {
+        if(this.category.title) {
+          this.isBusy = false;
+        }
+
+        this.scenarios = data;
+      });
+
+      this.blService.getCategory(this.categoryId
+      ).subscribe(data => {
+        if(this.scenarios.length > 0){
+          this.isBusy = false;
+        }
+        this.category = data;
+      });
     });
 
-    this.blService.getCategory(this.categoryId
-    ).subscribe(data => {
-      this.category = data;
-    });
+  }
+
+  public selectImage(level: number){
+    switch (level) {
+      case 2:
+        return '../assets/images/levels/level2.jpg';
+      case 3:
+        return '../assets/images/levels/level3.png';
+      case 4:
+        return '../assets/images/levels/level4.png';
+      default:
+        return '../assets/images/levels/level1.jpg';
+    }
   }
 }
 

@@ -10,7 +10,13 @@ import {Category} from '../models/category.model';
 
 @Injectable()
 export class BlService {
-  public currentUser: User;
+  public currentUser: User = {
+    id: -1,
+    name: 'אורח',
+    createDate: null,
+    updatedDate: null,
+    level: -1,
+  };
 
   constructor(private blProxyService: BlProxyService) {
   }
@@ -19,6 +25,12 @@ export class BlService {
     return this.blProxyService.getNested({
       'dilemas': dilemaId,
       'options': null
+    });
+  }
+
+  public getUsers(): Observable<Option[]> {
+    return this.blProxyService.getNested({
+      'users': null
     });
   }
 
