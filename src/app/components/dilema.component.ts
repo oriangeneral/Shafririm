@@ -59,6 +59,7 @@ export class DilemaComponent implements OnInit {
 
   public ngOnInit() {
     this.route.params.subscribe(params => {
+      this.options = [];
       this.categoryId = this.route.snapshot.params['categoryId'];
       this.scenarioId = this.route.snapshot.params['scenarioId'];
       this.dilemaId = this.route.snapshot.params['dilemaId'];

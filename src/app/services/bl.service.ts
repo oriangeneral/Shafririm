@@ -22,6 +22,12 @@ export class BlService {
     });
   }
 
+  public getUsers(): Observable<Option[]> {
+    return this.blProxyService.getNested({
+      'users': null
+    });
+  }
+
   public getDilema(dilemaId: number): Observable<Dilema> {
     return this.blProxyService.getNested({
       'dilemas': dilemaId
@@ -43,10 +49,6 @@ export class BlService {
 
   public getCategories() {
     return this.blProxyService.getAll(Constants.CATEGORY);
-  }
-
-  public getUsers() {
-    return this.blProxyService.getAll(Constants.USER);
   }
 
   public login() {

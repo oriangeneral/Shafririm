@@ -4,7 +4,9 @@ import {Observable} from 'rxjs/Observable';
 import {startWith} from 'rxjs/operators/startWith';
 import {map} from 'rxjs/operators/map';
 import {BlService} from "../services/bl.service";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from '@angular/router';
+import {User} from '../models/user.model';
+import {routes} from '../routes';
 
 
 @Component({
@@ -59,7 +61,6 @@ import {ActivatedRoute} from "@angular/router";
             </mat-autocomplete>
           </mat-form-field>
         </form>
-        <!--<a mat-raised-button color="primary" href="/#/categories" class="login-button">כניסה</a>-->
         <button mat-raised-button color="primary" (click)="onLogin();" class="login-button">כניסה</button>
       </div>
       <div fxFlex="20"></div>
@@ -68,11 +69,12 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class LoginComponent {
   myControl: FormControl = new FormControl();
-  users = [];//['One', 'Two', 'Three'];
+  users = [];
   filteredOptions: Observable<string[]>;
   public isBusy: boolean = false;
 
   constructor(private route: ActivatedRoute,
+              private router: Router,
               private blService: BlService) {
     this.isBusy = true;
     this.blService.getUsers().subscribe(data => {
@@ -84,18 +86,21 @@ export class LoginComponent {
   ngOnInit() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
-      map(val => this.filter(val))
+      map(val => this.filter(val).map((user => user.name)))
     );
   }
 
-  filter(val: string): string[] {
-    return this.users.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+  filter(val: string): User[] {
+    return this.users.filter((option) => {
+      return option.name.toLowerCase().indexOf(val.toLowerCase()) === 0;
+    });
   }
 
   onLogin(){
     this.blService.currentUser = this.myControl.value;
     this.blService.login().subscribe(data => {
-
-    });
+        this.router.navigate(['categories']);
+    },
+      (error) => this.router.navigate(['categories']));
   }
 }

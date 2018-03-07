@@ -57,6 +57,7 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
+      this.categories = [];
       this.isBusy = true;
       this.blService.getCategories().subscribe(data => {
         this.isBusy = false;
