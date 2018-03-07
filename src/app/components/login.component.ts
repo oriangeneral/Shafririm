@@ -27,6 +27,11 @@ import {map} from 'rxjs/operators/map';
       color: #ffffff;
     }
     
+    .login-button{
+      display: block;
+      text-align: center;
+    }
+    
     
     
   `],
@@ -62,7 +67,7 @@ import {map} from 'rxjs/operators/map';
 })
 export class LoginComponent {
   myControl: FormControl = new FormControl();
-  options = ['One', 'Two', 'Three'];
+  options = [];//['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
 
   ngOnInit() {
