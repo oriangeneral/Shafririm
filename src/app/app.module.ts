@@ -50,6 +50,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import DilemaComponent from './components/dilema.component';
 import {Category} from './models/category.model';
 import CategoryComponent from './components/category.component';
+import {FlexLayoutModule} from "@angular/flex-layout";
 
 
 
@@ -67,6 +68,7 @@ import CategoryComponent from './components/category.component';
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    FlexLayoutModule,
     FormsModule,
     MatNativeDateModule,
     ReactiveFormsModule,
