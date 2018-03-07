@@ -56,20 +56,29 @@ export class CategoryComponent implements OnInit {
   private categoryId: number;
   private category: Category = new Category();
   private scenarios: Scenario[] = [];
+  public isBusy = true;
 
   constructor(private blService: BlService, private route: ActivatedRoute) {
   }
 
   public ngOnInit() {
     this.route.params.subscribe(params => {
+      this.isBusy = true;
       this.categoryId = this.route.snapshot.params['categoryId'];
       this.blService.getScenarios(this.categoryId,
       ).subscribe(data => {
+        if(this.category.title != undefined){
+          this.isBusy = false;
+        }
+
         this.scenarios = data;
       });
 
       this.blService.getCategory(this.categoryId
       ).subscribe(data => {
+        if(this.scenarios.length > 0){
+          this.isBusy = false;
+        }
         this.category = data;
       });
     });

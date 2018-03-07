@@ -24,9 +24,9 @@ import {ActivatedRoute} from "@angular/router";
       <h1  class="horizontal-alignment-center">בחר מגרש משחקים</h1>
       <div  class="horizontal-alignment-center" fxLayout="column">
         <div fxFlex>
+          <mat-progress-bar *ngIf="isBusy" mode="query"></mat-progress-bar>
           <div *ngFor="let c of categories" style="display: inline; float: right; min-width: 30%; padding: 20px" >
             <a [href]="'#/categories/'+c.id">
-              
               <mat-card class="example-card">
                 <mat-card-header>
                   <mat-card-title><div class="header">{{c.title}}</div></mat-card-title>
@@ -47,6 +47,7 @@ import {ActivatedRoute} from "@angular/router";
 export class CategoriesComponent implements OnInit{
   public categories = [];
   public scenarios = [];
+  public isBusy: boolean = false;
 
   constructor(private route: ActivatedRoute,
               private blService: BlService) {
@@ -54,7 +55,9 @@ export class CategoriesComponent implements OnInit{
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
+      this.isBusy = true;
       this.blService.getCategories().subscribe(data => {
+        this.isBusy = false;
         this.categories = data;
       });
     });

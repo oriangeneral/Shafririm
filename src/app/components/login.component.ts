@@ -29,7 +29,8 @@ import {map} from 'rxjs/operators/map';
     }
     .login-button{
       position: absolute;
-      left: 50%;
+      left: 40%;
+      width: 20%;
     }
   `],
   template: `
@@ -49,7 +50,7 @@ import {map} from 'rxjs/operators/map';
             </mat-autocomplete>
           </mat-form-field>
         </form>
-        <a mat-button href="/#/categories" class="login-button">כניסה</a>
+        <a mat-raised-button color="primary" href="/#/categories" class="login-button">כניסה</a>
       </div>
       <div fxFlex="20"></div>
     </div>
