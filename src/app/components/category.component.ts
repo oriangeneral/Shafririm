@@ -19,13 +19,13 @@ import {Category} from '../models/category.model';
     <h3>{{category.title}}</h3>
     <p>{{category.description}}</p>
     <div *ngFor="let scenario of scenarios">
-      <a [href]="'/#/categories/' + categoryId + '/scenarios/' + scenario.id">{{scenario.title}}</a>
+      <a [href]="'/#/dilemas/' + scenario.firstDilema.id">{{scenario.title}}</a>
     </div>
   `
 })
 export class CategoryComponent implements OnInit {
   private categoryId: number;
-  private category: Category;
+  private category: Category = new Category();
   private scenarios: Scenario[] = [];
 
   constructor(private blService: BlService, private activatedRoute: ActivatedRoute) {

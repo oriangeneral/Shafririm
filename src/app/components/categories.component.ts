@@ -44,15 +44,15 @@ export class CategoriesComponent implements OnInit{
     });
   }
 
-  ngOnInit(){
+  ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.selectedCategory = this.route.snapshot.params['categoryId'];
-      this.onSelectedCategory();
+      this.onSelectedCategory(this.selectedCategory);
     });
   }
 
-  onSelectedCategory(){
-    this.blService.getScenarios(this.selectedCategory).subscribe(data => {
+  onSelectedCategory(selectedCategory){
+    this.blService.getScenarios(selectedCategory).subscribe(data => {
       this.scenarios = data;
     });
   }
