@@ -36,7 +36,7 @@ import {ActivatedRoute} from '@angular/router';
                   <mat-card-title><div class="header">{{category.title}}</div></mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                  <p>
+                  <p class="subtitle">
                     {{category.desc}}
                   </p>
                 </mat-card-content>
