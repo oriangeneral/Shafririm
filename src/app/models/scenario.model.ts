@@ -7,7 +7,7 @@ export class Scenario extends EntityBase {
   createdDate: Date;
   updatedDate: Date;
   category: Category;
-  firstDilema: number;
+  firstDilemaId: number;
   level: number;
   status: number;
 }

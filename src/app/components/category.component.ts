@@ -33,7 +33,7 @@ import {Category} from '../models/category.model';
       <h1 class="horizontal-alignment-center">בחר אפשרות</h1>
         <div fxFlex>
           <div *ngFor="let scenario of scenarios" style="display: inline; float: right; min-width: 30%; padding: 20px" >
-            <a [href]="'/#/dilemas/' + scenario.firstDilema.id">
+            <a [href]="'/#/dilemas/' + scenario.firstDilemaId">
 
               <mat-card class="example-card">
                 <mat-card-header>

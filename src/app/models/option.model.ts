@@ -8,6 +8,6 @@ export class Option extends EntityBase {
   score: number;
   mediaUrl: string;
   dilema: Dilema;
-  nextDilema: Dilema;
+  nextDilemaId: number;
 
 }

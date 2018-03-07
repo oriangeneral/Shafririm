@@ -34,13 +34,8 @@ import {Option} from '../models/option.model';
 
             <mat-card class="example-card">
               <mat-card-header>
-                <mat-card-title><div class="header">{{option.title}}</div></mat-card-title>
+                <mat-card-title><div class="header">{{option.desc}}</div></mat-card-title>
               </mat-card-header>
-              <mat-card-content>
-                <p>
-                  {{option.desc}}
-                </p>
-              </mat-card-content>
             </mat-card>
           </a>
         </div>
@@ -79,8 +74,8 @@ export class DilemaComponent implements OnInit {
   }
 
   public nextLink(option: Option) {
-    if (option.nextDilema) {
-      return '/#/dilemas/' + option.nextDilema.id;
+    if (option.nextDilemaId) {
+      return '/#/dilemas/' + option.nextDilemaId;
     } else {
       return '/#/success';
     }

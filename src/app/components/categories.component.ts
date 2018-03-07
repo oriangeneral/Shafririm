@@ -25,15 +25,15 @@ import {ActivatedRoute} from "@angular/router";
       <div  class="horizontal-alignment-center" fxLayout="column">
         <div fxFlex>
           <mat-progress-bar *ngIf="isBusy" mode="query"></mat-progress-bar>
-          <div *ngFor="let c of categories" style="display: inline; float: right; min-width: 30%; padding: 20px" >
-            <a [href]="'#/categories/'+c.id">
+          <div *ngFor="let category of categories" style="display: inline; float: right; min-width: 30%; padding: 20px" >
+            <a [href]="'#/categories/' + category.id">
               <mat-card class="example-card">
                 <mat-card-header>
-                  <mat-card-title><div class="header">{{c.title}}</div></mat-card-title>
+                  <mat-card-title><div class="header">{{category.title}}</div></mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <p>
-                    {{c.desc}}
+                    {{category.desc}}
                   </p>
                 </mat-card-content>
               </mat-card>

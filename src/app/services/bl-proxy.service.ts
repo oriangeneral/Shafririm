@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class BlProxyService {
-  private baseUrl: string = 'http://192.168.1.213/shafririm/api';
+  private baseUrl: string = 'http://192.168.1.39/ShafririmWebapi/api';
 
   constructor(private httpClient: HttpClient) {
   }
