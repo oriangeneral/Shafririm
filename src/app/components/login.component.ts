@@ -22,7 +22,7 @@ import {map} from 'rxjs/operators/map';
       width: 100%;
       height: 100%;
       background-image: url('../../assets/images/park3.jpeg');
-      background-repeat: no-repeat;
+      background-repeat: round;
       background-size: 100%;
       color: #ffffff;
     }
