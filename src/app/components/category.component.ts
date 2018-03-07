@@ -34,17 +34,20 @@ import {Category} from '../models/category.model';
         <div fxFlex>
           <mat-spinner *ngIf="isBusy"></mat-spinner>
           <div *ngFor="let scenario of scenarios" style="display: inline; float: right; min-width: 30%; padding: 20px" >
+          <div ngFor="let scenario of scenarios" class="div-wrapper" >
             <a [href]="'/#/dilemas/' + scenario.firstDilema.id">
 
               <mat-card class="example-card">
                 <mat-card-header>
-                  <mat-card-title><div class="header">{{scenario.title}}</div></mat-card-title>
+                  <mat-card-title><div class="title">{{scenario.title}}</div></mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <p>
                     {{scenario.desc}}
                   </p>
-                  <img [src]="selectImage(scenario.level)" style="max-width: 30px;"/>
+                  <p>
+                    {{scenario.level}}
+                  </p>
                 </mat-card-content>
               </mat-card>
             </a>
