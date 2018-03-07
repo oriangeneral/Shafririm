@@ -51,6 +51,7 @@ import DilemaComponent from './components/dilema.component';
 import {Category} from './models/category.model';
 import CategoryComponent from './components/category.component';
 import {FlexLayoutModule} from "@angular/flex-layout";
+import SuccessComponent from './components/success.component';
 
 
 
@@ -61,6 +62,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     LoginComponent,
     CategoriesComponent,
     CategoryComponent,
+    SuccessComponent,
     DilemaComponent
   ],
   imports: [

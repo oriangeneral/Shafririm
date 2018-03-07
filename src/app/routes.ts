@@ -3,6 +3,7 @@ import {Routes} from '@angular/router';
 import {CategoriesComponent} from './components/categories.component';
 import DilemaComponent from './components/dilema.component';
 import CategoryComponent from './components/category.component';
+import SuccessComponent from './components/success.component';
 
 export const routes: Routes = [
   {
@@ -13,6 +14,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent
+  },
+  {
+    path: 'success',
+    component: SuccessComponent
   },
   {
     path: 'categories',

@@ -30,7 +30,7 @@ import {Option} from '../models/option.model';
       <h1 class="header horizontal-alignment-center">{{dilema.desc}}</h1>
       <div fxFlex>
         <div *ngFor="let option of options" style="display: inline; float: right; min-width: 30%; padding: 20px" >
-          <a [href]="'/#/dilemas/' + option.nextDilema.id">
+          <a [href]="nextLink(option)">
 
             <mat-card class="example-card">
               <mat-card-header>
@@ -76,6 +76,14 @@ export class DilemaComponent implements OnInit {
       });
     });
 
+  }
+
+  public nextLink(option: Option) {
+    if (option.nextDilema) {
+      return '/#/dilemas/' + option.nextDilema.id;
+    } else {
+      return '/#/success';
+    }
   }
 }
 
