@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import {FormControl} from '@angular/forms';
-import {Observable} from 'rxjs/Observable';
-import {startWith} from 'rxjs/operators/startWith';
-import {map} from 'rxjs/operators/map';
-import {BlService} from "../services/bl.service";
-import {ActivatedRoute, Router} from '@angular/router';
-import {User} from '../models/user.model';
-import {routes} from '../routes';
+import { FormControl } from '@angular/forms';
+import { Observable } from 'rxjs/Observable';
+import { startWith } from 'rxjs/operators/startWith';
+import { map } from 'rxjs/operators/map';
+import { BlService } from "../services/bl.service";
+import { ActivatedRoute, Router } from '@angular/router';
+import { User } from '../models/user.model';
+import { routes } from '../routes';
 
 
 @Component({
@@ -74,8 +74,8 @@ export class LoginComponent {
   public isBusy: boolean = false;
 
   constructor(private route: ActivatedRoute,
-              private router: Router,
-              private blService: BlService) {
+    private router: Router,
+    private blService: BlService) {
     this.isBusy = true;
     this.blService.getUsers().subscribe(data => {
       this.isBusy = false;
@@ -96,10 +96,11 @@ export class LoginComponent {
     });
   }
 
-  onLogin(){
-    this.blService.currentUser = this.myControl.value;
+  onLogin() {
+    this.blService.currentUser.name = this.myControl.value;
     this.blService.login().subscribe(data => {
-        this.router.navigate(['categories']);
+      this.blService.currentUser = data;
+      this.router.navigate(['categories']);
     },
       (error) => this.router.navigate(['categories']));
   }

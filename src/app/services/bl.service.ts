@@ -58,6 +58,6 @@ export class BlService {
   }
 
   public login() {
-    return this.blProxyService.post(Constants.USER, this.currentUser);
+    return this.blProxyService.post<User>(Constants.USER, this.currentUser);
   }
 }
