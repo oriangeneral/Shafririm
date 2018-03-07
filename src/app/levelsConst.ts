@@ -1,6 +1,6 @@
 export class LevelsConstants {
-  public static readonly first: string = 'scenarios';
-  public static readonly DILEMA: string = 'dilemas';
-  public static readonly CATEGORY: string = 'categories';
-  public static readonly USER: string = 'users';
+  public static readonly FIRST: string = 'first';
+  public static readonly SECOND: string = 'second';
+  public static readonly THIRD: string = 'third';
+  public static readonly FOURTH: string = 'fourth';
 }
