@@ -1,0 +1,236 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ShafririmModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Scenarios" Relationship="ShafririmModel.FK_Scenarios_Categories" FromRole="Category" ToRole="Scenario" />
+  </EntityType>
+  <EntityType Name="Dilema">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="MediaUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Level" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Options" Relationship="ShafririmModel.FK_Options_Dilemas" FromRole="Dilema" ToRole="Option" />
+    <NavigationProperty Name="Options1" Relationship="ShafririmModel.FK_Options_NextDilemaId" FromRole="Dilema" ToRole="Option" />
+    <NavigationProperty Name="Scenarios" Relationship="ShafririmModel.FK_Scenarios_Dilemas" FromRole="Dilema" ToRole="Scenario" />
+  </EntityType>
+  <EntityType Name="Game">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="ScenarioId" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Scenario" Relationship="ShafririmModel.FK_Games_Scenarios" FromRole="Game" ToRole="Scenario" />
+    <NavigationProperty Name="User" Relationship="ShafririmModel.FK_Games_Users" FromRole="Game" ToRole="User" />
+    <NavigationProperty Name="GameSelections" Relationship="ShafririmModel.FK_GameSelections_Games" FromRole="Game" ToRole="GameSelection" />
+  </EntityType>
+  <EntityType Name="GameSelection">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="GameId" Type="Int32" />
+    <Property Name="OptionId" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Game" Relationship="ShafririmModel.FK_GameSelections_Games" FromRole="GameSelection" ToRole="Game" />
+    <NavigationProperty Name="Option" Relationship="ShafririmModel.FK_GameSelections_Options" FromRole="GameSelection" ToRole="Option" />
+  </EntityType>
+  <EntityType Name="Option">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Remarks" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Score" Type="Int32" />
+    <Property Name="MediaUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="DilemaId" Type="Int32" />
+    <Property Name="NextDilemaId" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="Dilema" Relationship="ShafririmModel.FK_Options_Dilemas" FromRole="Option" ToRole="Dilema" />
+    <NavigationProperty Name="Dilema1" Relationship="ShafririmModel.FK_Options_NextDilemaId" FromRole="Option" ToRole="Dilema" />
+    <NavigationProperty Name="GameSelections" Relationship="ShafririmModel.FK_GameSelections_Options" FromRole="Option" ToRole="GameSelection" />
+  </EntityType>
+  <EntityType Name="Scenario">
+    <Key>
+      <PropertyRef Name="Id" />
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Title" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Level" Type="Int32" />
+    <Property Name="Status" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="FirstDilemaId" Type="Int32" />
+    <NavigationProperty Name="Category" Relationship="ShafririmModel.FK_Scenarios_Categories" FromRole="Scenario" ToRole="Category" />
+    <NavigationProperty Name="Dilema" Relationship="ShafririmModel.FK_Scenarios_Dilemas" FromRole="Scenario" ToRole="Dilema" />
+    <NavigationProperty Name="Games" Relationship="ShafririmModel.FK_Games_Scenarios" FromRole="Scenario" ToRole="Game" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="ProfileId" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+    <Property Name="Level" Type="Int32" />
+    <NavigationProperty Name="Games" Relationship="ShafririmModel.FK_Games_Users" FromRole="User" ToRole="Game" />
+  </EntityType>
+  <EntityContainer Name="ShafririmEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Dilemas" EntityType="Self.Dilema" />
+    <EntitySet Name="Games" EntityType="Self.Game" />
+    <EntitySet Name="GameSelections" EntityType="Self.GameSelection" />
+    <EntitySet Name="Options" EntityType="Self.Option" />
+    <EntitySet Name="Scenarios" EntityType="Self.Scenario" />
+    <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK_Scenarios_Categories" Association="ShafririmModel.FK_Scenarios_Categories">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Scenario" EntitySet="Scenarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Options_Dilemas" Association="ShafririmModel.FK_Options_Dilemas">
+      <End Role="Dilema" EntitySet="Dilemas" />
+      <End Role="Option" EntitySet="Options" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Options_NextDilemaId" Association="ShafririmModel.FK_Options_NextDilemaId">
+      <End Role="Dilema" EntitySet="Dilemas" />
+      <End Role="Option" EntitySet="Options" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Scenarios_Dilemas" Association="ShafririmModel.FK_Scenarios_Dilemas">
+      <End Role="Dilema" EntitySet="Dilemas" />
+      <End Role="Scenario" EntitySet="Scenarios" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Games_Scenarios" Association="ShafririmModel.FK_Games_Scenarios">
+      <End Role="Scenario" EntitySet="Scenarios" />
+      <End Role="Game" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Games_Users" Association="ShafririmModel.FK_Games_Users">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Game" EntitySet="Games" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GameSelections_Games" Association="ShafririmModel.FK_GameSelections_Games">
+      <End Role="Game" EntitySet="Games" />
+      <End Role="GameSelection" EntitySet="GameSelections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GameSelections_Options" Association="ShafririmModel.FK_GameSelections_Options">
+      <End Role="Option" EntitySet="Options" />
+      <End Role="GameSelection" EntitySet="GameSelections" />
+    </AssociationSet>
+  </EntityContainer>
+  <Association Name="FK_Scenarios_Categories">
+    <End Type="ShafririmModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="ShafririmModel.Scenario" Role="Scenario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Scenario">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Options_Dilemas">
+    <End Type="ShafririmModel.Dilema" Role="Dilema" Multiplicity="0..1" />
+    <End Type="ShafririmModel.Option" Role="Option" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dilema">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Option">
+        <PropertyRef Name="DilemaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Options_NextDilemaId">
+    <End Type="ShafririmModel.Dilema" Role="Dilema" Multiplicity="0..1" />
+    <End Type="ShafririmModel.Option" Role="Option" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dilema">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Option">
+        <PropertyRef Name="NextDilemaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Scenarios_Dilemas">
+    <End Type="ShafririmModel.Dilema" Role="Dilema" Multiplicity="0..1" />
+    <End Type="ShafririmModel.Scenario" Role="Scenario" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Dilema">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Scenario">
+        <PropertyRef Name="FirstDilemaId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Games_Scenarios">
+    <End Type="ShafririmModel.Scenario" Role="Scenario" Multiplicity="0..1" />
+    <End Type="ShafririmModel.Game" Role="Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Scenario">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Game">
+        <PropertyRef Name="ScenarioId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Games_Users">
+    <End Type="ShafririmModel.User" Role="User" Multiplicity="0..1" />
+    <End Type="ShafririmModel.Game" Role="Game" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Game">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GameSelections_Games">
+    <End Type="ShafririmModel.Game" Role="Game" Multiplicity="0..1" />
+    <End Type="ShafririmModel.GameSelection" Role="GameSelection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Game">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GameSelection">
+        <PropertyRef Name="GameId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GameSelections_Options">
+    <End Type="ShafririmModel.Option" Role="Option" Multiplicity="0..1" />
+    <End Type="ShafririmModel.GameSelection" Role="GameSelection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Option">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GameSelection">
+        <PropertyRef Name="OptionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
