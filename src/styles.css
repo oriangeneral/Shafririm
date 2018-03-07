@@ -40,10 +40,3 @@ a{
   min-width: 30%;
   padding: 20px;
 }
-
-.odd {
-  background: blue;
-}
-.even  {
-  background: green;
-}

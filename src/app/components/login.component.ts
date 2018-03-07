@@ -32,6 +32,13 @@ import {map} from 'rxjs/operators/map';
       left: 40%;
       width: 20%;
     }
+
+    ::ng-deep .mat-form-field-placeholder{
+      color:#cccccc;
+    }
+    ::ng-deep .mat-focused .mat-form-field-placeholder{
+      color:#ffffff;
+    }
   `],
   template: `
     
