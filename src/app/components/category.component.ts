@@ -31,9 +31,23 @@ import {Category} from '../models/category.model';
       <h1 class="header horizontal-alignment-center margin-top-0">{{category.title}}</h1>
       <h1 class="horizontal-alignment-center">{{category.desc}}</h1>
       <h1 class="horizontal-alignment-center">בחר אפשרות</h1>
-      <div class="horizontal-alignment-center" *ngFor="let scenario of scenarios">
-        <a [href]="'/#/dilemas/' + scenario.firstDilema.id" mat-button color="primary">{{scenario.title}}</a>
-      </div>
+        <div fxFlex>
+          <div *ngFor="let scenario of scenarios" style="display: inline; float: right; min-width: 30%; padding: 20px" >
+            <a [href]="'/#/dilemas/' + scenario.firstDilema.id">
+
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title><div class="header">{{scenario.title}}</div></mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    {{scenario.desc}}
+                  </p>
+                </mat-card-content>
+              </mat-card>
+            </a>
+          </div>
+        </div>
     </div>
   `
 })
