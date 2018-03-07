@@ -19,15 +19,17 @@ import {Category} from '../models/category.model';
     .category-wrapper{
       width: 100%;
       height: 100%;
-      background-image: url('../../assets/images/park2.jpeg');
-      background-repeat: no-repeat;
+      background-image: url('../../assets/images/sky.jpeg');
+      background-repeat: round;
       background-size: 100%;
     }
   `],
   template: `
-    <div class="category-wrapper">
-      <h1 class="horizontal-alignment-center margin-top-0">{{category.title}}</h1>
+    <div fxLayout="column" class="category-wrapper">
+      <div fxFlex="20"></div>
+     <h1 class="horizontal-alignment-center margin-top-0">{{category.title}}</h1>
       <h2 class="horizontal-alignment-center">{{category.description}}</h2>
+      <h2 class="horizontal-alignment-center">בחר אפשרות</h2>
       <div class="horizontal-alignment-center" *ngFor="let scenario of scenarios">
         <a [href]="'/#/dilemas/' + scenario.firstDilema.id" mat-button color="primary">{{scenario.title}}</a>
       </div>
@@ -39,20 +41,23 @@ export class CategoryComponent implements OnInit {
   private category: Category = new Category();
   private scenarios: Scenario[] = [];
 
-  constructor(private blService: BlService, private activatedRoute: ActivatedRoute) {
+  constructor(private blService: BlService, private route: ActivatedRoute) {
   }
 
   public ngOnInit() {
-    this.categoryId = this.activatedRoute.params['value']['categoryId'];
-    this.blService.getScenarios(this.categoryId,
-    ).subscribe(data => {
-      this.scenarios = data;
+    this.route.params.subscribe(params => {
+      this.categoryId = this.route.snapshot.params['categoryId'];
+      this.blService.getScenarios(this.categoryId,
+      ).subscribe(data => {
+        this.scenarios = data;
+      });
+
+      this.blService.getCategory(this.categoryId
+      ).subscribe(data => {
+        this.category = data;
+      });
     });
 
-    this.blService.getCategory(this.categoryId
-    ).subscribe(data => {
-      this.category = data;
-    });
   }
 }
 
