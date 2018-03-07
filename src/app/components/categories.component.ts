@@ -17,10 +17,17 @@ import {ActivatedRoute} from '@angular/router';
     .minimized {
       max-width: 30%
     }
+    .image{
+      max-width: 60px;
+      position: absolute; 
+      margin: 20px; 
+      left: 5px;
+    }
   `],
   template: `
     <div fxLayout="column" class="categories-wrapper">
       <div fxFlex="20"></div>
+      <img src="../../assets/images/settings.png" class="image"/>
       <h1 class="header horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
       <h1 class="horizontal-alignment-center">בחר מגרש משחקים</h1>
       <div class="horizontal-alignment-center" fxLayout="column">
@@ -34,7 +41,7 @@ import {ActivatedRoute} from '@angular/router';
                   <mat-card-title><div class="header">{{category.title}}</div></mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                  <p>
+                  <p class="subtitle">
                     {{category.desc}}
                   </p>
                 </mat-card-content>
@@ -57,7 +64,6 @@ export class CategoriesComponent implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.categories = [];
       this.isBusy = true;
       this.blService.getCategories().subscribe(data => {
         this.isBusy = false;
