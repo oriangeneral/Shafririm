@@ -22,7 +22,7 @@ import {map} from 'rxjs/operators/map';
       width: 100%;
       height: 100%;
       background-image: url('../../assets/images/park3.jpeg');
-      background-repeat: no-repeat;
+      background-repeat: round;
       background-size: 100%;
       color: #ffffff;
     }
@@ -33,7 +33,7 @@ import {map} from 'rxjs/operators/map';
   template: `
     
     <div fxLayout="column" class="login">
-      <div fxFlex="20">1</div>
+      <div fxFlex="20"></div>
       <div fxFlex>
         <h1 class="horizontal-alignment-center margin-top-0">ברוכים הבאים</h1>
         <h2 class="horizontal-alignment-center">מרחב למידה חוויתי</h2>
@@ -49,7 +49,7 @@ import {map} from 'rxjs/operators/map';
         </form>
         <a mat-button href="/#/categories">כניסה</a>
       </div>
-      <div fxFlex="20">3</div>
+      <div fxFlex="20"></div>
     </div>
   `
 })
