@@ -20,7 +20,11 @@ export const routes: Routes = [
   },
   {
     path: 'categories/:categoryId',
-    component: CategoriesComponent
+    component: CategoryComponent
+  },
+  {
+    path: 'categories/:categoryId',
+    component: CategoryComponent
   },
   {
     path: 'dilemas/:dilemaId',
