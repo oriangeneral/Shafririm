@@ -43,9 +43,7 @@ import {Category} from '../models/category.model';
                   <p>
                     {{scenario.desc}}
                   </p>
-                  <p>
-                    {{scenario.level}}
-                  </p>
+                  <img [src]="selectImage(scenario.level)" style="max-width: 30px;"/>
                 </mat-card-content>
               </mat-card>
             </a>
@@ -85,6 +83,19 @@ export class CategoryComponent implements OnInit {
       });
     });
 
+  }
+
+  public selectImage(level: number){
+    switch (level) {
+      case 2:
+        return '../assets/images/levels/level2.jpg';
+      case 3:
+        return '../assets/images/levels/level3.png';
+      case 4:
+        return '../assets/images/levels/level4.png';
+      default:
+        return '../assets/images/levels/level1.jpg';
+    }
   }
 }
 
