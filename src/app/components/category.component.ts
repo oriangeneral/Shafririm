@@ -15,11 +15,22 @@ import {Category} from '../models/category.model';
 
 @Component({
   selector: 'app-category',
+  styles: [`
+    .category-wrapper{
+      width: 100%;
+      height: 100%;
+      background-image: url('../../assets/images/park2.jpeg');
+      background-repeat: no-repeat;
+      background-size: 100%;
+    }
+  `],
   template: `
-    <h3>{{category.title}}</h3>
-    <p>{{category.description}}</p>
-    <div *ngFor="let scenario of scenarios">
-      <a [href]="'/#/dilemas/' + scenario.firstDilema.id">{{scenario.title}}</a>
+    <div class="category-wrapper">
+      <h1 class="horizontal-alignment-center margin-top-0">{{category.title}}</h1>
+      <h2 class="horizontal-alignment-center">{{category.description}}</h2>
+      <div class="horizontal-alignment-center" *ngFor="let scenario of scenarios">
+        <a [href]="'/#/dilemas/' + scenario.firstDilema.id" mat-button color="primary">{{scenario.title}}</a>
+      </div>
     </div>
   `
 })

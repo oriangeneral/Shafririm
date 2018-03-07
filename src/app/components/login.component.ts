@@ -57,7 +57,7 @@ import {map} from 'rxjs/operators/map';
 })
 export class LoginComponent {
   myControl: FormControl = new FormControl();
-  options = ['One', 'Two', 'Three'];
+  options = [];//['One', 'Two', 'Three'];
   filteredOptions: Observable<string[]>;
 
   ngOnInit() {
