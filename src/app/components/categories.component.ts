@@ -14,10 +14,9 @@ import {ActivatedRoute} from "@angular/router";
     }
   `],
   template: `
-    <div class="categories-wrapper">
-      
-      <h1>מרחב למידה חוויתי</h1>
-      <h2>בחר מגרש לשחק?</h2>
+    <div class="categories-wrapper"> 
+      <h1 class="header">מרחב למידה חוויתי</h1>
+      <h2>בחר מגרש משחקים</h2>
       <div fxLayout="column">
         <div fxFlex>
           <div *ngFor="let c of categories">
