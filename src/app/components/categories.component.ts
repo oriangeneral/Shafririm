@@ -21,7 +21,7 @@ import {ActivatedRoute} from '@angular/router';
   template: `
     <div fxLayout="column" class="categories-wrapper">
       <div fxFlex="20"></div>
-      <h1 class="title horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
+      <h1 class="header horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
       <h1 class="horizontal-alignment-center">בחר מגרש משחקים</h1>
       <div class="horizontal-alignment-center" fxLayout="column">
         <div fxFlex>
