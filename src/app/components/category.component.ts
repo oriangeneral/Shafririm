@@ -32,12 +32,13 @@ import {Category} from '../models/category.model';
       <h1 class="horizontal-alignment-center">{{category.desc}}</h1>
       <h1 class="horizontal-alignment-center">בחר אפשרות</h1>
         <div fxFlex>
+          <mat-spinner *ngIf="isBusy"></mat-spinner>
           <div *ngFor="let scenario of scenarios" style="display: inline; float: right; min-width: 30%; padding: 20px" >
             <a [href]="'/#/dilemas/' + scenario.firstDilemaId">
 
               <mat-card class="example-card">
                 <mat-card-header>
-                  <mat-card-title><div class="header">{{scenario.title}}</div></mat-card-title>
+                  <mat-card-title><div class="title">{{scenario.title}}</div></mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
                   <p>
@@ -67,7 +68,7 @@ export class CategoryComponent implements OnInit {
       this.categoryId = this.route.snapshot.params['categoryId'];
       this.blService.getScenarios(this.categoryId,
       ).subscribe(data => {
-        if(this.category.title != undefined){
+        if(this.category.title) {
           this.isBusy = false;
         }
 

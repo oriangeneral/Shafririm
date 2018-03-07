@@ -24,14 +24,25 @@ import {Category} from '../models/category.model';
       background-size: 100%;
       color: #ffffff;
     }
+    
+    .fireworks{
+      width: 100%;
+      height: 100%;
+      background-image: url('../../assets/images/fireworks3.gif');
+      background-repeat: round;
+      background-size: 100%;
+    }
   `],
   template: `
-    <div fxLayout="column" class="success-wrapper">
-      <div fxFlex="20"></div>
-      <h1 class="header horizontal-alignment-center margin-top-0">סיימת בהצלחה</h1>
-      <h1 class="horizontal-alignment-center">יפה מאוד</h1>
-      <a mat-raised-button color="primary" href="/#/categories" class="login-button" style="min-width: 300px;margin: auto;">למשחק חדש</a>
+    <div class="success-wrapper">
+      <div fxLayout="column" class="fireworks">
+        <div fxFlex="20"></div>
+        <h1 class="header horizontal-alignment-center margin-top-0">סיימת בהצלחה</h1>
+        <h1 class="horizontal-alignment-center">יפה מאוד</h1>
+        <a mat-raised-button color="primary" href="/#/categories" class="login-button" style="min-width: 300px;margin: auto;">למשחק חדש</a>
+      </div>
     </div>
+    
   `
 })
 export class SuccessComponent implements OnInit {
