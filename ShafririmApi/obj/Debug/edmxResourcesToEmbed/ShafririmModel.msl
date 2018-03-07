@@ -78,12 +78,12 @@
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="ShafririmModel.User">
         <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="Level" ColumnName="Level" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
           <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
           <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
-          <ScalarProperty Name="Level" ColumnName="Level" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
