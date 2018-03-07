@@ -9,21 +9,25 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ShafririmWebapi;
+using ShafririmWebapi.Models;
 
 namespace ShafririmWebapi.Controllers
 {
-    [RoutePrefix("api/Scenarios")]
+    [RoutePrefix("api/scenarios")]
     public class ScenariosController : ApiController
     {
         private ShafririmEntities db = new ShafririmEntities();
 
+        #region GetScenarios
         // GET: api/Scenarios
         [Route("")]
         public IQueryable<Scenario> GetScenarios()
         {
             return db.Scenarios;
         }
+        #endregion
 
+        #region GetScenario
         // GET: api/Scenarios/5
         [ResponseType(typeof(Scenario))]
         [Route("{Id}")]
@@ -40,7 +44,9 @@ namespace ShafririmWebapi.Controllers
 
             return Ok(scenario);
         }
+        #endregion
 
+        #region PutScenario
         // PUT: api/Scenarios/5
         [ResponseType(typeof(Scenario))]
         [Route("{Id}")]
@@ -76,10 +82,12 @@ namespace ShafririmWebapi.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        #endregion
 
+        #region PostScenario
         // POST: api/Scenarios
         [ResponseType(typeof(Scenario))]
-        [Route("")]
+        [Route("Full")]
         [HttpPost]
         public IHttpActionResult PostScenario(Scenario scenario)
         {
@@ -93,7 +101,39 @@ namespace ShafririmWebapi.Controllers
 
             return Ok(scenario);
         }
+        #endregion
 
+        #region PostScenario
+        // POST: api/Scenarios
+        [ResponseType(typeof(Scenario))]
+        [Route("")]
+        [HttpPost]
+        public IHttpActionResult PostScenario(string title, string desc, int categoryId,
+            Nullable<int> level, string status, Nullable<int> firstDilemaId)
+        {
+            Scenario scenario = new Scenario();
+            scenario.Title = title;
+            scenario.Desc = desc;
+            scenario.CategoryId = categoryId;
+            scenario.Level = level;
+            scenario.Status = status;
+            scenario.FirstDilemaId = firstDilemaId;
+            scenario.CreatedDate = DateTime.Now;
+            scenario.UpdatedDate = DateTime.Now;
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Scenarios.Add(scenario);
+            db.SaveChanges();
+
+            return Ok(scenario);
+        }
+        #endregion
+
+        #region DeleteScenario
         // DELETE: api/Scenarios/5
         [ResponseType(typeof(Scenario))]
         public IHttpActionResult DeleteScenario(int id)
@@ -109,7 +149,9 @@ namespace ShafririmWebapi.Controllers
 
             return Ok(scenario);
         }
+        #endregion
 
+        #region Dispose
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -118,10 +160,14 @@ namespace ShafririmWebapi.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
+        #region ScenarioExists
 
         private bool ScenarioExists(int id)
         {
             return db.Scenarios.Count(e => e.Id == id) > 0;
-        }
+        } 
+        #endregion
     }
 }

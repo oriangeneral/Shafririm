@@ -7,27 +7,31 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShafririmWebapi
+namespace ShafririmWebapi.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Game
+    public partial class Option
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Game()
+        public Option()
         {
             this.GameSelections = new HashSet<GameSelection>();
         }
     
         public int Id { get; set; }
-        public Nullable<int> UserId { get; set; }
-        public Nullable<int> ScenarioId { get; set; }
+        public string Desc { get; set; }
+        public string Remarks { get; set; }
+        public Nullable<int> Score { get; set; }
+        public string MediaUrl { get; set; }
+        public Nullable<int> DilemaId { get; set; }
+        public Nullable<int> NextDilemaId { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
     
-        public virtual Scenario Scenario { get; set; }
-        public virtual User User { get; set; }
+        public virtual Dilema Dilema { get; set; }
+        public virtual Dilema Dilema1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GameSelection> GameSelections { get; set; }
     }

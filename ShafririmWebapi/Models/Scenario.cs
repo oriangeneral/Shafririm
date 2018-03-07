@@ -7,34 +7,32 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShafririmWebapi
+namespace ShafririmWebapi.Models
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Dilema
+    public partial class Scenario
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Dilema()
+        public Scenario()
         {
-            this.Options = new HashSet<Option>();
-            this.Options1 = new HashSet<Option>();
-            this.Scenarios = new HashSet<Scenario>();
+            this.Games = new HashSet<Game>();
         }
     
         public int Id { get; set; }
         public string Title { get; set; }
         public string Desc { get; set; }
-        public string MediaUrl { get; set; }
-        public Nullable<int> Level { get; set; }
         public Nullable<System.DateTime> CreatedDate { get; set; }
         public Nullable<System.DateTime> UpdatedDate { get; set; }
+        public int CategoryId { get; set; }
+        public Nullable<int> Level { get; set; }
+        public string Status { get; set; }
+        public Nullable<int> FirstDilemaId { get; set; }
     
+        public virtual Category Category { get; set; }
+        public virtual Dilema Dilema { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Option> Options { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Option> Options1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Scenario> Scenarios { get; set; }
+        public virtual ICollection<Game> Games { get; set; }
     }
 }

@@ -107,12 +107,12 @@
   <ItemGroup>
     <Content Include="bin\ShafririmWebapi.XML" />
     <Content Include="Global.asax" />
-    <Content Include="ModelShafririm.Context.tt">
+    <Content Include="Models\ModelShafririm.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelShafririm.edmx</DependentUpon>
       <LastGenOutput>ModelShafririm.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="ModelShafririm.tt">
+    <Content Include="Models\ModelShafririm.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>ModelShafririm.edmx</DependentUpon>
       <LastGenOutput>ModelShafririm.cs</LastGenOutput>
@@ -122,59 +122,60 @@
   <ItemGroup>
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Category.cs">
+    <Compile Include="Models\Category.cs">
       <DependentUpon>ModelShafririm.tt</DependentUpon>
     </Compile>
     <Compile Include="CommonHandler.cs" />
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\DilemasController.cs" />
+    <Compile Include="Controllers\OptionsController.cs" />
     <Compile Include="Controllers\ScenariosController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
-    <Compile Include="Dilema.cs">
+    <Compile Include="Models\Dilema.cs">
       <DependentUpon>ModelShafririm.tt</DependentUpon>
     </Compile>
-    <Compile Include="Game.cs">
+    <Compile Include="Models\Game.cs">
       <DependentUpon>ModelShafririm.tt</DependentUpon>
     </Compile>
-    <Compile Include="GameSelection.cs">
+    <Compile Include="Models\GameSelection.cs">
       <DependentUpon>ModelShafririm.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ModelShafririm.Context.cs">
+    <Compile Include="Models\ModelShafririm.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelShafririm.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelShafririm.cs">
+    <Compile Include="Models\ModelShafririm.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelShafririm.tt</DependentUpon>
     </Compile>
-    <Compile Include="ModelShafririm.Designer.cs">
+    <Compile Include="Models\ModelShafririm.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelShafririm.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Option.cs">
+    <Compile Include="Models\Option.cs">
       <DependentUpon>ModelShafririm.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Scenario.cs">
+    <Compile Include="Models\Scenario.cs">
       <DependentUpon>ModelShafririm.tt</DependentUpon>
     </Compile>
-    <Compile Include="User.cs">
+    <Compile Include="Models\User.cs">
       <DependentUpon>ModelShafririm.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <EntityDeploy Include="ModelShafririm.edmx">
+    <EntityDeploy Include="Models\ModelShafririm.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>ModelShafririm.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="ModelShafririm.edmx.diagram">
+    <Content Include="Models\ModelShafririm.edmx.diagram">
       <DependentUpon>ModelShafririm.edmx</DependentUpon>
     </Content>
     <None Include="Web.Debug.config">
@@ -186,7 +187,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -9,14 +9,16 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ShafririmWebapi;
+using ShafririmWebapi.Models;
 
 namespace ShafririmWebapi.Controllers
 {
-    [RoutePrefix("api/Categories")]
+    [RoutePrefix("api/categories")]
     public class CategoriesController : ApiController
     {
         private ShafririmEntities db = new ShafririmEntities();
 
+        #region GetCategories
         // GET: api/Categories
 
         [Route("")]
@@ -24,7 +26,9 @@ namespace ShafririmWebapi.Controllers
         {
             return db.Categories;
         }
+        #endregion
 
+        #region GetCategory
         [Route("{Id}")]
         // GET: api/Categories/5
         [ResponseType(typeof(Category))]
@@ -33,8 +37,8 @@ namespace ShafririmWebapi.Controllers
             Category category = db.Categories.Find(id);
 
 
-           // var a = CommonHandler.ObjectToJson(category);
-           
+            var a = CommonHandler.ObjectToJson(category);
+
 
             if (category == null)
             {
@@ -43,13 +47,15 @@ namespace ShafririmWebapi.Controllers
 
             return Ok(category);
         }
+        #endregion
 
+        #region PutCategory
         // PUT: api/Categories/5
         [Route("{Id}")]
         [ResponseType(typeof(Category))]
         public IHttpActionResult PutCategory(int id, Category category)
         {
-          
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -80,9 +86,11 @@ namespace ShafririmWebapi.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        #endregion
 
+        #region PostCategory
         // POST: api/Categories
-        [Route("")]
+        [Route("Full")]
         [ResponseType(typeof(Category))]
         [HttpPost]
         public IHttpActionResult PostCategory(Category category)
@@ -93,11 +101,46 @@ namespace ShafririmWebapi.Controllers
             }
 
             db.Categories.Add(category);
-           var a= db.SaveChanges();
+            var a = db.SaveChanges();
 
             return Ok(category);
         }
 
+        #endregion
+
+        #region PostCategory
+        [Route("")]
+        [ResponseType(typeof(Category))]
+        [HttpPost]
+        public IHttpActionResult PostCategory(string title, string desc)
+        {
+            Category category = new Category();
+
+            category.Title = title;
+            category.Desc = desc;
+
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.Categories.Add(category);
+            var a = db.SaveChanges();
+
+            return Ok(category);
+        }
+        #endregion
+
+        #region GetScenariosByCategory
+        // GET: api/Scenarios
+        [Route("{CategoryId}/scenarios")]
+        public IQueryable<Scenario> GetScenariosByCategory(int categoryId)
+        {
+            return db.Scenarios.Where(s => s.CategoryId == categoryId);
+        }
+        #endregion
+
+        #region DeleteCategory
         // DELETE: api/Categories/5
         [ResponseType(typeof(Category))]
         public IHttpActionResult DeleteCategory(int id)
@@ -113,6 +156,9 @@ namespace ShafririmWebapi.Controllers
 
             return Ok(category);
         }
+        #endregion
+
+        #region Dispose
 
         protected override void Dispose(bool disposing)
         {
@@ -122,10 +168,14 @@ namespace ShafririmWebapi.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
+        #region CategoryExists
 
         private bool CategoryExists(int id)
         {
             return db.Categories.Count(e => e.Id == id) > 0;
-        }
+        } 
+        #endregion
     }
 }

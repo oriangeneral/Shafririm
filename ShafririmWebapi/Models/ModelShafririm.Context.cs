@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ShafririmWebapi
+namespace ShafririmWebapi.Models
 {
     using System;
     using System.Data.Entity;

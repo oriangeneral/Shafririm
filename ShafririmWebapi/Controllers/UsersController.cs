@@ -9,21 +9,25 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ShafririmWebapi;
+using ShafririmWebapi.Models;
 
 namespace ShafririmWebapi.Controllers
 {
-    [RoutePrefix("api/Users")]
+    [RoutePrefix("api/users")]
     public class UsersController : ApiController
     {
         private ShafririmEntities db = new ShafririmEntities();
 
+        #region GetUsers
         // GET: api/Users
         [Route("")]
         public IQueryable<User> GetUsers()
         {
             return db.Users;
         }
+        #endregion
 
+        #region GetUser
         [Route("{Id}")]
         // GET: api/Users/5
         [ResponseType(typeof(User))]
@@ -40,11 +44,13 @@ namespace ShafririmWebapi.Controllers
 
             return Ok(user);
         }
+        #endregion
 
+        #region PutUser
         // PUT: api/Users/5
         [Route("{Id}")]
         [ResponseType(typeof(User))]
-    
+
         public IHttpActionResult PutUser(int id, User user)
         {
             if (!ModelState.IsValid)
@@ -77,7 +83,9 @@ namespace ShafririmWebapi.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        #endregion
 
+        #region PostUser
         // POST: api/Users
         [Route("")]
         [ResponseType(typeof(User))]
@@ -91,10 +99,12 @@ namespace ShafririmWebapi.Controllers
             db.Users.Add(user);
             db.SaveChanges();
 
-           
+
             return Ok(user);
         }
+        #endregion
 
+        #region DeleteUser
         // DELETE: api/Users/5
         [ResponseType(typeof(User))]
         public IHttpActionResult DeleteUser(int id)
@@ -110,6 +120,9 @@ namespace ShafririmWebapi.Controllers
 
             return Ok(user);
         }
+        #endregion
+
+        #region Dispose
 
         protected override void Dispose(bool disposing)
         {
@@ -119,10 +132,13 @@ namespace ShafririmWebapi.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
 
+        #region UserExists
         private bool UserExists(int id)
         {
             return db.Users.Count(e => e.Id == id) > 0;
-        }
+        } 
+        #endregion
     }
 }

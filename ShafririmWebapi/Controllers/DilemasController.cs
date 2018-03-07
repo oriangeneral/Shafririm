@@ -9,21 +9,34 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using ShafririmWebapi;
+using ShafririmWebapi.Models;
 
 namespace ShafririmWebapi.Controllers
 {
-    [RoutePrefix("api/Dilemas")]
+    [RoutePrefix("api/dilemas")]
     public class DilemasController : ApiController
     {
         private ShafririmEntities db = new ShafririmEntities();
 
+        #region GetDilemas
         // GET: api/Dilemas
         [Route("")]
         public IQueryable<Dilema> GetDilemas()
         {
             return db.Dilemas;
         }
+        #endregion
 
+        #region GetDilemas
+        [Route("{dilemaId}/options")]
+        public IQueryable<Option> GetDilemas(int dilemaId)
+        {
+
+            return db.Options.Where(o => o.DilemaId == dilemaId);
+        }
+        #endregion
+
+        #region GetDilema
         // GET: api/Dilemas/5
         [ResponseType(typeof(Dilema))]
         [Route("{Id}")]
@@ -41,8 +54,10 @@ namespace ShafririmWebapi.Controllers
             return Ok(dilema);
         }
 
+        #endregion
+
+        #region PutDilema
         // PUT: api/Dilemas/5
-      
         [Route("{Id}")]
         [ResponseType(typeof(Dilema))]
         public IHttpActionResult PutDilema(int id, Dilema dilema)
@@ -78,9 +93,12 @@ namespace ShafririmWebapi.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        #endregion
+
+        #region PostDilema
         // POST: api/Dilemas
         [ResponseType(typeof(Dilema))]
-        [Route("")]
+        [Route("Full")]
         public IHttpActionResult PostDilema(Dilema dilema)
         {
             if (!ModelState.IsValid)
@@ -94,6 +112,9 @@ namespace ShafririmWebapi.Controllers
             return Ok(dilema);
         }
 
+        #endregion
+
+        #region DeleteDilema
         // DELETE: api/Dilemas/5
         [ResponseType(typeof(Dilema))]
         public IHttpActionResult DeleteDilema(int id)
@@ -109,6 +130,9 @@ namespace ShafririmWebapi.Controllers
 
             return Ok(dilema);
         }
+        #endregion
+
+        #region Dispose
 
         protected override void Dispose(bool disposing)
         {
@@ -118,10 +142,14 @@ namespace ShafririmWebapi.Controllers
             }
             base.Dispose(disposing);
         }
+        #endregion
+
+        #region DilemaExists
 
         private bool DilemaExists(int id)
         {
             return db.Dilemas.Count(e => e.Id == id) > 0;
-        }
+        } 
+        #endregion
     }
 }
