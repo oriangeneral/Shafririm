@@ -10,7 +10,13 @@ import {Category} from '../models/category.model';
 
 @Injectable()
 export class BlService {
-  public currentUser: User;
+  public currentUser: User = {
+    id: -1,
+    name: 'אורח',
+    createDate: null,
+    updatedDate: null,
+    level: -1,
+  };
 
   constructor(private blProxyService: BlProxyService) {
   }

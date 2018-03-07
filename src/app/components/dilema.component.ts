@@ -25,7 +25,9 @@ import {Option} from '../models/option.model';
   `],
   template: `
     <div fxLayout="column" class="dilema-wrapper">
-      <div fxFlex="20"></div>
+      <div fxFlex="20">
+        <h3>שלום {{currentUser.name}}</h3>
+      </div>
       <h1 class="header horizontal-alignment-center margin-top-0">{{dilema.title}}</h1>
       <h1 class="header horizontal-alignment-center">{{dilema.desc}}</h1>
       <div fxFlex>
@@ -78,6 +80,10 @@ export class DilemaComponent implements OnInit {
       });
     });
 
+  }
+
+  get currentUser(){
+    return this.blService.currentUser;
   }
 
   public nextLink(option: Option) {

@@ -27,7 +27,9 @@ import {Category} from '../models/category.model';
   `],
   template: `
     <div fxLayout="column" class="category-wrapper">
-      <div fxFlex="20"></div>
+      <div fxFlex="20">
+        <h3>שלום {{currentUser.name}}</h3>
+      </div>
       <h1 class="header horizontal-alignment-center margin-top-0">{{category.title}}</h1>
       <h1 class="horizontal-alignment-center">{{category.desc}}</h1>
       <h1 class="horizontal-alignment-center">בחר אפשרות</h1>
@@ -58,6 +60,10 @@ export class CategoryComponent implements OnInit {
   private category: Category = new Category();
   private scenarios: Scenario[] = [];
   public isBusy = true;
+
+  get currentUser(){
+    return this.blService.currentUser;
+  }
 
   constructor(private blService: BlService, private route: ActivatedRoute) {
   }

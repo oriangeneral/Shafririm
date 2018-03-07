@@ -20,7 +20,9 @@ import {ActivatedRoute} from '@angular/router';
   `],
   template: `
     <div fxLayout="column" class="categories-wrapper">
-      <div fxFlex="20"></div>
+      <div fxFlex="20">
+        <h3>שלום {{currentUser.name}}</h3>
+      </div>
       <h1 class="header horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
       <h1 class="horizontal-alignment-center">בחר מגרש משחקים</h1>
       <div class="horizontal-alignment-center" fxLayout="column">
@@ -64,6 +66,10 @@ export class CategoriesComponent implements OnInit {
         this.categories = data;
       });
     });
+  }
+
+  get currentUser(){
+    return this.blService.currentUser;
   }
 
 }

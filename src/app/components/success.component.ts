@@ -36,7 +36,9 @@ import {Category} from '../models/category.model';
   template: `
     <div class="success-wrapper">
       <div fxLayout="column" class="fireworks">
-        <div fxFlex="20"></div>
+        <div fxFlex="20">
+          <h3>שלום {{currentUser.name}}</h3>
+        </div>
         <h1 class="header horizontal-alignment-center margin-top-0">סיימת בהצלחה</h1>
         <h1 class="horizontal-alignment-center">יפה מאוד</h1>
         <a mat-raised-button color="primary" href="/#/categories" class="login-button" style="min-width: 300px;margin: auto;">למשחק חדש</a>
@@ -52,6 +54,10 @@ export class SuccessComponent implements OnInit {
 
   public ngOnInit() {
 
+  }
+
+  get currentUser(){
+    return this.blService.currentUser;
   }
 }
 
