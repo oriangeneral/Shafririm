@@ -43,6 +43,9 @@ import {Category} from '../models/category.model';
                   <p>
                     {{scenario.desc}}
                   </p>
+                  <p>
+                    {{scenario.level}}
+                  </p>
                 </mat-card-content>
               </mat-card>
             </a>

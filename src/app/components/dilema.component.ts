@@ -13,11 +13,38 @@ import {Option} from '../models/option.model';
 
 @Component({
   selector: 'app-dilema',
+  styles: [`
+    .dilema-wrapper{
+      width: 100%;
+      height: 100%;
+      background-image: url('../../assets/images/sky.jpeg');
+      background-repeat: round;
+      background-size: 100%;
+      color: #ffffff;
+    }
+  `],
   template: `
-    <h3>{{dilema.title}}</h3>
-    <p>{{dilema.desc}}</p>
-    <div *ngFor="let option of options">
-      <a [href]="'/#/dilemas/' + option.nextDilema.id">{{option.title}}</a>
+    <div fxLayout="column" class="dilema-wrapper">
+      <div fxFlex="20"></div>
+      <h1 class="header horizontal-alignment-center margin-top-0">{{dilema.title}}</h1>
+      <h1 class="header horizontal-alignment-center">{{dilema.desc}}</h1>
+      <div fxFlex>
+        <div *ngFor="let option of options" style="display: inline; float: right; min-width: 30%; padding: 20px" >
+          <a [href]="'/#/dilemas/' + option.nextDilema.id">
+
+            <mat-card class="example-card">
+              <mat-card-header>
+                <mat-card-title><div class="header">{{option.title}}</div></mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>
+                  {{option.desc}}
+                </p>
+              </mat-card-content>
+            </mat-card>
+          </a>
+        </div>
+      </div>
     </div>
   `
 })
