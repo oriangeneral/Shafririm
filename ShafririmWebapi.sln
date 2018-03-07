@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShafririmWebapi", "ShafririmWebapi\ShafririmWebapi.csproj", "{78C91D1C-2864-45C4-AD0D-6563826266E5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShafririmWebapi.Test", "ShafririmWebapi.Test\ShafririmWebapi.Test.csproj", "{D52910D1-F821-4C7D-9F30-A9E93863761B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{78C91D1C-2864-45C4-AD0D-6563826266E5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{78C91D1C-2864-45C4-AD0D-6563826266E5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{78C91D1C-2864-45C4-AD0D-6563826266E5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D52910D1-F821-4C7D-9F30-A9E93863761B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D52910D1-F821-4C7D-9F30-A9E93863761B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D52910D1-F821-4C7D-9F30-A9E93863761B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D52910D1-F821-4C7D-9F30-A9E93863761B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
