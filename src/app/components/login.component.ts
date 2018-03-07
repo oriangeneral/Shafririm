@@ -21,7 +21,7 @@ import {map} from 'rxjs/operators/map';
     .login{
       width: 100%;
       height: 100%;
-      background-image: url('../../assets/images/parkImg.jpg');
+      background-image: url('../../assets/images/park3.jpeg');
       background-repeat: no-repeat;
       background-size: 100%;
       color: #ffffff;
