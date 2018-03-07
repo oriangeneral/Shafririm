@@ -89,7 +89,7 @@ export class LoginComponent {
   }
 
   filter(val: string): string[] {
-    return this.options.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
+    return this.users.filter(option => option.toLowerCase().indexOf(val.toLowerCase()) === 0);
   }
 
   onLogin(){
