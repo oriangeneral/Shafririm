@@ -35,19 +35,26 @@ import {map} from 'rxjs/operators/map';
     <div fxLayout="column" class="login">
       <div fxFlex="20"></div>
       <div fxFlex>
-        <h1 class="horizontal-alignment-center margin-top-0">ברוכים הבאים</h1>
-        <h2 class="horizontal-alignment-center">מרחב למידה חוויתי</h2>
-        <form class="example-form" dir="rtl">
-          <mat-form-field class="example-full-width">
-            <input type="text" placeholder="שם משתמש" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
-            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-                {{ option }}
-              </mat-option>
-            </mat-autocomplete>
-          </mat-form-field>
-        </form>
-        <a mat-button href="/#/categories">כניסה</a>
+        <div fxLayout="row">
+          <div fxFlex></div>
+          <div fxFlex>
+            <h1 class="horizontal-alignment-center margin-top-0">ברוכים הבאים</h1>
+            <h2 class="horizontal-alignment-center">מרחב למידה חוויתי</h2>
+            <form class="example-form horizontal-alignment-center" dir="rtl">
+              <mat-form-field class="example-full-width">
+                <input type="text" placeholder="שם משתמש" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{ option }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form>
+            <a mat-button href="/#/categories">כניסה</a>
+          </div>
+          <div fxFlex></div>
+        </div>
+        
       </div>
       <div fxFlex="20"></div>
     </div>
