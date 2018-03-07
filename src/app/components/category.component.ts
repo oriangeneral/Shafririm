@@ -22,14 +22,15 @@ import {Category} from '../models/category.model';
       background-image: url('../../assets/images/sky.jpeg');
       background-repeat: round;
       background-size: 100%;
+      color: #ffffff;
     }
   `],
   template: `
     <div fxLayout="column" class="category-wrapper">
       <div fxFlex="20"></div>
-     <h1 class="horizontal-alignment-center margin-top-0">{{category.title}}</h1>
-      <h2 class="horizontal-alignment-center">{{category.description}}</h2>
-      <h2 class="horizontal-alignment-center">בחר אפשרות</h2>
+      <h1 class="header horizontal-alignment-center margin-top-0">{{category.title}}</h1>
+      <h1 class="horizontal-alignment-center">{{category.desc}}</h1>
+      <h1 class="horizontal-alignment-center">בחר אפשרות</h1>
       <div class="horizontal-alignment-center" *ngFor="let scenario of scenarios">
         <a [href]="'/#/dilemas/' + scenario.firstDilema.id" mat-button color="primary">{{scenario.title}}</a>
       </div>

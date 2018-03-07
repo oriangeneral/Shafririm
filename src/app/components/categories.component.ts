@@ -11,17 +11,33 @@ import {ActivatedRoute} from "@angular/router";
       background-image: url('../../assets/images/park2.jpeg');
       background-repeat: round;
       background-size: 100%;
+      color: #ffffff;
+    }
+    .minimized {
+      max-width: 30%
     }
   `],
   template: `
     <div fxLayout="column" class="categories-wrapper">
       <div fxFlex="20"></div>
-      <h1 class="header" class="horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
-      <h2  class="horizontal-alignment-center">בחר מגרש משחקים</h2>
+      <h1 class="header horizontal-alignment-center margin-top-0">מרחב למידה חוויתי</h1>
+      <h1  class="horizontal-alignment-center">בחר מגרש משחקים</h1>
       <div  class="horizontal-alignment-center" fxLayout="column">
         <div fxFlex>
-          <div *ngFor="let c of categories">
-            <a [href]="'#/categories/'+c.id" mat-button color="primary">{{c.title}}</a>
+          <div *ngFor="let c of categories" style="display: inline; float: right; min-width: 30%; padding: 20px" >
+            <a [href]="'#/categories/'+c.id">
+              
+              <mat-card class="example-card">
+                <mat-card-header>
+                  <mat-card-title><div class="header">{{c.title}}</div></mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                  <p>
+                    {{c.desc}}
+                  </p>
+                </mat-card-content>
+              </mat-card>
+            </a>
           </div>
         </div>
       </div>

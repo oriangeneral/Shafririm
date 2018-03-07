@@ -15,7 +15,7 @@ import {Option} from '../models/option.model';
   selector: 'app-dilema',
   template: `
     <h3>{{dilema.title}}</h3>
-    <p>{{dilema.description}}</p>
+    <p>{{dilema.desc}}</p>
     <div *ngFor="let option of options">
       <a [href]="'/#/dilemas/' + option.nextDilema.id">{{option.title}}</a>
     </div>
