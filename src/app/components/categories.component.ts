@@ -24,7 +24,7 @@ import {ActivatedRoute} from "@angular/router";
       <h1  class="horizontal-alignment-center">בחר מגרש משחקים</h1>
       <div  class="horizontal-alignment-center" fxLayout="column">
         <div fxFlex>
-          <mat-progress-bar *ngIf="isBusy" mode="query"></mat-progress-bar>
+          <mat-spinner *ngIf="isBusy"></mat-spinner>
           <div *ngFor="let c of categories" style="display: inline; float: right; min-width: 30%; padding: 20px" >
             <a [href]="'#/categories/'+c.id">
               <mat-card class="example-card">

@@ -29,6 +29,7 @@ import {Option} from '../models/option.model';
       <h1 class="header horizontal-alignment-center margin-top-0">{{dilema.title}}</h1>
       <h1 class="header horizontal-alignment-center">{{dilema.desc}}</h1>
       <div fxFlex>
+        <mat-spinner *ngIf="isBusy"></mat-spinner>
         <div *ngFor="let option of options" style="display: inline; float: right; min-width: 30%; padding: 20px" >
           <a [href]="nextLink(option)">
 
@@ -54,6 +55,7 @@ export class DilemaComponent implements OnInit {
   private dilemaId: number;
   private dilema: Dilema = new Dilema();
   private options: Option[] = [];
+  public isBusy = true;
 
   constructor(private blService: BlService, private route: ActivatedRoute) {
   }
@@ -63,9 +65,11 @@ export class DilemaComponent implements OnInit {
       this.categoryId = this.route.snapshot.params['categoryId'];
       this.scenarioId = this.route.snapshot.params['scenarioId'];
       this.dilemaId = this.route.snapshot.params['dilemaId'];
+      this.isBusy = true;
       this.blService.getDilemaOptions(
         this.dilemaId
       ).subscribe(data => {
+        this.isBusy = false;
         this.options = data;
       });
 
