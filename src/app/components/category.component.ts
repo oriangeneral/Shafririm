@@ -41,7 +41,7 @@ import {Category} from '../models/category.model';
                   <mat-card-title><div class="title">{{scenario.title}}</div></mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                  <p>
+                  <p class="subtitle">
                     {{scenario.desc}}
                   </p>
                   <img [src]="selectImage(scenario.level)" style="max-width: 30px;"/>

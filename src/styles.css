@@ -34,6 +34,10 @@ a{
   font-size: xx-large;
 }
 
+.subtitle {
+  font-size: large;
+}
+
 .div-wrapper {
   display: inline;
   float: right;
